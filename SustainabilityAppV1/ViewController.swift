@@ -10,23 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet var switcher: UISegmentedControl!
-    @IBOutlet var loginButtonLabel: UILabel!
+  
+
+    @IBOutlet weak var email: UITextField!
+
+    @IBOutlet weak var password: UITextField!
     
-    @IBAction func loginButtonAction(sender: UISegmentedControl) {
-        switch(self.switcher.selectedSegmentIndex) {
-        case 0:
-            self.loginButtonLabel.text = "First Selected V3"
-        case 1:
-            self.loginButtonLabel.text = "Second Selected V3"
-        default:
-            break
-        }
+    @IBAction func login(sender: AnyObject) {
+        
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loginButtonLabel.text = "First Selected V2"
+    
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -35,6 +30,7 @@ class ViewController: UIViewController {
         // comment in did recieve
         // Dispose of any resources that can be recreated.
     }
+
 
 
 }
