@@ -10,6 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var switcher: UISegmentedControl!
+    @IBOutlet var loginButtonLabel: UILabel!
+    
+    @IBAction func loginButtonAction(sender: UISegmentedControl) {
+        switch(self.switcher.selectedSegmentIndex) {
+        case 0:
+            self.loginButtonLabel.text = "First Selected"
+        case 1:
+            self.loginButtonLabel.text = "Second Selected"
+        default:
+            break
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
