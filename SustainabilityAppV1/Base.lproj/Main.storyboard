@@ -16,9 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Screen Shot 2014-10-20 at 1.46.58 PM.png" translatesAutoresizingMaskIntoConstraints="NO" id="KGx-U6-d9i">
-                                <rect key="frame" x="97" y="137" width="180" height="94"/>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-5L-73R">
                                 <rect key="frame" x="89" y="291" width="197" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -40,13 +37,17 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Leaf.png" translatesAutoresizingMaskIntoConstraints="NO" id="Whu-91-IML">
+                                <rect key="frame" x="141" y="137" width="93" height="50"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zig Zag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbW-07-BmS">
-                                <rect key="frame" x="127" y="68" width="121" height="61"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="28"/>
+                                <rect key="frame" x="110" y="183" width="154" height="61"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="48"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.53321890479494616" green="0.79878566576086962" blue="0.47453487685173584" alpha="0.71999999999999997" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="5cW-H0-Od0"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -61,6 +62,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Screen Shot 2014-10-20 at 1.46.58 PM.png" width="109" height="67"/>
+        <image name="Leaf.png" width="98" height="57"/>
     </resources>
 </document>

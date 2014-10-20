@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F827977D19F5ACD300EAB37A /* Screen Shot 2014-10-20 at 1.46.58 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = F827977C19F5ACD300EAB37A /* Screen Shot 2014-10-20 at 1.46.58 PM.png */; };
+		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
 		F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
 		F892C94D19F59B4200113C26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94C19F59B4200113C26 /* ViewController.swift */; };
 		F892C95019F59B4200113C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F892C94E19F59B4200113C26 /* Main.storyboard */; };
@@ -27,7 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F827977C19F5ACD300EAB37A /* Screen Shot 2014-10-20 at 1.46.58 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Screen Shot 2014-10-20 at 1.46.58 PM.png"; path = "../Screen Shot 2014-10-20 at 1.46.58 PM.png"; sourceTree = "<group>"; };
+		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
 		F892C94519F59B4100113C26 /* SustainabilityAppV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SustainabilityAppV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C94919F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C94A19F59B4200113C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +61,6 @@
 		F892C93C19F59B4100113C26 = {
 			isa = PBXGroup;
 			children = (
-				F827977C19F5ACD300EAB37A /* Screen Shot 2014-10-20 at 1.46.58 PM.png */,
 				F892C94719F59B4200113C26 /* SustainabilityAppV1 */,
 				F892C95D19F59B4200113C26 /* SustainabilityAppV1Tests */,
 				F892C94619F59B4100113C26 /* Products */,
@@ -92,6 +91,7 @@
 		F892C94819F59B4200113C26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CA236AD019F5C80400B566CB /* Leaf.png */,
 				F892C95119F59B4200113C26 /* Images.xcassets */,
 				F892C94919F59B4200113C26 /* Info.plist */,
 			);
@@ -198,7 +198,7 @@
 				F892C95019F59B4200113C26 /* Main.storyboard in Resources */,
 				F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */,
 				F892C95219F59B4200113C26 /* Images.xcassets in Resources */,
-				F827977D19F5ACD300EAB37A /* Screen Shot 2014-10-20 at 1.46.58 PM.png in Resources */,
+				CA236AD119F5C80400B566CB /* Leaf.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
