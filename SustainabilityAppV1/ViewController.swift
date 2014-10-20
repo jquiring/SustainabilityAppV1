@@ -16,9 +16,9 @@ class ViewController: UIViewController {
     @IBAction func loginButtonAction(sender: UISegmentedControl) {
         switch(self.switcher.selectedSegmentIndex) {
         case 0:
-            self.loginButtonLabel.text = "First Selected"
+            self.loginButtonLabel.text = "First Selected V2"
         case 1:
-            self.loginButtonLabel.text = "Second Selected"
+            self.loginButtonLabel.text = "Second Selected V2"
         default:
             break
         }
