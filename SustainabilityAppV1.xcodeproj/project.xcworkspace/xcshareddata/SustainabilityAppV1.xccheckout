@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D9B80164-E3AF-4C71-8A1A-877C10AC32F5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SustainabilityAppV1</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B134D8E4F823B120089165884D44A0A86264B4BF</key>
+		<string>https://github.com/jquiring/SustainabilityAppV1.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SustainabilityAppV1.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B134D8E4F823B120089165884D44A0A86264B4BF</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jquiring/SustainabilityAppV1.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B134D8E4F823B120089165884D44A0A86264B4BF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B134D8E4F823B120089165884D44A0A86264B4BF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SustainabilityAppV1</string>
+		</dict>
+	</array>
+</dict>
+</plist>
