@@ -133,7 +133,8 @@
                     <navigationItem key="navigationItem" id="5cW-H0-Od0"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
-                        <outlet property="password" destination="lo7-id-1RW" id="rMK-41-zga"/>
+                        <outlet property="email" destination="2Jc-5L-73R" id="4aA-Nq-WRu"/>
+                        <outlet property="password" destination="lo7-id-1RW" id="SHZ-9d-sEe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
