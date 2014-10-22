@@ -28,7 +28,12 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        //do we need both?
+        password.resignFirstResponder()
+        email.resignFirstResponder()
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // comment in did recieve

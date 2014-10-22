@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,10 +13,10 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lo7-id-1RW">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lo7-id-1RW">
                                 <rect key="frame" x="89" y="329" width="197" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
@@ -24,13 +24,13 @@
                                     <rect key="frame" x="102" y="205" width="197" height="30"/>
                                 </variation>
                             </textField>
-                            <button opaque="NO" alpha="0.39999999999999963" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-RP-FI6">
+                            <button opaque="NO" alpha="0.39999999999999963" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-RP-FI6">
                                 <rect key="frame" x="89" y="381" width="197" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Login"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
+                                        <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
@@ -38,22 +38,16 @@
                                     <rect key="frame" x="102" y="258" width="197" height="35"/>
                                 </variation>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zig Zag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbW-07-BmS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Zig Zag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbW-07-BmS">
                                 <rect key="frame" x="110" y="183" width="154" height="61"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="48"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="29"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="123" y="84" width="154" height="61"/>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Leaf.png" translatesAutoresizingMaskIntoConstraints="NO" id="Whu-91-IML">
-                                <rect key="frame" x="141" y="137" width="93" height="50"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="154" y="20" width="93" height="50"/>
-                                </variation>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-5L-73R">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-5L-73R">
                                 <rect key="frame" x="89" y="291" width="197" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="CGG-Sk-5j5"/>
@@ -72,15 +66,31 @@
                                     </mask>
                                 </variation>
                             </textField>
+                            <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.89999999999999991" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Leaf.png" translatesAutoresizingMaskIntoConstraints="NO" id="Whu-91-IML">
+                                <rect key="frame" x="141" y="137" width="93" height="50"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="154" y="20" width="93" height="50"/>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.53321890479494616" green="0.79878566576086962" blue="0.47453487685173584" alpha="0.71999999999999997" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="Whu-91-IML" secondAttribute="centerY" constant="231" id="1JA-nU-bVH"/>
                             <constraint firstItem="lo7-id-1RW" firstAttribute="top" secondItem="2Jc-5L-73R" secondAttribute="bottom" constant="8" id="8LH-HU-mUT"/>
+                            <constraint firstAttribute="centerY" secondItem="Whu-91-IML" secondAttribute="centerY" constant="355" id="AuB-9r-eGd"/>
                             <constraint firstItem="hV2-RP-FI6" firstAttribute="top" secondItem="lo7-id-1RW" secondAttribute="bottom" constant="23" id="BNL-eZ-eQw"/>
+                            <constraint firstItem="AbW-07-BmS" firstAttribute="top" secondItem="Whu-91-IML" secondAttribute="bottom" constant="14" id="Cy4-pR-Zpi">
+                                <variation key="heightClass=regular-widthClass=compact" constant="23"/>
+                            </constraint>
+                            <constraint firstAttribute="centerY" secondItem="Whu-91-IML" secondAttribute="centerY" constant="355" id="Hm0-QI-6SM"/>
                             <constraint firstItem="hV2-RP-FI6" firstAttribute="centerX" secondItem="lo7-id-1RW" secondAttribute="centerX" id="Iza-Fn-9B3"/>
-                            <constraint firstItem="Whu-91-IML" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="124" id="Nbb-kp-Rgl"/>
-                            <constraint firstItem="AbW-07-BmS" firstAttribute="centerX" secondItem="Whu-91-IML" secondAttribute="centerX" constant="-0.5" id="WiG-Ay-WJR"/>
+                            <constraint firstItem="Whu-91-IML" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="124" id="Nbb-kp-Rgl">
+                                <variation key="heightClass=regular-widthClass=compact" constant="150"/>
+                            </constraint>
+                            <constraint firstAttribute="centerX" secondItem="Whu-91-IML" secondAttribute="centerX" constant="-0.5" id="PVW-tU-Ebi"/>
+                            <constraint firstItem="AbW-07-BmS" firstAttribute="centerX" secondItem="Whu-91-IML" secondAttribute="centerX" constant="-0.5" id="WiG-Ay-WJR">
+                                <variation key="heightClass=regular-widthClass=compact" constant="1"/>
+                            </constraint>
                             <constraint firstItem="hV2-RP-FI6" firstAttribute="height" secondItem="lo7-id-1RW" secondAttribute="height" id="XM2-oA-aCb"/>
                             <constraint firstItem="lo7-id-1RW" firstAttribute="width" secondItem="2Jc-5L-73R" secondAttribute="width" id="Y6m-dJ-HhN"/>
                             <constraint firstItem="2Jc-5L-73R" firstAttribute="top" secondItem="AbW-07-BmS" secondAttribute="bottom" constant="22" id="byT-kG-2m9"/>
@@ -88,17 +98,25 @@
                             <constraint firstItem="lo7-id-1RW" firstAttribute="height" secondItem="2Jc-5L-73R" secondAttribute="height" id="ejh-AH-X0z"/>
                             <constraint firstAttribute="centerX" secondItem="Whu-91-IML" secondAttribute="centerX" constant="-0.5" id="fgT-wo-1Tv"/>
                             <constraint firstItem="AbW-07-BmS" firstAttribute="centerX" secondItem="2Jc-5L-73R" secondAttribute="centerX" constant="-0.5" id="iva-aH-6fK"/>
+                            <constraint firstAttribute="centerY" secondItem="Whu-91-IML" secondAttribute="centerY" constant="355" id="kxs-oy-KAn"/>
                             <constraint firstItem="lo7-id-1RW" firstAttribute="centerX" secondItem="2Jc-5L-73R" secondAttribute="centerX" id="obq-cR-8y3"/>
-                            <constraint firstItem="AbW-07-BmS" firstAttribute="top" secondItem="Whu-91-IML" secondAttribute="bottom" constant="14" id="yJK-ym-nST"/>
+                            <constraint firstItem="AbW-07-BmS" firstAttribute="top" secondItem="Whu-91-IML" secondAttribute="bottom" constant="14" id="yJK-ym-nST">
+                                <variation key="heightClass=regular-widthClass=compact" constant="23"/>
+                            </constraint>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="1JA-nU-bVH"/>
-                                <exclude reference="Nbb-kp-Rgl"/>
-                                <exclude reference="fgT-wo-1Tv"/>
+                                <exclude reference="Cy4-pR-Zpi"/>
                                 <exclude reference="WiG-Ay-WJR"/>
                                 <exclude reference="iva-aH-6fK"/>
                                 <exclude reference="yJK-ym-nST"/>
+                                <exclude reference="1JA-nU-bVH"/>
+                                <exclude reference="AuB-9r-eGd"/>
+                                <exclude reference="Hm0-QI-6SM"/>
+                                <exclude reference="Nbb-kp-Rgl"/>
+                                <exclude reference="PVW-tU-Ebi"/>
+                                <exclude reference="fgT-wo-1Tv"/>
+                                <exclude reference="kxs-oy-KAn"/>
                                 <exclude reference="byT-kG-2m9"/>
                                 <exclude reference="8LH-HU-mUT"/>
                                 <exclude reference="Y6m-dJ-HhN"/>
@@ -112,12 +130,17 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="1JA-nU-bVH"/>
-                                <include reference="Nbb-kp-Rgl"/>
-                                <include reference="fgT-wo-1Tv"/>
+                                <include reference="Cy4-pR-Zpi"/>
                                 <include reference="WiG-Ay-WJR"/>
                                 <include reference="iva-aH-6fK"/>
                                 <include reference="yJK-ym-nST"/>
+                                <include reference="1JA-nU-bVH"/>
+                                <include reference="AuB-9r-eGd"/>
+                                <include reference="Hm0-QI-6SM"/>
+                                <include reference="Nbb-kp-Rgl"/>
+                                <include reference="PVW-tU-Ebi"/>
+                                <include reference="fgT-wo-1Tv"/>
+                                <include reference="kxs-oy-KAn"/>
                                 <include reference="byT-kG-2m9"/>
                                 <include reference="8LH-HU-mUT"/>
                                 <include reference="Y6m-dJ-HhN"/>
