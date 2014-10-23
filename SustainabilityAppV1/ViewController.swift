@@ -15,11 +15,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var password: UITextField!
    
+    @IBAction func login(sender: AnyObject) {
+        //if ldap confirmed && user in DB login 
+        //if ladap confirmed -- new user
+    }
 
     
-    @IBAction func login(sender: AnyObject) {
-        
-    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         email!.delegate = self

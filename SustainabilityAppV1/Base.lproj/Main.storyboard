@@ -37,6 +37,9 @@
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="102" y="258" width="197" height="35"/>
                                 </variation>
+                                <connections>
+                                    <action selector="login:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Va2-pU-Xtd"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Zig Zag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbW-07-BmS">
                                 <rect key="frame" x="110" y="183" width="154" height="61"/>
@@ -163,6 +166,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1137.5" y="-205.5"/>
+        </scene>
+        <!--newUserController-->
+        <scene sceneID="zDQ-zD-kBF">
+            <objects>
+                <viewController title="newUserController" id="0Ir-4E-hxe" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ov2-11-r07"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kx7-QS-xFM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hkz-Wn-zUr">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2265" y="-513"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="MYg-47-nai">
+            <objects>
+                <viewController id="QYY-GH-OmI" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="liM-Bm-Egp"/>
+                        <viewControllerLayoutGuide type="bottom" id="hgp-v6-wsR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MzX-Ey-69p">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NEk-eL-pXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2241" y="222"/>
         </scene>
     </scenes>
     <resources>
