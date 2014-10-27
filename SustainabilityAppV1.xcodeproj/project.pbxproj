@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
+		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
 		F892C94D19F59B4200113C26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94C19F59B4200113C26 /* ViewController.swift */; };
 		F892C95019F59B4200113C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F892C94E19F59B4200113C26 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
+		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
 		F892C94519F59B4100113C26 /* SustainabilityAppV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SustainabilityAppV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C94919F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C94A19F59B4200113C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				F892C94C19F59B4200113C26 /* ViewController.swift */,
 				F892C94E19F59B4200113C26 /* Main.storyboard */,
 				F892C95319F59B4200113C26 /* LaunchScreen.xib */,
+				F811B15219FECE34005EDE59 /* NewUserController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -218,6 +221,7 @@
 			files = (
 				F892C94D19F59B4200113C26 /* ViewController.swift in Sources */,
 				F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */,
+				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
