@@ -20,10 +20,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
         //if ladap confirmed -- new user
     }
 
-    
-   
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         email!.delegate = self
         password!.delegate = self
 

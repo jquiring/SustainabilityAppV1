@@ -8,15 +8,21 @@
 
 import UIKit
 
-class NewUserController: UIViewController {
+class NewUserController: UIViewController,UITextFieldDelegate {
+
 
     @IBOutlet weak var first: UITextField!
+    
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var number: UITextField!
     @IBOutlet weak var email: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        first!.delegate = self
+        last!.delegate = self
+        number!.delegate = self
+        email!.delegate = self
 
         // Do any additional setup after loading the view.
     }
