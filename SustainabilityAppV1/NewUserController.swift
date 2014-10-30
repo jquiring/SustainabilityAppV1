@@ -16,6 +16,17 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var number: UITextField!
     @IBOutlet weak var email: UITextField!
+    
+    
+    @IBAction func submit(sender: AnyObject) {
+        var alert = UIAlertController(title: "Alert", message: "Please verifty your information is correct before submitting", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            var vc = self.storyboard?.instantiateViewControllerWithIdentifier("mainPage") as MainPageController
+            self.presentViewController(vc, animated: true, completion: nil)
+        }))
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: true)

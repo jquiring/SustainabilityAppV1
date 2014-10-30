@@ -53,28 +53,6 @@
                                     </mask>
                                 </variation>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-5L-73R">
-                                <rect key="frame" x="89" y="291" width="197" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="QIo-cj-v29"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="kaX-8q-vgd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="QIo-cj-v29"/>
-                                        <exclude reference="kaX-8q-vgd"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="102" y="194" width="197" height="30"/>
-                                    <mask key="constraints">
-                                        <include reference="QIo-cj-v29"/>
-                                        <include reference="kaX-8q-vgd"/>
-                                    </mask>
-                                </variation>
-                            </textField>
                             <button opaque="NO" alpha="0.39999999999999963" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hV2-RP-FI6">
                                 <rect key="frame" x="89" y="381" width="197" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,13 +82,39 @@
                                     <segue destination="AVT-l0-hiS" kind="show" id="9uY-Tg-Nu5"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-5L-73R">
+                                <rect key="frame" x="89" y="291" width="197" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="QIo-cj-v29"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="kaX-8q-vgd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="QIo-cj-v29"/>
+                                        <exclude reference="kaX-8q-vgd"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="102" y="194" width="197" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="QIo-cj-v29"/>
+                                        <include reference="kaX-8q-vgd"/>
+                                    </mask>
+                                </variation>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.53321890479494616" green="0.79878566576086962" blue="0.47453487685173584" alpha="0.71999999999999997" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2Jc-5L-73R" firstAttribute="top" secondItem="AbW-07-BmS" secondAttribute="bottom" constant="25" id="Jkb-Ac-9Ov"/>
-                            <constraint firstItem="lo7-id-1RW" firstAttribute="top" secondItem="2Jc-5L-73R" secondAttribute="bottom" constant="10" id="LwW-hi-JH5"/>
+                            <constraint firstItem="lo7-id-1RW" firstAttribute="top" secondItem="2Jc-5L-73R" secondAttribute="bottom" constant="10" id="LwW-hi-JH5">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstAttribute="centerX" secondItem="2Jc-5L-73R" secondAttribute="centerX" id="QuB-YC-ccy"/>
-                            <constraint firstItem="hV2-RP-FI6" firstAttribute="top" secondItem="lo7-id-1RW" secondAttribute="bottom" constant="10" id="ZAK-kI-y0r"/>
+                            <constraint firstItem="hV2-RP-FI6" firstAttribute="top" secondItem="lo7-id-1RW" secondAttribute="bottom" constant="10" id="ZAK-kI-y0r">
+                                <variation key="heightClass=regular-widthClass=compact" constant="15"/>
+                            </constraint>
                             <constraint firstAttribute="centerX" secondItem="Whu-91-IML" secondAttribute="centerX" id="gER-lr-JnM"/>
                             <constraint firstAttribute="centerX" secondItem="AbW-07-BmS" secondAttribute="centerX" id="r7b-x4-jNt"/>
                             <constraint firstItem="AbW-07-BmS" firstAttribute="top" secondItem="Whu-91-IML" secondAttribute="bottom" constant="3" id="tjS-rN-iYn"/>
@@ -269,6 +273,9 @@
                                         <include reference="hGj-Ha-SJh"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="submit:" destination="0Ir-4E-hxe" eventType="touchUpInside" id="L23-Pt-85A"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R23-43-ZSy">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -438,7 +445,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Profile" id="4g7-y5-Yuv">
+                    <navigationItem key="navigationItem" title="Create Your Account" id="4g7-y5-Yuv">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="d1m-36-7HY">
                             <connections>
                                 <segue destination="vXZ-lx-hvc" kind="show" id="eQ4-qM-TJ8"/>
@@ -455,12 +462,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3547.5" y="-1482.75"/>
+            <point key="canvasLocation" x="4065" y="-1541.25"/>
         </scene>
-        <!--View Controller-->
+        <!--Main Page Controller-->
         <scene sceneID="MYg-47-nai">
             <objects>
-                <viewController id="QYY-GH-OmI" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainPage" id="QYY-GH-OmI" customClass="MainPageController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="liM-Bm-Egp"/>
                         <viewControllerLayoutGuide type="bottom" id="hgp-v6-wsR"/>
@@ -470,11 +477,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="zg4-vE-x5A">
+                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="cQ9-O5-ONK"/>
+                    </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NEk-eL-pXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2284.5" y="222"/>
+            <point key="canvasLocation" x="2908.5" y="-1515.75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6eC-Vc-ezW">
@@ -493,6 +503,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2899.5" y="-174.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xCd-ka-Klw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YVr-hQ-HU4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BEb-75-kw2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="T6S-x9-WT3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ETx-v2-EEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1990.5" y="-1515.75"/>
         </scene>
     </scenes>
     <resources>

@@ -15,6 +15,7 @@
 		F892C95219F59B4200113C26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F892C95119F59B4200113C26 /* Images.xcassets */; };
 		F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F892C95319F59B4200113C26 /* LaunchScreen.xib */; };
 		F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */; };
+		F8E426211A02EF0500B93D37 /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E426201A02EF0500B93D37 /* MainPageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		F892C95A19F59B4200113C26 /* SustainabilityAppV1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SustainabilityAppV1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C95F19F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustainabilityAppV1Tests.swift; sourceTree = "<group>"; };
+		F8E426201A02EF0500B93D37 /* MainPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				F892C94E19F59B4200113C26 /* Main.storyboard */,
 				F892C95319F59B4200113C26 /* LaunchScreen.xib */,
 				F811B15219FECE34005EDE59 /* NewUserController.swift */,
+				F8E426201A02EF0500B93D37 /* MainPageController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F892C94D19F59B4200113C26 /* ViewController.swift in Sources */,
+				F8E426211A02EF0500B93D37 /* MainPageController.swift in Sources */,
 				F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */,
 				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 			);
