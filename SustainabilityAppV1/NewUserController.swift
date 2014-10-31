@@ -16,7 +16,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var number: UITextField!
     @IBOutlet weak var email: UITextField!
-    
+    @IBOutlet weak var TaA: UILabel!
     
     @IBAction func submit(sender: AnyObject) {
         var alert = UIAlertController(title: "Alert", message: "Please verifty your information is correct before submitting", preferredStyle: UIAlertControllerStyle.Alert)
@@ -79,8 +79,22 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         last.resignFirstResponder()
         number.resignFirstResponder()
         email.resignFirstResponder()
-
         
+        var touch = touches.anyObject()?.locationInView(self.view)
+        if(CGRectContainsPoint(TaA.frame, touch!)){
+            toggleTaAStatus()
+        }
+    }
+    
+    func toggleTaAStatus(){
+        let unchecked = "☐"
+        let checked = "☑"
+        if(TaA.text == checked){
+            TaA.text = unchecked
+        }
+        else{
+            TaA.text = checked
+        }
     }
     
 

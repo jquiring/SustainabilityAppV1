@@ -30,6 +30,9 @@ class ViewController: UIViewController,UITextFieldDelegate {
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
         
+    }
+    
+    func LDAPLogin(){
         var request = NSMutableURLRequest(URL: NSURL(string: "147.222.165.133:2000")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
@@ -71,6 +74,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         })
         task.resume()
         sleep(5)
+
     }
 
 
