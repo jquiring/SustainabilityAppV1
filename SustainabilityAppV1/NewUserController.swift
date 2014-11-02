@@ -19,17 +19,35 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var TaA: UILabel!
     
     @IBAction func submit(sender: AnyObject) {
-        var alert = UIAlertController(title: "Alert", message: "Please verifty your information is correct before submitting", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            var vc = self.storyboard?.instantiateViewControllerWithIdentifier("mainPage") as MainPageController
-            self.presentViewController(vc, animated: true, completion: nil)
-        }))
+        if(checkFields()) {
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("mainPage") as MainPageController
+            self.navigationController?.navigationBarHidden = false
+            self.navigationController?.pushViewController(VC1, animated: true)
+            
+        }
+    }
+    func checkFields() -> Bool {
+        if(TaA.text == "☐" ) {
+            var alert = UIAlertController(title: "Warning", message: "Please read and agree to the Terms and Conditions for Zig Zag", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
+            return false
+        }
+        else if(first.text.isEmpty || last.text.isEmpty) {
+            var alert = UIAlertController(title: "Warning", message: "Please include a last and first name", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
+            return false
+        }
+        else {
+            return true
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+       // self.navigationController?.setNavigationBarHidden(false, animated: true)
         first!.delegate = self
         last!.delegate = self
         number!.delegate = self
@@ -42,6 +60,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
          var length = countElements(number.text)
        
     }
+
     func formattedPhoneNumber(length:NSInteger,text:NSString) -> NSString {
         switch(length) {
         case 3: return NSString(format:"(%@)",text)
