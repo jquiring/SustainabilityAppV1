@@ -493,7 +493,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3243" y="-762.75"/>
+            <point key="canvasLocation" x="3339" y="-1483.5"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
@@ -527,21 +527,9 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="133" width="400" height="667"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 </variation>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHp-Mc-Pu3">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Edit User Profile">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="95" width="111" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="eeB-jp-K1q" kind="show" id="zts-tv-aVP"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnq-jn-jQF">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Create a Post">
@@ -551,21 +539,33 @@
                                     <rect key="frame" x="16" y="57" width="94" height="30"/>
                                 </variation>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHp-Mc-Pu3">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Edit User Profile">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="95" width="111" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="edit:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="yJ1-Ks-4sl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.5332189048" green="0.79878566579999999" blue="0.47453487690000001" alpha="0.71999999999999997" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="VBD-Ui-lln"/>
-                                <exclude reference="LHp-Mc-Pu3"/>
                                 <exclude reference="gnq-jn-jQF"/>
+                                <exclude reference="LHp-Mc-Pu3"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="VBD-Ui-lln"/>
-                                <include reference="LHp-Mc-Pu3"/>
                                 <include reference="gnq-jn-jQF"/>
+                                <include reference="LHp-Mc-Pu3"/>
                             </mask>
                         </variation>
                     </view>
@@ -603,7 +603,7 @@
         <!--Edit User Account-->
         <scene sceneID="hOG-7d-hPa">
             <objects>
-                <viewController id="eeB-jp-K1q" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editUser" id="eeB-jp-K1q" customClass="EditUserController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="edo-jK-Fun"/>
                         <viewControllerLayoutGuide type="bottom" id="Hw7-OP-lf8"/>
@@ -626,7 +626,8 @@
                                         <exclude reference="rqF-uK-ecr"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="200" y="87" width="125" height="30"/>
                                     <mask key="constraints">
                                         <include reference="icy-cE-SPd"/>
                                         <include reference="rqF-uK-ecr"/>
@@ -647,7 +648,8 @@
                                         <exclude reference="aEY-2E-m88"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="75" y="117" width="250" height="30"/>
                                     <mask key="constraints">
                                         <include reference="B0Y-Jy-cyo"/>
                                         <include reference="aEY-2E-m88"/>
@@ -668,7 +670,8 @@
                                         <exclude reference="gOt-0g-QW0"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="75" y="87" width="125" height="30"/>
                                     <mask key="constraints">
                                         <include reference="QS7-rn-lNj"/>
                                         <include reference="gOt-0g-QW0"/>
@@ -689,7 +692,8 @@
                                         <exclude reference="fKF-pr-rxf"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="75" y="147" width="250" height="30"/>
                                     <mask key="constraints">
                                         <include reference="NXv-yu-w4c"/>
                                         <include reference="fKF-pr-rxf"/>
@@ -708,7 +712,8 @@
                                         <exclude reference="oF1-4J-GDp"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="275" y="55" width="50" height="27"/>
                                     <mask key="constraints">
                                         <include reference="fZs-Mk-6iB"/>
                                         <include reference="oF1-4J-GDp"/>
@@ -782,12 +787,23 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Edit User Account" id="ltz-KQ-xCU"/>
+                    <navigationItem key="navigationItem" title="Edit User Account" id="ltz-KQ-xCU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Mth-LJ-pvX">
+                            <connections>
+                                <action selector="cancel:" destination="eeB-jp-K1q" id="W2d-Is-uZM"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Liw-T3-4oV">
+                            <connections>
+                                <action selector="save:" destination="eeB-jp-K1q" id="iWC-SD-4xg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBs-cn-jVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1059" y="-1483.5"/>
+            <point key="canvasLocation" x="1116" y="-1487.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6eC-Vc-ezW">
@@ -800,7 +816,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="bJP-Oh-SjJ"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="5kM-fD-hjt"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>

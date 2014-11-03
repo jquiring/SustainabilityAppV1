@@ -24,11 +24,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("CenterViewController") as CenterViewController
             self.navigationController?.navigationBarHidden = false
             self.navigationController?.pushViewController(VC1, animated: true)
-            
-
-
-      
-            
+    
         }
     }
     func checkFields() -> Bool {

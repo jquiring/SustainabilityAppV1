@@ -1,25 +1,23 @@
 //
-//  ProfileController.swift
+//  EditUserController.swift
 //  SustainabilityAppV1
 //
-//  Created by Jake Quiring on 11/2/14.
+//  Created by Jake Quiring on 11/3/14.
 //  Copyright (c) 2014 Jake Quiring. All rights reserved.
 //
 
 import UIKit
 
-class ProfileController: UIViewController {
+class EditUserController: UIViewController {
 
-    @IBAction func edit(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
-        let navController = UINavigationController(rootViewController: VC1)
-        // Creating a navigation controller with VC1 at the root of the navigation stack.
-        self.presentViewController(navController, animated:true, completion: nil)
-      
+    @IBAction func save(sender: AnyObject) {
+    }
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
     }
 
