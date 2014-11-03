@@ -9,17 +9,20 @@
 import UIKit
 import QuartzCore
 
-class ContainerViewController: UIViewController, CenterViewControllerDelegate {
+class ContainerViewController: UIViewController, CenterViewControllerDelegate, UIGestureRecognizerDelegate {
+    
+    let centerPanelExpandedOffset: CGFloat = 60
+    
     var centerNavigationController: UINavigationController!
     var centerViewController: CenterViewController!
+    var leftViewController: ProfileController?
     var currentState: SlideOutState = .BothCollapsed {
         didSet {
             let shouldShowShadow = currentState != .BothCollapsed
             showShadowForCenterViewController(shouldShowShadow)
         }
     }
-    var leftViewController: ProfileController?
-    let centerPanelExpandedOffset: CGFloat = 60
+    
     override init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,12 +36,13 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate {
     }
     func showShadowForCenterViewController(shouldShowShadow: Bool) {
         if (shouldShowShadow) {
-            centerViewController.view.layer.shadowOpacity = 0.8
+            centerNavigationController.view.layer.shadowOpacity = 0.8
         } else {
-            centerViewController.view.layer.shadowOpacity = 0.0
+            centerNavigationController.view.layer.shadowOpacity = 0.0
         }
     }
     override func viewDidLoad() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
         centerViewController = UIStoryboard.centerViewController()
         centerViewController.delegate = self
         
@@ -47,9 +51,12 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate {
         centerNavigationController = UINavigationController(rootViewController: centerViewController)
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
-        
+
         centerNavigationController.didMoveToParentViewController(self)
+        
+        centerNavigationController.view.addGestureRecognizer(panGestureRecognizer)
     }
+    
   
     // MARK: CenterViewController delegate methods
   
@@ -108,6 +115,32 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate {
     // MARK: Gesture recognizer
   
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+        let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
+        
+        switch(recognizer.state) {
+        case .Began:
+            if (currentState == .BothCollapsed) {
+                if (gestureIsDraggingFromLeftToRight) {
+                    addLeftPanelViewController()
+                } else {
+                    addRightPanelViewController()
+                }
+                
+                showShadowForCenterViewController(true)
+            }
+        case .Changed:
+            recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
+            recognizer.setTranslation(CGPointZero, inView: view)
+        case .Ended:
+            if (leftViewController != nil) {
+                // animate the side panel open or closed based on whether the view has moved more or less than halfway
+                let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
+                animateLeftPanel(shouldExpand: hasMovedGreaterThanHalfway)
+            }
+        default:
+            break
+        }
+        
     }
 }
 
