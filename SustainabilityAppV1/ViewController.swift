@@ -24,21 +24,35 @@ class ViewController: UIViewController,UITextFieldDelegate {
         //if ldap confirmed && user in DB login 
         //if ladap confirmed -- new user
         //set the incorrectLoginLabel.hidden = false if the login has failed
+        var LDAPRequest = LDAPLogin()
         
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
-        let navController = UINavigationController(rootViewController: VC1)
-        // Creating a navigation controller with VC1 at the root of the navigation stack.
-        self.presentViewController(navController, animated:true, completion: nil)
-        LDAPLogin()
+        if(LDAPRequest == 200){
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
+            let navController = UINavigationController(rootViewController: VC1)
+            // Creating a navigation controller with VC1 at the root of the navigation stack.
+            self.presentViewController(navController, animated:true, completion: nil)
+        }
+        else if(LDAPRequest == 400){
+            incorrectLoginLabel.hidden = false
+        }
+        else if(LDAPRequest == 500){
+            incorrectLoginLabel.hidden = false
+            incorrectLoginLabel.text = "Server Error: Please try again later"
+        }
+        else{
+            incorrectLoginLabel.hidden = false
+            incorrectLoginLabel.text = "Server Error: Server IP + Port has changed"
+        }
         
     }
     
-    func LDAPLogin(){
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/ldapauth/")!)
+    func LDAPLogin() -> Int {
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:2000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         var params = ["username":email.text, "password":password.text] as Dictionary<String, String>
         var err: NSError?
+        var returnVal = -1
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -48,20 +62,27 @@ class ViewController: UIViewController,UITextFieldDelegate {
                 //200 = OK, valid credentials
                 if(status_code == 200){
                     println("Valid credentials! Carry on to main page...")
+                    returnVal = 200
                 }
                     //400 = BAD_REQUEST, invalid crentials
                 else if(status_code == 400){
                     println("Invalid credentials, you are not allowed in!")
+                    returnVal = 400
                 }
                     //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
                 else if(status_code == 500){
                     println("The server is down! Call the fire!")
+                    returnVal = 500
                 }
             } else {
                 println("Error in casting response, data incomplete")
+                returnVal = -1
             }
         })
         task.resume()
+        sleep(1)
+        
+        return returnVal      
     }
 
 
