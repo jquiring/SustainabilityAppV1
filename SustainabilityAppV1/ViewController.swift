@@ -29,52 +29,39 @@ class ViewController: UIViewController,UITextFieldDelegate {
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
+        LDAPLogin()
         
     }
     
     func LDAPLogin(){
-        var request = NSMutableURLRequest(URL: NSURL(string: "147.222.165.133:2000")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
-        
         var params = ["username":email.text, "password":password.text] as Dictionary<String, String>
-        
         var err: NSError?
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Inside completion handler")
-            println("Response: \(response)")
-            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            var err: NSError?
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
-            
-            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("1 Error could not parse JSON: '\(jsonStr)'")
-            }
-            else {
-                // The JSONObjectWithData constructor didn't return an error. But, we should still
-                // check and make sure that json has a value using optional binding.
-                if let parseJSON = json {
-                    // Okay, the parsedJSON is here, let's get the value for 'success' out of it
-                    println(parseJSON)
+            if let httpResponse = response as? NSHTTPURLResponse {
+                var status_code = httpResponse.statusCode
+                //200 = OK, valid credentials
+                if(status_code == 200){
+                    println("Valid credentials! Carry on to main page...")
                 }
-                else {
-                    // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
-                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("2 Error could not parse JSON: \(jsonStr)")
+                    //400 = BAD_REQUEST, invalid crentials
+                else if(status_code == 400){
+                    println("Invalid credentials, you are not allowed in!")
                 }
+                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
+                else if(status_code == 500){
+                    println("The server is down! Call the fire!")
+                }
+            } else {
+                println("Error in casting response, data incomplete")
             }
         })
         task.resume()
-        sleep(5)
-
     }
 
 

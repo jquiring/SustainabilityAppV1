@@ -20,9 +20,14 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     
     @IBAction func submit(sender: AnyObject) {
         if(checkFields()) {
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("mainPage") as MainPageController
+            
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("CenterViewController") as CenterViewController
             self.navigationController?.navigationBarHidden = false
             self.navigationController?.pushViewController(VC1, animated: true)
+            
+
+
+      
             
         }
     }

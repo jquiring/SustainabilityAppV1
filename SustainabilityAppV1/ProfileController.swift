@@ -1,14 +1,14 @@
 //
-//  MainPageController.swift
+//  ProfileController.swift
 //  SustainabilityAppV1
 //
-//  Created by Jake Quiring on 10/30/14.
+//  Created by Jake Quiring on 11/2/14.
 //  Copyright (c) 2014 Jake Quiring. All rights reserved.
 //
 
 import UIKit
 
-class MainPageController: UIViewController {
+class ProfileController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
