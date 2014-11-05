@@ -17,14 +17,15 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var number: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var TaA: UILabel!
-    
+    var window: UIWindow?
     @IBAction func submit(sender: AnyObject) {
         if(checkFields()) {
             
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("CenterViewController") as CenterViewController
-            self.navigationController?.navigationBarHidden = false
-            self.navigationController?.pushViewController(VC1, animated: true)
-    
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            self.window!.backgroundColor = UIColor.whiteColor()
+            let customVC = ContainerViewController()
+            self.window!.rootViewController = customVC
+            self.window!.makeKeyAndVisible()
         }
     }
     func checkFields() -> Bool {
@@ -49,6 +50,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
        // self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
         first!.delegate = self
         last!.delegate = self
         number!.delegate = self

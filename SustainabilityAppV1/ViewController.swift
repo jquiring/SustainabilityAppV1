@@ -26,9 +26,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
         //set the incorrectLoginLabel.hidden = false if the login has failed
         var LDAPRequest = LDAPLogin()
         
-        if(LDAPRequest == 200){
+        if(true){
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
             let navController = UINavigationController(rootViewController: VC1)
+
             // Creating a navigation controller with VC1 at the root of the navigation stack.
             self.presentViewController(navController, animated:true, completion: nil)
         }

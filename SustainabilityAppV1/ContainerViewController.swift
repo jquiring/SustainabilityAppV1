@@ -115,6 +115,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
     // MARK: Gesture recognizer
   
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+        if(currentState == .LeftPanelExpanded) {
         let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
         
         switch(recognizer.state) {
@@ -122,9 +123,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
             if (currentState == .BothCollapsed) {
                 if (gestureIsDraggingFromLeftToRight) {
                     addLeftPanelViewController()
-                } else {
-                    addRightPanelViewController()
-                }
+                } 
                 
                 showShadowForCenterViewController(true)
             }
@@ -139,6 +138,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
             }
         default:
             break
+        }
         }
         
     }

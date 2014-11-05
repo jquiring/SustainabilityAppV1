@@ -495,6 +495,30 @@
             </objects>
             <point key="canvasLocation" x="3339" y="-1483.5"/>
         </scene>
+        <!--Help and FAQ-->
+        <scene sceneID="T1n-0e-JXg">
+            <objects>
+                <viewController storyboardIdentifier="helpAndFAQ" id="W2a-Uw-FZ8" customClass="HelpAndFAQController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1Um-FC-XJs"/>
+                        <viewControllerLayoutGuide type="bottom" id="mTl-5c-SCh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gei-RH-89J">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Help and FAQ" id="EYf-Eb-HUk">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="uj1-Zw-CA3">
+                            <connections>
+                                <action selector="cancel:" destination="W2a-Uw-FZ8" id="yeM-IY-cfA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0jk-JG-l1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4134" y="-2108.25"/>
+        </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
             <objects>
@@ -514,7 +538,7 @@
             </objects>
             <point key="canvasLocation" x="1735.5" y="-1572.75"/>
         </scene>
-        <!--Main Page-->
+        <!--What are you Looking For?-->
         <scene sceneID="MYg-47-nai">
             <objects>
                 <viewController storyboardIdentifier="CenterViewController" id="QYY-GH-OmI" customClass="CenterViewController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
@@ -527,7 +551,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Main Page" id="zg4-vE-x5A">
+                    <navigationItem key="navigationItem" title="What are you Looking For?" id="zg4-vE-x5A">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="FNg-wJ-k1M">
                             <connections>
                                 <action selector="profile:" destination="QYY-GH-OmI" id="qSm-kZ-w30"/>
@@ -751,12 +775,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="5kM-fD-hjt"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="JVs-JV-sfn"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2524.5" y="-2231.25"/>
+            <point key="canvasLocation" x="3202.5" y="-2243.25"/>
         </scene>
     </scenes>
     <resources>

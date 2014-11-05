@@ -19,6 +19,13 @@ class ProfileController: UIViewController{
         self.presentViewController(navController, animated:true, completion: nil)
         
     }
+    @IBAction func helpAndFAQ(sender: AnyObject) {
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("helpAndFAQ") as HelpAndFAQController
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.presentViewController(navController, animated:true, completion: nil)
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         makeLayout()
@@ -37,7 +44,7 @@ class ProfileController: UIViewController{
     func makeLayout() {
         println("make Layout called")
         self.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.view.backgroundColor = UIColor.grayColor()
+        self.view.backgroundColor = UIColor.darkGrayColor()
 
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width - slide;
@@ -57,8 +64,10 @@ class ProfileController: UIViewController{
         //edit profile
         view1.setTitle("Edit your Profile", forState: UIControlState.Normal)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view1.backgroundColor = UIColor.lightGrayColor()
+        view1.backgroundColor = UIColor.darkGrayColor()
+        //view1.setTitleColor(color:UIColor.whiteColor(), forState: UIControlState.Normal)
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
+        //view1.titleLabel!.font = UIFont(name:"Helvetica Neue UltraLight",size: 12)
         let view1_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view1(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(viewHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         view1.addConstraints(view1_constraint_H)
@@ -85,6 +94,7 @@ class ProfileController: UIViewController{
         view3.addConstraints(view3_constraint_H)
         view3.addConstraints(view3_constraint_V)
 
+
         //casts width to a string then uses the width to set the width of the screen (denoted as H for some reason)
         
         
@@ -100,7 +110,7 @@ class ProfileController: UIViewController{
         let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-distanceFromTop-[view1]-distanceBetweenButtons-[view2]-bottomHeight-[view3]|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
         
         view.addConstraints(view_constraint_V)
-        
+        println("make layout finished")
     }
 
     override func didReceiveMemoryWarning() {
