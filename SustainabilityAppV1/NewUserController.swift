@@ -20,7 +20,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     var window: UIWindow?
     @IBAction func submit(sender: AnyObject) {
         if(checkFields()) {
-            
+            resignKeyboard() 
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window!.backgroundColor = UIColor.whiteColor()
             let customVC = ContainerViewController()
@@ -97,17 +97,18 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     }
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         //do we need both?
-        first.resignFirstResponder()
-        last.resignFirstResponder()
-        number.resignFirstResponder()
-        email.resignFirstResponder()
-        
+        resignKeyboard()
         var touch = touches.anyObject()?.locationInView(self.view)
         if(CGRectContainsPoint(TaA.frame, touch!)){
             toggleTaAStatus()
         }
     }
-    
+    func resignKeyboard(){
+        first.resignFirstResponder()
+        last.resignFirstResponder()
+        number.resignFirstResponder()
+        email.resignFirstResponder()
+    }
     func toggleTaAStatus(){
         let unchecked = "☐"
         let checked = "☑"

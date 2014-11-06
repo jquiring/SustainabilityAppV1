@@ -30,6 +30,7 @@ class ProfileController: UIViewController{
         super.viewDidLoad()
         makeLayout()
         println("view did load")
+        println(self.navigationController?.navigationBar.frame.size.height)
       
         
         // Do any additional setup after loading the view.
@@ -43,7 +44,6 @@ class ProfileController: UIViewController{
     //why is it making the layout wrong the first time
     func makeLayout() {
         println("make Layout called")
-        self.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.backgroundColor = UIColor.darkGrayColor()
 
         let screenSize: CGRect = UIScreen.mainScreen().bounds
@@ -62,9 +62,11 @@ class ProfileController: UIViewController{
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement ]
     
         //edit profile
-        view1.setTitle("Edit your Profile", forState: UIControlState.Normal)
+        view1.setTitle("Jake Q.", forState: UIControlState.Normal)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
         view1.backgroundColor = UIColor.darkGrayColor()
+        view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+        view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         //view1.setTitleColor(color:UIColor.whiteColor(), forState: UIControlState.Normal)
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
         //view1.titleLabel!.font = UIFont(name:"Helvetica Neue UltraLight",size: 12)
