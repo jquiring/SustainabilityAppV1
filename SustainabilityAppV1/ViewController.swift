@@ -55,7 +55,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
             incorrectLoginLabel.text = "Server Error: Server IP + Port has changed"
         }
     }
-    
+    func makeAlert(text:String){
+    var alert = UIAlertController(title: nil, message: text, preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
+
+    }
     func LDAPLogin() -> (Int,String,String) {
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:2000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
