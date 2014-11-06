@@ -19,6 +19,7 @@
 		F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */; };
 		F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E426201A02EF0500B93D37 /* CenterViewController.swift */; };
 		F8F29BBE1A0AC555001CEF5F /* HelpAndFAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */; };
+		F8F29BC61A0B08C3001CEF5F /* TermsAndConditionsConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */; };
 		F8F43F7A1A080AB800C56D2D /* EditUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F43F791A080AB800C56D2D /* EditUserController.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustainabilityAppV1Tests.swift; sourceTree = "<group>"; };
 		F8E426201A02EF0500B93D37 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpAndFAQController.swift; sourceTree = "<group>"; };
+		F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsConroller.swift; sourceTree = "<group>"; };
 		F8F43F791A080AB800C56D2D /* EditUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +103,7 @@
 				F840537D1A070ED5007D671A /* ProfileController.swift */,
 				F8F43F791A080AB800C56D2D /* EditUserController.swift */,
 				F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */,
+				F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -240,6 +243,7 @@
 				F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */,
 				F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */,
 				F8F29BBE1A0AC555001CEF5F /* HelpAndFAQController.swift in Sources */,
+				F8F29BC61A0B08C3001CEF5F /* TermsAndConditionsConroller.swift in Sources */,
 				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 				F840537E1A070ED5007D671A /* ProfileController.swift in Sources */,
 			);

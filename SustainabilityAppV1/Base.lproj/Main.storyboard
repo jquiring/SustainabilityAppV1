@@ -175,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2524.5" y="-762.75"/>
+            <point key="canvasLocation" x="4749" y="-990.75"/>
         </scene>
         <!--newUserController-->
         <scene sceneID="zDQ-zD-kBF">
@@ -324,8 +324,7 @@
                                         <exclude reference="T6H-U2-dZS"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="103" y="170" width="127" height="11"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="T6H-U2-dZS"/>
                                     </mask>
@@ -345,12 +344,14 @@
                                         <exclude reference="qMg-2u-K1r"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="231" y="170" width="94" height="11"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="qMg-2u-K1r"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="terms:" destination="0Ir-4E-hxe" eventType="touchUpInside" id="4qk-lI-uhc"/>
+                                </connections>
                             </button>
                             <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCu-GW-5la">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -374,8 +375,7 @@
                                         <exclude reference="z41-Jn-8j5"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="75" y="191" width="250" height="35"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="hGj-Ha-SJh"/>
                                         <include reference="z41-Jn-8j5"/>
@@ -424,24 +424,24 @@
                                 <exclude reference="oCu-GW-5la"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="SWG-IT-eBm"/>
                                 <exclude reference="1Ha-gL-Gog"/>
                                 <exclude reference="6Go-6F-ki6"/>
                                 <exclude reference="Qf0-E3-Tq2"/>
                                 <exclude reference="mcA-Qc-OGz"/>
+                                <exclude reference="7gU-0f-ZN7"/>
+                                <exclude reference="XpH-o1-BFA"/>
+                                <exclude reference="J3B-eF-1e5"/>
+                                <exclude reference="gQZ-CQ-6dj"/>
+                                <exclude reference="9YY-MW-lQM"/>
+                                <exclude reference="SWG-IT-eBm"/>
                                 <exclude reference="94F-IQ-SyR"/>
                                 <exclude reference="F5T-5D-HbB"/>
                                 <exclude reference="btr-0i-gyC"/>
                                 <exclude reference="rA6-DM-ZOq"/>
-                                <exclude reference="7gU-0f-ZN7"/>
-                                <exclude reference="XpH-o1-BFA"/>
-                                <exclude reference="9YY-MW-lQM"/>
+                                <exclude reference="VBE-nb-oOl"/>
                                 <exclude reference="5Q7-jd-2kN"/>
                                 <exclude reference="Oez-Wo-D94"/>
-                                <exclude reference="J3B-eF-1e5"/>
-                                <exclude reference="gQZ-CQ-6dj"/>
                                 <exclude reference="nwH-Gh-O1V"/>
-                                <exclude reference="VBE-nb-oOl"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -457,24 +457,24 @@
                                 <include reference="oCu-GW-5la"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="SWG-IT-eBm"/>
                                 <include reference="1Ha-gL-Gog"/>
                                 <include reference="6Go-6F-ki6"/>
                                 <include reference="Qf0-E3-Tq2"/>
                                 <include reference="mcA-Qc-OGz"/>
+                                <include reference="7gU-0f-ZN7"/>
+                                <include reference="XpH-o1-BFA"/>
+                                <include reference="J3B-eF-1e5"/>
+                                <include reference="gQZ-CQ-6dj"/>
+                                <include reference="9YY-MW-lQM"/>
+                                <include reference="SWG-IT-eBm"/>
                                 <include reference="94F-IQ-SyR"/>
                                 <include reference="F5T-5D-HbB"/>
                                 <include reference="btr-0i-gyC"/>
                                 <include reference="rA6-DM-ZOq"/>
-                                <include reference="7gU-0f-ZN7"/>
-                                <include reference="XpH-o1-BFA"/>
-                                <include reference="9YY-MW-lQM"/>
+                                <include reference="VBE-nb-oOl"/>
                                 <include reference="5Q7-jd-2kN"/>
                                 <include reference="Oez-Wo-D94"/>
-                                <include reference="J3B-eF-1e5"/>
-                                <include reference="gQZ-CQ-6dj"/>
                                 <include reference="nwH-Gh-O1V"/>
-                                <include reference="VBE-nb-oOl"/>
                             </mask>
                         </variation>
                     </view>
@@ -496,7 +496,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3339" y="-1483.5"/>
+            <point key="canvasLocation" x="3855" y="-1231.5"/>
+        </scene>
+        <!--Terms and Conditions-->
+        <scene sceneID="Gy6-xI-4ur">
+            <objects>
+                <viewController storyboardIdentifier="termsConditions" id="Uor-rp-5Ab" customClass="TermsAndConditionsConroller" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="V5o-fp-ikJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bam-1W-aFb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jtk-8E-xoQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Terms and Conditions" id="IPi-sm-CCk">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="U2L-cn-EQj">
+                            <connections>
+                                <action selector="cancel:" destination="Uor-rp-5Ab" id="MPU-nZ-wBK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z3E-Qa-Wvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3207" y="-1494.75"/>
         </scene>
         <!--Help and FAQ-->
         <scene sceneID="T1n-0e-JXg">
@@ -521,7 +546,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jk-JG-l1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4134" y="-2108.25"/>
+            <point key="canvasLocation" x="3940.5" y="-2228.25"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
@@ -779,12 +804,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="JVs-JV-sfn"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="j24-aV-nA1"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3202.5" y="-2243.25"/>
+            <point key="canvasLocation" x="2412" y="-2260.5"/>
         </scene>
     </scenes>
     <resources>

@@ -17,6 +17,12 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var number: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var TaA: UILabel!
+    @IBAction func terms(sender: AnyObject) {
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("termsConditions") as TermsAndConditionsConroller
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.presentViewController(navController, animated:true, completion: nil)
+    }
     var window: UIWindow?
     @IBAction func submit(sender: AnyObject) {
         if(checkFields()) {
@@ -28,6 +34,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             self.window!.makeKeyAndVisible()
         }
     }
+    @IBOutlet weak var terms: UIButton!
     func checkFields() -> Bool {
         if(TaA.text == "☐" ) {
             var alert = UIAlertController(title: "Warning", message: "Please read and agree to the Terms and Conditions for Zig Zag", preferredStyle: UIAlertControllerStyle.Alert)
@@ -43,8 +50,23 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             }))
             return false
         }
+        else if(!number.text.isEmpty && isNumeric(number.text) && !(countElements(number.text) == 10 || countElements(number.text) == 11)) {
+            var alert = UIAlertController(title: "Warning", message: "Please enter a valid Phone number of all numbers", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
+            return false
+
+        }
         else {
             return true
+        }
+    }
+    func isNumeric(a: String) -> Bool {
+        if let n = a.toInt() {
+            return true
+        } else {
+            return false
         }
     }
     override func viewDidLoad() {
