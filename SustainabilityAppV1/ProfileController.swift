@@ -44,12 +44,12 @@ class ProfileController: UIViewController{
     //why is it making the layout wrong the first time
     func makeLayout() {
         println("make Layout called")
-        self.view.backgroundColor = UIColor.lightGrayColor()
+        self.view.backgroundColor = UIColor.whiteColor()
 
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width - slide;
         let screenHeight = screenSize.height
-        let buttonHeight = 25
+        let buttonHeight = 35
         let editProfileHeight = 64
         let distanceFromTopVal  = 20
         let distanceBetweenButtonsVal = 1
@@ -63,22 +63,24 @@ class ProfileController: UIViewController{
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight ]
     
         //edit profile
-        view1.setTitle("Jake Q.", forState: UIControlState.Normal)
+        view1.setTitle("⚙  Jake Q.", forState: UIControlState.Normal)
+        view1.setTitleColor(UIColor.darkGrayColor(), forState: nil)
+        view1.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 24)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view1.backgroundColor = UIColor(red: 0.61, green: 0.874, blue: 0.631, alpha: 1)
+        view1.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -22, 0)
         view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         //view1.setTitleColor(color:UIColor.whiteColor(), forState: UIControlState.Normal)
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
-        //view1.titleLabel!.font = UIFont(name:"Helvetica Neue UltraLight",size: 12)
         let view1_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view1(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(editProfileHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         view1.addConstraints(view1_constraint_H)
         view1.addConstraints(view1_constraint_V)
         //create a post
-        view2.setTitle("Create a Post", forState: UIControlState.Normal)
+        view2.setTitle("Create a Post ➕", forState: UIControlState.Normal)
+        view2.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 20)
         view2.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view2.backgroundColor = UIColor.darkGrayColor()
+        view2.backgroundColor = UIColor.lightGrayColor()
         view2.addTarget(self, action: "newPost:", forControlEvents: UIControlEvents.TouchUpInside)
         let view2_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view2(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let view2_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view2(viewHeight)]", options:
@@ -93,7 +95,7 @@ class ProfileController: UIViewController{
         let view3_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view3(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let view3_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view3(viewHeight)]", options:
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-        
+        view3.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 20)
         view3.addConstraints(view3_constraint_H)
         view3.addConstraints(view3_constraint_V)
 

@@ -27,12 +27,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
         var LDAPRequest = LDAPLogin()
         
         if(true){
-            if(LDAPRequest.2 == "Yes"){
+           if(LDAPRequest.2 == "Yes"){
                 var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("CenterViewController") as CenterViewController
                 let navController = UINavigationController(rootViewController: VC1)
                 self.presentViewController(navController, animated:true, completion: nil)
             }
-            else if(true){
+            else if (true){
+            //else if(LDAPRequest.2 == "No"){
                 //need to pass email in to create user page to send to DB ***************************************************
                 var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
                 let navController = UINavigationController(rootViewController: VC1)

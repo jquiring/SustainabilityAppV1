@@ -78,7 +78,7 @@
                                     <action selector="login:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Va2-pU-Xtd"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username " minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-5L-73R">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="bottom" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Jc-5L-73R">
                                 <rect key="frame" x="89" y="291" width="197" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="Quj-yY-l4A"/>
@@ -107,7 +107,7 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.53321890479494616" green="0.79878566576086962" blue="0.47453487685173584" alpha="0.71999999999999997" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.65098039220000004" green="0.85098039219999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2Jc-5L-73R" firstAttribute="top" secondItem="AbW-07-BmS" secondAttribute="bottom" constant="25" id="Jkb-Ac-9Ov"/>
                             <constraint firstItem="lo7-id-1RW" firstAttribute="top" secondItem="2Jc-5L-73R" secondAttribute="bottom" constant="10" id="LwW-hi-JH5">
@@ -175,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4749" y="-990.75"/>
+            <point key="canvasLocation" x="2524.5" y="-762.75"/>
         </scene>
         <!--newUserController-->
         <scene sceneID="zDQ-zD-kBF">
@@ -349,9 +349,6 @@
                                         <include reference="qMg-2u-K1r"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="terms:" destination="0Ir-4E-hxe" eventType="touchUpInside" id="4qk-lI-uhc"/>
-                                </connections>
                             </button>
                             <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCu-GW-5la">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -386,7 +383,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.5332189048" green="0.79878566579999999" blue="0.47453487690000001" alpha="0.71999999999999997" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.65098039215686276" green="0.85098039215686272" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="MIN-FH-U4n" firstAttribute="trailing" secondItem="bfg-yk-0yH" secondAttribute="trailing" id="1Ha-gL-Gog"/>
                             <constraint firstItem="oCu-GW-5la" firstAttribute="top" secondItem="bio-aQ-VsB" secondAttribute="bottom" constant="10" id="5Q7-jd-2kN"/>
@@ -496,32 +493,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3855" y="-1231.5"/>
-        </scene>
-        <!--Terms and Conditions-->
-        <scene sceneID="Gy6-xI-4ur">
-            <objects>
-                <viewController storyboardIdentifier="termsConditions" id="Uor-rp-5Ab" customClass="TermsAndConditionsConroller" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="V5o-fp-ikJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Bam-1W-aFb"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Jtk-8E-xoQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Terms and Conditions" id="IPi-sm-CCk">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="U2L-cn-EQj">
-                            <connections>
-                                <action selector="cancel:" destination="Uor-rp-5Ab" id="MPU-nZ-wBK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z3E-Qa-Wvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3207" y="-1494.75"/>
+            <point key="canvasLocation" x="3339" y="-1483.5"/>
         </scene>
         <!--Help and FAQ-->
         <scene sceneID="T1n-0e-JXg">
@@ -546,7 +518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jk-JG-l1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3940.5" y="-2228.25"/>
+            <point key="canvasLocation" x="4134" y="-2108.25"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
@@ -559,15 +531,14 @@
                     <view key="view" contentMode="scaleToFill" id="zDw-be-opy">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xph-O8-dcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1735.5" y="-1572.75"/>
+            <point key="canvasLocation" x="1861.5" y="-1483.5"/>
         </scene>
-        <!--What are you Looking For?-->
+        <!--Recent Posts-->
         <scene sceneID="MYg-47-nai">
             <objects>
                 <viewController storyboardIdentifier="CenterViewController" id="QYY-GH-OmI" customClass="CenterViewController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
@@ -580,7 +551,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="What are you Looking For?" id="zg4-vE-x5A">
+                    <navigationItem key="navigationItem" title="Recent Posts" id="zg4-vE-x5A">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="FNg-wJ-k1M">
                             <connections>
                                 <action selector="profile:" destination="QYY-GH-OmI" id="qSm-kZ-w30"/>
@@ -591,7 +562,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NEk-eL-pXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2538" y="-1515.75"/>
+            <point key="canvasLocation" x="2524.5" y="-1483.5"/>
         </scene>
         <!--Edit User Account-->
         <scene sceneID="hOG-7d-hPa">
@@ -791,7 +762,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBs-cn-jVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1446" y="-2264.25"/>
+            <point key="canvasLocation" x="1116" y="-1487.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6eC-Vc-ezW">
@@ -804,12 +775,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="j24-aV-nA1"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="JVs-JV-sfn"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2412" y="-2260.5"/>
+            <point key="canvasLocation" x="3202.5" y="-2243.25"/>
         </scene>
     </scenes>
     <resources>
