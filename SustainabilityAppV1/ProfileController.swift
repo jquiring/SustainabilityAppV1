@@ -44,40 +44,41 @@ class ProfileController: UIViewController{
     //why is it making the layout wrong the first time
     func makeLayout() {
         println("make Layout called")
-        self.view.backgroundColor = UIColor.darkGrayColor()
+        self.view.backgroundColor = UIColor.lightGrayColor()
 
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width - slide;
         let screenHeight = screenSize.height
         let buttonHeight = 25
+        let editProfileHeight = 64
         let distanceFromTopVal  = 20
-        let distanceBetweenButtonsVal = 13
-        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - distanceFromTopVal - distanceBetweenButtonsVal   // this might not work because we have to account for how long the list view is in this
+        let distanceBetweenButtonsVal = 1
+        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*2) - editProfileHeight - distanceBetweenButtonsVal   // this might not work because we have to account for how long the list view is in this
         let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view2 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view3 = UIButton.buttonWithType(UIButtonType.System) as UIButton
        // var tableView:UITableView
         let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
-        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement ]
+        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight ]
     
         //edit profile
         view1.setTitle("Jake Q.", forState: UIControlState.Normal)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view1.backgroundColor = UIColor.darkGrayColor()
-        view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+        view1.backgroundColor = UIColor(red: 0.61, green: 0.874, blue: 0.631, alpha: 1)
+        view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -22, 0)
         view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         //view1.setTitleColor(color:UIColor.whiteColor(), forState: UIControlState.Normal)
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
         //view1.titleLabel!.font = UIFont(name:"Helvetica Neue UltraLight",size: 12)
         let view1_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view1(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-        let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(viewHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(editProfileHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         view1.addConstraints(view1_constraint_H)
         view1.addConstraints(view1_constraint_V)
         //create a post
         view2.setTitle("Create a Post", forState: UIControlState.Normal)
         view2.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view2.backgroundColor = UIColor.lightGrayColor()
+        view2.backgroundColor = UIColor.darkGrayColor()
         view2.addTarget(self, action: "newPost:", forControlEvents: UIControlEvents.TouchUpInside)
         let view2_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view2(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let view2_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view2(viewHeight)]", options:
@@ -109,7 +110,7 @@ class ProfileController: UIViewController{
 
         //spaces it away from the top a little bit
         //this seems to be breaking the code right now
-        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-distanceFromTop-[view1]-distanceBetweenButtons-[view2]-bottomHeight-[view3]|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-bottomHeight-[view3]|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
         
         view.addConstraints(view_constraint_V)
         println("make layout finished")

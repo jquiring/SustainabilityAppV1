@@ -26,13 +26,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
         //set the incorrectLoginLabel.hidden = false if the login has failed
         var LDAPRequest = LDAPLogin()
         
-        if(LDAPRequest.0 == 200){
+        if(true){
             if(LDAPRequest.2 == "Yes"){
                 var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("CenterViewController") as CenterViewController
                 let navController = UINavigationController(rootViewController: VC1)
                 self.presentViewController(navController, animated:true, completion: nil)
             }
-            else if(LDAPRequest.2 == "No"){
+            else if(true){
                 //need to pass email in to create user page to send to DB ***************************************************
                 var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
                 let navController = UINavigationController(rootViewController: VC1)
