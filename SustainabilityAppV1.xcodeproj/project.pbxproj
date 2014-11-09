@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
+		CA6DBE461A101C15000CCFDF /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = CA6DBE451A101C15000CCFDF /* threelines.png */; };
 		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537B1A07025A007D671A /* ContainerViewController.swift */; };
 		F840537E1A070ED5007D671A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537D1A070ED5007D671A /* ProfileController.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
+		CA6DBE451A101C15000CCFDF /* threelines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = threelines.png; sourceTree = "<group>"; };
 		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
 		F840537B1A07025A007D671A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F840537D1A070ED5007D671A /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				CA236AD019F5C80400B566CB /* Leaf.png */,
 				F892C95119F59B4200113C26 /* Images.xcassets */,
+				CA6DBE451A101C15000CCFDF /* threelines.png */,
 				F892C94919F59B4200113C26 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -216,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA6DBE461A101C15000CCFDF /* threelines.png in Resources */,
 				F892C95019F59B4200113C26 /* Main.storyboard in Resources */,
 				F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */,
 				F892C95219F59B4200113C26 /* Images.xcassets in Resources */,

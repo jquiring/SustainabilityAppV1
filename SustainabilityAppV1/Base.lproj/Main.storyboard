@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -531,7 +532,49 @@
                     <view key="view" contentMode="scaleToFill" id="zDw-be-opy">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="x9z-NU-QoX">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="T39-wt-V8f"/>
+                                    <constraint firstAttribute="width" constant="320" id="a0s-MG-xJ8"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="T39-wt-V8f"/>
+                                        <exclude reference="a0s-MG-xJ8"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="98" width="308" height="400"/>
+                                    <mask key="constraints">
+                                        <include reference="T39-wt-V8f"/>
+                                        <include reference="a0s-MG-xJ8"/>
+                                    </mask>
+                                </variation>
+                            </tableView>
+                        </subviews>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="x9z-NU-QoX" firstAttribute="top" secondItem="zDw-be-opy" secondAttribute="topMargin" constant="101" id="cuD-GP-uIx"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="x9z-NU-QoX"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="cuD-GP-uIx"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="x9z-NU-QoX"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="cuD-GP-uIx"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xph-O8-dcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -552,7 +595,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Recent Posts" id="zg4-vE-x5A">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="FNg-wJ-k1M">
+                        <barButtonItem key="leftBarButtonItem" image="threelines.png" id="FNg-wJ-k1M">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="profile:" destination="QYY-GH-OmI" id="qSm-kZ-w30"/>
                             </connections>
@@ -785,5 +829,6 @@
     </scenes>
     <resources>
         <image name="Leaf.png" width="98" height="57"/>
+        <image name="threelines.png" width="44" height="29"/>
     </resources>
 </document>
