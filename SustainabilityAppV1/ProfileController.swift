@@ -11,7 +11,9 @@ import UIKit
 class ProfileController: UIViewController{
     let slide:CGFloat = 60
     let buttonHeight:String = "25"
-    
+    let barColor:UIColor =  UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
+    let backgroundColor:UIColor = UIColor.lightGrayColor()
+    let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
         let navController = UINavigationController(rootViewController: VC1)
@@ -26,11 +28,25 @@ class ProfileController: UIViewController{
         self.presentViewController(navController, animated:true, completion: nil)
 
     }
+    @IBAction func logout(sender: AnyObject) {
+        /*
+        var alert = UIAlertController(title:nil, message: "Are you sure you wish to logout?", preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as ViewController
+            let navController = UINavigationController(rootViewController: VC1)
+            // Creating a navigation controller with VC1 at the root of the navigation stack.
+            self.presentViewController(navController, animated:true, completion: nil)
+
+            
+        }))
+    */
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         makeLayout()
-        println("view did load")
-        println(self.navigationController?.navigationBar.frame.size.height)
+ 
       
         
         // Do any additional setup after loading the view.
@@ -43,7 +59,6 @@ class ProfileController: UIViewController{
     }
     //why is it making the layout wrong the first time
     func makeLayout() {
-        println("make Layout called")
         self.view.backgroundColor = UIColor.whiteColor()
 
         let screenSize: CGRect = UIScreen.mainScreen().bounds
@@ -53,12 +68,16 @@ class ProfileController: UIViewController{
         let editProfileHeight = 64
         let distanceFromTopVal  = 20
         let distanceBetweenButtonsVal = 1
-        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*2) - editProfileHeight - distanceBetweenButtonsVal   // this might not work because we have to account for how long the list view is in this
+        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*4) - editProfileHeight - distanceBetweenButtonsVal*3   // this might not work because we have to account for how long the list view is in this
         let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view2 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view3 = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        let logoutButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        let postsLabel = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        
+       // let yourPosts = UILabel as UILabel
        // var tableView:UITableView
-        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3]
+        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight ]
     
@@ -67,7 +86,7 @@ class ProfileController: UIViewController{
         view1.setTitleColor(UIColor.darkGrayColor(), forState: nil)
         view1.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 24)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view1.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
+        view1.backgroundColor = barColor
         view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -22, 0)
         view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         //view1.setTitleColor(color:UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -78,24 +97,48 @@ class ProfileController: UIViewController{
         view1.addConstraints(view1_constraint_V)
         //create a post
         view2.setTitle("Create a Post ➕", forState: UIControlState.Normal)
-        view2.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 20)
+        view2.titleLabel!.font = buttonFont
         view2.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view2.backgroundColor = UIColor.lightGrayColor()
+        view2.backgroundColor = backgroundColor
         view2.addTarget(self, action: "newPost:", forControlEvents: UIControlEvents.TouchUpInside)
         let view2_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view2(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let view2_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view2(viewHeight)]", options:
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         view2.addConstraints(view2_constraint_H)
         view2.addConstraints(view2_constraint_V)
+        //Posts label
+        postsLabel.setTitle("Your Posts", forState: UIControlState.Normal)
+        postsLabel.titleLabel!.font = buttonFont
+        postsLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        postsLabel.backgroundColor = backgroundColor
+        postsLabel.userInteractionEnabled = false
+  
+        let postsLabel_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[postsLabel(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let postsLabel_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[postsLabel(viewHeight)]", options:
+            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        postsLabel.addConstraints(postsLabel_constraint_H)
+        postsLabel.addConstraints(postsLabel_constraint_V)
+        //Logout
+        logoutButton.setTitle("Logout", forState: UIControlState.Normal)
+        logoutButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        logoutButton.backgroundColor = backgroundColor
+        logoutButton.addTarget(self, action: "logout:", forControlEvents: UIControlEvents.TouchUpInside)
+        let logout_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[logoutButton(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let logout_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[logoutButton(viewHeight)]", options:
+            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        logoutButton.titleLabel!.font = buttonFont
+        logoutButton.addConstraints(logout_constraint_H)
+        logoutButton.addConstraints(logout_constraint_V)
+
         //Help & FAQ
         view3.setTitle("Help & FAQ", forState: UIControlState.Normal)
         view3.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view3.backgroundColor = UIColor.lightGrayColor()
+        view3.backgroundColor = backgroundColor
         view3.addTarget(self, action: "helpAndFAQ:", forControlEvents: UIControlEvents.TouchUpInside)
         let view3_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view3(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let view3_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view3(viewHeight)]", options:
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-        view3.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 20)
+        view3.titleLabel!.font = buttonFont
         view3.addConstraints(view3_constraint_H)
         view3.addConstraints(view3_constraint_V)
 
@@ -109,13 +152,14 @@ class ProfileController: UIViewController{
         view.addSubview(view1)
         view.addSubview(view2)
         view.addSubview(view3)
+        view.addSubview(postsLabel)
+        view.addSubview(logoutButton)
 
         //spaces it away from the top a little bit
         //this seems to be breaking the code right now
-        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-bottomHeight-[view3]|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-bottomHeight-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
         
         view.addConstraints(view_constraint_V)
-        println("make layout finished")
     }
 
     override func didReceiveMemoryWarning() {
