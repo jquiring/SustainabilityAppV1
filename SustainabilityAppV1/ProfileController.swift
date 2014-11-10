@@ -9,10 +9,12 @@
 import UIKit
 
 class ProfileController: UIViewController{
+    @IBOutlet weak var table: UITableView!
+    
     let slide:CGFloat = 60
     let buttonHeight:String = "25"
     let barColor:UIColor =  UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
-    let backgroundColor:UIColor = UIColor.lightGrayColor()
+    let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
@@ -59,16 +61,16 @@ class ProfileController: UIViewController{
     }
     //why is it making the layout wrong the first time
     func makeLayout() {
-        self.view.backgroundColor = UIColor.whiteColor()
-
+        //self.view.backgroundColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
+        self.view.backgroundColor = UIColor.lightGrayColor()
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width - slide;
         let screenHeight = screenSize.height
         let buttonHeight = 35
-        let editProfileHeight = 64
+        let editProfileHeight = 64  
         let distanceFromTopVal  = 20
         let distanceBetweenButtonsVal = 1
-        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*4) - editProfileHeight - distanceBetweenButtonsVal*3   // this might not work because we have to account for how long the list view is in this
+        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*4) - editProfileHeight - distanceBetweenButtonsVal*5   // this might not work because we have to account for how long the list view is in this
         let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view2 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view3 = UIButton.buttonWithType(UIButtonType.System) as UIButton
@@ -77,7 +79,7 @@ class ProfileController: UIViewController{
         
        // let yourPosts = UILabel as UILabel
        // var tableView:UITableView
-        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel]
+        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight ]
     
@@ -118,6 +120,16 @@ class ProfileController: UIViewController{
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         postsLabel.addConstraints(postsLabel_constraint_H)
         postsLabel.addConstraints(postsLabel_constraint_V)
+       
+        //table
+        println("table created")
+        table.setTranslatesAutoresizingMaskIntoConstraints(false)
+        let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let table_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[table(bottomHeight)]", options:
+            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        table.addConstraints(table_constraint_H)
+        table.addConstraints(table_constraint_V)
+
         //Logout
         logoutButton.setTitle("Logout", forState: UIControlState.Normal)
         logoutButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -153,11 +165,12 @@ class ProfileController: UIViewController{
         view.addSubview(view2)
         view.addSubview(view3)
         view.addSubview(postsLabel)
+        view.addSubview(table)
         view.addSubview(logoutButton)
 
         //spaces it away from the top a little bit
         //this seems to be breaking the code right now
-        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-bottomHeight-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
         
         view.addConstraints(view_constraint_V)
     }
