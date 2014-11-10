@@ -16,6 +16,7 @@ class ProfileController: UIViewController{
     let barColor:UIColor =  UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
+    let labelFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 16)
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
         let navController = UINavigationController(rootViewController: VC1)
@@ -67,10 +68,11 @@ class ProfileController: UIViewController{
         let screenWidth = screenSize.width - slide;
         let screenHeight = screenSize.height
         let buttonHeight = 35
+        let labelHeight = 25
         let editProfileHeight = 64  
         let distanceFromTopVal  = 20
         let distanceBetweenButtonsVal = 1
-        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*4) - editProfileHeight - distanceBetweenButtonsVal*5   // this might not work because we have to account for how long the list view is in this
+        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*5   // this might not work because we have to account for how long the list view is in this
         let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view2 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view3 = UIButton.buttonWithType(UIButtonType.System) as UIButton
@@ -81,7 +83,7 @@ class ProfileController: UIViewController{
        // var tableView:UITableView
         let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
-        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight ]
+        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight ]
     
         //edit profile
         view1.setTitle("⚙  Jake Q.", forState: UIControlState.Normal)
@@ -108,15 +110,16 @@ class ProfileController: UIViewController{
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         view2.addConstraints(view2_constraint_H)
         view2.addConstraints(view2_constraint_V)
+
         //Posts label
         postsLabel.setTitle("Your Posts", forState: UIControlState.Normal)
-        postsLabel.titleLabel!.font = buttonFont
+        postsLabel.titleLabel!.font = labelFont
         postsLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         postsLabel.backgroundColor = backgroundColor
         postsLabel.userInteractionEnabled = false
   
         let postsLabel_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[postsLabel(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-        let postsLabel_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[postsLabel(viewHeight)]", options:
+        let postsLabel_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[postsLabel(labelHeight)]", options:
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         postsLabel.addConstraints(postsLabel_constraint_H)
         postsLabel.addConstraints(postsLabel_constraint_V)
