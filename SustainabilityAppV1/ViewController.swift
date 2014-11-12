@@ -12,8 +12,8 @@ import Foundation
 class ViewController: UIViewController,UITextFieldDelegate {
 
     //LDAP Variables
-    let LDAPIP = "147.222.165.133:8000"
-    
+    let LDAPIP = "147.222.165.121:8000/ldapauth"
+    var flag = false
     
     
     @IBOutlet weak var email: UITextField!
@@ -26,14 +26,15 @@ class ViewController: UIViewController,UITextFieldDelegate {
         //set the incorrectLoginLabel.hidden = false if the login has failed
         var LDAPRequest = LDAPLogin()
         
-        if(true){
-           if(LDAPRequest.2 == "Yes"){
+        if(LDAPRequest.0 == 200){
+            print(LDAPRequest.1)
+           if(LDAPRequest.1 == "yes"){
                 var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("CenterViewController") as CenterViewController
                 let navController = UINavigationController(rootViewController: VC1)
                 self.presentViewController(navController, animated:true, completion: nil)
             }
-            else if (true){
-            //else if(LDAPRequest.2 == "No"){
+            //else if (true){
+            else if(LDAPRequest.1 == "no"){
                 //need to pass email in to create user page to send to DB ***************************************************
                 var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
                 let navController = UINavigationController(rootViewController: VC1)
@@ -49,7 +50,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         }
         else if(LDAPRequest.0 == 500){
             incorrectLoginLabel.hidden = false
-            incorrectLoginLabel.text = "Server Error: Please try again later"
+            incorrectLoginLabel.text = "Server Error2: Please try again later"
         }
         else{
             incorrectLoginLabel.hidden = false
@@ -63,15 +64,22 @@ class ViewController: UIViewController,UITextFieldDelegate {
             }))
 
     }
-    func LDAPLogin() -> (Int,String,String) {
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:2000/ldapauth/")!)
+    func LDAPLogin() -> (Int,String) {
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
-        var infEmail = ""
+        var username = ""
+        var first_name = ""
+        var last_name = ""
+        var g_email = ""
+        var p_email = ""
+        var phone = ""
         var existingUser = ""
         var params = ["username":email.text, "password":password.text] as Dictionary<String, String>
         var err: NSError?
         var returnVal = -1
+        var flag_Val = false
+        flag = false
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -79,6 +87,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             if let httpResponse = response as? NSHTTPURLResponse {
+                
                 var status_code = httpResponse.statusCode
                 var jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 var err: NSError?
@@ -95,22 +104,36 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         // Okay, the parsedJSON is here, let's get the value for 'success' out of it
                         //200 = OK, valid credentials
                         if(status_code == 200){
-                            if let email = parseJSON["email"] as? String{
-                                println("email: \(email)")
-                                infEmail = email
+                            if let _username = parseJSON["username"] as? String{
+                                username = _username
                             }
-                            //prints yes/no if user is in DB
-                            if let exists = parseJSON["exists"] as? String{
-                                println("exists: \(exists)")
-                                existingUser = exists
+                            if let first = parseJSON["first_name"] as? String{
+                                first_name = first
                             }
-                            if let message = parseJSON["message"] as? String{
-                                println("message: \(message)")
+                            if let last = parseJSON["last_name"] as? String{
+                                last_name = last
+                            }
+                            if let _g_email = parseJSON["g_email"] as? String{
+                                g_email = _g_email
+                            }
+                            if let _p_email = parseJSON["p_email"] as? String{
+                                p_email = _p_email
+                            }
+                            if let _phone = parseJSON["phone"] as? String{
+                                phone = _phone
+                            }
+                            if let _exists = parseJSON["exists"] as? String{
+                                existingUser = _exists
                             }
                             println("Valid credentials! Carry on to main page...")
                             returnVal = 200
-                            // The JSONObjectWithData constructor didn't return an error. But, we should still
-                            // check and make sure that json has a value using optional binding.
+                            NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username")
+                            NSUserDefaults.standardUserDefaults().setObject(first_name, forKey: "first_name")
+                            NSUserDefaults.standardUserDefaults().setObject(last_name, forKey: "last_name")
+                            NSUserDefaults.standardUserDefaults().setObject(g_email, forKey: "gonzaga_email")
+                            NSUserDefaults.standardUserDefaults().setObject(p_email, forKey: "pref_email")
+                            NSUserDefaults.standardUserDefaults().setObject(phone, forKey: "phone")
+                            flag_Val = true
                         }
                             //400 = BAD_REQUEST, invalid crentials
                         else if(status_code == 400){
@@ -118,53 +141,30 @@ class ViewController: UIViewController,UITextFieldDelegate {
                                 println("message: \(message)")
                             }
                             returnVal = 400
+                            flag_Val = true
                         }
                             //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
                         else if(status_code == 500){
                             println("The server is down! Call the fire!")
                             returnVal = 500
+                            flag_Val = true
                         }
                     }
                     else {
                         // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
                         let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                         println("Error could not parse JSON: \(jsonStr)")
+                        flag_Val = true
                     }
                 }
             }
         })
-
-        /*
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if let httpResponse = response as? NSHTTPURLResponse {
-                var status_code = httpResponse.statusCode
-                //200 = OK, valid credentials
-                if(status_code == 200){
-                    println("Valid credentials! Carry on to main page...")
-                    returnVal = 200
-                    
-                    
-                }
-                    //400 = BAD_REQUEST, invalid crentials
-                else if(status_code == 400){
-                    println("Invalid credentials, you are not allowed in!")
-                    returnVal = 400
-                }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println("The server is down! Call the fire!")
-                    returnVal = 500
-                }
-            } else {
-                println("Error in casting response, data incomplete")
-                returnVal = -1
-            }
-        })
-*/
         task.resume()
-        sleep(1)
+        while(flag == false){
+            flag = flag_Val
+        }
+        return (returnVal, existingUser)
         
-        return (returnVal , infEmail , existingUser)
     }
 
 
@@ -198,8 +198,6 @@ class ViewController: UIViewController,UITextFieldDelegate {
         }
         return true
     }
-
-
 
 }
 
