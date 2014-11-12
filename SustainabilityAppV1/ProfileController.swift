@@ -8,15 +8,15 @@
 
 import UIKit
 
-class ProfileController: UIViewController{
+class ProfileController: UIViewController, UITableViewDataSource,UITableViewDelegate{
     @IBOutlet weak var table: UITableView!
-    
+    var items = ["title 1","title 2","title 3"]
     let slide:CGFloat = 60
     let buttonHeight:String = "25"
     let barColor:UIColor =  UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
-    let labelFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 16)
+    let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
         let navController = UINavigationController(rootViewController: VC1)
@@ -49,7 +49,8 @@ class ProfileController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         makeLayout()
- 
+        self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
+        self.table.dataSource = self
       
         
         // Do any additional setup after loading the view.
@@ -117,7 +118,7 @@ class ProfileController: UIViewController{
         postsLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         postsLabel.backgroundColor = backgroundColor
         postsLabel.userInteractionEnabled = false
-  
+        postsLabel.backgroundColor = UIColor.whiteColor()
         let postsLabel_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[postsLabel(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let postsLabel_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[postsLabel(labelHeight)]", options:
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
@@ -193,7 +194,17 @@ class ProfileController: UIViewController{
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
     }
-
+    //table view functions
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell:UITableViewCell = self.table.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
+        cell.textLabel.text = self.items[indexPath.row]
+        return cell
+    
+    }
     /*
     // MARK: - Navigation
 
@@ -203,5 +214,6 @@ class ProfileController: UIViewController{
         // Pass the selected object to the new view controller.
     }
     */
+
 
 }
