@@ -17,6 +17,16 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
+    var arrayOfPosts: [ProfilePost] = [ProfilePost]()
+    
+    func setUpPosts(){
+        var post1 = ProfilePost(title: "Fresh Ass Bike", imageName: "bike.jpg")
+        var post2 = ProfilePost(title: "Cheap Tv for all you ladies out there", imageName: "tv.png")
+        var post3 = ProfilePost(title: "Hurt myself Skating -- Need to sell", imageName: "skateboard.jpg")
+        arrayOfPosts.append(post1)
+        arrayOfPosts.append(post2)
+        arrayOfPosts.append(post3)
+    }
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
         let navController = UINavigationController(rootViewController: VC1)
@@ -50,7 +60,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         super.viewDidLoad()
         makeLayout()
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
-        self.table.dataSource = self
+        self.setUpPosts()
       
         
         // Do any additional setup after loading the view.
@@ -196,12 +206,16 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     //table view functions
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return arrayOfPosts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell:UITableViewCell = self.table.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
-        cell.textLabel.text = self.items[indexPath.row]
+        let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as ProfilePostCell
+        let person = arrayOfPosts[indexPath.row]
+        cell.setCell(person.title, imageName: person.imageName)
+        
+        
+        
         return cell
     
     }
