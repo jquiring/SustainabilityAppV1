@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Ir-4E-hxe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -494,7 +495,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3484.5" y="-1576.5"/>
+            <point key="canvasLocation" x="3508.5" y="-1474.5"/>
         </scene>
         <!--Help and FAQ-->
         <scene sceneID="T1n-0e-JXg">
@@ -520,6 +521,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jk-JG-l1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4134" y="-2108.25"/>
+        </scene>
+        <!--Create a Post-->
+        <scene sceneID="Gei-Qe-ssp">
+            <objects>
+                <viewController storyboardIdentifier="create" id="Fun-kX-xLB" customClass="CreatePostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="l7a-wg-lkm"/>
+                        <viewControllerLayoutGuide type="bottom" id="kEO-qE-Y4S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="P8X-l9-qAa">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create a Post" id="StF-DU-xKs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ack-d3-aBF">
+                            <connections>
+                                <action selector="cancel:" destination="Fun-kX-xLB" id="eto-Iq-Pre"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mxr-yH-TYf">
+                            <connections>
+                                <action selector="save:" destination="Fun-kX-xLB" id="eal-nd-Rae"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cv9-5f-Ild" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2485.5" y="-2871.75"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
@@ -766,14 +796,22 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55l-gM-j6T">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.65098039220000004" green="0.85098039219999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="55l-gM-j6T" firstAttribute="top" secondItem="m2w-Xv-GQw" secondAttribute="bottom" constant="8" id="4lP-hN-Gdj"/>
                             <constraint firstItem="5g8-HC-xQW" firstAttribute="trailing" secondItem="R1i-ff-pgG" secondAttribute="trailing" id="A2F-ud-A5D"/>
                             <constraint firstItem="iyA-Cx-DgI" firstAttribute="top" secondItem="R1i-ff-pgG" secondAttribute="bottom" constant="1" id="DMW-CW-uyX">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="iyA-Cx-DgI" firstAttribute="leading" secondItem="iv7-PU-ieK" secondAttribute="leading" id="E9C-27-PWd"/>
+                            <constraint firstItem="55l-gM-j6T" firstAttribute="width" secondItem="m2w-Xv-GQw" secondAttribute="height" multiplier="27:5" id="GlW-yt-ced"/>
                             <constraint firstAttribute="centerX" secondItem="m2w-Xv-GQw" secondAttribute="centerX" id="Jbr-TL-eNA"/>
                             <constraint firstItem="iyA-Cx-DgI" firstAttribute="top" secondItem="iv7-PU-ieK" secondAttribute="bottom" constant="1" id="KhE-D7-bwv">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
@@ -785,6 +823,7 @@
                             </constraint>
                             <constraint firstItem="5g8-HC-xQW" firstAttribute="top" secondItem="edo-jK-Fun" secondAttribute="bottom" constant="35" id="fZe-or-a3E"/>
                             <constraint firstItem="R1i-ff-pgG" firstAttribute="top" secondItem="5g8-HC-xQW" secondAttribute="bottom" constant="5" id="g4D-Bg-PWW"/>
+                            <constraint firstItem="55l-gM-j6T" firstAttribute="centerX" secondItem="m2w-Xv-GQw" secondAttribute="centerX" id="tkD-Gq-qv9"/>
                             <constraint firstItem="m2w-Xv-GQw" firstAttribute="trailing" secondItem="iyA-Cx-DgI" secondAttribute="trailing" id="ytZ-8E-bDV"/>
                         </constraints>
                         <variation key="default">
@@ -794,9 +833,9 @@
                                 <exclude reference="iv7-PU-ieK"/>
                                 <exclude reference="m2w-Xv-GQw"/>
                                 <exclude reference="5g8-HC-xQW"/>
+                                <exclude reference="55l-gM-j6T"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="g4D-Bg-PWW"/>
                                 <exclude reference="DMW-CW-uyX"/>
                                 <exclude reference="E9C-27-PWd"/>
                                 <exclude reference="KhE-D7-bwv"/>
@@ -805,6 +844,10 @@
                                 <exclude reference="LMi-Kj-Spe"/>
                                 <exclude reference="V9t-xm-uD1"/>
                                 <exclude reference="ytZ-8E-bDV"/>
+                                <exclude reference="g4D-Bg-PWW"/>
+                                <exclude reference="4lP-hN-Gdj"/>
+                                <exclude reference="GlW-yt-ced"/>
+                                <exclude reference="tkD-Gq-qv9"/>
                                 <exclude reference="A2F-ud-A5D"/>
                                 <exclude reference="fZe-or-a3E"/>
                             </mask>
@@ -816,9 +859,9 @@
                                 <include reference="iv7-PU-ieK"/>
                                 <include reference="m2w-Xv-GQw"/>
                                 <include reference="5g8-HC-xQW"/>
+                                <include reference="55l-gM-j6T"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="g4D-Bg-PWW"/>
                                 <include reference="DMW-CW-uyX"/>
                                 <include reference="E9C-27-PWd"/>
                                 <include reference="KhE-D7-bwv"/>
@@ -827,6 +870,10 @@
                                 <include reference="LMi-Kj-Spe"/>
                                 <include reference="V9t-xm-uD1"/>
                                 <include reference="ytZ-8E-bDV"/>
+                                <include reference="g4D-Bg-PWW"/>
+                                <include reference="4lP-hN-Gdj"/>
+                                <include reference="GlW-yt-ced"/>
+                                <include reference="tkD-Gq-qv9"/>
                                 <include reference="A2F-ud-A5D"/>
                                 <include reference="fZe-or-a3E"/>
                             </mask>
@@ -849,7 +896,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBs-cn-jVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1116" y="-1487.25"/>
+            <point key="canvasLocation" x="522" y="-1829.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6eC-Vc-ezW">
@@ -862,7 +909,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="JVs-JV-sfn"/>
+                        <segue destination="Fun-kX-xLB" kind="relationship" relationship="rootViewController" id="TWO-vC-7Xh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>

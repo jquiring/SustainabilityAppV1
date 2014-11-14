@@ -23,6 +23,7 @@
 		F8B9FD8D1A1431B500DB75CC /* bike.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8A1A1431B500DB75CC /* bike.jpg */; };
 		F8B9FD8E1A1431B500DB75CC /* tv.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8B1A1431B500DB75CC /* tv.png */; };
 		F8B9FD8F1A1431B500DB75CC /* skateboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */; };
+		F8B9FD911A16BBF400DB75CC /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD901A16BBF400DB75CC /* CreatePostController.swift */; };
 		F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E426201A02EF0500B93D37 /* CenterViewController.swift */; };
 		F8F29BBE1A0AC555001CEF5F /* HelpAndFAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */; };
 		F8F29BC61A0B08C3001CEF5F /* TermsAndConditionsConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */; };
@@ -60,6 +61,7 @@
 		F8B9FD8A1A1431B500DB75CC /* bike.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bike.jpg; sourceTree = "<group>"; };
 		F8B9FD8B1A1431B500DB75CC /* tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tv.png; sourceTree = "<group>"; };
 		F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = skateboard.jpg; sourceTree = "<group>"; };
+		F8B9FD901A16BBF400DB75CC /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		F8E426201A02EF0500B93D37 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpAndFAQController.swift; sourceTree = "<group>"; };
 		F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsConroller.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */,
 				F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */,
 				F8B9FD881A14307900DB75CC /* ProfilePost.swift */,
+				F8B9FD901A16BBF400DB75CC /* CreatePostController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -270,6 +273,7 @@
 				F8B9FD871A14215300DB75CC /* ProfilePostCell.swift in Sources */,
 				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 				F840537E1A070ED5007D671A /* ProfileController.swift in Sources */,
+				F8B9FD911A16BBF400DB75CC /* CreatePostController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
