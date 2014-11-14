@@ -128,10 +128,10 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
                 showShadowForCenterViewController(true)
             }
         case .Changed:
-            if(!gestureIsDraggingFromLeftToRight) {
+            //if(!gestureIsDraggingFromLeftToRight) {
                 recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
                 recognizer.setTranslation(CGPointZero, inView: view)
-            }
+           // }
         case .Ended:
             if (leftViewController != nil) {
                 // animate the side panel open or closed based on whether the view has moved more or less than halfway

@@ -11,9 +11,10 @@ import Foundation
 class ProfilePost {
     var title = "title"
     var imageName = "blank"
-    
-    init(title:String,imageName:String){
+    var id = ""
+    init(title:String,imageName:String,id:String){
         self.title = title
         self.imageName = imageName
+        self.id = id
     }
 }

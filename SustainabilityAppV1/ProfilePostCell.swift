@@ -24,9 +24,10 @@ class ProfilePostCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    func setCell(title:String,imageName:String){
+    func setCell(title:String,imageName:String,id:String){
         self.title.text = title
         self.itemImage.image  = UIImage(named:imageName)
+        self.restorationIdentifier = id
     }
 
 }

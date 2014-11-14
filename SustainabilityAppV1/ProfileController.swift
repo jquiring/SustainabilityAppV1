@@ -20,9 +20,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var arrayOfPosts: [ProfilePost] = [ProfilePost]()
     
     func setUpPosts(){
-        var post1 = ProfilePost(title: "Fresh Ass Bike", imageName: "bike.jpg")
-        var post2 = ProfilePost(title: "Cheap Tv for all you ladies out there", imageName: "tv.png")
-        var post3 = ProfilePost(title: "Hurt myself Skating -- Need to sell", imageName: "skateboard.jpg")
+        var post1 = ProfilePost(title: "Fresh Ass Bike", imageName: "bike.jpg",id:"id1")
+        var post2 = ProfilePost(title: "Cheap Tv for all you ladies out there and now the title is a litte bit bigger", imageName: "tv.png",id:"id2")
+        var post3 = ProfilePost(title: "Hurt myself Skating -- Need to sell", imageName: "skateboard.jpg",id:"id3")
         arrayOfPosts.append(post1)
         arrayOfPosts.append(post2)
         arrayOfPosts.append(post3)
@@ -58,15 +58,19 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setUpPosts()
         makeLayout()
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
-        self.setUpPosts()
-      
+        //view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        table.dataSource = self
+        table.delegate = self
+        self.table.tableFooterView = UIView()
+        
         
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {
-        
+    
     }
     @IBAction func newPost(sender: AnyObject) {
         //Code to bring up new post page
@@ -80,24 +84,33 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let screenHeight = screenSize.height
         let buttonHeight = 35
         let labelHeight = 25
+        let noPostsHeight = 42
         let editProfileHeight = 64  
         let distanceFromTopVal  = 20
         let distanceBetweenButtonsVal = 1
-        let bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*5   // this might not work because we have to account for how long the list view is in this
+        var bottomButtonPlacement = 0
+        if(arrayOfPosts.count == 0){
+             bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - noPostsHeight - editProfileHeight - distanceBetweenButtonsVal*4
+        }
+        else {
+             bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*4
+        }
+        println (bottomButtonPlacement)// this might not work because we have to account for how long the list view is in this
         let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view2 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view3 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let logoutButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let postsLabel = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        let noPosts = UIButton.buttonWithType(UIButtonType.System) as UIButton
         
        // let yourPosts = UILabel as UILabel
        // var tableView:UITableView
-        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table]
+        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
-        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight ]
-    
+        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceFromTop": distanceFromTopVal,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight ]
+        
         //edit profile
-        view1.setTitle("⚙  Jake Q.", forState: UIControlState.Normal)
+        view1.setTitle("⚙  John D.", forState: UIControlState.Normal)
         view1.setTitleColor(UIColor.darkGrayColor(), forState: nil)
         view1.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 24)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -134,9 +147,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         postsLabel.addConstraints(postsLabel_constraint_H)
         postsLabel.addConstraints(postsLabel_constraint_V)
-       
+
         //table
         println("table created")
+        
         table.setTranslatesAutoresizingMaskIntoConstraints(false)
         let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let table_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[table(bottomHeight)]", options:
@@ -181,38 +195,48 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view.addSubview(postsLabel)
         view.addSubview(table)
         view.addSubview(logoutButton)
-
+        if(arrayOfPosts.count == 0){
+            //No posts
+            noPosts.setTitle("You currently have no posts", forState: UIControlState.Normal)
+            noPosts.titleLabel!.font = labelFont
+            noPosts.setTranslatesAutoresizingMaskIntoConstraints(false)
+            noPosts.backgroundColor = backgroundColor
+            noPosts.userInteractionEnabled = false
+            let noPosts_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[noPosts(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+            let noPosts_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[noPosts(noPostsHeight)]", options:
+                NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+            noPosts.addConstraints(noPosts_constraint_H)
+            noPosts.addConstraints(noPosts_constraint_V)
+            view.addSubview(noPosts)
+            self.table.hidden = true
+            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[noPosts]-bottomHeight-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+            view.addConstraints(view_constraint_V)
+        }
+        else {
         //spaces it away from the top a little bit
         //this seems to be breaking the code right now
-        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-bottomHeight-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
         
-        view.addConstraints(view_constraint_V)
+            view.addConstraints(view_constraint_V)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
+
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        return nil
-    }
-    
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        
-    }
     //table view functions
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfPosts.count
+        return 3
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as ProfilePostCell
         let person = arrayOfPosts[indexPath.row]
-        cell.setCell(person.title, imageName: person.imageName)
+        cell.setCell(person.title, imageName: person.imageName,id:person.id)
+        cell.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         
         
