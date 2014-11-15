@@ -520,12 +520,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jk-JG-l1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4134" y="-2108.25"/>
+            <point key="canvasLocation" x="4287" y="-1474.5"/>
         </scene>
         <!--Create a Post-->
         <scene sceneID="Gei-Qe-ssp">
             <objects>
-                <viewController storyboardIdentifier="create" id="Fun-kX-xLB" customClass="CreatePostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="create" id="Fun-kX-xLB" customClass="CreatPostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l7a-wg-lkm"/>
                         <viewControllerLayoutGuide type="bottom" id="kEO-qE-Y4S"/>
@@ -533,7 +533,55 @@
                     <view key="view" contentMode="scaleToFill" id="P8X-l9-qAa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lNK-sq-lwk">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="328" width="216" height="30"/>
+                                </variation>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6qX-bz-cuZ">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="366" width="368" height="30"/>
+                                </variation>
+                            </textField>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9a-zS-hVj">
+                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="64" width="400" height="162"/>
+                                </variation>
+                            </pickerView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EDA-gQ-KOB">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="496" width="368" height="30"/>
+                                </variation>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="lNK-sq-lwk"/>
+                                <exclude reference="6qX-bz-cuZ"/>
+                                <exclude reference="c9a-zS-hVj"/>
+                                <exclude reference="EDA-gQ-KOB"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="lNK-sq-lwk"/>
+                                <include reference="6qX-bz-cuZ"/>
+                                <include reference="c9a-zS-hVj"/>
+                                <include reference="EDA-gQ-KOB"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Create a Post" id="StF-DU-xKs">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ack-d3-aBF">
@@ -547,10 +595,15 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cat_picker" destination="c9a-zS-hVj" id="VJn-vW-u2N"/>
+                        <outlet property="desc_field" destination="6qX-bz-cuZ" id="Ndb-P8-2b9"/>
+                        <outlet property="title_field" destination="lNK-sq-lwk" id="hv7-KA-2fR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cv9-5f-Ild" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2485.5" y="-2871.75"/>
+            <point key="canvasLocation" x="4096.5" y="-2243.25"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
@@ -797,11 +850,14 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55l-gM-j6T">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55l-gM-j6T">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="185" width="368" height="21"/>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.65098039220000004" green="0.85098039219999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -894,6 +950,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="error_label" destination="55l-gM-j6T" id="YQI-rf-6Tz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBs-cn-jVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -916,6 +975,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3202.5" y="-2243.25"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="y5e-RH-iPQ">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="AW0-aJ-URq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qro-Id-gPg"/>
+                        <viewControllerLayoutGuide type="bottom" id="CIr-He-H4j"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1qa-So-nH5">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0IT-H6-gPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4899" y="-2243.625"/>
         </scene>
     </scenes>
     <resources>
