@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginController.swift
 //  SustainabilityAppV1
 //
 //  Created by Jake Quiring on 10/20/14.
@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class ViewController: UIViewController,UITextFieldDelegate {
+class LoginController: UIViewController,UITextFieldDelegate {
 
     //LDAP Variables
     let LDAPIP = "147.222.165.121:8000/ldapauth"

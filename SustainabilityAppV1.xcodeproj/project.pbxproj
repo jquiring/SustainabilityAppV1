@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
 		CA6DBE461A101C15000CCFDF /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = CA6DBE451A101C15000CCFDF /* threelines.png */; };
+		CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
+		CAF78C9E1A196B5C00787075 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9D1A196B5C00787075 /* CreatePostController.swift */; };
 		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537B1A07025A007D671A /* ContainerViewController.swift */; };
 		F840537E1A070ED5007D671A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537D1A070ED5007D671A /* ProfileController.swift */; };
 		F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
-		F892C94D19F59B4200113C26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94C19F59B4200113C26 /* ViewController.swift */; };
 		F892C95019F59B4200113C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F892C94E19F59B4200113C26 /* Main.storyboard */; };
 		F892C95219F59B4200113C26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F892C95119F59B4200113C26 /* Images.xcassets */; };
 		F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F892C95319F59B4200113C26 /* LaunchScreen.xib */; };
@@ -23,7 +24,6 @@
 		F8B9FD8D1A1431B500DB75CC /* bike.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8A1A1431B500DB75CC /* bike.jpg */; };
 		F8B9FD8E1A1431B500DB75CC /* tv.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8B1A1431B500DB75CC /* tv.png */; };
 		F8B9FD8F1A1431B500DB75CC /* skateboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */; };
-		F8B9FD911A16BBF400DB75CC /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD901A16BBF400DB75CC /* CreatePostController.swift */; };
 		F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E426201A02EF0500B93D37 /* CenterViewController.swift */; };
 		F8F29BBE1A0AC555001CEF5F /* HelpAndFAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */; };
 		F8F29BC61A0B08C3001CEF5F /* TermsAndConditionsConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */; };
@@ -43,13 +43,14 @@
 /* Begin PBXFileReference section */
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
 		CA6DBE451A101C15000CCFDF /* threelines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = threelines.png; sourceTree = "<group>"; };
+		CAF78C9B1A196A1E00787075 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		CAF78C9D1A196B5C00787075 /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
 		F840537B1A07025A007D671A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F840537D1A070ED5007D671A /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		F892C94519F59B4100113C26 /* SustainabilityAppV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SustainabilityAppV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C94919F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C94A19F59B4200113C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F892C94C19F59B4200113C26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F892C94F19F59B4200113C26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F892C95119F59B4200113C26 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F892C95419F59B4200113C26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -61,7 +62,6 @@
 		F8B9FD8A1A1431B500DB75CC /* bike.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bike.jpg; sourceTree = "<group>"; };
 		F8B9FD8B1A1431B500DB75CC /* tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tv.png; sourceTree = "<group>"; };
 		F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = skateboard.jpg; sourceTree = "<group>"; };
-		F8B9FD901A16BBF400DB75CC /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		F8E426201A02EF0500B93D37 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpAndFAQController.swift; sourceTree = "<group>"; };
 		F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsConroller.swift; sourceTree = "<group>"; };
@@ -107,10 +107,10 @@
 		F892C94719F59B4200113C26 /* SustainabilityAppV1 */ = {
 			isa = PBXGroup;
 			children = (
+				CAF78C9B1A196A1E00787075 /* LoginController.swift */,
 				F892C94A19F59B4200113C26 /* AppDelegate.swift */,
 				F892C94E19F59B4200113C26 /* Main.storyboard */,
 				F892C95319F59B4200113C26 /* LaunchScreen.xib */,
-				F892C94C19F59B4200113C26 /* ViewController.swift */,
 				F811B15219FECE34005EDE59 /* NewUserController.swift */,
 				F8E426201A02EF0500B93D37 /* CenterViewController.swift */,
 				F840537B1A07025A007D671A /* ContainerViewController.swift */,
@@ -120,8 +120,8 @@
 				F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */,
 				F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */,
 				F8B9FD881A14307900DB75CC /* ProfilePost.swift */,
-				F8B9FD901A16BBF400DB75CC /* CreatePostController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
+				CAF78C9D1A196B5C00787075 /* CreatePostController.swift */,
 			);
 			path = SustainabilityAppV1;
 			sourceTree = "<group>";
@@ -263,8 +263,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B9FD891A14307900DB75CC /* ProfilePost.swift in Sources */,
-				F892C94D19F59B4200113C26 /* ViewController.swift in Sources */,
 				F8F43F7A1A080AB800C56D2D /* EditUserController.swift in Sources */,
+				CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */,
 				F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */,
 				F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */,
 				F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */,
@@ -273,7 +273,7 @@
 				F8B9FD871A14215300DB75CC /* ProfilePostCell.swift in Sources */,
 				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 				F840537E1A070ED5007D671A /* ProfileController.swift in Sources */,
-				F8B9FD911A16BBF400DB75CC /* CreatePostController.swift in Sources */,
+				CAF78C9E1A196B5C00787075 /* CreatePostController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
