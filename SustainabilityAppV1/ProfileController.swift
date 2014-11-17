@@ -58,7 +58,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpPosts()
+        //self.setUpPosts()
         makeLayout()
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
         //view.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -88,15 +88,16 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let buttonHeight = 35
         let labelHeight = 25
         let noPostsHeight = 42
-        let editProfileHeight = 64  
+        let editProfileHeight = 64
+        let twitterFeedHeight = 20
         //let distanceFromTopVal  = 20
         let distanceBetweenButtonsVal = 1
         var bottomButtonPlacement = 0
         if(arrayOfPosts.count == 0){
-             bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - noPostsHeight - editProfileHeight - distanceBetweenButtonsVal*6
+             bottomButtonPlacement = Int(screenHeight) - twitterFeedHeight - (buttonHeight*3) - labelHeight - noPostsHeight - editProfileHeight - distanceBetweenButtonsVal*7
         }
         else {
-             bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*4
+             bottomButtonPlacement = Int(screenHeight) - twitterFeedHeight - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*6
         }
         println (bottomButtonPlacement)// this might not work because we have to account for how long the list view is in this
         let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
@@ -106,12 +107,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let postsLabel = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let noPosts = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let filler = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        
+        let twitterFeed = UIButton.buttonWithType(UIButtonType.System) as UIButton
        // let yourPosts = UILabel as UILabel
        // var tableView:UITableView
-        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts,"filler":filler]
+        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts,"filler":filler,"twitterFeed":twitterFeed]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
-        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight ]
+        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight,"twitterFeedHeight":twitterFeedHeight ]
         
         //edit profile
         view1.setTitle("⚙  John D.", forState: UIControlState.Normal)
@@ -163,7 +164,18 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         table.addConstraints(table_constraint_H)
         //table.addConstraints(table_constraint_V)
         
-        
+        //twitterFeed
+        twitterFeed.setTitle("@ZagsGoGreen", forState: UIControlState.Normal)
+        twitterFeed.titleLabel!.font = UIFont(name: "HelveticaNeue-UltraLight",size: 15)
+        twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
+        twitterFeed.backgroundColor = backgroundColor
+        twitterFeed.userInteractionEnabled = false
+        twitterFeed.backgroundColor = UIColor.whiteColor()
+        let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let twitterFeed_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[twitterFeed(twitterFeedHeight)]", options:
+            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        twitterFeed.addConstraints(twitterFeed_constraint_H)
+        twitterFeed.addConstraints(twitterFeed_constraint_V)
         //Logout
         logoutButton.setTitle("Logout", forState: UIControlState.Normal)
         logoutButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -201,6 +213,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view.addSubview(postsLabel)
         view.addSubview(table)
         view.addSubview(logoutButton)
+        view.addSubview(twitterFeed)
         if(arrayOfPosts.count == 0){
             //No posts
             table.removeFromSuperview()
@@ -228,13 +241,13 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             filler.addConstraints(filler_constraint_H)
             filler.addConstraints(filler_constraint_V)
             view.addSubview(filler)
-            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[noPosts]-distanceBetweenButtons-[filler]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[noPosts]-distanceBetweenButtons-[filler]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
             view.addConstraints(view_constraint_V)
         }
         else {
         //spaces it away from the top a little bit
         //this seems to be breaking the code right now
-            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
         
             view.addConstraints(view_constraint_V)
         }
@@ -248,7 +261,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     
     //table view functions
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 0
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
