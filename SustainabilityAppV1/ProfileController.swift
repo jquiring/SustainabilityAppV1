@@ -73,7 +73,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     
     }
     @IBAction func newPost(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as CreatePostController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as CreatePostViewController
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
@@ -99,7 +99,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         else {
              bottomButtonPlacement = Int(screenHeight) - twitterFeedHeight - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*6
         }
-        println (bottomButtonPlacement)// this might not work because we have to account for how long the list view is in this
         let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view2 = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let view3 = UIButton.buttonWithType(UIButtonType.System) as UIButton
@@ -153,9 +152,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         postsLabel.addConstraints(postsLabel_constraint_H)
         postsLabel.addConstraints(postsLabel_constraint_V)
 
-        
-        println("table created")
-        
         table.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)

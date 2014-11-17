@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
+		CA3043CB1A1A969E00379C03 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3043CA1A1A969E00379C03 /* CreatePostViewController.swift */; };
 		CA6DBE461A101C15000CCFDF /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = CA6DBE451A101C15000CCFDF /* threelines.png */; };
 		CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
-		CAF78CA01A19738300787075 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9F1A19738300787075 /* CreatePostController.swift */; };
 		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537B1A07025A007D671A /* ContainerViewController.swift */; };
 		F840537E1A070ED5007D671A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537D1A070ED5007D671A /* ProfileController.swift */; };
@@ -42,9 +42,9 @@
 
 /* Begin PBXFileReference section */
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
+		CA3043CA1A1A969E00379C03 /* CreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		CA6DBE451A101C15000CCFDF /* threelines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = threelines.png; sourceTree = "<group>"; };
 		CAF78C9B1A196A1E00787075 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		CAF78C9F1A19738300787075 /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
 		F840537B1A07025A007D671A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F840537D1A070ED5007D671A /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 				F840537D1A070ED5007D671A /* ProfileController.swift */,
 				F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */,
 				F8B9FD881A14307900DB75CC /* ProfilePost.swift */,
-				CAF78C9F1A19738300787075 /* CreatePostController.swift */,
+				CA3043CA1A1A969E00379C03 /* CreatePostViewController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -263,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B9FD891A14307900DB75CC /* ProfilePost.swift in Sources */,
+				CA3043CB1A1A969E00379C03 /* CreatePostViewController.swift in Sources */,
 				F8F43F7A1A080AB800C56D2D /* EditUserController.swift in Sources */,
 				CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */,
 				F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */,
@@ -273,7 +274,6 @@
 				F8B9FD871A14215300DB75CC /* ProfilePostCell.swift in Sources */,
 				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 				F840537E1A070ED5007D671A /* ProfileController.swift in Sources */,
-				CAF78CA01A19738300787075 /* CreatePostController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
