@@ -522,35 +522,81 @@
             </objects>
             <point key="canvasLocation" x="4287" y="-1474.5"/>
         </scene>
-        <!--Create a Post-->
-        <scene sceneID="Gei-Qe-ssp">
+        <!--Create Post Controller-->
+        <scene sceneID="dxu-qq-gZP">
             <objects>
-                <viewController storyboardIdentifier="create" id="Fun-kX-xLB" customClass="CreatePostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="l7a-wg-lkm"/>
-                        <viewControllerLayoutGuide type="bottom" id="kEO-qE-Y4S"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="P8X-l9-qAa">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <tableViewController storyboardIdentifier="create" id="yGk-zX-4Lf" customClass="CreatePostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JMo-K8-ay0">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Create a Post" id="StF-DU-xKs">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ack-d3-aBF">
-                            <connections>
-                                <action selector="cancel:" destination="Fun-kX-xLB" id="eto-Iq-Pre"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mxr-yH-TYf">
-                            <connections>
-                                <action selector="save:" destination="Fun-kX-xLB" id="eal-nd-Rae"/>
-                            </connections>
-                        </barButtonItem>
+                        <sections>
+                            <tableViewSection headerTitle="Category" id="cGx-Rc-7r6">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="147" id="TLb-Tu-Qdj">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TLb-Tu-Qdj" id="u1V-LY-GE7">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMQ-Ub-jBR">
+                                                    <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="0.0" y="-6" width="400" height="180"/>
+                                                    </variation>
+                                                </pickerView>
+                                            </subviews>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="PMQ-Ub-jBR"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="PMQ-Ub-jBR"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Section-2" id="JzQ-3K-tCq">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KPa-cI-HPa">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KPa-cI-HPa" id="b89-eH-mvD">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3cB-6x-YlK">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3cB-6x-YlK" id="S8X-ix-D2r">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="cUq-6E-7qk">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cUq-6E-7qk" id="9bk-6E-ZLh">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="yGk-zX-4Lf" id="UlD-Mm-Ick"/>
+                            <outlet property="delegate" destination="yGk-zX-4Lf" id="h6K-XL-uKb"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="eNX-4X-V5C">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="AKT-JU-u5T"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="lsI-If-34L"/>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cv9-5f-Ild" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="cat_picker" destination="PMQ-Ub-jBR" id="GYF-cw-ehX"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wkp-Eu-4mL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4096.5" y="-2243.25"/>
+            <point key="canvasLocation" x="3988.5" y="-2243.25"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
@@ -913,31 +959,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Fun-kX-xLB" kind="relationship" relationship="rootViewController" id="TWO-vC-7Xh"/>
+                        <segue destination="yGk-zX-4Lf" kind="relationship" relationship="rootViewController" id="aAk-Dd-iqT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3202.5" y="-2243.25"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="y5e-RH-iPQ">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="AW0-aJ-URq" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Qro-Id-gPg"/>
-                        <viewControllerLayoutGuide type="bottom" id="CIr-He-H4j"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1qa-So-nH5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0IT-H6-gPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4899" y="-2243.625"/>
         </scene>
     </scenes>
     <resources>
