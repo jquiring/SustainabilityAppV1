@@ -527,6 +527,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="create" id="yGk-zX-4Lf" customClass="CreatePostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JMo-K8-ay0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -539,8 +540,19 @@
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMQ-Ub-jBR">
                                                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="PMQ-Ub-jBR" secondAttribute="height" multiplier="20:9" id="Mz7-Pa-wF6"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Mz7-Pa-wF6"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
                                                         <rect key="frame" x="0.0" y="-6" width="400" height="180"/>
+                                                        <mask key="constraints">
+                                                            <include reference="Mz7-Pa-wF6"/>
+                                                        </mask>
                                                     </variation>
                                                 </pickerView>
                                             </subviews>
@@ -587,8 +599,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="eNX-4X-V5C">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="AKT-JU-u5T"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="lsI-If-34L"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="AKT-JU-u5T">
+                            <connections>
+                                <action selector="cancel:" destination="yGk-zX-4Lf" id="hBn-pg-xb9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="lsI-If-34L">
+                            <connections>
+                                <action selector="save:" destination="yGk-zX-4Lf" id="7dW-4V-Lt0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cat_picker" destination="PMQ-Ub-jBR" id="GYF-cw-ehX"/>
@@ -596,7 +616,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkp-Eu-4mL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3988.5" y="-2243.25"/>
+            <point key="canvasLocation" x="3786" y="-2238.75"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
