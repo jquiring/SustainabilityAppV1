@@ -23,11 +23,13 @@ class EditUserController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        /*
         first_name.text = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
         last_name.text = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
         phone_number.text = NSUserDefaults.standardUserDefaults().objectForKey("phone") as String
         email.text = NSUserDefaults.standardUserDefaults().objectForKey("pref_email") as String
         error_label.hidden = true
+*/
 
     }
 
