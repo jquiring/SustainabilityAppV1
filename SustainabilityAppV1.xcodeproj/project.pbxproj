@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
-		CA3043CB1A1A969E00379C03 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3043CA1A1A969E00379C03 /* CreatePostViewController.swift */; };
 		CA6DBE461A101C15000CCFDF /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = CA6DBE451A101C15000CCFDF /* threelines.png */; };
 		CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
 		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
@@ -19,6 +18,7 @@
 		F892C95219F59B4200113C26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F892C95119F59B4200113C26 /* Images.xcassets */; };
 		F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F892C95319F59B4200113C26 /* LaunchScreen.xib */; };
 		F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */; };
+		F8AE49251A1D5D9E00070211 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE49241A1D5D9E00070211 /* CreatePostController.swift */; };
 		F8B9FD871A14215300DB75CC /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */; };
 		F8B9FD891A14307900DB75CC /* ProfilePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD881A14307900DB75CC /* ProfilePost.swift */; };
 		F8B9FD8D1A1431B500DB75CC /* bike.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8A1A1431B500DB75CC /* bike.jpg */; };
@@ -42,7 +42,6 @@
 
 /* Begin PBXFileReference section */
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
-		CA3043CA1A1A969E00379C03 /* CreatePostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		CA6DBE451A101C15000CCFDF /* threelines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = threelines.png; sourceTree = "<group>"; };
 		CAF78C9B1A196A1E00787075 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
@@ -57,6 +56,7 @@
 		F892C95A19F59B4200113C26 /* SustainabilityAppV1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SustainabilityAppV1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C95F19F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustainabilityAppV1Tests.swift; sourceTree = "<group>"; };
+		F8AE49241A1D5D9E00070211 /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePostCell.swift; sourceTree = "<group>"; };
 		F8B9FD881A14307900DB75CC /* ProfilePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePost.swift; sourceTree = "<group>"; };
 		F8B9FD8A1A1431B500DB75CC /* bike.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bike.jpg; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 				F840537D1A070ED5007D671A /* ProfileController.swift */,
 				F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */,
 				F8B9FD881A14307900DB75CC /* ProfilePost.swift */,
-				CA3043CA1A1A969E00379C03 /* CreatePostViewController.swift */,
+				F8AE49241A1D5D9E00070211 /* CreatePostController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -263,7 +263,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B9FD891A14307900DB75CC /* ProfilePost.swift in Sources */,
-				CA3043CB1A1A969E00379C03 /* CreatePostViewController.swift in Sources */,
 				F8F43F7A1A080AB800C56D2D /* EditUserController.swift in Sources */,
 				CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */,
 				F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */,
@@ -274,6 +273,7 @@
 				F8B9FD871A14215300DB75CC /* ProfilePostCell.swift in Sources */,
 				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 				F840537E1A070ED5007D671A /* ProfileController.swift in Sources */,
+				F8AE49251A1D5D9E00070211 /* CreatePostController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

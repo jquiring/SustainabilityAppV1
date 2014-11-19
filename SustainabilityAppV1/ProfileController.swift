@@ -73,7 +73,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     
     }
     @IBAction func newPost(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as CreatePostViewController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as CreatePostController
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)

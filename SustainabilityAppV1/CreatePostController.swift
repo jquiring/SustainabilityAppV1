@@ -1,25 +1,29 @@
 //
-//  CreatePostViewController.swift
+//  CreatePostController.swift
 //  SustainabilityAppV1
 //
-//  Created by Lucas Orlita on 11/17/14.
+//  Created by Jake Quiring on 11/19/14.
 //  Copyright (c) 2014 Jake Quiring. All rights reserved.
 //
 
 import UIKit
 
-class CreatePostViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
+class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
     var orientation: UIImageOrientation = .Up
-    @IBOutlet weak var cat_picker: UIPickerView!
-    
-    @IBOutlet weak var title_field: UITextField!
-    var currentImage:UIImageView = UIImageView()
-    @IBOutlet var image1: UIImageView!
+        var currentImage:UIImageView = UIImageView()
+  
     var picker:UIImagePickerController?=UIImagePickerController()
     var popover:UIPopoverController?=nil
+   
+    @IBOutlet var image1: UIImageView!
+    @IBOutlet var descOutlet: UITextView!
+    @IBOutlet var title_field: UITextField!
+    @IBOutlet var cat_picker: UIPickerView!
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+   
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares","Services","Events","Recreation"]
     
     override func viewDidLoad() {
@@ -27,10 +31,12 @@ class CreatePostViewController: UIViewController, UIPickerViewDataSource, UIPick
         cat_picker.delegate = self
         cat_picker.dataSource = self
         picker!.delegate=self
+        descOutlet.layer.borderWidth = 1
+        descOutlet.layer.borderColor = UIColor.lightGrayColor().CGColor
         //image1.
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -53,15 +59,15 @@ class CreatePostViewController: UIViewController, UIPickerViewDataSource, UIPick
         }
         /*
         else if(CGRectContainsPoint(image2.frame, touch!){
-            currentImage = self.image2
-            getImage()
+        currentImage = self.image2
+        getImage()
         }
         else if(CGRectContainsPoint(image3.frame, touch!){
-            currentImage = self.image3
-            getImage()
+        currentImage = self.image3
+        getImage()
         }
         */
-
+        
     }
     func getImage() {
         var alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
@@ -142,7 +148,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDataSource, UIPick
         println("picker cancel.")
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
 }
 extension UIImage
 {
