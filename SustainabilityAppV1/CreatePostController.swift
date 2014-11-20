@@ -9,6 +9,7 @@
 import UIKit
 
 class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
+    
     var orientation: UIImageOrientation = .Up
         var currentImage:UIImageView = UIImageView()
   
@@ -25,7 +26,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     
    
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares","Services","Events","Recreation"]
-    
+    let categoryTitles = ["Category","Title","Description","Pictures"]
     override func viewDidLoad() {
         super.viewDidLoad()
         cat_picker.delegate = self
@@ -57,6 +58,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             currentImage = self.image1
             getImage()
         }
+    
         /*
         else if(CGRectContainsPoint(image2.frame, touch!){
         currentImage = self.image2
@@ -148,7 +150,20 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         println("picker cancel.")
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
-    
+    override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!) {
+        print(section)
+        var header : UILabel = UILabel()
+        header.text = categoryTitles[section]
+        header.font = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
+
+
+        return header
+    }
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+
+   
+        return categoryTitles[section]
+    }
 }
 extension UIImage
 {
