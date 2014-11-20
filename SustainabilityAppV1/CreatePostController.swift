@@ -16,7 +16,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     var picker:UIImagePickerController?=UIImagePickerController()
     var popover:UIPopoverController?=nil
    
+ 
     @IBOutlet var image1: UIImageView!
+    @IBOutlet var image2: UIImageView!
+    @IBOutlet var image3: UIImageView!
+    
     @IBOutlet var descOutlet: UITextView!
     @IBOutlet var title_field: UITextField!
     @IBOutlet var cat_picker: UIPickerView!
@@ -26,18 +30,35 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     
    
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares","Services","Events","Recreation"]
+
     let categoryTitles = ["Category","Title","Description","Pictures"]
     override func viewDidLoad() {
         super.viewDidLoad()
         cat_picker.delegate = self
         cat_picker.dataSource = self
         picker!.delegate=self
-        descOutlet.layer.borderWidth = 1
-        descOutlet.layer.borderColor = UIColor.lightGrayColor().CGColor
+        navigationController?.navigationBar.barStyle = UIBarStyle.Default
+        navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        setUpImageGestures()
         //image1.
         // Do any additional setup after loading the view.
     }
+    func setUpImageGestures(){
+        let gestureRecogniser1 = UITapGestureRecognizer(target: self, action: Selector("image1Toutched"))
     
+    // Add the UITapGestureRecognizer to the image view
+        self.image1.addGestureRecognizer(gestureRecogniser1)
+        let gestureRecogniser2 = UITapGestureRecognizer(target: self, action: Selector("image2Toutched"))
+        
+        // Add the UITapGestureRecognizer to the image view
+        self.image2.addGestureRecognizer(gestureRecogniser2)
+        let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("image3Toutched"))
+        
+        // Add the UITapGestureRecognizer to the image view
+        self.image3.addGestureRecognizer(gestureRecogniser3)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,24 +73,17 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         return pickerData[row]
     }
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        var touch = touches.anyObject()?.locationInView(self.view)
-        if(CGRectContainsPoint(image1.frame, touch!)){
-            currentImage = self.image1
-            getImage()
-        }
-    
-        /*
-        else if(CGRectContainsPoint(image2.frame, touch!){
+    func image1Toutched(){
+        currentImage = self.image1
+        getImage()
+    }
+    func image2Toutched(){
         currentImage = self.image2
         getImage()
-        }
-        else if(CGRectContainsPoint(image3.frame, touch!){
+    }
+    func image3Toutched(){
         currentImage = self.image3
         getImage()
-        }
-        */
-        
     }
     func getImage() {
         var alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
@@ -154,16 +168,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         print(section)
         var header : UILabel = UILabel()
         header.text = categoryTitles[section]
-        header.font = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
-
+        header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
+        header.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
 
         return header
     }
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
 
-   
-        return categoryTitles[section]
-    }
 }
 extension UIImage
 {
