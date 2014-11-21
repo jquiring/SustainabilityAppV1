@@ -58,7 +58,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.setUpPosts()
+        self.setUpPosts()
         makeLayout()
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
         //view.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -257,7 +257,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     
     //table view functions
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return arrayOfPosts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
