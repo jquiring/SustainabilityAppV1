@@ -11,9 +11,21 @@ import UIKit
 
 class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
     
-   
+   //Ride Share
+    @IBOutlet var price: UITextField!
+    @IBOutlet var from: UITextField!
+    @IBOutlet var to: UITextField!
+    @IBOutlet var leaves: UITextField!
+    @IBOutlet var comesBack: UITextField!
+    //Textbooks
+    @IBOutlet var ISBN: UITextField!
+    //Events
+    @IBOutlet var location: UITextField!
+    @IBOutlet var date: UITextField!
+
+    
     var orientation: UIImageOrientation = .Up
-        var currentImage:UIImageView = UIImageView()
+    var currentImage:UIImageView = UIImageView()
   
     var picker:UIImagePickerController?=UIImagePickerController()
     var popover:UIPopoverController?=nil
@@ -23,6 +35,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var text: UIImageView!
     @IBOutlet var phone: UIImageView!
  
+    @IBOutlet var category: UITextField!
     @IBOutlet var image1: UIImageView!
     @IBOutlet var image2: UIImageView!
     @IBOutlet var image3: UIImageView!
@@ -37,13 +50,13 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     
    
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares","Services","Events","Recreation","Clothing"]
-    let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Ride Details","  How would you like to be contacted?"]
+    let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Additional Details","  How would you like to be contacted?"]
     override func viewDidLoad() {
         super.viewDidLoad()
 
         picker!.delegate=self
-        //intializeCatPicker()
-        initializeDatePicker()
+        intializeCatPicker()
+        //initializeDatePicker()
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
@@ -55,6 +68,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func doneAction() {
  
+        self.category.resignFirstResponder()
         self.title_field.resignFirstResponder()
     }
     //TODO: title field changed to cat_field.
@@ -63,12 +77,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             target: self, action: "doneAction")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
         toolbar.setItems([item], animated: true)
-        self.title_field.inputAccessoryView = toolbar
+        self.category.inputAccessoryView = toolbar
         var tempPicker = UIPickerView()
         tempPicker.delegate = self
         tempPicker.dataSource = self
         self.cat_picker = tempPicker
-        self.title_field.inputView = cat_picker
+        self.category.inputView = cat_picker
     }
     func initializeDatePicker(){
         var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,
@@ -89,7 +103,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         
         var strDate = dateFormatter.stringFromDate(date_picker.date)
-        title_field.text = strDate
+        category.text = strDate
     }
     func setUpImageGestures(){
         
@@ -177,7 +191,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int)
     {
-        title_field.text = "\(pickerData[row])"
+        category.text = "\(pickerData[row])"
     }
     func textToutched(){
         var oldImage:UIImage = self.text.image!
