@@ -11,24 +11,24 @@ import Foundation
 
 class EditUserController: UIViewController {
     var flag = false
+ 
+    @IBOutlet weak var error_label: UILabel!
     @IBOutlet weak var first_name_field: UITextField!
     @IBOutlet weak var last_name_field: UITextField!
     @IBOutlet weak var phone_number: UITextField!
     @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var error_label: UILabel!
+    
     
     @IBAction func save(sender: AnyObject){
         var flag_Val = false
         var return_Val = -1
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/edituser/")!)
-     
-        
+        request.HTTPMethod = "PUT"
         
         var session = NSURLSession.sharedSession()
         
         //parameter values cahnge these
-        var username = "tmiller12"     //this will be NSUserDefaults.standardUserDefaults().objectForKey("username") as String
-
+        var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var first_name = first_name_field.text
         var last_name = last_name_field.text
         var p_email = email.text            //editable field
@@ -104,7 +104,6 @@ class EditUserController: UIViewController {
         email.text = NSUserDefaults.standardUserDefaults().objectForKey("pref_email") as String
 
         error_label.hidden = true
-
 
     }
 

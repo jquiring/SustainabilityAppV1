@@ -23,9 +23,16 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     //Events
     @IBOutlet var location: UITextField!
     @IBOutlet var date: UITextField!
-    //Further details cells:
     
+    //Further details cells:
+    @IBOutlet weak var price_cell: UITableViewCell!
     @IBOutlet var roundTripSelect: UITableViewCell!
+    @IBOutlet weak var location_cell: UITableViewCell!
+    @IBOutlet weak var isbn_cell: UITableViewCell!
+    @IBOutlet weak var comes_back_cell: UITableViewCell!
+    @IBOutlet weak var leaves_cell: UITableViewCell!
+    @IBOutlet weak var from_to_cell: UITableViewCell!
+    
     
     var orientation: UIImageOrientation = .Up
     var currentImage:UIImageView = UIImageView()
@@ -95,6 +102,8 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         if(category.text == ""){
             category.text = "Books"
         }
+        //hide depending on categories
+        
         currentText.resignFirstResponder()
     }
     func doneDate(){
@@ -248,6 +257,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         else{
             self.phone.image = UIImage(named:"bike.jpg")
         }    }
+    
     func getImage() {
         var alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         

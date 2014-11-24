@@ -15,7 +15,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
     let LDAPIP = "147.222.165.121:8000/ldapauth"
     var flag = false
     
-    
+    var window: UIWindow?
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var incorrectLoginLabel: UILabel!
@@ -29,9 +29,11 @@ class LoginController: UIViewController,UITextFieldDelegate {
         if(LDAPRequest.0 == 200){
             print(LDAPRequest.1)
            if(LDAPRequest.1 == "yes"){
-                var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("CenterViewController") as CenterViewController
-                let navController = UINavigationController(rootViewController: VC1)
-                self.presentViewController(navController, animated:true, completion: nil)
+                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                self.window!.backgroundColor = UIColor.whiteColor()
+                let customVC = ContainerViewController()
+                self.window!.rootViewController = customVC
+                self.window!.makeKeyAndVisible()
             }
             //else if (true){
             else if(LDAPRequest.1 == "no"){
