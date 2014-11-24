@@ -9,8 +9,9 @@
 import UIKit
 
 
-class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
-    
+class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextFieldDelegate,UITextViewDelegate {
+    //Further Details Text Fields
+    var currentText:UITextField = UITextField()
    //Ride Share
     @IBOutlet var price: UITextField!
     @IBOutlet var from: UITextField!
@@ -22,11 +23,13 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     //Events
     @IBOutlet var location: UITextField!
     @IBOutlet var date: UITextField!
-
+    //Further details cells:
+    
+    @IBOutlet var roundTripSelect: UITableViewCell!
     
     var orientation: UIImageOrientation = .Up
     var currentImage:UIImageView = UIImageView()
-  
+    
     var picker:UIImagePickerController?=UIImagePickerController()
     var popover:UIPopoverController?=nil
    
@@ -53,28 +56,54 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Additional Details","  How would you like to be contacted?"]
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        var indexPath1 = NSIndexPath(forRow: 1, inSection: 4)
+        let SelectedCellHeight: CGFloat = 0
+//self.roundTripSelect.frame.height = 0
+        var tblView =  UIView(frame: CGRectZero)
+        tableView.tableFooterView = tblView
+        self.roundTripSelect.removeFromSuperview()
+        tableView.backgroundColor = UIColor.clearColor()
+        
         picker!.delegate=self
         intializeCatPicker()
-        //initializeDatePicker()
+        initializeDatePicker()
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        
+        self.tableView.reloadData()
         setUpImageGestures()
+        assignDelegates()
 
         //image1.
         // Do any additional setup after loading the view.
     }
-    func doneAction() {
- 
-        self.category.resignFirstResponder()
-        self.title_field.resignFirstResponder()
+    func assignDelegates(){
+        self.leaves.delegate = self
+        self.date.delegate = self
+        self.comesBack.delegate=self
+        self.category.delegate=self
+        self.to.delegate = self
+        self.from.delegate = self
+        self.ISBN.delegate = self
+        self.price.delegate = self
+        self.location.delegate = self
+        self.descOutlet.delegate = self
+        self.title_field.delegate = self
+
+    }
+    func doneCat() {
+        if(category.text == ""){
+            category.text = "Books"
+        }
+        currentText.resignFirstResponder()
+    }
+    func doneDate(){
+        currentText.resignFirstResponder()
     }
     //TODO: title field changed to cat_field.
     func intializeCatPicker(){
         var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,
-            target: self, action: "doneAction")
+            target: self, action: "doneCat")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
         toolbar.setItems([item], animated: true)
         self.category.inputAccessoryView = toolbar
@@ -84,16 +113,20 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.cat_picker = tempPicker
         self.category.inputView = cat_picker
     }
+    //initializes date pickers for the 3 necessary fields
     func initializeDatePicker(){
         var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,
-            target: self, action: "doneAction")
+            target: self, action: "doneDate")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
         toolbar.setItems([item], animated: true)
-        self.title_field.inputAccessoryView = toolbar
-        
+        self.leaves.inputAccessoryView = toolbar
+        self.comesBack.inputAccessoryView = toolbar
+        self.date.inputAccessoryView = toolbar
         let currentDate = NSDate()  //5 -  get the current date
         date_picker.minimumDate = currentDate
-        self.title_field.inputView = date_picker
+        self.comesBack.inputView = date_picker
+        self.leaves.inputView = date_picker
+        self.date.inputView = date_picker
         date_picker.addTarget(self, action: Selector("dataPickerChanged:"), forControlEvents: UIControlEvents.ValueChanged)
     }
     func dataPickerChanged(date_picker:UIDatePicker) {
@@ -103,7 +136,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         
         var strDate = dateFormatter.stringFromDate(date_picker.date)
-        category.text = strDate
+        currentText.text = strDate
     }
     func setUpImageGestures(){
         
@@ -144,7 +177,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -167,8 +200,9 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         getImage()
     }
     func tableToutched(){
-        title_field.resignFirstResponder()
+        currentText.resignFirstResponder()
         descOutlet.resignFirstResponder()
+        println(currentText)
         println("table touched")
     }
     //TODO: change these to gray/colored images of contact options
@@ -302,6 +336,19 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         header.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
 
         return header
+    }
+    func textFieldDidBeginEditing(textField: UITextField!) {    //delegate method
+        currentText = textField
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField!) -> Bool {  //delegate method
+        return true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
+        //textField.resignFirstResponder()
+        
+        return true
     }
 
 }
