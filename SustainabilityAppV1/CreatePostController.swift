@@ -130,7 +130,24 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         return 0
     }
    // might be able to use the method numberOfRowsInSection called after every time we change category
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            let rideShareOneWaySections = [5,6,7,8]
+            let rideShareBothWaysSections = [5,6,7,8,9]
+            let eventSections = [11,12]
     
+        if(contains(rideShareBothWaysSections,section) && category.text != "Ride Shares"){
+            
+            return 0
+            }
+   
+        if(section == 10 && category.text != "Books"){
+            return 0
+        }
+        if(contains(eventSections,section) && category.text !=  "Services" && category.text != "Events"){
+            return 0
+        }
+        return 24
+    }
     func assignDelegates(){
         self.leaves.delegate = self
         self.date.delegate = self
@@ -150,7 +167,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             category.text = "Books"
         }
         //hide depending on categories
-        tableView(tableView, viewForHeaderInSection: 5)
+        //tableView(tableView, viewForHeaderInSection: 5)
         tableView.reloadData()
         currentText.resignFirstResponder()
         print("DoneCat")
