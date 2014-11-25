@@ -25,14 +25,19 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var date: UITextField!
     
     //Further details cells:
+    /*
     @IBOutlet weak var price_cell: UITableViewCell!
-    @IBOutlet var roundTripSelect: UITableViewCell!
+    @IBOutlet weak var round_trip_cell: UITableViewCell!
     @IBOutlet weak var location_cell: UITableViewCell!
     @IBOutlet weak var isbn_cell: UITableViewCell!
     @IBOutlet weak var comes_back_cell: UITableViewCell!
     @IBOutlet weak var leaves_cell: UITableViewCell!
     @IBOutlet weak var from_to_cell: UITableViewCell!
+    @IBOutlet weak var date_cell: UITableViewCell!
+    */
     
+    @IBOutlet weak var round_trip_cell: UITableViewCell!
+    @IBOutlet weak var round_trip_switch: UISwitch!
     
     var orientation: UIImageOrientation = .Up
     var currentImage:UIImageView = UIImageView()
@@ -50,7 +55,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var image2: UIImageView!
     @IBOutlet var image3: UIImageView!
     let date_picker:UIDatePicker = UIDatePicker()
-   // @IBOutlet var rideDetials: UITableViewSection!
     @IBOutlet var descOutlet: UITextView!
     @IBOutlet var title_field: UITextField!
     weak var cat_picker: UIPickerView!
@@ -59,16 +63,15 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     
    
-    let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares","Services","Events","Recreation","Clothing"]
-    let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Additional Details","  How would you like to be contacted?"]
+    let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
+    let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
     override func viewDidLoad() {
         super.viewDidLoad()
         var indexPath1 = NSIndexPath(forRow: 1, inSection: 4)
         let SelectedCellHeight: CGFloat = 0
-//self.roundTripSelect.frame.height = 0
         var tblView =  UIView(frame: CGRectZero)
         tableView.tableFooterView = tblView
-        self.roundTripSelect.removeFromSuperview()
+        //self.round_trip_cell.removeFromSuperview()
         tableView.backgroundColor = UIColor.clearColor()
         
         picker!.delegate=self
@@ -77,13 +80,57 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        //hide further details
+        
+        //round_trip_cell.hidden = true
+        /*
+        from_to_cell.hidden = true
+        leaves_cell.hidden = true
+        comes_back_cell.hidden = true
+        isbn_cell.hidden = true
+        location_cell.hidden = true
+        date_cell.hidden = true
+*/
+        
+        
         self.tableView.reloadData()
         setUpImageGestures()
         assignDelegates()
-
-        //image1.
-        // Do any additional setup after loading the view.
     }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if(indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 4){
+            return 30
+        }
+        if(indexPath.section == 2){
+            return 128
+        }
+        if(indexPath.section == 3){
+            return 150
+        }
+        if(indexPath.section == 5 && category.text == "Ride Shares"){
+            return 50
+        }
+        if((indexPath.section == 6 || indexPath.section == 7 || indexPath.section == 8) && category.text == "Ride Shares"){
+            return 30
+        }
+        if(indexPath.section == 9 && category.text == "Ride Shares" && round_trip_cell == true){
+            // must check if the slider is selected for round trip
+            return 30
+        }
+        if(indexPath.section == 10 && category.text == "Books"){
+            return 30
+        }
+        if((indexPath.section == 11 || indexPath.section == 12 ) && (category.text == "Services" || category.text == "Events")){
+            return 30
+        }
+        if(indexPath.section == 13){
+            return 77
+        }
+        return 0
+    }
+   // might be able to use the method numberOfRowsInSection called after every time we change category
+    
     func assignDelegates(){
         self.leaves.delegate = self
         self.date.delegate = self
@@ -103,8 +150,10 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             category.text = "Books"
         }
         //hide depending on categories
-        
+        tableView(tableView, viewForHeaderInSection: 5)
+        tableView.reloadData()
         currentText.resignFirstResponder()
+        print("DoneCat")
     }
     func doneDate(){
         currentText.resignFirstResponder()
