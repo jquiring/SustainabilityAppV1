@@ -27,7 +27,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     //Further details cells:
     /*
     @IBOutlet weak var price_cell: UITableViewCell!
-    @IBOutlet weak var round_trip_cell: UITableViewCell!
+
     @IBOutlet weak var location_cell: UITableViewCell!
     @IBOutlet weak var isbn_cell: UITableViewCell!
     @IBOutlet weak var comes_back_cell: UITableViewCell!
@@ -37,32 +37,27 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     */
     
     @IBOutlet weak var round_trip_cell: UITableViewCell!
-    @IBOutlet weak var round_trip_switch: UISwitch!
-    
+    let date_picker:UIDatePicker = UIDatePicker()
     var orientation: UIImageOrientation = .Up
     var currentImage:UIImageView = UIImageView()
     
     var picker:UIImagePickerController?=UIImagePickerController()
     var popover:UIPopoverController?=nil
-   
+
+    @IBOutlet weak var round_trip_switch: UISwitch!
+    //contact options images
     @IBOutlet var gmail: UIImageView!
     @IBOutlet var pEmail: UIImageView!
     @IBOutlet var text: UIImageView!
     @IBOutlet var phone: UIImageView!
- 
     @IBOutlet var category: UITextField!
+    //3 images for taking pics
     @IBOutlet var image1: UIImageView!
     @IBOutlet var image2: UIImageView!
     @IBOutlet var image3: UIImageView!
-    let date_picker:UIDatePicker = UIDatePicker()
     @IBOutlet var descOutlet: UITextView!
     @IBOutlet var title_field: UITextField!
     weak var cat_picker: UIPickerView!
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-   
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
     override func viewDidLoad() {
@@ -71,82 +66,16 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         let SelectedCellHeight: CGFloat = 0
         var tblView =  UIView(frame: CGRectZero)
         tableView.tableFooterView = tblView
-        //self.round_trip_cell.removeFromSuperview()
         tableView.backgroundColor = UIColor.clearColor()
-        
         picker!.delegate=self
         intializeCatPicker()
         initializeDatePicker()
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        //hide further details
-        
-        //round_trip_cell.hidden = true
-        /*
-        from_to_cell.hidden = true
-        leaves_cell.hidden = true
-        comes_back_cell.hidden = true
-        isbn_cell.hidden = true
-        location_cell.hidden = true
-        date_cell.hidden = true
-*/
-        
-        
         self.tableView.reloadData()
         setUpImageGestures()
         assignDelegates()
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if(indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 4){
-            return 30
-        }
-        if(indexPath.section == 2){
-            return 128
-        }
-        if(indexPath.section == 3){
-            return 150
-        }
-        if(indexPath.section == 5 && category.text == "Ride Shares"){
-            return 50
-        }
-        if((indexPath.section == 6 || indexPath.section == 7 || indexPath.section == 8) && category.text == "Ride Shares"){
-            return 30
-        }
-        if(indexPath.section == 9 && category.text == "Ride Shares" && round_trip_cell == true){
-            // must check if the slider is selected for round trip
-            return 30
-        }
-        if(indexPath.section == 10 && category.text == "Books"){
-            return 30
-        }
-        if((indexPath.section == 11 || indexPath.section == 12 ) && (category.text == "Services" || category.text == "Events")){
-            return 30
-        }
-        if(indexPath.section == 13){
-            return 77
-        }
-        return 0
-    }
-   // might be able to use the method numberOfRowsInSection called after every time we change category
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            let rideShareOneWaySections = [5,6,7,8]
-            let rideShareBothWaysSections = [5,6,7,8,9]
-            let eventSections = [11,12]
-    
-        if(contains(rideShareBothWaysSections,section) && category.text != "Ride Shares"){
-            
-            return 0
-            }
-   
-        if(section == 10 && category.text != "Books"){
-            return 0
-        }
-        if(contains(eventSections,section) && category.text !=  "Services" && category.text != "Events"){
-            return 0
-        }
-        return 24
     }
     func assignDelegates(){
         self.leaves.delegate = self
@@ -160,14 +89,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.location.delegate = self
         self.descOutlet.delegate = self
         self.title_field.delegate = self
-
     }
     func doneCat() {
         if(category.text == ""){
             category.text = "Books"
         }
-        //hide depending on categories
-        //tableView(tableView, viewForHeaderInSection: 5)
         tableView.reloadData()
         currentText.resignFirstResponder()
         print("DoneCat")
@@ -177,8 +103,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     //TODO: title field changed to cat_field.
     func intializeCatPicker(){
-        var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,
-            target: self, action: "doneCat")
+        var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,target: self, action: "doneCat")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
         toolbar.setItems([item], animated: true)
         self.category.inputAccessoryView = toolbar
@@ -190,8 +115,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     //initializes date pickers for the 3 necessary fields
     func initializeDatePicker(){
-        var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,
-            target: self, action: "doneDate")
+        var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,target: self, action: "doneDate")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
         toolbar.setItems([item], animated: true)
         self.leaves.inputAccessoryView = toolbar
@@ -206,53 +130,44 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func dataPickerChanged(date_picker:UIDatePicker) {
         var dateFormatter = NSDateFormatter()
-        
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        
         var strDate = dateFormatter.stringFromDate(date_picker.date)
         currentText.text = strDate
     }
     func setUpImageGestures(){
-        
+        //image1
         let gestureRecogniser1 = UITapGestureRecognizer(target: self, action: Selector("image1Toutched"))
         self.image1.addGestureRecognizer(gestureRecogniser1)
         let tap = UITapGestureRecognizer(target: self, action: Selector("tableToutched"))
-        //let scroll = UIPanGestureRecognizer(target: self, action: Selector("tableToutched"))
-        //self.view.addGestureRecognizer(scroll)
         self.view.addGestureRecognizer(tap)
+        //image 2
         let gestureRecogniser2 = UITapGestureRecognizer(target: self, action: Selector("image2Toutched"))
         self.image2.addGestureRecognizer(gestureRecogniser2)
-        
+        //image 3
         let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("image3Toutched"))
         self.image3.addGestureRecognizer(gestureRecogniser3)
-        
+        //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
         self.gmail.image = UIImage(named:"bike.jpg")
 
-        
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
         self.pEmail.image = UIImage(named:"bike.jpg")
 
-        
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
         self.text.image = UIImage(named:"bike.jpg")
 
-        
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
         self.phone.image = UIImage(named:"bike.jpg")
-
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -262,7 +177,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         return pickerData[row]
     }
-    func image1Toutched(){
+    func image1Toutched(){ //touched
         currentImage = self.image1
         getImage()
     }
@@ -280,39 +195,30 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         println(currentText)
         println("table touched")
     }
-    //TODO: change these to gray/colored images of contact options
+    //TODO:
     func gMailToutched(){
-        if((self.gmail.image!.isEqual(UIImage(named:"bike.jpg")))){
+        if(self.gmail.image!.isEqual(UIImage(named:"bike.jpg"))){
             println("in here")
             self.gmail.image = UIImage(named:"tv.png")
         }
-        else{
+        else {
             self.gmail.image = UIImage(named:"bike.jpg")
         }
     }
     func pEmailToutched(){
-        if((self.pEmail.image!.isEqual(UIImage(named:"bike.jpg")))){
+        if(self.pEmail.image!.isEqual(UIImage(named:"bike.jpg"))){
             self.pEmail.image = UIImage(named:"tv.png")
         }
         else{
             self.pEmail.image = UIImage(named:"bike.jpg")
         }
     }
-    func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int)
-    {
-        category.text = "\(pickerData[row])"
-    }
     func textToutched(){
-        var oldImage:UIImage = self.text.image!
-        var bikeImage:UIImage = UIImage(named:"bike.jpg")!
-        if(oldImage == UIImage(named:"tv.png")){
-            println("this printed")
-        }
-        if(oldImage != bikeImage){
-            self.text.image = UIImage(named:"bike.jpg")
+        if(self.pEmail.image!.isEqual(UIImage(named:"bike.jpg"))){
+            self.pEmail.image = UIImage(named:"tv.png")
         }
         else{
-            self.text.image = UIImage(named:"tv.png")
+            self.pEmail.image = UIImage(named:"bike.jpg")
         }
     }
     func phoneToutched(){
@@ -322,33 +228,30 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
         else{
             self.phone.image = UIImage(named:"bike.jpg")
-        }    }
-    
-    func getImage() {
+        }
+    }
+    func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
+        category.text = "\(pickerData[row])"
+    }
+    func getImage(){
+        //Create the alert action that comes up when the images are selected
+        currentText.resignFirstResponder()
         var alert:UIAlertController=UIAlertController(title: "Choose Image", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        
-        var cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default)
-            {
+        var cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default){
                 UIAlertAction in
                 self.openCamera()
-                
         }
-        var gallaryAction = UIAlertAction(title: "Gallary", style: UIAlertActionStyle.Default)
-            {
+        var gallaryAction = UIAlertAction(title: "Gallary", style: UIAlertActionStyle.Default){
                 UIAlertAction in
                 self.openGallary()
         }
-        var deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default)
-            {
+        var deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default){
                 UIAlertAction in
                 self.currentImage.image = UIImage(named:"tv.png")
         }
-        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel)
-            {
+        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){
                 UIAlertAction in
-                
         }
-        
         // Add the actions
         alert.addAction(cameraAction)
         alert.addAction(gallaryAction)
@@ -357,95 +260,128 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             alert.addAction(deleteAction)
         }
         // Present the controller
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone
-        {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone{
             self.presentViewController(alert, animated: true, completion: nil)
         }
-        else
-        {
+        else{
             popover=UIPopoverController(contentViewController: alert)
             popover!.presentPopoverFromRect(image1.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
         }
     }
-    func openCamera()
-    {
-        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera))
-        {
+    func openCamera(){
+        if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
             picker!.sourceType = UIImagePickerControllerSourceType.Camera
             self .presentViewController(picker!, animated: true, completion: nil)
         }
-        else
-        {
+        else{
             openGallary()
         }
     }
-    func openGallary()
-    {
+    func openGallary(){ //gallery
         picker!.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone
-        {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone{
             self.presentViewController(picker!, animated: true, completion: nil)
         }
-        else
-        {
+        else{
             popover=UIPopoverController(contentViewController: picker!)
             popover!.presentPopoverFromRect(currentImage.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
         }
     }
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!)
-    {
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!){
         let newImage = info[UIImagePickerControllerOriginalImage] as UIImage
         let thumbNail = newImage.resizeToBoundingSquare(boundingSquareSideLength:800)
         picker.dismissViewControllerAnimated(true, completion: nil)
         currentImage.image=newImage
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!)
-    {
+    func imagePickerControllerDidCancel(picker: UIImagePickerController!){
         println("picker cancel.")
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
-    override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!) {
+    //gets the current text field that is selected
+    func textFieldDidBeginEditing(textField: UITextField!){    //delegate method
+        currentText = textField
+    }
+    //TODO: do we need these next two functions
+    func textFieldShouldEndEditing(textField: UITextField!) -> Bool{  //delegate method
+        return true
+    }
+    func textFieldShouldReturn(textField: UITextField!) -> Bool{   //delegate method
+        //textField.resignFirstResponder()
+        return true
+    }
+    //creates the custom view headers
+    override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
         print(section)
         var header : UILabel = UILabel()
         header.text = categoryTitles[section]
         header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
         header.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
-
+        
         return header
     }
-    func textFieldDidBeginEditing(textField: UITextField!) {    //delegate method
-        currentText = textField
+    //sets the row heights within the table view
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if(indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 4){
+            return 30
+        }
+        if(indexPath.section == 2){
+            return 128
+        }
+        if(indexPath.section == 3){
+            return 150
+        }
+        if(indexPath.section == 5 && category.text == "Ride Shares"){
+            return 50
+        }
+        if((indexPath.section == 6 || indexPath.section == 7 || indexPath.section == 8) && category.text == "Ride Shares"){
+            return 30
+        }
+        if(indexPath.section == 9 && category.text == "Ride Shares" && round_trip_switch == true){
+            // must check if the slider is selected for round trip
+            return 30
+        }
+        if(indexPath.section == 10 && category.text == "Books"){
+            return 30
+        }
+        if((indexPath.section == 11 || indexPath.section == 12 ) && (category.text == "Services" || category.text == "Events")){
+            return 30
+        }
+        if(indexPath.section == 13){
+            return 77
+        }
+        return 0
     }
-    
-    func textFieldShouldEndEditing(textField: UITextField!) -> Bool {  //delegate method
-        return true
-    }
-    
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
-        //textField.resignFirstResponder()
+    //sets the category header height to 0 if it is not being used
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        let rideShareOneWaySections = [5,6,7,8]
+        let rideShareBothWaysSections = [5,6,7,8,9]
+        let eventSections = [11,12]
+        if(contains(rideShareBothWaysSections,section) && category.text != "Ride Shares"){
+            return 0
+        }
         
-        return true
+        if(section == 10 && category.text != "Books"){
+            return 0
+        }
+        if(contains(eventSections,section) && category.text !=  "Services" && category.text != "Events"){
+            return 0
+        }
+        return 24
     }
-
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
-extension UIImage
-{
-    func resizeToBoundingSquare(#boundingSquareSideLength : CGFloat) -> UIImage
-    {
+extension UIImage{
+    func resizeToBoundingSquare(#boundingSquareSideLength : CGFloat) -> UIImage{
         let imgScale = self.size.width > self.size.height ? boundingSquareSideLength / self.size.width : boundingSquareSideLength / self.size.height
         let newWidth = self.size.width * imgScale
         let newHeight = self.size.height * imgScale
         let newSize = CGSize(width: newWidth, height: newHeight)
-        
         UIGraphicsBeginImageContext(newSize)
-        
         self.drawInRect(CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        
         UIGraphicsEndImageContext();
-        
         return resizedImage
     }
-    
 }
