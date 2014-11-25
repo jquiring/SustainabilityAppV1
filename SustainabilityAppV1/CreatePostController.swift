@@ -214,11 +214,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
     }
     func textToutched(){
-        if(self.pEmail.image!.isEqual(UIImage(named:"bike.jpg"))){
-            self.pEmail.image = UIImage(named:"tv.png")
+        if(self.text.image!.isEqual(UIImage(named:"bike.jpg"))){
+            self.text.image = UIImage(named:"tv.png")
         }
         else{
-            self.pEmail.image = UIImage(named:"bike.jpg")
+            self.text.image = UIImage(named:"bike.jpg")
         }
     }
     func phoneToutched(){
