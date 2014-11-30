@@ -7,13 +7,28 @@
 //
 
 import UIKit
-
+import Foundation
 
 class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextFieldDelegate,UITextViewDelegate {
+    
+    var orientation: UIImageOrientation = .Up
+    var currentImage:UIImageView = UIImageView()
+    var popover:UIPopoverController?=nil
     //Further Details Text Fields
     var currentText:UITextField = UITextField()
-   //Ride Share
+    
+    
+    var picker:UIImagePickerController?=UIImagePickerController()
+    weak var cat_picker: UIPickerView!
+    @IBOutlet var title_field: UITextField!
+    @IBOutlet var descOutlet: UITextView!
+    //3 images for taking pics
+    @IBOutlet var image1: UIImageView!
+    @IBOutlet var image2: UIImageView!
+    @IBOutlet var image3: UIImageView!
     @IBOutlet var price: UITextField!
+    //Ride Share
+    @IBOutlet weak var round_trip_switch: UISwitch!
     @IBOutlet var from: UITextField!
     @IBOutlet var to: UITextField!
     @IBOutlet var leaves: UITextField!
@@ -23,43 +38,17 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     //Events
     @IBOutlet var location: UITextField!
     @IBOutlet var date: UITextField!
-    
-    //Further details cells:
-    /*
-    @IBOutlet weak var price_cell: UITableViewCell!
-
-    @IBOutlet weak var location_cell: UITableViewCell!
-    @IBOutlet weak var isbn_cell: UITableViewCell!
-    @IBOutlet weak var comes_back_cell: UITableViewCell!
-    @IBOutlet weak var leaves_cell: UITableViewCell!
-    @IBOutlet weak var from_to_cell: UITableViewCell!
-    @IBOutlet weak var date_cell: UITableViewCell!
-    */
-    
-    @IBOutlet weak var round_trip_cell: UITableViewCell!
     let date_picker:UIDatePicker = UIDatePicker()
-    var orientation: UIImageOrientation = .Up
-    var currentImage:UIImageView = UIImageView()
-    
-    var picker:UIImagePickerController?=UIImagePickerController()
-    var popover:UIPopoverController?=nil
-
-    @IBOutlet weak var round_trip_switch: UISwitch!
     //contact options images
     @IBOutlet var gmail: UIImageView!
     @IBOutlet var pEmail: UIImageView!
     @IBOutlet var text: UIImageView!
     @IBOutlet var phone: UIImageView!
     @IBOutlet var category: UITextField!
-    //3 images for taking pics
-    @IBOutlet var image1: UIImageView!
-    @IBOutlet var image2: UIImageView!
-    @IBOutlet var image3: UIImageView!
-    @IBOutlet var descOutlet: UITextView!
-    @IBOutlet var title_field: UITextField!
-    weak var cat_picker: UIPickerView!
+
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var indexPath1 = NSIndexPath(forRow: 1, inSection: 4)
@@ -337,7 +326,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 9 && category.text == "Ride Shares" && round_trip_switch == true){
-            // must check if the slider is selected for round trip
             return 30
         }
         if(indexPath.section == 10 && category.text == "Books"){
@@ -371,6 +359,120 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    @IBAction func createPostSubmit(sender: AnyObject) {
+        // check all fields first
+        
+        // create a post code
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/createpost/")!)
+        request.HTTPMethod = "POST"
+        var session = NSURLSession.sharedSession()
+        
+        // need to do images
+        //image urls
+        var imageUrls:[NSURL] = [NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisguy.png")!,NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisotherguy.png")!]
+        
+        //formulate imageBase64 array
+        var imagesBase64:[String] = []
+        var imageData:NSData
+        var imageBase64:String
+        for url in imageUrls{
+            imageData = NSData(contentsOfURL:url)!
+            imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
+            imagesBase64.append(imageBase64)
+        }
+        // if statements that only create the necesarry vriables? or always create them all
+        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+        let description_ = descOutlet.text
+        let cost = price.text
+        let title = title_field.text
+        let category = "Furniture" // not sure
+        let gonzaga_email = "1" //boolean contact option
+        let pref_email = "1" //boolean contact option
+        let phone = "1" //boolean contact option
+        // need text message boolean too
+        //rideshare specific
+        var departure_date_time = leaves.text
+        var start_location = from.text
+        var end_location = to.text
+        var round_trip = "1" // not sure
+        var return_date_time = comesBack.text
+        //datelocation specific
+        var date_time = date.text
+        var location_ = location.text
+        //textbook specific
+        var isbn = ISBN.text
+        //this is the parameters array that will be formulated as JSON.
+        //it has space for EVERY attribute of EVERY category.
+        //only fill attributes that pertain to the category
+        let params = ["username":username,          //common post information
+            "description":description_,
+            "price":cost,                   // |
+            "title":title,                  // |
+            "category":category,            // |
+            "gonzaga_email":gonzaga_email,  // |
+            "pref_email":pref_email,        // |
+            "phone":phone,                  // <
+            "departure_date_time":departure_date_time,  //rideshare specific
+            "start_location":start_location,            // |
+            "end_location":end_location,                // |
+            "round_trip":round_trip,                    // |
+            "return_date_time":return_date_time,        // <
+            "date_time":date_time,          //datelocation specific
+            "location":location_,           // <
+            "isbn":isbn,                    //book specific
+            "images":imagesBase64]          //images array
+            as Dictionary<String,AnyObject>
+        
+        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        //define NSURLSession data task with completionHandler call back function
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            //read the message from the response
+            var message = ""
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
+            if(err != nil) {
+                println(err!.localizedDescription)
+                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("Error could not parse JSON: '\(jsonStr)'")
+            }
+            else{
+                if let parseJSON = json as? Dictionary<String,AnyObject>{
+                    message = parseJSON["message"] as String
+                }
+            }
+            //downcast NSURLResponse object to NSHTTPURLResponse
+            if let httpResponse = response as? NSHTTPURLResponse {
+                //get the status code
+                var status_code = httpResponse.statusCode
+                //200 = OK: user created, carry on!
+                if(status_code == 200){
+                    println(message)
+                }
+                    //400 = BAD_REQUEST: error in creating user, display error!
+                else if(status_code == 400){
+                    println(message)
+                }
+                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
+                else if(status_code == 500){
+                    println("The server is down! Call the fire!")
+                }
+            } else {
+                println("Error in casting response, data incomplete")
+            }
+        })
+        task.resume()
+        sleep(5)
+
+        
+        
+        // dismiss the screen
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
 extension UIImage{
     func resizeToBoundingSquare(#boundingSquareSideLength : CGFloat) -> UIImage{
