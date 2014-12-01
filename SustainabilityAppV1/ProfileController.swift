@@ -20,7 +20,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var arrayOfPosts: [ProfilePost] = [ProfilePost]()
     
     func setUpPosts(){
-        var post1 = ProfilePost(title: "Fresh Ass Bike", imageName: "bike.jpg",id:"id1")
+        var post1 = ProfilePost(title: "Fresh Bike", imageName: "bike.jpg",id:"id1")
         var post2 = ProfilePost(title: "Cheap Tv for all you ladies out there and now the title is a litte bit bigger", imageName: "tv.png",id:"id2")
         var post3 = ProfilePost(title: "Hurt myself Skating -- Need to sell", imageName: "skateboard.jpg",id:"id3")
         arrayOfPosts.append(post1)

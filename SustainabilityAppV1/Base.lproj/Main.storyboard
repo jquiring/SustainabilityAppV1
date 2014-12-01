@@ -1252,6 +1252,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EAy-UV-qSi">
                                                     <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switch_changed:" destination="hga-eu-drM" eventType="valueChanged" id="kOF-yA-U3w"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>

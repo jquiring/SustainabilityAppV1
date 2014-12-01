@@ -90,6 +90,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     func doneDate(){
         currentText.resignFirstResponder()
     }
+    
+    @IBAction func switch_changed(sender: AnyObject) {
+        tableView.reloadData()
+        
+    }
     //TODO: title field changed to cat_field.
     func intializeCatPicker(){
         var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,target: self, action: "doneCat")
@@ -122,6 +127,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         var strDate = dateFormatter.stringFromDate(date_picker.date)
+        print (strDate)
         currentText.text = strDate
     }
     func setUpImageGestures(){
@@ -130,12 +136,18 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.image1.addGestureRecognizer(gestureRecogniser1)
         let tap = UITapGestureRecognizer(target: self, action: Selector("tableToutched"))
         self.view.addGestureRecognizer(tap)
+        self.image1.image = UIImage(named:"tv.png")
+
         //image 2
         let gestureRecogniser2 = UITapGestureRecognizer(target: self, action: Selector("image2Toutched"))
         self.image2.addGestureRecognizer(gestureRecogniser2)
+        self.image2.image = UIImage(named:"tv.png")
+
         //image 3
         let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("image3Toutched"))
         self.image3.addGestureRecognizer(gestureRecogniser3)
+        self.image3.image = UIImage(named:"tv.png")
+
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
@@ -325,7 +337,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         if((indexPath.section == 6 || indexPath.section == 7 || indexPath.section == 8) && category.text == "Ride Shares"){
             return 30
         }
-        if(indexPath.section == 9 && category.text == "Ride Shares" && round_trip_switch == true){
+        if(indexPath.section == 9 && category.text == "Ride Shares" && round_trip_switch.on){
             return 30
         }
         if(indexPath.section == 10 && category.text == "Books"){
@@ -344,7 +356,10 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         let rideShareOneWaySections = [5,6,7,8]
         let rideShareBothWaysSections = [5,6,7,8,9]
         let eventSections = [11,12]
-        if(contains(rideShareBothWaysSections,section) && category.text != "Ride Shares"){
+        if(section == 9 && (!round_trip_switch.on || category.text != "Ride Shares")){
+            return 0
+        }
+        if(contains(rideShareOneWaySections,section) && category.text != "Ride Shares"){
             return 0
         }
         
@@ -363,38 +378,63 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         // check all fields first
         
         // create a post code
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/createpost/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/createpost/")!)
         request.HTTPMethod = "POST"
         var session = NSURLSession.sharedSession()
         
         // need to do images
         //image urls
         var imageUrls:[NSURL] = [NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisguy.png")!,NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisotherguy.png")!]
+        var UIImageList = [image1.image,image2.image,image3.image]
         
         //formulate imageBase64 array
         var imagesBase64:[String] = []
         var imageData:NSData
         var imageBase64:String
+        /*
         for url in imageUrls{
-            imageData = NSData(contentsOfURL:url)!
+            imageData = NSData(contentsOfURL:url)! //load contents of url into NSData type
             imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
             imagesBase64.append(imageBase64)
+        }*/
+        for images in UIImageList{
+            if(images != UIImage(named:"tv.png")){
+                imageData = UIImageJPEGRepresentation(images, 1)
+                imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
+                imagesBase64.append(imageBase64)
+            }
         }
         // if statements that only create the necesarry vriables? or always create them all
         let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         let description_ = descOutlet.text
         let cost = price.text
         let title = title_field.text
-        let category = "Furniture" // not sure
-        let gonzaga_email = "1" //boolean contact option
-        let pref_email = "1" //boolean contact option
-        let phone = "1" //boolean contact option
+        let category_ = category.text // not sure
+        let gonzaga_email = "0"
+        if(gmail == UIImage(named: "tv.png")){
+            let gonzaga_email = "1" //boolean contact option
+        }
+        let pref_email = "0" //boolean contact option
+        if(gmail == UIImage(named: "tv.png")){
+            let pref_email = "1"
+        }
+        let phone = "0"
+        if(gmail == UIImage(named: "tv.png")){
+            let phone = "1" //boolean contact option
+        }
+        let text_bool = "0"
+        if(gmail == UIImage(named: "tv.png")){
+            let text_bool = "1"
+        }
         // need text message boolean too
         //rideshare specific
         var departure_date_time = leaves.text
         var start_location = from.text
         var end_location = to.text
-        var round_trip = "1" // not sure
+        var round_trip = "0" // not sure
+        if(round_trip_switch.on){
+            round_trip = "1"
+        }
         var return_date_time = comesBack.text
         //datelocation specific
         var date_time = date.text
@@ -408,10 +448,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             "description":description_,
             "price":cost,                   // |
             "title":title,                  // |
-            "category":category,            // |
+            "category":category_,           // |
             "gonzaga_email":gonzaga_email,  // |
             "pref_email":pref_email,        // |
-            "phone":phone,                  // <
+            "call":phone,                   // |
+            "text":text_bool,               // <
             "departure_date_time":departure_date_time,  //rideshare specific
             "start_location":start_location,            // |
             "end_location":end_location,                // |
