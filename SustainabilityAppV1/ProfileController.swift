@@ -54,7 +54,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             
         }))
     */
-
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.presentViewController(navController, animated:true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -51,6 +51,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        picker?.allowsEditing = true
         var indexPath1 = NSIndexPath(forRow: 1, inSection: 4)
         let SelectedCellHeight: CGFloat = 0
         var tblView =  UIView(frame: CGRectZero)
@@ -65,6 +66,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.tableView.reloadData()
         setUpImageGestures()
         assignDelegates()
+        self.view.backgroundColor = UIColor.whiteColor()
     }
     func assignDelegates(){
         self.leaves.delegate = self
@@ -289,7 +291,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
     }
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!){
-        let newImage = info[UIImagePickerControllerOriginalImage] as UIImage
+        let newImage = info[UIImagePickerControllerEditedImage] as UIImage
         let thumbNail = newImage.resizeToBoundingSquare(boundingSquareSideLength:800)
         picker.dismissViewControllerAnimated(true, completion: nil)
         currentImage.image=newImage
