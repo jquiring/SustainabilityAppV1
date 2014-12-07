@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class ViewPostController: UITableViewController, UIScrollViewDelegate{
 
@@ -20,15 +21,14 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     var colors:[UIColor] = [UIColor.redColor(), UIColor.blueColor(), UIColor.greenColor(), UIColor.yellowColor()]
     var frame: CGRect = CGRectMake(0, 0, 0, 0)
     let description1 = "description"
-    let price = "price"                // |
-    let title1 = "title"                  // |
-    let category = "category"           // |
+    let price = "price"             // |
+    let title1 = "title"            // |
+    let category = "category"       // |
     /*
     "gonzaga_email":gonzaga_email,  // |
     "pref_email":pref_email,        // |
     "call":phone,                   // |
-    "text":text_bool,
-    // <
+    "text":text_bool,               // <
     */
     @IBOutlet var price_label: UILabel!
     @IBOutlet var round_trip_label: UILabel!
@@ -39,16 +39,14 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     @IBOutlet var isbn_label: UILabel!
     @IBOutlet var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
-    @IBOutlet var gmail: UIImageView!
-    @IBOutlet var pEmail: UIImageView!
-    @IBOutlet var text: UIImageView!
-    @IBOutlet var phone: UIImageView!
+    
+    let messageComposer = MessageComposer()
     
     let departure_date = "departure_date_time" //rideshare specific
-    let start_location = "start_location"            // |
+    let start_location = "start_location"           // |
     let end_location = "end_location"               // |
-    let round_trip = true                   // |
-    let return_date = "return_date_time"// <
+    let round_trip = true                           // |
+    let return_date = "return_date_time"            // <
     let date_time = "date_time"         //datelocation specific
     let location = "location"           // <
     let isbn = "isbn"
@@ -57,7 +55,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         
         scrollViewWidth = screenSize.width
-       //self.scrollView.setContentSize(CGSize(width: scrollViewWidth, height: 0))
         pages.numberOfPages = images.count
         if(images.count == 1) {
             pages.hidden  =  true
@@ -71,7 +68,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         initializeLabels()
         
         self.tableView.reloadData()
-        setUpImageGestures()
+        //setUpImageGestures()
     }
     func initializeLabels(){
         if(round_trip){
@@ -81,7 +78,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
             round_trip_label.text = "One way"
         }
         price_label.text = price
-        
         start_location_label.text = start_location
         end_location_label.text = end_location
         depature_date_label.text = departure_date
@@ -108,83 +104,51 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     }
 
     @IBAction func done(sender: AnyObject) {
-            self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    func setUpImageGestures(){
-        
-        //TODO:images will be changed to image specifics
-        let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
-        self.gmail.addGestureRecognizer(gestureRecogniserGmail)
-        self.gmail.image = UIImage(named:"bike.jpg")
-        
-        let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
-        self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
-        self.pEmail.image = UIImage(named:"bike.jpg")
-        
-        let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
-        self.text.addGestureRecognizer(gestureRecogniserText)
-        self.text.image = UIImage(named:"bike.jpg")
-        
-        let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
-        self.phone.addGestureRecognizer(gestureRecogniserPhone)
-        self.phone.image = UIImage(named:"bike.jpg")
+    //Actions for the contact buttons
+    @IBAction func zagmailIsTouched(sender: AnyObject) {
+       
     }
+    @IBAction func prefEmailIsTouched(sender: AnyObject) {
+        
+    }
+    @IBAction func textIsTouched(sender: AnyObject) {
+        if (messageComposer.canSendText()) {
+            let messageComposeVC = messageComposer.configuredMessageComposeViewController()
+            presentViewController(messageComposeVC, animated: true, completion: nil)
+        }
+        else {
+            // Let the user know if his/her device isn't able to send text messages
+            let errorAlert = UIAlertView(title: "Cannot Send Text Message", message: "Your device is not able to send text messages.", delegate: self, cancelButtonTitle: "OK")
+            errorAlert.show()
+        }
+    }
+    @IBAction func phoneIsTouched(sender: AnyObject) {
+        
+    }
+    
+    
    override func scrollViewDidScroll(scrollView: UIScrollView) {
         var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView
         var fractionalPage = self.scrollView.contentOffset.x / pageWidth;
         var page = lround(Double(fractionalPage))
         self.pages.currentPage = page;
     }
-    func gMailToutched(){
-        if(self.gmail.image!.isEqual(UIImage(named:"bike.jpg"))){
-            println("in here")
-            self.gmail.image = UIImage(named:"tv.png")
-        }
-        else {
-            self.gmail.image = UIImage(named:"bike.jpg")
-        }
-        println("touched")
-    }
-    func pEmailToutched(){
-        if(self.pEmail.image!.isEqual(UIImage(named:"bike.jpg"))){
-            self.pEmail.image = UIImage(named:"tv.png")
-        }
-        else{
-            self.pEmail.image = UIImage(named:"bike.jpg")
-        }
-    }
-    func textToutched(){
-        if(self.text.image!.isEqual(UIImage(named:"bike.jpg"))){
-            self.text.image = UIImage(named:"tv.png")
-        }
-        else{
-            self.text.image = UIImage(named:"bike.jpg")
-        }
-    }
-    func phoneToutched(){
-        println("phone touched")
-        if((self.phone.image!.isEqual(UIImage(named:"bike.jpg")))){
-            self.phone.image = UIImage(named:"tv.png")
-        }
-        else{
-            self.phone.image = UIImage(named:"bike.jpg")
-        }
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(images.count), height: scrollView.contentSize.height)
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        println("hello")
+        
         //This needs to be only the picture cell
         if(indexPath.section == 0 && indexPath.row == 0 ){
             return scrollViewWidth + 20
         }
         if(indexPath.section == 1){
-            return 45
+            return 77
         }
-        return 20
+        return 30
     }
     
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
@@ -197,13 +161,36 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
             header.text = " Contact the seller"
         }
         
-        header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
+        header.font = UIFont(name: "HelveticaNeue-Light",size: 20)
         header.backgroundColor = UIColor.lightGrayColor()
         
         return header
     }
-    
+}
 
+class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
+    
+    // A wrapper function to indicate whether or not a text message can be sent from the user's device
+    func canSendText() -> Bool {
+        return MFMessageComposeViewController.canSendText()
+    }
+    
+    // Configures and returns a MFMessageComposeViewController instance
+    func configuredMessageComposeViewController() -> MFMessageComposeViewController {
+        let messageComposeVC = MFMessageComposeViewController()
+        messageComposeVC.messageComposeDelegate = self  //  Make sure to set this property to self, so that the controller can be dismissed!
+        
+        //these need to be fixed
+        messageComposeVC.recipients = ["14087721993"]
+        messageComposeVC.body = "Hey friend - Just sending a text message in-app using Swift!"
+        return messageComposeVC
+    }
+    
+    // MFMessageComposeViewControllerDelegate callback - dismisses the view controller when the user is finished with it
+    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
 
 

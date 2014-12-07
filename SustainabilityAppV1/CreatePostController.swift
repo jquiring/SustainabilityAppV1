@@ -85,7 +85,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         if(category.text == ""){
             category.text = "Books"
         }
-        tableView.reloadData()
         currentText.resignFirstResponder()
         print("DoneCat")
     }
@@ -235,6 +234,8 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
         category.text = "\(pickerData[row])"
+        tableView.reloadData()
+        category.becomeFirstResponder()
     }
     func getImage(){
         //Create the alert action that comes up when the images are selected
