@@ -123,8 +123,8 @@
 				F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */,
 				F8B9FD881A14307900DB75CC /* ProfilePost.swift */,
 				F8AE49241A1D5D9E00070211 /* CreatePostController.swift */,
-				F892C94819F59B4200113C26 /* Supporting Files */,
 				F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */,
+				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
 			sourceTree = "<group>";
@@ -209,6 +209,7 @@
 				TargetAttributes = {
 					F892C94419F59B4100113C26 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = GUYPJD4NUE;
 					};
 					F892C95919F59B4200113C26 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -400,9 +401,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SustainabilityAppV1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -410,9 +414,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SustainabilityAppV1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
