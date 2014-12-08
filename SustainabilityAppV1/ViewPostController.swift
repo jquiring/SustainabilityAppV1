@@ -22,7 +22,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     var frame: CGRect = CGRectMake(0, 0, 0, 0)
     let description1 = "description"
     let price = "price"             // |
-    let title1 = "title"            // |
+    let title1 = "Post from Jake Quiring"            // |
     let category = "category"       // |
     /*
     "gonzaga_email":gonzaga_email,  // |
@@ -44,7 +44,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     
     let departure_date = "departure_date_time" //rideshare specific
     let start_location = "start_location"           // |
-    let end_location = "end_location"               // |
+    let end_location = "end_location start location begin stop end again"               // |
     let round_trip = true                           // |
     let return_date = "return_date_time"            // <
     let date_time = "date_time"         //datelocation specific
@@ -161,10 +161,14 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
             header.text = " Contact the seller"
         }
         
-        header.font = UIFont(name: "HelveticaNeue-Light",size: 20)
-        header.backgroundColor = UIColor.lightGrayColor()
+        header.font = UIFont(name: "HelveticaNeue-Light",size: 26)
+        header.backgroundColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 0.8)
         
         return header
+    }
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+
+        return 30
     }
 }
 

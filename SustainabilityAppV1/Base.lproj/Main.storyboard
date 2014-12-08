@@ -1060,9 +1060,6 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="135" y="7" width="37" height="20"/>
-                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start location   " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NB0-Ko-Dub">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -1130,9 +1127,6 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="135" y="7" width="37" height="20"/>
-                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End location    " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiL-3w-5A2">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -1407,9 +1401,6 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="135" y="7" width="37" height="20"/>
-                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U65-kS-GCo">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -1479,9 +1470,6 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="135" y="7" width="37" height="20"/>
-                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuh-So-6eq">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -1498,8 +1486,7 @@
                                                             <exclude reference="D2E-S6-bBX"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="10" y="6" width="117" height="20"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="D2E-S6-bBX"/>
                                                         </mask>
@@ -1556,9 +1543,6 @@
                                                     <state key="normal" title="ZagMail">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="13" y="12" width="46" height="30"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="zagmailIsTouched:" destination="TbU-JY-e6d" eventType="touchUpInside" id="P1V-oj-95Q"/>
                                                     </connections>
@@ -1568,9 +1552,6 @@
                                                     <state key="normal" title="PEmail">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="113" y="12" width="46" height="30"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="prefEmailIsTouched:" destination="TbU-JY-e6d" eventType="touchUpInside" id="BH0-yH-j3a"/>
                                                     </connections>
@@ -1580,9 +1561,6 @@
                                                     <state key="normal" title="Phone">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="326" y="12" width="61" height="30"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="phoneIsTouched:" destination="TbU-JY-e6d" eventType="touchUpInside" id="blb-VI-qvc"/>
                                                     </connections>
@@ -1592,9 +1570,6 @@
                                                     <state key="normal" title="Text">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="233" y="12" width="46" height="30"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="textIsTouched:" destination="TbU-JY-e6d" eventType="touchUpInside" id="O6e-0S-KF2"/>
                                                     </connections>
@@ -1618,12 +1593,12 @@
                                                     <exclude reference="Xvz-lt-TF1"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="bs3-Lm-XyA"/>
-                                                    <exclude reference="oRp-33-IR5"/>
-                                                    <exclude reference="Fla-94-jam"/>
-                                                    <exclude reference="Gvl-rE-mcT"/>
                                                     <exclude reference="uK4-FI-FJC"/>
                                                     <exclude reference="zpm-R6-QLB"/>
+                                                    <exclude reference="Fla-94-jam"/>
+                                                    <exclude reference="Gvl-rE-mcT"/>
+                                                    <exclude reference="bs3-Lm-XyA"/>
+                                                    <exclude reference="oRp-33-IR5"/>
                                                     <exclude reference="iZE-yq-cBX"/>
                                                     <exclude reference="scY-z5-tUA"/>
                                                 </mask>
@@ -1636,12 +1611,12 @@
                                                     <include reference="Xvz-lt-TF1"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="bs3-Lm-XyA"/>
-                                                    <include reference="oRp-33-IR5"/>
-                                                    <include reference="Fla-94-jam"/>
-                                                    <include reference="Gvl-rE-mcT"/>
                                                     <include reference="uK4-FI-FJC"/>
                                                     <include reference="zpm-R6-QLB"/>
+                                                    <include reference="Fla-94-jam"/>
+                                                    <include reference="Gvl-rE-mcT"/>
+                                                    <include reference="bs3-Lm-XyA"/>
+                                                    <include reference="oRp-33-IR5"/>
                                                     <include reference="iZE-yq-cBX"/>
                                                     <include reference="scY-z5-tUA"/>
                                                 </mask>
