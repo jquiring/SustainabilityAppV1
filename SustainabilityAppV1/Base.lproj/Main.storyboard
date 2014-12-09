@@ -888,7 +888,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="dHC-II-hS5"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="iVE-9t-ODw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1632,7 +1632,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Post" id="jpL-qv-gUP">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="wHx-s2-yGJ">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="wHx-s2-yGJ">
                             <connections>
                                 <action selector="done:" destination="TbU-JY-e6d" id="dHX-4Q-nmg"/>
                             </connections>
@@ -1650,11 +1650,12 @@
                         <outlet property="round_trip_label" destination="Nbd-GF-5BC" id="edf-UC-PO0"/>
                         <outlet property="scrollView" destination="1Fw-7A-Gkt" id="O3P-NX-IGA"/>
                         <outlet property="start_location_label" destination="rcn-zx-7qZ" id="8FQ-AL-lMa"/>
+                        <outlet property="table" destination="3KI-me-tBz" id="qpU-0y-fO6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3P-yn-0FQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2458.5" y="-1751.25"/>
+            <point key="canvasLocation" x="4492.5" y="-2405.25"/>
         </scene>
         <!--Create a Post-->
         <scene sceneID="gKi-Gt-4jz">

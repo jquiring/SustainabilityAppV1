@@ -39,21 +39,23 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     @IBOutlet var isbn_label: UILabel!
     @IBOutlet var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
+    @IBOutlet var table: UITableView!
     
     let messageComposer = MessageComposer()
     
-    let departure_date = "departure_date_time" //rideshare specific
-    let start_location = "start_location"           // |
-    let end_location = "end_location start location begin stop end again"               // |
-    let round_trip = true                           // |
-    let return_date = "return_date_time"            // <
+    // these will be loaded from the HTTP request so they wont exist later
+    let departure_date = "departure_date_time"                              //rideshare specific
+    let start_location = "start_location"                                   // |
+    let end_location = "end_location start location begin stop end again"   // |
+    let round_trip = true                                                   // |
+    let return_date = "return_date_time"                                    // <
     let date_time = "date_time"         //datelocation specific
     let location = "location"           // <
     let isbn = "isbn"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        
         scrollViewWidth = screenSize.width
         pages.numberOfPages = images.count
         if(images.count == 1) {
@@ -63,13 +65,12 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         scrollView.delegate = self
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
-        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 26)!,NSForegroundColorAttributeName: UIColor.whiteColor()]
         createScroll()
         initializeLabels()
-        
         self.tableView.reloadData()
-        //setUpImageGestures()
     }
+    
     func initializeLabels(){
         if(round_trip){
             round_trip_label.text = "Round trip"
@@ -86,6 +87,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         location_label.text = location
         date_time_label.text = date_time
     }
+    
     func createScroll(){
         for index in 0..<images.count {
             var image:UIImage  = UIImage(named: images[index])!
@@ -94,25 +96,24 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
             frame.origin.y = 0
             frame.size = CGSize(width: scrollViewWidth, height: scrollViewWidth)
             self.scrollView.pagingEnabled = true
-            
             var subView = UIImageView(frame: frame)
             subView.image = newImage
             self.scrollView.addSubview(subView)
         }
-        
         self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(images.count), scrollView.contentSize.height)
     }
 
     @IBAction func done(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
     //Actions for the contact buttons
     @IBAction func zagmailIsTouched(sender: AnyObject) {
-       
     }
+    
     @IBAction func prefEmailIsTouched(sender: AnyObject) {
-        
     }
+    
     @IBAction func textIsTouched(sender: AnyObject) {
         if (messageComposer.canSendText()) {
             let messageComposeVC = messageComposer.configuredMessageComposeViewController()
@@ -124,10 +125,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
             errorAlert.show()
         }
     }
-    @IBAction func phoneIsTouched(sender: AnyObject) {
-        
-    }
     
+    @IBAction func phoneIsTouched(sender: AnyObject) {
+    }
     
    override func scrollViewDidScroll(scrollView: UIScrollView) {
         var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView
@@ -135,15 +135,17 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         var page = lround(Double(fractionalPage))
         self.pages.currentPage = page;
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(images.count), height: scrollView.contentSize.height)
     }
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         //This needs to be only the picture cell
         if(indexPath.section == 0 && indexPath.row == 0 ){
-            return scrollViewWidth + 20
+            return scrollViewWidth + 30
         }
         if(indexPath.section == 1){
             return 77
@@ -155,17 +157,18 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         print(section)
         var header : UILabel = UILabel()
         if(section == 0){
-            header.text = " " + title1
+            header.text = "  " + title1
         }
         else{
-            header.text = " Contact the seller"
+            header.text = "  Contact the seller"
         }
         
-        header.font = UIFont(name: "HelveticaNeue-Light",size: 26)
+        header.font = UIFont(name: "HelveticaNeue-Light",size: 22)
         header.backgroundColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 0.8)
         
         return header
     }
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
 
         return 30
@@ -194,7 +197,6 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
-    
 }
 
 

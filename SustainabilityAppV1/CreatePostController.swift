@@ -16,8 +16,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     var popover:UIPopoverController?=nil
     //Further Details Text Fields
     var currentText:UITextField = UITextField()
-    
-    
     var picker:UIImagePickerController?=UIImagePickerController()
     weak var cat_picker: UIPickerView!
     @IBOutlet var title_field: UITextField!
@@ -45,7 +43,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var text: UIImageView!
     @IBOutlet var phone: UIImageView!
     @IBOutlet var category: UITextField!
-
+    //pickers' data
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
     
@@ -68,6 +66,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         assignDelegates()
         self.view.backgroundColor = UIColor.whiteColor()
     }
+    
     func assignDelegates(){
         self.leaves.delegate = self
         self.date.delegate = self
@@ -81,6 +80,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.descOutlet.delegate = self
         self.title_field.delegate = self
     }
+    
     func doneCat() {
         if(category.text == ""){
             category.text = "Books"
@@ -88,6 +88,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         currentText.resignFirstResponder()
         print("DoneCat")
     }
+    
     func doneDate(){
         currentText.resignFirstResponder()
     }
@@ -96,7 +97,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         tableView.reloadData()
         
     }
-    //TODO: title field changed to cat_field.
+   
     func intializeCatPicker(){
         var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,target: self, action: "doneCat")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
@@ -108,7 +109,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.cat_picker = tempPicker
         self.category.inputView = cat_picker
     }
-    //initializes date pickers for the 3 necessary fields
+    
     func initializeDatePicker(){
         var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,target: self, action: "doneDate")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
@@ -123,6 +124,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.date.inputView = date_picker
         date_picker.addTarget(self, action: Selector("dataPickerChanged:"), forControlEvents: UIControlEvents.ValueChanged)
     }
+    
     func dataPickerChanged(date_picker:UIDatePicker) {
         var dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
@@ -131,6 +133,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         print (strDate)
         currentText.text = strDate
     }
+    
     func setUpImageGestures(){
         //image1
         let gestureRecogniser1 = UITapGestureRecognizer(target: self, action: Selector("image1Toutched"))
@@ -166,37 +169,45 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
         self.phone.image = UIImage(named:"bike.jpg")
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerData.count
     }
+    
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         return pickerData[row]
     }
-    func image1Toutched(){ //touched
+    
+    func image1Toutched(){
         currentImage = self.image1
         getImage()
     }
+    
     func image2Toutched(){
         currentImage = self.image2
         getImage()
     }
+    
     func image3Toutched(){
         currentImage = self.image3
         getImage()
     }
+    
     func tableToutched(){
         currentText.resignFirstResponder()
         descOutlet.resignFirstResponder()
         println(currentText)
         println("table touched")
     }
+    
     //TODO:
     func gMailToutched(){
         if(self.gmail.image!.isEqual(UIImage(named:"bike.jpg"))){
@@ -207,6 +218,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.gmail.image = UIImage(named:"bike.jpg")
         }
     }
+    
     func pEmailToutched(){
         if(self.pEmail.image!.isEqual(UIImage(named:"bike.jpg"))){
             self.pEmail.image = UIImage(named:"tv.png")
@@ -215,6 +227,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.pEmail.image = UIImage(named:"bike.jpg")
         }
     }
+    
     func textToutched(){
         if(self.text.image!.isEqual(UIImage(named:"bike.jpg"))){
             self.text.image = UIImage(named:"tv.png")
@@ -232,11 +245,13 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.phone.image = UIImage(named:"bike.jpg")
         }
     }
+    
     func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
         category.text = "\(pickerData[row])"
         tableView.reloadData()
         category.becomeFirstResponder()
     }
+    
     func getImage(){
         //Create the alert action that comes up when the images are selected
         currentText.resignFirstResponder()
@@ -272,6 +287,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             popover!.presentPopoverFromRect(image1.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
         }
     }
+    
     func openCamera(){
         if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
             picker!.sourceType = UIImagePickerControllerSourceType.Camera
@@ -281,6 +297,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             openGallary()
         }
     }
+    
     func openGallary(){ //gallery
         picker!.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone{
@@ -291,28 +308,33 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             popover!.presentPopoverFromRect(currentImage.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
         }
     }
+    
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!){
         let newImage = info[UIImagePickerControllerEditedImage] as UIImage
         let thumbNail = newImage.resizeToBoundingSquare(boundingSquareSideLength:800)
         picker.dismissViewControllerAnimated(true, completion: nil)
         currentImage.image=newImage
     }
+    
     func imagePickerControllerDidCancel(picker: UIImagePickerController!){
         println("picker cancel.")
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
+    
     //gets the current text field that is selected
-    func textFieldDidBeginEditing(textField: UITextField!){    //delegate method
+    func textFieldDidBeginEditing(textField: UITextField!){
         currentText = textField
     }
+    
     //TODO: do we need these next two functions
-    func textFieldShouldEndEditing(textField: UITextField!) -> Bool{  //delegate method
+    func textFieldShouldEndEditing(textField: UITextField!) -> Bool{
         return true
     }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool{   //delegate method
-        //textField.resignFirstResponder()
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool{
         return true
     }
+    
     //creates the custom view headers
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
         print(section)
@@ -323,6 +345,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         
         return header
     }
+    
     //sets the row heights within the table view
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 4){
@@ -354,6 +377,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
         return 0
     }
+    
     //sets the category header height to 0 if it is not being used
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
         let rideShareOneWaySections = [5,6,7,8]
@@ -374,9 +398,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
         return 24
     }
+    
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
     @IBAction func createPostSubmit(sender: AnyObject) {
         // check all fields first
         
@@ -384,22 +410,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/createpost/")!)
         request.HTTPMethod = "POST"
         var session = NSURLSession.sharedSession()
-        
-        // need to do images
-        //image urls
-        var imageUrls:[NSURL] = [NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisguy.png")!,NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisotherguy.png")!]
-        var UIImageList = [image1.image,image2.image,image3.image]
-        
-        //formulate imageBase64 array
+        var UIImageList = [image1.image , image2.image , image3.image]
         var imagesBase64:[String] = []
         var imageData:NSData
         var imageBase64:String
-        /*
-        for url in imageUrls{
-            imageData = NSData(contentsOfURL:url)! //load contents of url into NSData type
-            imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
-            imagesBase64.append(imageBase64)
-        }*/
+    
         for images in UIImageList{
             if(images != UIImage(named:"tv.png")){
                 imageData = UIImageJPEGRepresentation(images, 1)
@@ -418,27 +433,26 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             let gonzaga_email = "1" //boolean contact option
         }
         let pref_email = "0" //boolean contact option
-        if(gmail == UIImage(named: "tv.png")){
+        if(pEmail == UIImage(named: "tv.png")){
             let pref_email = "1"
         }
-        let phone = "0"
-        if(gmail == UIImage(named: "tv.png")){
-            let phone = "1" //boolean contact option
+        let phone_bool = "0"
+        if(phone == UIImage(named: "tv.png")){
+            let phone_bool = "1" //boolean contact option
         }
         let text_bool = "0"
         if(gmail == UIImage(named: "tv.png")){
             let text_bool = "1"
         }
-        // need text message boolean too
         //rideshare specific
         var departure_date_time = leaves.text
         var start_location = from.text
         var end_location = to.text
-        var round_trip = "0" // not sure
+        var return_date_time = comesBack.text
+        var round_trip = "0"
         if(round_trip_switch.on){
             round_trip = "1"
         }
-        var return_date_time = comesBack.text
         //datelocation specific
         var date_time = date.text
         var location_ = location.text
@@ -454,7 +468,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             "category":category_,           // |
             "gonzaga_email":gonzaga_email,  // |
             "pref_email":pref_email,        // |
-            "call":phone,                   // |
+            "call":phone_bool,              // |
             "text":text_bool,               // <
             "departure_date_time":departure_date_time,  //rideshare specific
             "start_location":start_location,            // |
@@ -475,7 +489,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         
         //define NSURLSession data task with completionHandler call back function
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            //read the message from the response
             var message = ""
             var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
             if(err != nil) {
@@ -488,19 +501,14 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                     message = parseJSON["message"] as String
                 }
             }
-            //downcast NSURLResponse object to NSHTTPURLResponse
             if let httpResponse = response as? NSHTTPURLResponse {
-                //get the status code
                 var status_code = httpResponse.statusCode
-                //200 = OK: user created, carry on!
                 if(status_code == 200){
                     println(message)
                 }
-                    //400 = BAD_REQUEST: error in creating user, display error!
                 else if(status_code == 400){
                     println(message)
                 }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
                 else if(status_code == 500){
                     println("The server is down! Call the fire!")
                 }
@@ -510,14 +518,10 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         })
         task.resume()
         sleep(5)
-
-        
-        
-        // dismiss the screen
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
 }
+
 extension UIImage{
     func resizeToBoundingSquare(#boundingSquareSideLength : CGFloat) -> UIImage{
         let imgScale = self.size.width > self.size.height ? boundingSquareSideLength / self.size.width : boundingSquareSideLength / self.size.height

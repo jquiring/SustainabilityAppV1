@@ -11,18 +11,21 @@ import UIKit
 class NewUserController: UIViewController,UITextFieldDelegate {
 
     var flag = false
+    var window: UIWindow?
     @IBOutlet weak var first: UITextField!
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var number: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var TaA: UILabel!
+    @IBOutlet weak var terms: UIButton!
+
     @IBAction func terms(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("termsConditions") as TermsAndConditionsConroller
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
     }
-    var window: UIWindow?
+    
     @IBAction func submit(sender: AnyObject) {
         var submitRequest = submitData()
         if(checkFields()) {
@@ -45,7 +48,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             }
         }
     }
-    @IBOutlet weak var terms: UIButton!
+    
     func checkFields() -> Bool {
         if(TaA.text == "☐" ) {
             var alert = UIAlertController(title: "Warning", message: "Please read and agree to the Terms and Conditions for Zig Zag", preferredStyle: UIAlertControllerStyle.Alert)
@@ -67,12 +70,12 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
             }))
             return false
-
         }
         else {
             return true
         }
     }
+    
     func isNumeric(a: String) -> Bool {
         if let n = a.toInt() {
             return true
@@ -80,16 +83,13 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             return false
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
         first!.delegate = self
         last!.delegate = self
         number!.delegate = self
         email!.delegate = self
-
-        // Do any additional setup after loading the view.
     }
     
     func submitData() -> Int{
@@ -107,15 +107,11 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         var phone = number.text
         
         var params = ["username":username, "first_name":first_name, "last_name":last_name, "gonzaga_email":g_email, "pref_email":p_email, "phone":phone] as Dictionary<String, String>
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
         var err: NSError?
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            
             //read the message from the response
             var message = ""
             var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
@@ -167,22 +163,19 @@ class NewUserController: UIViewController,UITextFieldDelegate {
 
     @IBAction func formattingNumber(sender: AnyObject) {
          var length = countElements(number.text)
-       
     }
 
     func formattedPhoneNumber(length:NSInteger,text:NSString) -> NSString {
         switch(length) {
         case 3: return NSString(format:"(%@)",text)
-            //case 6: return NSString(format: "%@ - %@",text.substringWithRange(NSRange(location:0,length:5)),text[-1])
-            
         default: return "yes"
-            
         }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
         if(first.isFirstResponder()){
             first.resignFirstResponder()
@@ -201,20 +194,22 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         }
         return true
     }
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        //do we need both?
         resignKeyboard()
         var touch = touches.anyObject()?.locationInView(self.view)
         if(CGRectContainsPoint(TaA.frame, touch!)){
             toggleTaAStatus()
         }
     }
+    
     func resignKeyboard(){
         first.resignFirstResponder()
         last.resignFirstResponder()
         number.resignFirstResponder()
         email.resignFirstResponder()
     }
+    
     func toggleTaAStatus(){
         let unchecked = "☐"
         let checked = "☑"
@@ -225,16 +220,4 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             TaA.text = checked
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
