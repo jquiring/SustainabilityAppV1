@@ -25,8 +25,11 @@ class LoginController: UIViewController,UITextFieldDelegate {
         //if ladap confirmed -- new user
         //set the incorrectLoginLabel.hidden = false if the login has failed
         var LDAPRequest = LDAPLogin()
+<<<<<<< HEAD
         password.resignFirstResponder()
         email.resignFirstResponder()
+=======
+>>>>>>> FETCH_HEAD
         if(LDAPRequest.0 == 200){
             print(LDAPRequest.1)
            if(LDAPRequest.1 == "yes"){
@@ -36,9 +39,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
                 self.window!.rootViewController = customVC
                 self.window!.makeKeyAndVisible()
             }
-            //else if (true){
             else if(LDAPRequest.1 == "no"){
-                //need to pass email in to create user page to send to DB ***************************************************
                 var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
                 let navController = UINavigationController(rootViewController: VC1)
                 self.presentViewController(navController, animated:true, completion: nil)
@@ -60,12 +61,12 @@ class LoginController: UIViewController,UITextFieldDelegate {
             incorrectLoginLabel.text = "Server Error: Server IP + Port has changed"
         }
     }
+    
     func makeAlert(text:String){
-    var alert = UIAlertController(title: nil, message: text, preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
-
+        var alert = UIAlertController(title: nil, message: text, preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
     }
     func LDAPLogin() -> (Int,String) {
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/ldapauth/")!)
@@ -87,21 +88,17 @@ class LoginController: UIViewController,UITextFieldDelegate {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             if let httpResponse = response as? NSHTTPURLResponse {
-                
                 var status_code = httpResponse.statusCode
                 var jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 var err: NSError?
                 var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-                
                 if(err != nil) {
                     println(err!.localizedDescription)
                     let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                     println("Error could not parse JSON: '\(jsonStr)'")
                 }
-                    
                 else {
                     if let parseJSON = json as? Dictionary<String,AnyObject>{
                         // Okay, the parsedJSON is here, let's get the value for 'success' out of it
@@ -167,9 +164,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
             flag = flag_Val
         }
         return (returnVal, existingUser)
-        
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,19 +172,15 @@ class LoginController: UIViewController,UITextFieldDelegate {
         email!.delegate = self
         password!.delegate = self
         incorrectLoginLabel.hidden = true
-
-        // Do any additional setup after loading the view, typically from a nib.
     }
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        //do we need both?
         password.resignFirstResponder()
         email.resignFirstResponder()
         
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // comment in did recieve
-        // Dispose of any resources that can be recreated.
     }
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
         if(email .isFirstResponder()){
@@ -201,6 +192,5 @@ class LoginController: UIViewController,UITextFieldDelegate {
         }
         return true
     }
-
 }
 

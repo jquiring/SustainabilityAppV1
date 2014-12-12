@@ -17,6 +17,11 @@ protocol CenterViewControllerDelegate {
 
 class CenterViewController: UIViewController {
     
+    @IBOutlet weak private var imageView: UIImageView!
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var creatorLabel: UILabel!
+    var delegate: CenterViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
@@ -29,28 +34,4 @@ class CenterViewController: UIViewController {
             d.toggleLeftPanel?()
         }
     }
-    @IBOutlet weak private var imageView: UIImageView!
-    @IBOutlet weak private var titleLabel: UILabel!
-    @IBOutlet weak private var creatorLabel: UILabel!
-    
-    var delegate: CenterViewControllerDelegate?
-    
-    // MARK: Button actions
-    
-    
-    
-    
 }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-

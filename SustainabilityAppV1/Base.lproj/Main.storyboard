@@ -888,7 +888,11 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
+<<<<<<< HEAD
                         <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="Djp-fc-5Tp"/>
+=======
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="iVE-9t-ODw"/>
+>>>>>>> FETCH_HEAD
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1632,8 +1636,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Post" id="jpL-qv-gUP">
+<<<<<<< HEAD
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="wHx-s2-yGJ">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+=======
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="wHx-s2-yGJ">
+>>>>>>> FETCH_HEAD
                             <connections>
                                 <action selector="done:" destination="TbU-JY-e6d" id="dHX-4Q-nmg"/>
                             </connections>
@@ -1651,11 +1659,16 @@
                         <outlet property="round_trip_label" destination="Nbd-GF-5BC" id="edf-UC-PO0"/>
                         <outlet property="scrollView" destination="1Fw-7A-Gkt" id="O3P-NX-IGA"/>
                         <outlet property="start_location_label" destination="rcn-zx-7qZ" id="8FQ-AL-lMa"/>
+                        <outlet property="table" destination="3KI-me-tBz" id="qpU-0y-fO6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3P-yn-0FQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+<<<<<<< HEAD
             <point key="canvasLocation" x="4273.5" y="-2203.5"/>
+=======
+            <point key="canvasLocation" x="4492.5" y="-2405.25"/>
+>>>>>>> FETCH_HEAD
         </scene>
         <!--Create a Post-->
         <scene sceneID="gKi-Gt-4jz">
