@@ -35,29 +35,28 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
     }
     @IBAction func helpAndFAQ(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("helpAndFAQ") as HelpAndFAQController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
 
     }
     @IBAction func logout(sender: AnyObject) {
-        /*
+        
         var alert = UIAlertController(title:nil, message: "Are you sure you wish to logout?", preferredStyle: UIAlertControllerStyle.Alert)
         self.presentViewController(alert, animated: true, completion: nil)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as ViewController
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { (action: UIAlertAction!) in
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "username")
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as LoginController
             let navController = UINavigationController(rootViewController: VC1)
             // Creating a navigation controller with VC1 at the root of the navigation stack.
             self.presentViewController(navController, animated:true, completion: nil)
 
             
         }))
-    */
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
-        let navController = UINavigationController(rootViewController: VC1)
-        // Creating a navigation controller with VC1 at the root of the navigation stack.
-        self.presentViewController(navController, animated:true, completion: nil)
+
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()

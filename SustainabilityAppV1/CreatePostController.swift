@@ -187,23 +187,18 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         
     }
     func image2Toutched(){
-        if(image1 != UIImage(named:"tv.png")){
-            currentImage = self.image2
-             getImage()
-        }
+        currentImage = self.image2
+        getImage()
+
        
     }
     func image3Toutched(){
-        if(image2 != UIImage(named:"tv.png") && image1 != UIImage(named:"tv.png")){
-            currentImage = self.image3
-            getImage()
-        }
+        currentImage = self.image3
+        getImage()
     }
     func tableToutched(){
         currentText.resignFirstResponder()
         descOutlet.resignFirstResponder()
-        println(currentText)
-        println("table touched")
     }
     //TODO:
     func gMailToutched(){
