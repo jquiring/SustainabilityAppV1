@@ -181,20 +181,23 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func image1Toutched(){ //touched
         currentImage = self.image1
-        if(image1 != UIImage(named: "tv.png")){
-            getImage()
-        }
+ 
+        getImage()
+
         
     }
     func image2Toutched(){
-        if(image1 != UIImage(named: "tv.png")){
+        if(image1 != UIImage(named:"tv.png")){
             currentImage = self.image2
+             getImage()
         }
-        getImage()
+       
     }
     func image3Toutched(){
-        currentImage = self.image3
-        getImage()
+        if(image2 != UIImage(named:"tv.png") && image1 != UIImage(named:"tv.png")){
+            currentImage = self.image3
+            getImage()
+        }
     }
     func tableToutched(){
         currentText.resignFirstResponder()
@@ -324,7 +327,8 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         var header : UILabel = UILabel()
         header.text = categoryTitles[section]
         header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
-        header.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
+        header.textColor = UIColor.darkGrayColor()
+        header.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 0.8)
         
         return header
     }

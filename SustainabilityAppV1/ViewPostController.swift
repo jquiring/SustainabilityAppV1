@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class ViewPostController: UITableViewController, UIScrollViewDelegate{
+class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComposeViewControllerDelegate{
 
     @IBOutlet var pages: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
@@ -24,6 +24,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     let price = "price"             // |
     let title1 = "Post from Jake Quiring"            // |
     let category = "category"       // |
+    var email_type = 0
     /*
     "gonzaga_email":gonzaga_email,  // |
     "pref_email":pref_email,        // |
@@ -109,9 +110,23 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
     }
     //Actions for the contact buttons
     @IBAction func zagmailIsTouched(sender: AnyObject) {
+        email_type = 0
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
        
     }
     @IBAction func prefEmailIsTouched(sender: AnyObject) {
+        email_type = 1
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
         
     }
     @IBAction func textIsTouched(sender: AnyObject) {
@@ -126,7 +141,15 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         }
     }
     @IBAction func phoneIsTouched(sender: AnyObject) {
+        let alertController = UIAlertController(title: "Would you like to call the seller right now?", message:
+            nil, preferredStyle: UIAlertControllerStyle.Alert)
         
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+            var url:NSURL = NSURL(string: "tel://5033175476")!
+            UIApplication.sharedApplication().openURL(url)}))
+        presentViewController(alertController, animated: true, completion: nil)
+   
     }
     
     
@@ -161,15 +184,39 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate{
         else{
             header.text = " Contact the seller"
         }
-        
-        header.font = UIFont(name: "HelveticaNeue-Light",size: 26)
-        header.backgroundColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 0.8)
+        header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
+        header.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 0.8)
+        header.textColor = UIColor.darkGrayColor()
         
         return header
     }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
 
-        return 30
+        return 24
+    }
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        if(email_type == 1){
+            mailComposerVC.setToRecipients(["someone@somewhere.com"]) //prefered email
+        }
+        else{
+            mailComposerVC.setToRecipients(["someone@somewhere.com"]) //zagmail
+        }
+        mailComposerVC.setSubject("Inqury regarding " + title1)
+        mailComposerVC.setMessageBody("", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
