@@ -26,8 +26,11 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     @IBAction func submit(sender: AnyObject) {
         var submitRequest = submitData()
         if(checkFields()) {
+            
             if(submitRequest == 200){
                 resignKeyboard()
+
+
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
                 self.window!.backgroundColor = UIColor.whiteColor()
                 let customVC = ContainerViewController()
@@ -93,7 +96,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     }
     
     func submitData() -> Int{
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/createuser/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/createuser/")!)
         request.HTTPMethod = "POST"
         var session = NSURLSession.sharedSession()
         var flag_Val = false
@@ -161,6 +164,13 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         task.resume()
         while(flag == false){
             flag = flag_Val
+        }
+        if(return_Val == 200){
+            NSUserDefaults.standardUserDefaults().setObject(first.text, forKey: "first_name")
+            NSUserDefaults.standardUserDefaults().setObject(last.text, forKey: "last_name")
+            
+            NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
+            NSUserDefaults.standardUserDefaults().setObject(number.text, forKey: "phone")
         }
         return return_Val
     }

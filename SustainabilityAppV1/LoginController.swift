@@ -12,7 +12,7 @@ import Foundation
 class LoginController: UIViewController,UITextFieldDelegate {
 
     //LDAP Variables
-    let LDAPIP = "147.222.165.121:8000/ldapauth"
+    let LDAPIP = "147.222.164.91:8000/ldapauth/"
     var flag = false
     
     var window: UIWindow?
@@ -25,7 +25,8 @@ class LoginController: UIViewController,UITextFieldDelegate {
         //if ladap confirmed -- new user
         //set the incorrectLoginLabel.hidden = false if the login has failed
         var LDAPRequest = LDAPLogin()
-        
+        password.resignFirstResponder()
+        email.resignFirstResponder()
         if(LDAPRequest.0 == 200){
             print(LDAPRequest.1)
            if(LDAPRequest.1 == "yes"){
@@ -67,7 +68,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
 
     }
     func LDAPLogin() -> (Int,String) {
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/ldapauth/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         var username = ""

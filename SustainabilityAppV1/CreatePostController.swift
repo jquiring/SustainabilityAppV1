@@ -181,10 +181,15 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func image1Toutched(){ //touched
         currentImage = self.image1
-        getImage()
+        if(image1 != UIImage(named: "tv.png")){
+            getImage()
+        }
+        
     }
     func image2Toutched(){
-        currentImage = self.image2
+        if(image1 != UIImage(named: "tv.png")){
+            currentImage = self.image2
+        }
         getImage()
     }
     func image3Toutched(){
@@ -381,7 +386,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         // check all fields first
         
         // create a post code
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/createpost/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/createpost/")!)
         request.HTTPMethod = "POST"
         var session = NSURLSession.sharedSession()
         

@@ -22,7 +22,7 @@ class EditUserController: UIViewController {
     @IBAction func save(sender: AnyObject){
         var flag_Val = false
         var return_Val = -1
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.121:8000/edituser/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/edituser/")!)
         request.HTTPMethod = "PUT"
         
         var session = NSURLSession.sharedSession()
@@ -63,6 +63,7 @@ class EditUserController: UIViewController {
                 
                 //200 = OK: user created, carry on!
                 if(status_code == 200){
+                    
                     println(message)
                     return_Val = 200
                     flag_Val = true
@@ -88,6 +89,11 @@ class EditUserController: UIViewController {
             flag = flag_Val
         }
         if(return_Val == 200){
+            NSUserDefaults.standardUserDefaults().setObject(first_name_field.text, forKey: "first_name")
+            NSUserDefaults.standardUserDefaults().setObject(last_name_field.text, forKey: "last_name")
+            
+            NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
+            NSUserDefaults.standardUserDefaults().setObject(phone_number.text, forKey: "phone")
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
