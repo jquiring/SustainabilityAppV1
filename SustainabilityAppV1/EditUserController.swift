@@ -23,6 +23,7 @@ class EditUserController: UIViewController {
         var flag_Val = false
         var return_Val = -1
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/edituser/")!)
+
         request.HTTPMethod = "PUT"
         
         var session = NSURLSession.sharedSession()

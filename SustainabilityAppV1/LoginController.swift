@@ -27,6 +27,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         var LDAPRequest = LDAPLogin()
         password.resignFirstResponder()
         email.resignFirstResponder()
+
         if(LDAPRequest.0 == 200){
             print(LDAPRequest.1)
            if(LDAPRequest.1 == "yes"){

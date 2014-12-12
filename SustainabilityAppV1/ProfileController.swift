@@ -74,6 +74,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     override func viewDidAppear(animated: Bool) {
         makeLayout()
+
     }
     @IBAction func newPost(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as CreatePostController
@@ -276,20 +277,14 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         return cell
     
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 
 }
 extension String {
     subscript (i: Int) -> String {
         return String(Array(self)[i])
+
     }
+
+
 }
