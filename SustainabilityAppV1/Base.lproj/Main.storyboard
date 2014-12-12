@@ -888,9 +888,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-
                         <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="Djp-fc-5Tp"/>
-
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1657,7 +1655,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3P-yn-0FQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4273.5" y="-2203.5"/>
-
         </scene>
         <!--Create a Post-->
         <scene sceneID="gKi-Gt-4jz">

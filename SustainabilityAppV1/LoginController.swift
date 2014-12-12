@@ -14,7 +14,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
     //LDAP Variables
     let LDAPIP = "147.222.164.91:8000/ldapauth/"
     var flag = false
-    
+    //Made a change
     var window: UIWindow?
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
