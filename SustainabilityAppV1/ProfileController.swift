@@ -48,6 +48,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { (action: UIAlertAction!) in
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "username")
+            //set the rest of the user defaults to nil?
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as LoginController
             let navController = UINavigationController(rootViewController: VC1)
             // Creating a navigation controller with VC1 at the root of the navigation stack.
@@ -117,9 +118,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight,"twitterFeedHeight":twitterFeedHeight ]
         
         //edit profile
-        let user_first_name:String = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
-        let user_last_name:String = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
-        view1.setTitle("⚙ " + user_first_name + " "+user_last_name[0]+".", forState: UIControlState.Normal)
+        if (NSUserDefaults.standardUserDefaults().objectForKey("username") != nil) {
+            let user_first_name:String = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
+            let user_last_name:String = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
+            view1.setTitle("⚙ " + user_first_name + " "+user_last_name[0]+".", forState: UIControlState.Normal)
+        }
         view1.setTitleColor(UIColor.darkGrayColor(), forState: nil)
         view1.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 24)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -275,6 +278,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
         return cell
     
+    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Get the row data for the selected row
+        println(arrayOfPosts[indexPath.row].id)
     }
 
 

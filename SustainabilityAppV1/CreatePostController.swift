@@ -45,6 +45,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var text: UIImageView!
     @IBOutlet var phone: UIImageView!
     @IBOutlet var category: UITextField!
+    var flag = false
 
     let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
@@ -382,6 +383,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func createPostSubmit(sender: AnyObject) {
+        flag = false
         // check all fields first
         
         // create a post code
@@ -499,21 +501,30 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 //200 = OK: user created, carry on!
                 if(status_code == 200){
                     println(message)
+                    self.flag = true
                 }
                     //400 = BAD_REQUEST: error in creating user, display error!
                 else if(status_code == 400){
                     println(message)
+                    self.flag = true
                 }
                     //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
                 else if(status_code == 500){
                     println("The server is down! Call the fire!")
+                    self.flag = true
                 }
             } else {
                 println("Error in casting response, data incomplete")
+                self.flag = true
             }
         })
         task.resume()
-        sleep(5)
+        let load:UIActivityIndicatorView = UIActivityIndicatorView(frame: self.view.frame)
+        load.startAnimating()
+        view.addSubview(load)
+        while(self.flag == false){
+        }
+        load.stopAnimating()
 
         
         
