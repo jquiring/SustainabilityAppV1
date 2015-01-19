@@ -17,15 +17,28 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
-    var arrayOfPosts: [ProfilePost] = [ProfilePost]()
+    var arrayOfPosts: [ProfilePost] = []
     
     func setUpPosts(){
+        /*
         var post1 = ProfilePost(title: "Fresh Bike", imageName: "bike.jpg",id:"id1")
         var post2 = ProfilePost(title: "Cheap Tv for all you ladies out there and now the title is a litte bit bigger", imageName: "tv.png",id:"id2")
         var post3 = ProfilePost(title: "Hurt myself Skating -- Need to sell", imageName: "skateboard.jpg",id:"id3")
         arrayOfPosts.append(post1)
         arrayOfPosts.append(post2)
         arrayOfPosts.append(post3)
+        */
+        arrayOfPosts = []
+        if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+            var current_posts:Dictionary<String,AnyObject> = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as Dictionary<String,AnyObject>
+            for (id,post) in current_posts {
+                println("new_post)")
+                var new_post:ProfilePost
+                new_post = ProfilePost(title: post[0] as String, imageName: post[1] as NSData, id: id)
+         
+                arrayOfPosts.append(new_post)
+            }
+        }
     }
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
@@ -48,6 +61,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { (action: UIAlertAction!) in
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "username")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "first_name")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "last_name")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone*")
             //set the rest of the user defaults to nil?
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as LoginController
             let navController = UINavigationController(rootViewController: VC1)
@@ -61,6 +79,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        //NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
         self.setUpPosts()
         makeLayout()
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
@@ -73,7 +92,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {
+        setUpPosts()
         makeLayout()
+        //self.table.reloadData()
+        println("view did appear")
 
     }
     @IBAction func newPost(sender: AnyObject) {
@@ -271,7 +293,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
         let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as ProfilePostCell
         let postCell = arrayOfPosts[indexPath.row]
-        cell.setCell(postCell.title, imageName: postCell.imageName,id:postCell.id)
+        cell.setCell(postCell.title, imageName: postCell.imageName)
         cell.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         

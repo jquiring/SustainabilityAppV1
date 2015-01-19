@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 class ProfilePost {
     var title = "title"
-    var imageName = "blank"
+    var imageName:NSData
+    //var key_value = ""
     var id = ""
     /*
     var cat = ""
@@ -31,13 +33,28 @@ class ProfilePost {
     var text = ""
     var phone = "" 
 */
-    init(title:String,imageName:String,id:String){
+    init(title:String,imageName:NSData,id:String){
         self.title = title
         self.imageName = imageName
         self.id = id
     }
-    init(arr: Array<Any>){
-
-        
+    init(title:String,id:String){
+        self.title = title
+        self.id = id
+        var image =  UIImage(named:"tv.png")
+        self.imageName = UIImageJPEGRepresentation(image, 1)
+    }
+    func upDateNSData(){
+        var new_post = [title,imageName]
+        if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+            var current_posts:Dictionary<String,AnyObject> = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as Dictionary<String,AnyObject>
+            current_posts[id] = new_post
+            NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+            
+        }
+        else {
+            let dict:Dictionary<String,AnyObject> = [id:new_post]
+            NSUserDefaults.standardUserDefaults().setObject(dict, forKey: "user_posts")
+        }
     }
 }
