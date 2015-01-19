@@ -46,6 +46,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 arrayOfPosts.append(new_post)
             }
         }
+        
+        
     }
     func setupTable(){
         table.delegate = self
