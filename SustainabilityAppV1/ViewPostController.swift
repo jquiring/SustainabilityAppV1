@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import Foundation
 
 class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComposeViewControllerDelegate{
 
@@ -32,13 +33,13 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     "text":text_bool,               // <
     */
     @IBOutlet var price_label: UILabel!
-    @IBOutlet var round_trip_label: UILabel!
+    @IBOutlet weak var round_trip_label: UILabel!
     @IBOutlet var start_location_label: UILabel!
     @IBOutlet var end_location_label: UILabel!
     @IBOutlet var depature_date_label: UILabel!
     @IBOutlet var return_date_label: UILabel!
     @IBOutlet var isbn_label: UILabel!
-    @IBOutlet var location_label: UILabel!
+    @IBOutlet weak var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
     
     let messageComposer = MessageComposer()
@@ -71,13 +72,207 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
         self.tableView.reloadData()
         //setUpImageGestures()
+        
+        
+        //Here I would call startRequest()
+        startRequest()
     }
+    
+    func startRequest() {
+        //create a mutable request with api view path /viewpost, set method to POST
+        //kyle
+        //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/viewpost")!)
+        //trenton
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/viewpost/")!)
+        request.HTTPMethod = "POST"
+        
+        //open NSURLSession
+        var session = NSURLSession.sharedSession()
+        
+        //parameter values
+        //common post information
+        var postid_ = "37"
+        var category_ = "Ride Shares"
+        
+        //this is the parameters array that will be formulated as JSON.
+        // We need both postid and category
+        var params = ["post_id":postid_,          //post id so we find the post
+            "category":category_]                 //category so we know what table to search
+            as Dictionary<String,AnyObject>
+        
+        
+        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        //_________________________________________________________________
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("In task")
+            //read the message from the response
+            var title_ = ""
+            var description_ = ""
+            var price_ = ""
+            var departure_date_time_ = ""
+            var return_date_time_ = ""
+            var round_trip_ = false
+            var trip_ = ""
+            var gonzaga_email_ = ""
+            var pref_email_ = ""
+            var call_ = ""
+            var text_ = ""
+            var isbn_ = ""
+            var location_ = ""
+            var date_time_ = ""
+            var imageString: [String]=["","",""]
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
+            if(err != nil) {
+                println(err!.localizedDescription)
+                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("Error could not parse JSON: '\(jsonStr)'")
+            }
+            else{
+                if let parseJSON = json as? Dictionary<String,AnyObject>{
+                    
+                    title_ = parseJSON["title"] as String
+                    description_ = parseJSON["description"] as String
+                    price_ = parseJSON["price"] as String
+                    gonzaga_email_ = parseJSON["gonzaga_email"] as String
+                    pref_email_ = parseJSON["pref_email"] as String
+                    call_ = parseJSON["call"] as String
+                    text_ = parseJSON["text"] as String
+                    
+                    
+                    if category_ == "Books"{
+                        isbn_ = parseJSON["isbn"] as String
+                    }
+                    
+                    if category_ == "Events" || category_ == "Services"{
+                        println("We are in events/services")
+                        location_ = parseJSON["location"] as String
+                        date_time_ = parseJSON["date_time"] as String
+                    }
+                    
+                    if category_ == "Ride Shares"{
+                        departure_date_time_ = parseJSON["departure_date_time"] as String
+                        round_trip_ = parseJSON["round_trip"] as Bool
+                        trip_ = parseJSON["trip"] as String
+                        if round_trip_{
+                                return_date_time_ = parseJSON["return_date_time"] as String
+                        }
+                    }
+                    
+                    //The Three images are processed here
+                    imageString[0] = parseJSON["image1"]! as String
+                    imageString[1] = parseJSON["image2"]! as String
+                    imageString[2] = parseJSON["image3"]! as String
+                    if !imageString[0].isEmpty {
+                        let imageData1 = NSData(base64EncodedString: imageString[0], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                        
+                        //do stuff with the image here
+                    }
+                    else{
+                        //No image flag
+                        //CASE IN WHICH THE POST HAD NO IMAGE 1
+                    }
+                    if !imageString[1].isEmpty {
+                        let imageData2 = NSData(base64EncodedString: imageString[1], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                        
+                        //do stuff with the image here
+                    }
+                    else{
+                        //CASE IN WHICH THE POST HAD NO IMAGE 2
+                    }
+                    if !imageString[2].isEmpty {
+                        let imageData3 = NSData(base64EncodedString: imageString[2], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                        
+                        //do stuff with the image here
+                    }
+                    else{
+                        //CASE IN WHICH THE POST HAD NO IMAGE 3
+                    }
+                }
+            }
+            
+            //downcast NSURLResponse object to NSHTTPURLResponse
+            if let httpResponse = response as? NSHTTPURLResponse {
+                
+                //get the status code
+                var status_code = httpResponse.statusCode
+                
+                //200 = OK: user created, carry on!
+                if(status_code == 200){
+                    
+                    print("Title = ")
+                    println(title_)
+                    print("Description = ")
+                    println(description_)
+                    print("Category = ")
+                    println(category_)
+                    print("Price = ")
+                    println(price_)
+                    print("Gonzaga email = ")
+                    println(gonzaga_email_)
+                    print("Pref email = ")
+                    println(pref_email_)
+                    print("Call = ")
+                    println(call_)
+                    print("Text = ")
+                    println(text_)
+                    
+                    
+                    self.price_label.text = price_
+                   
+                    self.isbn_label.text = isbn_
+                    self.location_label.text = location_
+                    self.date_time_label.text = date_time_
+                    
+                    if category_ == "Ride Shares"{
+                        self.start_location_label.text = trip_
+                        self.depature_date_label.text = departure_date_time_
+                        self.return_date_label.text = return_date_time_
+                        if round_trip_{
+                            self.round_trip_label.text = "Round trip"
+                        }
+                        else{
+                            self.round_trip_label.text = "One way"
+                        }
+                    }
+                    if category_ == "Events" || category_ == "Services"{
+                        print("Date Time = ")
+                        println(date_time_)
+                        print("Location = ")
+                        println(location_)
+                    }
+                    if category_ == "Books"{
+                        print("ISBN = ")
+                        println(isbn_)
+                    }
+                }
+                //400 = BAD_REQUEST: error in creating user, display error!
+                else if(status_code == 400){
+                    println(title_)
+                }
+                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
+                else if(status_code == 500){
+                    println("The server is down! Call the fire department!")
+                }
+            } else {
+                println("Error in casting response, data incomplete")
+            }
+        })
+        task.resume()
+        
+        sleep(5)
+    }
+    
+    
     func initializeLabels(){
         if(round_trip){
-            round_trip_label.text = "Round trip"
+            self.round_trip_label.text = "Round trip"
         }
         else{
-            round_trip_label.text = "One way"
+            self.round_trip_label.text = "One way"
         }
         price_label.text = price
         start_location_label.text = start_location
