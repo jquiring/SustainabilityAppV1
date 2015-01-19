@@ -34,7 +34,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             for (id,post) in current_posts {
                 println("new_post)")
                 var new_post:ProfilePost
-                new_post = ProfilePost(title: post[0] as String, imageName: post[1] as NSData, id: id)
+                new_post = ProfilePost(title: post[0] as String, imageName: post[1] as NSData, id: id,cat:post[2] as String)
          
                 arrayOfPosts.append(new_post)
             }
@@ -94,7 +94,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     override func viewDidAppear(animated: Bool) {
         setUpPosts()
         makeLayout()
-        //self.table.reloadData()
+        self.table.reloadData()
         println("view did appear")
 
     }
@@ -304,6 +304,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
         println(arrayOfPosts[indexPath.row].id)
+        println(arrayOfPosts[indexPath.row].category)
     }
 
 

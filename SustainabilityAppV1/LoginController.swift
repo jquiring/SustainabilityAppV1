@@ -12,7 +12,6 @@ import Foundation
 class LoginController: UIViewController,UITextFieldDelegate {
 
     //LDAP Variables
-    let LDAPIP = "147.222.164.91:8000/ldapauth/"
     var flag = false
     //Made a change
     var window: UIWindow?
@@ -69,7 +68,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
 
     }
     func LDAPLogin() -> (Int,String) {
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/ldapauth/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
         var username = ""
@@ -149,13 +148,13 @@ class LoginController: UIViewController,UITextFieldDelegate {
                                     var new_post:ProfilePost
                                     if !imageString.isEmpty {
                                         let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                                         new_post = ProfilePost(title: title, imageName: imageData, id: String(postID))
+                                        new_post = ProfilePost(title: title, imageName: imageData, id: String(postID),cat:category)
                                         //THIS IS WHERE IMAGES ARE HANDLED, if there are any...
                                     }
                                    
                                         //no image included...
                                     else{
-                                        new_post = ProfilePost(title: title, id: String(postID))
+                                        new_post = ProfilePost(title: title, id: String(postID),cat:category)
                                         //NO IMAGE WITH POST
                                     }
                                     new_post.upDateNSData()

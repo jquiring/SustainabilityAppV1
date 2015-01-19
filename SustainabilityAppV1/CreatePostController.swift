@@ -388,7 +388,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         // check all fields first
         
         // create a post code
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/createpost/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/createpost/")!)
         request.HTTPMethod = "POST"
         var session = NSURLSession.sharedSession()
         
@@ -534,10 +534,10 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             var new_post:ProfilePost
             if(self.images_data != []) {
                 default_image = self.images_data[0]
-                new_post = ProfilePost(title: title, imageName: default_image!, id: stringid.stringValue)
+                new_post = ProfilePost(title: title, imageName: default_image!, id: stringid.stringValue,cat:category_)
             }
             else{
-                new_post = ProfilePost(title: title, id: stringid.stringValue)
+                new_post = ProfilePost(title: title, id: stringid.stringValue,cat:category_)
             }
             println(title)
             
