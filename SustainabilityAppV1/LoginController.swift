@@ -131,6 +131,37 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             }
                             println("Valid credentials! Carry on to main page...")
                             returnVal = 200
+                            if let posts: AnyObject = parseJSON["posts"]{
+                                
+                                //iterate through each post
+                                for i in 0...(posts.count - 1){
+                                    let post: AnyObject! = posts[i] //just so we don't keep re-resolving this reference
+                                    
+                                    //get the easy ones, title, display_value and post ID
+                                    let title = post["title"] as String
+                                    let postID = post["id"]! as Int
+                                    let category = post["category"] as String 
+                                    
+                                    //read imageString, base64 encoded
+                                    let imageString = post["image"]! as String
+                                    
+                                    //make sure there is an image...
+                                    var new_post:ProfilePost
+                                    if !imageString.isEmpty {
+                                        let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                                         new_post = ProfilePost(title: title, imageName: imageData, id: String(postID))
+                                        //THIS IS WHERE IMAGES ARE HANDLED, if there are any...
+                                    }
+                                   
+                                        //no image included...
+                                    else{
+                                        new_post = ProfilePost(title: title, id: String(postID))
+                                        //NO IMAGE WITH POST
+                                    }
+                                    new_post.upDateNSData()
+                                }
+                            }
+
                             NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username")
                             NSUserDefaults.standardUserDefaults().setObject(first_name, forKey: "first_name")
                             NSUserDefaults.standardUserDefaults().setObject(last_name, forKey: "last_name")

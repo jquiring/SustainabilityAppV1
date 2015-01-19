@@ -45,9 +45,10 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var text: UIImageView!
     @IBOutlet var phone: UIImageView!
     @IBOutlet var category: UITextField!
+    var images_data:[NSData] = []
     var flag = false
-
-    let pickerData = ["Books","Electronics","Furniture","Appliances & Kitchen","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
+    var id = 0
+    let pickerData = ["Books","Electronics","Household","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
     
     override func viewDidLoad() {
@@ -409,6 +410,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         for images in UIImageList{
             if(images != UIImage(named:"tv.png")){
                 imageData = UIImageJPEGRepresentation(images, 1)
+                images_data.append(imageData)
                 imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
                 imagesBase64.append(imageBase64)
             }
@@ -478,11 +480,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
+        var status_code = 0
         //define NSURLSession data task with completionHandler call back function
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             //read the message from the response
             var message = ""
+            
             var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
             if(err != nil) {
                 println(err!.localizedDescription)
@@ -492,14 +495,17 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             else{
                 if let parseJSON = json as? Dictionary<String,AnyObject>{
                     message = parseJSON["message"] as String
+                    self.id = parseJSON["id"] as Int
                 }
             }
+          
             //downcast NSURLResponse object to NSHTTPURLResponse
             if let httpResponse = response as? NSHTTPURLResponse {
                 //get the status code
-                var status_code = httpResponse.statusCode
+                status_code = httpResponse.statusCode
                 //200 = OK: user created, carry on!
                 if(status_code == 200){
+
                     println(message)
                     self.flag = true
                 }
@@ -519,12 +525,25 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             }
         })
         task.resume()
-        let load:UIActivityIndicatorView = UIActivityIndicatorView(frame: self.view.frame)
-        load.startAnimating()
-        view.addSubview(load)
         while(self.flag == false){
         }
-        load.stopAnimating()
+        if(status_code == 200){
+            var stringid = self.id as NSNumber
+            println(self.id)
+            var default_image : NSData? = nil
+            var new_post:ProfilePost
+            if(self.images_data != []) {
+                default_image = self.images_data[0]
+                new_post = ProfilePost(title: title, imageName: default_image!, id: stringid.stringValue)
+            }
+            else{
+                new_post = ProfilePost(title: title, id: stringid.stringValue)
+            }
+            println(title)
+            
+            println("got past here")
+            new_post.upDateNSData()
+        }
 
         
         
