@@ -133,31 +133,33 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             if let posts: AnyObject = parseJSON["posts"]{
                                 
                                 //iterate through each post
-                                for i in 0...(posts.count - 1){
-                                    let post: AnyObject! = posts[i] //just so we don't keep re-resolving this reference
+                                if(posts.count != 0){
+                                    for i in 0...(posts.count - 1){
+                                        let post: AnyObject! = posts[i] //just so we don't keep re-resolving this reference
                                     
                                     //get the easy ones, title, display_value and post ID
-                                    let title = post["title"] as String
-                                    let postID = post["id"]! as Int
-                                    let category = post["category"] as String 
+                                        let title = post["title"] as String
+                                        let postID = post["id"]! as Int
+                                        let category = post["category"] as String
                                     
                                     //read imageString, base64 encoded
-                                    let imageString = post["image"]! as String
+                                        let imageString = post["image"]! as String
                                     
                                     //make sure there is an image...
-                                    var new_post:ProfilePost
-                                    if !imageString.isEmpty {
-                                        let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                                        new_post = ProfilePost(title: title, imageName: imageData, id: String(postID),cat:category)
+                                        var new_post:ProfilePost
+                                        if !imageString.isEmpty {
+                                            let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                                            new_post = ProfilePost(title: title, imageName: imageData, id: String(postID),cat:category)
                                         //THIS IS WHERE IMAGES ARE HANDLED, if there are any...
-                                    }
+                                        }
                                    
                                         //no image included...
-                                    else{
-                                        new_post = ProfilePost(title: title, id: String(postID),cat:category)
+                                        else{
+                                            new_post = ProfilePost(title: title, id: String(postID),cat:category)
                                         //NO IMAGE WITH POST
+                                        }
+                                        new_post.upDateNSData()
                                     }
-                                    new_post.upDateNSData()
                                 }
                             }
 

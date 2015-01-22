@@ -16,23 +16,31 @@ protocol CenterViewControllerDelegate {
 }
 
 class CenterViewController: UIViewController,  UITableViewDataSource,UITableViewDelegate {
-    
+    var refreshControl = UIRefreshControl()
     @IBOutlet var table: UITableView!
     var arrayOfPosts: [ListPost] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.table.addSubview(self.refreshControl)
+        
+        self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
         self.table.tableFooterView = UIView()
-
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         setUpPosts()
         setupTable()
-        table.reloadData()
+        navigationController?.hidesBarsOnSwipe = true
     }
     override func viewDidAppear(animated: Bool) {
-        table.reloadData()
+        self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+    }
+    func didRefresh(){
+        
+        setUpPosts()
+        self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+        self.refreshControl.endRefreshing()
     }
     func setUpPosts(){
         arrayOfPosts = []
@@ -65,7 +73,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        
+        var not_ready = true
+
         //define NSURLSession data task with completionHandler call back function
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             
@@ -123,6 +132,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                                     self.arrayOfPosts.append(new_post)
                                 }
                             }
+                            not_ready = false
                         }
                     }
                         
@@ -148,14 +158,16 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         task.resume()
         
         
-        sleep(5)
+        while(not_ready){
+            
+        }
 
         
     }
     func setupTable(){
         table.delegate = self
         table.dataSource = self
-        table.estimatedRowHeight = 80.0
+        table.estimatedRowHeight = 120.0
         table.rowHeight = UITableViewAutomaticDimension
 
 
