@@ -154,19 +154,19 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
-        self.gmail.image = UIImage(named:"bike.jpg")
+        self.gmail.image = UIImage(named:"ZagMail.png")
 
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
-        self.pEmail.image = UIImage(named:"bike.jpg")
+        self.pEmail.image = UIImage(named:"eMail.png")
 
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
-        self.text.image = UIImage(named:"bike.jpg")
+        self.text.image = UIImage(named:"SMS.png")
 
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
-        self.phone.image = UIImage(named:"bike.jpg")
+        self.phone.image = UIImage(named:"Call.png")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -183,16 +183,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func image1Toutched(){ //touched
         currentImage = self.image1
- 
         getImage()
-
-        
     }
     func image2Toutched(){
         currentImage = self.image2
         getImage()
-
-       
     }
     func image3Toutched(){
         currentImage = self.image3
@@ -204,37 +199,36 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     //TODO:
     func gMailToutched(){
-        if(self.gmail.image!.isEqual(UIImage(named:"bike.jpg"))){
-            println("in here")
-            self.gmail.image = UIImage(named:"tv.png")
+        if(self.gmail.image!.isEqual(UIImage(named:"ZagMailOFF.png"))){
+            self.gmail.image = UIImage(named:"ZagMail.png")
         }
         else {
-            self.gmail.image = UIImage(named:"bike.jpg")
+            self.gmail.image = UIImage(named:"ZagMailOFF.png")
         }
     }
     func pEmailToutched(){
-        if(self.pEmail.image!.isEqual(UIImage(named:"bike.jpg"))){
-            self.pEmail.image = UIImage(named:"tv.png")
+        if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF.png"))){
+            self.pEmail.image = UIImage(named:"eMail.png")
         }
         else{
-            self.pEmail.image = UIImage(named:"bike.jpg")
+            self.pEmail.image = UIImage(named:"eMailOFF.png")
         }
     }
     func textToutched(){
-        if(self.text.image!.isEqual(UIImage(named:"bike.jpg"))){
-            self.text.image = UIImage(named:"tv.png")
+        if(self.text.image!.isEqual(UIImage(named:"SMSOFF.png"))){
+            self.text.image = UIImage(named:"SMS.png")
         }
         else{
-            self.text.image = UIImage(named:"bike.jpg")
+            self.text.image = UIImage(named:"SMSOFF.png")
         }
     }
     func phoneToutched(){
         println("phone touched")
-        if((self.phone.image!.isEqual(UIImage(named:"bike.jpg")))){
-            self.phone.image = UIImage(named:"tv.png")
+        if((self.phone.image!.isEqual(UIImage(named:"CallOFF.png")))){
+            self.phone.image = UIImage(named:"Call.png")
         }
         else{
-            self.phone.image = UIImage(named:"bike.jpg")
+            self.phone.image = UIImage(named:"CallOFF.png")
         }
     }
     func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
@@ -356,7 +350,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 13){
-            return 77
+            return 100
         }
         return 0
     }
@@ -447,19 +441,19 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         let title = title_field.text
         let category_ = category.text // not sure
         let gonzaga_email = "0"
-        if(gmail == UIImage(named: "tv.png")){
+        if(gmail == UIImage(named: "ZagMail.png")){
             let gonzaga_email = "1" //boolean contact option
         }
         let pref_email = "0" //boolean contact option
-        if(gmail == UIImage(named: "tv.png")){
+        if(gmail == UIImage(named: "eMail.png")){
             let pref_email = "1"
         }
         let phone = "0"
-        if(gmail == UIImage(named: "tv.png")){
+        if(gmail == UIImage(named: "SMS.png")){
             let phone = "1" //boolean contact option
         }
         let text_bool = "0"
-        if(gmail == UIImage(named: "tv.png")){
+        if(gmail == UIImage(named: "Call.png")){
             let text_bool = "1"
         }
         // need text message boolean too
