@@ -137,6 +137,8 @@
 				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
 				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
+				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
+				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
 			);
 			path = SustainabilityAppV1;
 			sourceTree = "<group>";
