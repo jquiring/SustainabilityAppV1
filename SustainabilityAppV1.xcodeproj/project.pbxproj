@@ -20,6 +20,7 @@
 		F892C95219F59B4200113C26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F892C95119F59B4200113C26 /* Images.xcassets */; };
 		F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F892C95319F59B4200113C26 /* LaunchScreen.xib */; };
 		F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */; };
+		F8A4B86E1A707D6D00A420E7 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4B86D1A707D6D00A420E7 /* Regex.swift */; };
 		F8A99C501A2D6DBD004245DB /* ViewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */; };
 		F8AE49251A1D5D9E00070211 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE49241A1D5D9E00070211 /* CreatePostController.swift */; };
 		F8B9FD871A14215300DB75CC /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */; };
@@ -28,6 +29,7 @@
 		F8B9FD8E1A1431B500DB75CC /* tv.png in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8B1A1431B500DB75CC /* tv.png */; };
 		F8B9FD8F1A1431B500DB75CC /* skateboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */; };
 		F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E426201A02EF0500B93D37 /* CenterViewController.swift */; };
+		F8E90E1F1A70740A00B57AF4 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */; };
 		F8F29BBE1A0AC555001CEF5F /* HelpAndFAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */; };
 		F8F29BC61A0B08C3001CEF5F /* TermsAndConditionsConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */; };
 		F8F43F7A1A080AB800C56D2D /* EditUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F43F791A080AB800C56D2D /* EditUserController.swift */; };
@@ -61,6 +63,7 @@
 		F892C95A19F59B4200113C26 /* SustainabilityAppV1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SustainabilityAppV1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C95F19F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustainabilityAppV1Tests.swift; sourceTree = "<group>"; };
+		F8A4B86D1A707D6D00A420E7 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPostController.swift; sourceTree = "<group>"; };
 		F8AE49241A1D5D9E00070211 /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePostCell.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		F8B9FD8B1A1431B500DB75CC /* tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tv.png; sourceTree = "<group>"; };
 		F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = skateboard.jpg; sourceTree = "<group>"; };
 		F8E426201A02EF0500B93D37 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
+		F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
 		F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpAndFAQController.swift; sourceTree = "<group>"; };
 		F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsConroller.swift; sourceTree = "<group>"; };
 		F8F43F791A080AB800C56D2D /* EditUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 				F84B53DF1A69C910002E9597 /* ListPost.swift */,
 				F8AE49241A1D5D9E00070211 /* CreatePostController.swift */,
 				F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */,
+				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
+				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -278,6 +284,7 @@
 				CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */,
 				F84B53E21A69CB2E002E9597 /* ListPostCell.swift in Sources */,
 				F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */,
+				F8A4B86E1A707D6D00A420E7 /* Regex.swift in Sources */,
 				F84B53E01A69C910002E9597 /* ListPost.swift in Sources */,
 				F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */,
 				F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */,
@@ -287,6 +294,7 @@
 				F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */,
 				F840537E1A070ED5007D671A /* ProfileController.swift in Sources */,
 				F8AE49251A1D5D9E00070211 /* CreatePostController.swift in Sources */,
+				F8E90E1F1A70740A00B57AF4 /* LoadingOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

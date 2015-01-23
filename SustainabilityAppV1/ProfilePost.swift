@@ -14,6 +14,7 @@ class ProfilePost {
     var imageName:NSData
     //var key_value = ""
     var id = ""
+    var category = ""
     /*
     var cat = ""
     var pic1:NSData
@@ -33,19 +34,21 @@ class ProfilePost {
     var text = ""
     var phone = "" 
 */
-    init(title:String,imageName:NSData,id:String){
+    init(title:String,imageName:NSData,id:String,cat:String){
         self.title = title
         self.imageName = imageName
         self.id = id
+        self.category = cat
     }
-    init(title:String,id:String){
+    init(title:String,id:String,cat:String){
+        self.category = cat
         self.title = title
         self.id = id
         var image =  UIImage(named:"tv.png")
         self.imageName = UIImageJPEGRepresentation(image, 1)
     }
     func upDateNSData(){
-        var new_post = [title,imageName]
+        var new_post = [title,imageName,category]
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
             var current_posts:Dictionary<String,AnyObject> = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as Dictionary<String,AnyObject>
             current_posts[id] = new_post

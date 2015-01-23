@@ -22,7 +22,7 @@ class EditUserController: UIViewController {
     @IBAction func save(sender: AnyObject){
         var flag_Val = false
         var return_Val = -1
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/edituser/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/edituser/")!)
 
         request.HTTPMethod = "PUT"
         

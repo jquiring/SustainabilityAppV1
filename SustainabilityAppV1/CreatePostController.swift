@@ -384,11 +384,36 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func createPostSubmit(sender: AnyObject) {
+        //LoadingOverlay.shared.showOverlay(tableView)
+        if(category.text == ""){
+            var alert = UIAlertController(title: "Warning", message: "Please enter a category", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
+        }
+        else if(title_field.text  == "" ){
+            var alert = UIAlertController(title: "Warning", message: "Please enter a title", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
+        }
+        else if(false){ //validate money form
+            var alert = UIAlertController(title: "Warning", message: "Please enter a valid price", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
+        }
+        else{
+            createPostRequest()
+        }
+    }
+
+    func createPostRequest() {
         flag = false
         // check all fields first
         
         // create a post code
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/createpost/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/createpost/")!)
         request.HTTPMethod = "POST"
         var session = NSURLSession.sharedSession()
         
@@ -403,9 +428,9 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         var imageBase64:String
         /*
         for url in imageUrls{
-            imageData = NSData(contentsOfURL:url)! //load contents of url into NSData type
-            imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
-            imagesBase64.append(imageBase64)
+        imageData = NSData(contentsOfURL:url)! //load contents of url into NSData type
+        imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
+        imagesBase64.append(imageBase64)
         }*/
         for images in UIImageList{
             if(images != UIImage(named:"tv.png")){
@@ -498,14 +523,14 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                     self.id = parseJSON["id"] as Int
                 }
             }
-          
+            
             //downcast NSURLResponse object to NSHTTPURLResponse
             if let httpResponse = response as? NSHTTPURLResponse {
                 //get the status code
                 status_code = httpResponse.statusCode
                 //200 = OK: user created, carry on!
                 if(status_code == 200){
-
+                    
                     println(message)
                     self.flag = true
                 }
@@ -534,23 +559,24 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             var new_post:ProfilePost
             if(self.images_data != []) {
                 default_image = self.images_data[0]
-                new_post = ProfilePost(title: title, imageName: default_image!, id: stringid.stringValue)
+                new_post = ProfilePost(title: title, imageName: default_image!, id: stringid.stringValue,cat:category_)
             }
             else{
-                new_post = ProfilePost(title: title, id: stringid.stringValue)
+                new_post = ProfilePost(title: title, id: stringid.stringValue,cat:category_)
             }
             println(title)
             
             println("got past here")
             new_post.upDateNSData()
         }
-
+        
         
         
         // dismiss the screen
         self.dismissViewControllerAnimated(true, completion: nil)
-    }
     
+
+    }
 }
 extension UIImage{
     func resizeToBoundingSquare(#boundingSquareSideLength : CGFloat) -> UIImage{

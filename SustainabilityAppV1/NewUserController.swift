@@ -24,13 +24,15 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     }
     var window: UIWindow?
     @IBAction func submit(sender: AnyObject) {
-        var submitRequest = submitData()
         if(checkFields()) {
-            
+            var submitRequest = submitData()
             if(submitRequest == 200){
                 resignKeyboard()
-
-
+                NSUserDefaults.standardUserDefaults().setObject(first.text, forKey: "first_name")
+                NSUserDefaults.standardUserDefaults().setObject(last.text, forKey: "last_name")
+                
+                NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
+                NSUserDefaults.standardUserDefaults().setObject(number.text, forKey: "phone")
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
                 self.window!.backgroundColor = UIColor.whiteColor()
                 let customVC = ContainerViewController()
@@ -96,7 +98,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     }
     
     func submitData() -> Int{
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/createuser/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/createuser/")!)
         request.HTTPMethod = "POST"
         var session = NSURLSession.sharedSession()
         var flag_Val = false
@@ -148,6 +150,12 @@ class NewUserController: UIViewController,UITextFieldDelegate {
                     //400 = BAD_REQUEST: error in creating user, display error!
                 else if(status_code == 400){
                     println(message)
+                    if(message == "Enter a valid email address.") {
+                        var alert = UIAlertController(title: "Warning", message: "Please read and agree to the Terms and Conditions for Zig Zag", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                        }))
+                    }
                     return_Val = 400
                     flag_Val = true
                 }
@@ -164,13 +172,6 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         task.resume()
         while(flag == false){
             flag = flag_Val
-        }
-        if(return_Val == 200){
-            NSUserDefaults.standardUserDefaults().setObject(first.text, forKey: "first_name")
-            NSUserDefaults.standardUserDefaults().setObject(last.text, forKey: "last_name")
-            
-            NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
-            NSUserDefaults.standardUserDefaults().setObject(number.text, forKey: "phone")
         }
         return return_Val
     }

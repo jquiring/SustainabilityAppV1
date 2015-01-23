@@ -12,12 +12,12 @@ import UIKit
 class ListPost: ProfilePost  {
     var key_value = ""
     
-    init(title:String,imageName:NSData,id:String,keyValue:String){
-        super.init(title:title,imageName:imageName,id:id)
+    init(title:String,imageName:NSData,id:String,keyValue:String,cat:String){
+        super.init(title:title,imageName:imageName,id:id,cat:cat)
         self.key_value = keyValue
     }
-    init(title:String,id:String,keyValue:String){
-        super.init(title:title,id:id)
+    init(title:String,id:String,keyValue:String,cat:String){
+        super.init(title:title,id:id,cat:cat)
         self.key_value = keyValue
     }
     
