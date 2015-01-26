@@ -22,7 +22,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.table.addSubview(self.refreshControl)
-        
+        println("something is not working")
+
         self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
         self.table.tableFooterView = UIView()
@@ -139,17 +140,20 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                         //400 = BAD_REQUEST: error in creating user, display error!
                     else if(status_code == 400){
                         println(message)
+                        not_ready = false
                     }
                         
                         //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
                     else if(status_code == 500){
                         println("The server is down! I blame Schnagl")
+                        not_ready = false
                     }
                     
                     
                 }
                 else {
                     println("Error in casting response, data incomplete")
+                    not_ready = false
                 }
             }
             
@@ -157,7 +161,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         
         task.resume()
         
-        
+        println("something is not working")
         while(not_ready){
             
         }
@@ -194,6 +198,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
         println(arrayOfPosts[indexPath.row].id)
+    }
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        var currentOffset = scrollView.contentOffset.y;
+        var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        
     }
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var titleLabel: UILabel!
