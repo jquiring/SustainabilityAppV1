@@ -158,15 +158,15 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
 
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
-        self.pEmail.image = UIImage(named:"eMail.png")
+        self.pEmail.image = UIImage(named:"eMailOFF.png")
 
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
-        self.text.image = UIImage(named:"SMS.png")
+        self.text.image = UIImage(named:"SMSOFF.png")
 
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
-        self.phone.image = UIImage(named:"Call.png")
+        self.phone.image = UIImage(named:"CallOFF.png")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -207,7 +207,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
     }
     func pEmailToutched(){
-        if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF.png"))){
+        if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF.png")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
             self.pEmail.image = UIImage(named:"eMail.png")
         }
         else{
@@ -215,7 +215,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
     }
     func textToutched(){
-        if(self.text.image!.isEqual(UIImage(named:"SMSOFF.png"))){
+        if(self.text.image!.isEqual(UIImage(named:"SMSOFF.png")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
             self.text.image = UIImage(named:"SMS.png")
         }
         else{
@@ -224,7 +224,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     func phoneToutched(){
         println("phone touched")
-        if((self.phone.image!.isEqual(UIImage(named:"CallOFF.png")))){
+        if((self.phone.image!.isEqual(UIImage(named:"CallOFF.png"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
             self.phone.image = UIImage(named:"Call.png")
         }
         else{
@@ -391,15 +391,16 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
             }))
         }
-        else if(false){ //validate money form
-            var alert = UIAlertController(title: "Warning", message: "Please enter a valid price", preferredStyle: UIAlertControllerStyle.Alert)
+        else if let n = price.text.toDouble() {
+                createPostRequest()
+        }
+        else {
+            var alert = UIAlertController(title: "Warning", message: "Please enter a correct price", preferredStyle: UIAlertControllerStyle.Alert)
             self.presentViewController(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
             }))
         }
-        else{
-            createPostRequest()
-        }
+        
     }
 
     func createPostRequest() {
@@ -570,6 +571,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.dismissViewControllerAnimated(true, completion: nil)
     
 
+    }
+}
+extension String {
+    func toDouble() -> Double? {
+        return NSNumberFormatter().numberFromString(self)?.doubleValue
     }
 }
 extension UIImage{

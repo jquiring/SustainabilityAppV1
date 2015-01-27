@@ -21,6 +21,14 @@
 		F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F892C95319F59B4200113C26 /* LaunchScreen.xib */; };
 		F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */; };
 		F8A4B86E1A707D6D00A420E7 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4B86D1A707D6D00A420E7 /* Regex.swift */; };
+		F8A898571A770BF80042BB89 /* SMS.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A898551A770BF80042BB89 /* SMS.png */; };
+		F8A898581A770BF80042BB89 /* SMSOFF.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A898561A770BF80042BB89 /* SMSOFF.png */; };
+		F8A8985B1A770C010042BB89 /* ZagMail.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A898591A770C010042BB89 /* ZagMail.png */; };
+		F8A8985C1A770C010042BB89 /* ZagMailOFF.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A8985A1A770C010042BB89 /* ZagMailOFF.png */; };
+		F8A8985F1A770C0A0042BB89 /* eMail.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A8985D1A770C0A0042BB89 /* eMail.png */; };
+		F8A898601A770C0A0042BB89 /* eMailOFF.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A8985E1A770C0A0042BB89 /* eMailOFF.png */; };
+		F8A898631A770C100042BB89 /* Call.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A898611A770C100042BB89 /* Call.png */; };
+		F8A898641A770C100042BB89 /* CallOFF.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A898621A770C100042BB89 /* CallOFF.png */; };
 		F8A99C501A2D6DBD004245DB /* ViewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */; };
 		F8AE49251A1D5D9E00070211 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE49241A1D5D9E00070211 /* CreatePostController.swift */; };
 		F8B9FD871A14215300DB75CC /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */; };
@@ -64,6 +72,14 @@
 		F892C95F19F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustainabilityAppV1Tests.swift; sourceTree = "<group>"; };
 		F8A4B86D1A707D6D00A420E7 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		F8A898551A770BF80042BB89 /* SMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SMS.png; sourceTree = "<group>"; };
+		F8A898561A770BF80042BB89 /* SMSOFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SMSOFF.png; sourceTree = "<group>"; };
+		F8A898591A770C010042BB89 /* ZagMail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZagMail.png; sourceTree = "<group>"; };
+		F8A8985A1A770C010042BB89 /* ZagMailOFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZagMailOFF.png; sourceTree = "<group>"; };
+		F8A8985D1A770C0A0042BB89 /* eMail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eMail.png; sourceTree = "<group>"; };
+		F8A8985E1A770C0A0042BB89 /* eMailOFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eMailOFF.png; sourceTree = "<group>"; };
+		F8A898611A770C100042BB89 /* Call.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Call.png; sourceTree = "<group>"; };
+		F8A898621A770C100042BB89 /* CallOFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CallOFF.png; sourceTree = "<group>"; };
 		F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPostController.swift; sourceTree = "<group>"; };
 		F8AE49241A1D5D9E00070211 /* CreatePostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePostCell.swift; sourceTree = "<group>"; };
@@ -134,8 +150,6 @@
 				F84B53DF1A69C910002E9597 /* ListPost.swift */,
 				F8AE49241A1D5D9E00070211 /* CreatePostController.swift */,
 				F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */,
-				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
-				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
 				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
@@ -148,6 +162,14 @@
 			children = (
 				F8B9FD8A1A1431B500DB75CC /* bike.jpg */,
 				F8B9FD8B1A1431B500DB75CC /* tv.png */,
+				F8A898551A770BF80042BB89 /* SMS.png */,
+				F8A898561A770BF80042BB89 /* SMSOFF.png */,
+				F8A898591A770C010042BB89 /* ZagMail.png */,
+				F8A898611A770C100042BB89 /* Call.png */,
+				F8A898621A770C100042BB89 /* CallOFF.png */,
+				F8A8985D1A770C0A0042BB89 /* eMail.png */,
+				F8A8985E1A770C0A0042BB89 /* eMailOFF.png */,
+				F8A8985A1A770C010042BB89 /* ZagMailOFF.png */,
 				F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */,
 				CA236AD019F5C80400B566CB /* Leaf.png */,
 				F892C95119F59B4200113C26 /* Images.xcassets */,
@@ -255,12 +277,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A8985B1A770C010042BB89 /* ZagMail.png in Resources */,
+				F8A8985C1A770C010042BB89 /* ZagMailOFF.png in Resources */,
+				F8A8985F1A770C0A0042BB89 /* eMail.png in Resources */,
 				CA6DBE461A101C15000CCFDF /* threelines.png in Resources */,
 				F892C95019F59B4200113C26 /* Main.storyboard in Resources */,
+				F8A898641A770C100042BB89 /* CallOFF.png in Resources */,
 				F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */,
+				F8A898571A770BF80042BB89 /* SMS.png in Resources */,
 				F892C95219F59B4200113C26 /* Images.xcassets in Resources */,
 				F8B9FD8E1A1431B500DB75CC /* tv.png in Resources */,
 				F8B9FD8F1A1431B500DB75CC /* skateboard.jpg in Resources */,
+				F8A898601A770C0A0042BB89 /* eMailOFF.png in Resources */,
+				F8A898581A770BF80042BB89 /* SMSOFF.png in Resources */,
+				F8A898631A770C100042BB89 /* Call.png in Resources */,
 				F8B9FD8D1A1431B500DB75CC /* bike.jpg in Resources */,
 				CA236AD119F5C80400B566CB /* Leaf.png in Resources */,
 			);

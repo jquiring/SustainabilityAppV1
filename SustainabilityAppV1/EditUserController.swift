@@ -20,10 +20,46 @@ class EditUserController: UIViewController {
     
     
     @IBAction func save(sender: AnyObject){
+        if(first_name_field.text == "" || last_name_field.text == ""){
+            error_label.text = "Please enter a first and a last name"
+        }
+        else if(!phone_number.text.isEmpty && (!isNumeric(phone_number.text) || !(countElements(phone_number.text) == 10 || countElements(phone_number.text) == 11))) {
+            error_label.text = "Please enter a valide phone number"
+        }
+        else if(false){
+        }
+        else {
+            updateUserRequest()
+        }
+    }
+    /*
+    func validateEmail(candidate: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex)?.evaluateWithObject(candidate)
+    }
+*/
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        first_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
+        last_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
+        if(NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil) {
+            phone_number.text = NSUserDefaults.standardUserDefaults().objectForKey("phone") as String
+        }
+        if(NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil) {
+            email.text = NSUserDefaults.standardUserDefaults().objectForKey("pref_email") as String
+        }
+        error_label.hidden = true
+
+    }
+    func updateUserRequest() {
         var flag_Val = false
         var return_Val = -1
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/edituser/")!)
-
+        
         request.HTTPMethod = "PUT"
         
         var session = NSURLSession.sharedSession()
@@ -42,7 +78,7 @@ class EditUserController: UIViewController {
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-
+        
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             
             var message = ""
@@ -98,22 +134,8 @@ class EditUserController: UIViewController {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
-    }
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        first_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
-        last_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
-        phone_number.text = NSUserDefaults.standardUserDefaults().objectForKey("phone") as String
-        email.text = NSUserDefaults.standardUserDefaults().objectForKey("pref_email") as String
-
-        error_label.hidden = true
 
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

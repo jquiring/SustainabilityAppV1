@@ -18,7 +18,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
     var arrayOfPosts: [ProfilePost] = []
-    
+    var category :String?
+    var id:String?
     func setUpPosts(){
         /*
         var post1 = ProfilePost(title: "Fresh Bike", imageName: "bike.jpg",id:"id1")
@@ -48,10 +49,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
     }
     @IBAction func helpAndFAQ(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
-        let navController = UINavigationController(rootViewController: VC1)
-        // Creating a navigation controller with VC1 at the root of the navigation stack.
-        self.presentViewController(navController, animated:true, completion: nil)
+
 
     }
     @IBAction func logout(sender: AnyObject) {
@@ -65,7 +63,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "last_name")
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
-            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone*")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
             //set the rest of the user defaults to nil?
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as LoginController
             let navController = UINavigationController(rootViewController: VC1)
@@ -86,6 +84,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         //view.setTranslatesAutoresizingMaskIntoConstraints(false)
         table.dataSource = self
         table.delegate = self
+        //table.preformSeg
         self.table.tableFooterView = UIView()
         
         
@@ -304,8 +303,22 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
         println(arrayOfPosts[indexPath.row].id)
-        println(arrayOfPosts[indexPath.row].category)
+        category = arrayOfPosts[indexPath.row].category
+        id = arrayOfPosts[indexPath.row].id
+        println("preforming segue")
+        self.performSegueWithIdentifier("detailedPostFromProfile", sender: self)
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        
+        if (segue.identifier == "detailedPostFromProfile") {
+            var detailController = segue.destinationViewController as ViewPostController
+            detailController.category = self.category!
+            detailController.id = self.id!
+
+        }
+        
+    }// end prepareForSegue
+
 
 
 }

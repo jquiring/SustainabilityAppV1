@@ -121,9 +121,15 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             }
                             if let _p_email = parseJSON["p_email"] as? String{
                                 p_email = _p_email
+                                if(_p_email != ""){
+                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["p_email"] as? String, forKey: "pref_email")
+                                }
                             }
                             if let _phone = parseJSON["phone"] as? String{
-                                phone = _phone
+                                if( _phone) != "" {
+                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["p_email"] as? String, forKey: "pref_email")
+                                }
+                                
                             }
                             if let _exists = parseJSON["exists"] as? String{
                                 existingUser = _exists
@@ -167,8 +173,8 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             NSUserDefaults.standardUserDefaults().setObject(first_name, forKey: "first_name")
                             NSUserDefaults.standardUserDefaults().setObject(last_name, forKey: "last_name")
                             NSUserDefaults.standardUserDefaults().setObject(g_email, forKey: "gonzaga_email")
-                            NSUserDefaults.standardUserDefaults().setObject(p_email, forKey: "pref_email")
-                            NSUserDefaults.standardUserDefaults().setObject(phone, forKey: "phone")
+                            
+                            
                             flag_Val = true
                         }
                             //400 = BAD_REQUEST, invalid crentials

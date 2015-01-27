@@ -21,6 +21,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var arrayOfPosts: [ListPost] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSUserDefaults.standardUserDefaults().setObject("Jakers", forKey: "first_name")
         self.table.addSubview(self.refreshControl)
         println("something is not working")
 
@@ -139,7 +140,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                         
                         //400 = BAD_REQUEST: error in creating user, display error!
                     else if(status_code == 400){
-                        println(message)
+                        println(message + "another part of the message")
+                        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                        }))
                         not_ready = false
                     }
                         
