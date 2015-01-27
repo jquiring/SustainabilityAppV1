@@ -33,26 +33,33 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     "text":text_bool,               // <
     */
     @IBOutlet var price_label: UILabel!
+    @IBOutlet weak var description_label: UILabel!
     @IBOutlet weak var round_trip_label: UILabel!
-    @IBOutlet var start_location_label: UILabel!
-    @IBOutlet var end_location_label: UILabel!
+    @IBOutlet weak var trip_location_label: UILabel!
     @IBOutlet var depature_date_label: UILabel!
     @IBOutlet var return_date_label: UILabel!
     @IBOutlet var isbn_label: UILabel!
     @IBOutlet weak var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
     
+    @IBOutlet weak var price_text: UILabel!
+    @IBOutlet weak var description_text: UILabel!
+    @IBOutlet weak var round_trip_text: UILabel!
+    @IBOutlet weak var trip_location_text: UILabel!
+    @IBOutlet weak var depature_date_text: UILabel!
+    @IBOutlet weak var return_date_text: UILabel!
+    @IBOutlet weak var isbn_text: UILabel!
+    @IBOutlet weak var location_text: UILabel!
+    @IBOutlet weak var date_text: UILabel!
+    
+    
     let messageComposer = MessageComposer()
     
-    let departure_date = "departure_date_time" //rideshare specific
-    let start_location = "start_location"           // |
-    let end_location = "end_location start location begin stop end again"               // |
-    let round_trip = true                           // |
-    let return_date = "return_date_time"            // <
-    let date_time = "date_time"         //datelocation specific
-    let location = "location"           // <
-    let isbn = "isbn"
     override func viewDidLoad() {
+        //NUMBER OF LINES MATTERS DO LATER _________________________________________
+        description_label.numberOfLines = 2
+        
+        
         super.viewDidLoad()
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         
@@ -68,7 +75,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
 
         createScroll()
-        initializeLabels()
+        //initializeLabels()
         
         self.tableView.reloadData()
         //setUpImageGestures()
@@ -91,8 +98,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
         //parameter values
         //common post information
-        var postid_ = "37"
-        var category_ = "Ride Shares"
+        var postid_ = "24"
+        var category_ = "Books"
         
         //this is the parameters array that will be formulated as JSON.
         // We need both postid and category
@@ -222,15 +229,20 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     
                     
                     self.price_label.text = price_
-                   
-                    self.isbn_label.text = isbn_
-                    self.location_label.text = location_
-                    self.date_time_label.text = date_time_
+                    self.description_label.text = description_
                     
+                    //RideShares
+                    if category_ != "Ride Shares"{
+                        self.round_trip_label.text = ""
+                        self.depature_date_label.text = ""
+                        self.return_date_label.text = ""
+
+                    }
                     if category_ == "Ride Shares"{
-                        self.start_location_label.text = trip_
+                        self.trip_location_label.text = trip_
                         self.depature_date_label.text = departure_date_time_
                         self.return_date_label.text = return_date_time_
+                        
                         if round_trip_{
                             self.round_trip_label.text = "Round trip"
                         }
@@ -238,15 +250,21 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                             self.round_trip_label.text = "One way"
                         }
                     }
+                    //Events & Services
+                    if category_ != "Events" && category_ != "Services"{
+                        self.date_time_label.text = ""
+                        self.location_label.text = ""
+                    }
                     if category_ == "Events" || category_ == "Services"{
-                        print("Date Time = ")
-                        println(date_time_)
-                        print("Location = ")
-                        println(location_)
+                        self.date_time_label.text = date_time_
+                        self.location_label.text = location_
+                    }
+                    //Books
+                    if category_ != "Books"{
+                        self.isbn_label.text = ""
                     }
                     if category_ == "Books"{
-                        print("ISBN = ")
-                        println(isbn_)
+                        self.isbn_label.text = isbn_
                     }
                 }
                 //400 = BAD_REQUEST: error in creating user, display error!
@@ -266,7 +284,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         sleep(5)
     }
     
-    
+    /*
     func initializeLabels(){
         if(round_trip){
             self.round_trip_label.text = "Round trip"
@@ -283,6 +301,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         location_label.text = location
         date_time_label.text = date_time
     }
+*/
     func createScroll(){
         for index in 0..<images.count {
             var image:UIImage  = UIImage(named: images[index])!
@@ -364,10 +383,58 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         if(indexPath.section == 0 && indexPath.row == 0 ){
             return scrollViewWidth + 20
         }
+        //Contact options section
         if(indexPath.section == 1){
             return 77
         }
+        //Description
+        if(indexPath.section == 0 && indexPath.row == 2 ){
+            var return_val = descResize()
+            return return_val
+            
+        }
+        //Hiding post specific information based upon category
+        if(indexPath.section == 0 && indexPath.row == 3 && round_trip_label.text == ""){
+            self.round_trip_text.hidden = true
+            return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 4 && trip_location_label.text == ""){
+            self.trip_location_text.hidden = true
+            return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 5 && depature_date_label.text == ""){
+            self.depature_date_text.hidden = true
+            return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 6 && return_date_label.text == ""){
+            self.return_date_text.hidden = true
+            return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 7 && isbn_label.text == ""){
+            self.isbn_text.hidden = true
+            return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 8 && location_label.text == ""){
+            self.location_text.hidden = true
+            return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 9 && date_time_label.text == ""){
+            self.date_text.hidden = true
+            return 0
+        }
         return 30
+    }
+    
+    func descResize() -> CGFloat{
+        var num_rows = 1.0 as CGFloat
+        description_label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        var desc_string = description_label.text as String!
+        var length = countElements(desc_string)
+        println(length)
+        if(length > 35){
+            // cut into substrings and display on multilines
+        }
+        return num_rows * 60
     }
     
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
