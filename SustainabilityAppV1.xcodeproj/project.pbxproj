@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
+		CA4C2EA01A78659100070B3B /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
+		CA4C2EA11A78662B00070B3B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
+		CA4C2EA21A78662E00070B3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
+		CA4C2EA31A78663200070B3B /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E426201A02EF0500B93D37 /* CenterViewController.swift */; };
+		CA4C2EA41A78663400070B3B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537B1A07025A007D671A /* ContainerViewController.swift */; };
+		CA4C2EA51A78663600070B3B /* EditUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F43F791A080AB800C56D2D /* EditUserController.swift */; };
+		CA4C2EA61A78663900070B3B /* HelpAndFAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BBD1A0AC555001CEF5F /* HelpAndFAQController.swift */; };
+		CA4C2EA71A78663C00070B3B /* TermsAndConditionsConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F29BC51A0B08C3001CEF5F /* TermsAndConditionsConroller.swift */; };
+		CA4C2EA81A78663E00070B3B /* ProfilePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD861A14215300DB75CC /* ProfilePostCell.swift */; };
+		CA4C2EA91A78664000070B3B /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537D1A070ED5007D671A /* ProfileController.swift */; };
+		CA4C2EAA1A78664300070B3B /* ProfilePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9FD881A14307900DB75CC /* ProfilePost.swift */; };
+		CA4C2EAB1A78664500070B3B /* ListPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B53E11A69CB2E002E9597 /* ListPostCell.swift */; };
+		CA4C2EAC1A78664700070B3B /* ListPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B53DF1A69C910002E9597 /* ListPost.swift */; };
+		CA4C2EAD1A78664A00070B3B /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE49241A1D5D9E00070211 /* CreatePostController.swift */; };
+		CA4C2EAE1A78664C00070B3B /* ViewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */; };
 		CA6DBE461A101C15000CCFDF /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = CA6DBE451A101C15000CCFDF /* threelines.png */; };
 		CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
 		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
@@ -334,7 +349,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA4C2EA21A78662E00070B3B /* AppDelegate.swift in Sources */,
+				CA4C2EA51A78663600070B3B /* EditUserController.swift in Sources */,
 				F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */,
+				CA4C2EA11A78662B00070B3B /* LoginController.swift in Sources */,
+				CA4C2EAB1A78664500070B3B /* ListPostCell.swift in Sources */,
+				CA4C2EAC1A78664700070B3B /* ListPost.swift in Sources */,
+				CA4C2EA01A78659100070B3B /* NewUserController.swift in Sources */,
+				CA4C2EA61A78663900070B3B /* HelpAndFAQController.swift in Sources */,
+				CA4C2EAE1A78664C00070B3B /* ViewPostController.swift in Sources */,
+				CA4C2EA71A78663C00070B3B /* TermsAndConditionsConroller.swift in Sources */,
+				CA4C2EA91A78664000070B3B /* ProfileController.swift in Sources */,
+				CA4C2EA81A78663E00070B3B /* ProfilePostCell.swift in Sources */,
+				CA4C2EAD1A78664A00070B3B /* CreatePostController.swift in Sources */,
+				CA4C2EA41A78663400070B3B /* ContainerViewController.swift in Sources */,
+				CA4C2EA31A78663200070B3B /* CenterViewController.swift in Sources */,
+				CA4C2EAA1A78664300070B3B /* ProfilePost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

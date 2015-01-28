@@ -26,6 +26,23 @@ class SustainabilityAppV1Tests: XCTestCase {
         XCTAssert(true, "Pass")
     }
     
+    func testIsNeumeric(){
+        var n = NewUserController()
+        XCTAssert(n.isNumeric("3"), "GOOD")
+    }
+    
+    func testIsNeumericFalse(){
+        var n = NewUserController()
+        XCTAssertFalse(n.isNumeric("a"), "GOOD")
+    }
+    
+    func testIsNeumericDouble(){
+        var n = NewUserController()
+        XCTAssertFalse(n.isNumeric("3.0"), "GOOD")
+    }
+    
+   
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {
