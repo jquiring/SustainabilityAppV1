@@ -305,23 +305,22 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         println(arrayOfPosts[indexPath.row].id)
         category = arrayOfPosts[indexPath.row].category
         id = arrayOfPosts[indexPath.row].id
-        println("preforming segue")
-        self.performSegueWithIdentifier("detailedPostFromProfile", sender: self)
+        NSUserDefaults.standardUserDefaults().setObject(id, forKey: "post_id")
+        NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].category, forKey: "cat")
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        
+        self.presentViewController(navController, animated:true, completion: nil)
+
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+
         
-        if (segue.identifier == "detailedPostFromProfile") {
-            var detailController = segue.destinationViewController as ViewPostController
-            detailController.category = self.category!
-            detailController.id = self.id!
-
-        }
-        
-    }// end prepareForSegue
-
-
-
+  
 }
+
+
+
 extension String {
     subscript (i: Int) -> String {
         return String(Array(self)[i])

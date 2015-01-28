@@ -108,6 +108,10 @@ class EditUserController: UIViewController {
                     //400 = BAD_REQUEST: error in creating user, display error!
                 else if(status_code == 400){
                     println(message)
+                    if(message == "Invalid email"){
+                        self.error_label.text = "Please enter a valide email address"
+                        self.error_label.hidden = false
+                    }
                     return_Val = 400
                     flag_Val = true
                 }
@@ -128,9 +132,20 @@ class EditUserController: UIViewController {
         if(return_Val == 200){
             NSUserDefaults.standardUserDefaults().setObject(first_name_field.text, forKey: "first_name")
             NSUserDefaults.standardUserDefaults().setObject(last_name_field.text, forKey: "last_name")
-            
-            NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
-            NSUserDefaults.standardUserDefaults().setObject(phone_number.text, forKey: "phone")
+            if(email.text != "") {
+                
+                NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
+            }
+            else {
+                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
+                
+            }
+            if(phone_number.text != "") {
+                NSUserDefaults.standardUserDefaults().setObject(phone_number.text, forKey: "phone")
+            }
+            else {
+                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
+            }
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         

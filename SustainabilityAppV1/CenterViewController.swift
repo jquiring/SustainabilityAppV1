@@ -17,14 +17,15 @@ protocol CenterViewControllerDelegate {
 
 class CenterViewController: UIViewController,  UITableViewDataSource,UITableViewDelegate {
     var refreshControl = UIRefreshControl()
+    var needsReloading = true
     @IBOutlet var table: UITableView!
     var arrayOfPosts: [ListPost] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSUserDefaults.standardUserDefaults().setObject("Jakers", forKey: "first_name")
+
         self.table.addSubview(self.refreshControl)
         println("something is not working")
-
+        
         self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
         self.table.tableFooterView = UIView()
@@ -34,9 +35,14 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         setUpPosts()
         setupTable()
         navigationController?.hidesBarsOnSwipe = true
+        
     }
     override func viewDidAppear(animated: Bool) {
-        self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+        if(needsReloading){
+            self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+            needsReloading = false
+        }
+        
     }
     func didRefresh(){
         
@@ -203,6 +209,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
         println(arrayOfPosts[indexPath.row].id)
+        NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].id, forKey: "post_id")
+        NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].category, forKey: "cat")
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.presentViewController(navController, animated:true, completion: nil)
+
     }
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         var currentOffset = scrollView.contentOffset.y;
