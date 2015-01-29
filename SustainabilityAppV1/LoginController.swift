@@ -127,7 +127,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             }
                             if let _phone = parseJSON["phone"] as? String{
                                 if( _phone) != "" {
-                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["p_email"] as? String, forKey: "pref_email")
+                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["p_email"] as? String, forKey: "phone")
                                 }
                                 
                             }
