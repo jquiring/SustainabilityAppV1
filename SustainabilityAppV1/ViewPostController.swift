@@ -56,10 +56,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     let messageComposer = MessageComposer()
     
     override func viewDidLoad() {
-        //NUMBER OF LINES MATTERS DO LATER _________________________________________
-        description_label.numberOfLines = 2
-        
-        
         super.viewDidLoad()
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         
@@ -75,14 +71,16 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
 
         createScroll()
-        //initializeLabels()
-        
         self.tableView.reloadData()
-        //setUpImageGestures()
-        
-        
-        //Here I would call startRequest()
+        description_label.numberOfLines = 0
+        trip_location_label.numberOfLines = 0
+        depature_date_label.numberOfLines = 0
+        return_date_label.numberOfLines = 0
+        location_label.numberOfLines = 0
+        date_time_label.numberOfLines = 0
+
         startRequest()
+
     }
     
     func startRequest() {
@@ -90,7 +88,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         //kyle
         //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/viewpost")!)
         //trenton
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/viewpost/")!)
+        //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/viewpost/")!)
+        //server
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/viewpost/")!)
         request.HTTPMethod = "POST"
         
         //open NSURLSession
@@ -98,8 +98,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
         //parameter values
         //common post information
-        var postid_ = "24"
-        var category_ = "Books"
+        var postid_ = "41"
+        var category_ = "Ride Shares"
         
         //this is the parameters array that will be formulated as JSON.
         // We need both postid and category
@@ -231,9 +231,11 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     self.price_label.text = price_
                     self.description_label.text = description_
                     
+                    
                     //RideShares
+                    self.round_trip_label.text = ""
                     if category_ != "Ride Shares"{
-                        self.round_trip_label.text = ""
+                        self.trip_location_label.text = ""
                         self.depature_date_label.text = ""
                         self.return_date_label.text = ""
 
@@ -284,24 +286,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         sleep(5)
     }
     
-    /*
-    func initializeLabels(){
-        if(round_trip){
-            self.round_trip_label.text = "Round trip"
-        }
-        else{
-            self.round_trip_label.text = "One way"
-        }
-        price_label.text = price
-        start_location_label.text = start_location
-        end_location_label.text = end_location
-        depature_date_label.text = departure_date
-        return_date_label.text = return_date
-        isbn_label.text = isbn
-        location_label.text = location
-        date_time_label.text = date_time
-    }
-*/
     func createScroll(){
         for index in 0..<images.count {
             var image:UIImage  = UIImage(named: images[index])!
@@ -379,6 +363,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
+        
         //This needs to be only the picture cell
         if(indexPath.section == 0 && indexPath.row == 0 ){
             return scrollViewWidth + 20
@@ -388,10 +375,13 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             return 77
         }
         //Description
-        if(indexPath.section == 0 && indexPath.row == 2 ){
-            var return_val = descResize()
+        if(indexPath.section == 0 && indexPath.row == 2 && description_label.text == ""){
+            self.description_text.hidden = true
+            return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 2){
+            var return_val = heightForView(description_label.text!, font: myFont!, width: (screenSize.width - 110))
             return return_val
-            
         }
         //Hiding post specific information based upon category
         if(indexPath.section == 0 && indexPath.row == 3 && round_trip_label.text == ""){
@@ -402,13 +392,25 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.trip_location_text.hidden = true
             return 0
         }
+        if(indexPath.section == 0 && indexPath.row == 4){
+            var return_val = heightForView(trip_location_label.text!, font: myFont!, width: (screenSize.width - 110))
+            return return_val
+        }
         if(indexPath.section == 0 && indexPath.row == 5 && depature_date_label.text == ""){
             self.depature_date_text.hidden = true
             return 0
         }
+        if(indexPath.section == 0 && indexPath.row == 5){
+            var return_val = heightForView(depature_date_label.text!, font: myFont!, width: (screenSize.width - 110))
+            return return_val
+        }
         if(indexPath.section == 0 && indexPath.row == 6 && return_date_label.text == ""){
             self.return_date_text.hidden = true
             return 0
+        }
+        if(indexPath.section == 0 && indexPath.row == 6){
+            var return_val = heightForView(return_date_label.text!, font: myFont!, width: (screenSize.width - 110))
+            return return_val
         }
         if(indexPath.section == 0 && indexPath.row == 7 && isbn_label.text == ""){
             self.isbn_text.hidden = true
@@ -418,27 +420,34 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.location_text.hidden = true
             return 0
         }
+        if(indexPath.section == 0 && indexPath.row == 8){
+            var return_val = heightForView(location_label.text!, font: myFont!, width: (screenSize.width - 110))
+            return return_val
+        }
+        
         if(indexPath.section == 0 && indexPath.row == 9 && date_time_label.text == ""){
             self.date_text.hidden = true
             return 0
         }
+        if(indexPath.section == 0 && indexPath.row == 9){
+            var return_val = heightForView(date_time_label.text!, font: myFont!, width: (screenSize.width - 110))
+            return return_val
+        }
         return 30
     }
     
-    func descResize() -> CGFloat{
-        var num_rows = 1.0 as CGFloat
-        description_label.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        var desc_string = description_label.text as String!
-        var length = countElements(desc_string)
-        println(length)
-        if(length > 35){
-            // cut into substrings and display on multilines
-        }
-        return num_rows * 60
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.height + 15
     }
     
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
-        print(section)
         var header : UILabel = UILabel()
         if(section == 0){
             header.text = " " + title1
