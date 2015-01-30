@@ -12,14 +12,19 @@ import Foundation
 
 class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComposeViewControllerDelegate{
 
+    @IBOutlet var zagMailContact: UIButton!
+    @IBOutlet var emailContact: UIButton!
+    @IBOutlet var textContact: UIButton!
+    @IBOutlet var callContact: UIButton!
     @IBOutlet var pages: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var pageControll: UIPageControl!
+    var gonzaga_email_ = ""
+    var pref_email_ = ""
+    var call_ = ""
+    var text_ = ""
     var scrollViewWidth:CGFloat = 0.0
     var pageImages: [UIImage] = []
-    var pageViews: [UIImageView?] = []
-    var images = ["bike.jpg", "tv.png","skateboard.jpg"]
-    var colors:[UIColor] = [UIColor.redColor(), UIColor.blueColor(), UIColor.greenColor(), UIColor.yellowColor()]
     var frame: CGRect = CGRectMake(0, 0, 0, 0)
     let description1 = "description"
     let price = "price"             // |
@@ -60,17 +65,14 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         
         scrollViewWidth = screenSize.width
-        pages.numberOfPages = images.count
-        if(images.count == 1) {
-            pages.hidden  =  true
-        }
-        pages.currentPage = 0
+        
+       
         scrollView.delegate = self
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
 
-        createScroll()
+        
         self.tableView.reloadData()
         description_label.numberOfLines = 0
         trip_location_label.numberOfLines = 0
@@ -80,6 +82,12 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         date_time_label.numberOfLines = 0
 
         startRequest()
+        createScroll()
+        if(pageImages.count == 1) {
+            pages.hidden  =  true
+        }
+        pages.currentPage = 0
+        pages.numberOfPages = pageImages.count
 
     }
     
@@ -97,9 +105,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         var session = NSURLSession.sharedSession()
         
         //parameter values
-        //common post information
-        var postid_ = "41"
-        var category_ = "Ride Shares"
+        //common post information ****
+        var postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
+        var category_ = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         
         //this is the parameters array that will be formulated as JSON.
         // We need both postid and category
@@ -124,10 +132,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             var return_date_time_ = ""
             var round_trip_ = false
             var trip_ = ""
-            var gonzaga_email_ = ""
-            var pref_email_ = ""
-            var call_ = ""
-            var text_ = ""
+
             var isbn_ = ""
             var location_ = ""
             var date_time_ = ""
@@ -144,10 +149,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     title_ = parseJSON["title"] as String
                     description_ = parseJSON["description"] as String
                     price_ = parseJSON["price"] as String
-                    gonzaga_email_ = parseJSON["gonzaga_email"] as String
-                    pref_email_ = parseJSON["pref_email"] as String
-                    call_ = parseJSON["call"] as String
-                    text_ = parseJSON["text"] as String
+                    self.gonzaga_email_ = parseJSON["gonzaga_email"] as String
+                    self.pref_email_ = parseJSON["pref_email"] as String
+                    self.call_ = parseJSON["call"] as String
+                    self.text_ = parseJSON["text"] as String
                     
                     
                     if category_ == "Books"{
@@ -175,16 +180,23 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     imageString[2] = parseJSON["image3"]! as String
                     if !imageString[0].isEmpty {
                         let imageData1 = NSData(base64EncodedString: imageString[0], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                        let image1 =  (UIImage(data: imageData1))
+                        
+
+                        self.pageImages.append(image1!)
                         
                         //do stuff with the image here
                     }
                     else{
                         //No image flag
+                        let image1 = UIImage(named: "tv.png")
+                        self.pageImages.append(image1!)
                         //CASE IN WHICH THE POST HAD NO IMAGE 1
                     }
                     if !imageString[1].isEmpty {
                         let imageData2 = NSData(base64EncodedString: imageString[1], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                        
+                        let image2 =  (UIImage(data: imageData2))
+                        self.pageImages.append(image2!)
                         //do stuff with the image here
                     }
                     else{
@@ -192,7 +204,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     }
                     if !imageString[2].isEmpty {
                         let imageData3 = NSData(base64EncodedString: imageString[2], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                        
+                        let image3 =  (UIImage(data: imageData3))
+                        self.pageImages.append(image3!)
                         //do stuff with the image here
                     }
                     else{
@@ -219,13 +232,35 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     print("Price = ")
                     println(price_)
                     print("Gonzaga email = ")
-                    println(gonzaga_email_)
+                    if(self.gonzaga_email_ == ""){
+                        self.zagMailContact.enabled = false
+                        
+                        self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
+                    }
+                    println(self.gonzaga_email_)
                     print("Pref email = ")
-                    println(pref_email_)
+                    if(self.pref_email_ == ""){
+                        self.emailContact.enabled = false
+                        
+                        self.emailContact.setImage(UIImage(named: "eMailOFF.png"), forState: UIControlState.Disabled)
+
+                    }
+                    
+                    println(self.pref_email_)
                     print("Call = ")
-                    println(call_)
+                    if(self.call_ == ""){
+                        self.callContact.enabled = false
+                        
+                        self.callContact.setImage(UIImage(named: "CallOFF.png"), forState: UIControlState.Disabled)
+                    }
+                    println(self.call_)
                     print("Text = ")
-                    println(text_)
+                    if(self.text_ == ""){
+                        self.textContact.enabled = false
+                        
+                        self.textContact.setImage(UIImage(named: "SMSOFF.png"), forState: UIControlState.Disabled)
+                    }
+                    println(self.text_)
                     
                     
                     self.price_label.text = price_
@@ -287,8 +322,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     
     func createScroll(){
-        for index in 0..<images.count {
-            var image:UIImage  = UIImage(named: images[index])!
+        for index in 0..<pageImages.count {
+            var image:UIImage  = pageImages[index]
             var newImage = image.resizeToBoundingSquare(boundingSquareSideLength: scrollViewWidth)
             frame.origin.x = scrollViewWidth * CGFloat(index)
             frame.origin.y = 0
@@ -300,7 +335,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.scrollView.addSubview(subView)
         }
         
-        self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(images.count), scrollView.contentSize.height)
+        self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
     }
 
     @IBAction func done(sender: AnyObject) {
@@ -329,7 +364,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     @IBAction func textIsTouched(sender: AnyObject) {
         if (messageComposer.canSendText()) {
-            let messageComposeVC = messageComposer.configuredMessageComposeViewController()
+            let messageComposeVC = messageComposer.configuredMessageComposeViewController(title1,text_: self.text_)
             presentViewController(messageComposeVC, animated: true, completion: nil)
         }
         else {
@@ -344,7 +379,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-            var url:NSURL = NSURL(string: "tel://5033175476")!
+            var url:NSURL = NSURL(string: "tel://" + self.call_)!
             UIApplication.sharedApplication().openURL(url)}))
         presentViewController(alertController, animated: true, completion: nil)
    
@@ -359,7 +394,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(images.count), height: scrollView.contentSize.height)
+        scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(pageImages.count), height: scrollView.contentSize.height)
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
@@ -469,10 +504,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
         if(email_type == 1){
-            mailComposerVC.setToRecipients(["someone@somewhere.com"]) //prefered email
+            mailComposerVC.setToRecipients([pref_email_]) //prefered email
         }
         else{
-            mailComposerVC.setToRecipients(["someone@somewhere.com"]) //zagmail
+            mailComposerVC.setToRecipients([gonzaga_email_]) //zagmail
         }
         mailComposerVC.setSubject("Inqury regarding " + title1)
         mailComposerVC.setMessageBody("", isHTML: false)
@@ -499,13 +534,13 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
     }
     
     // Configures and returns a MFMessageComposeViewController instance
-    func configuredMessageComposeViewController() -> MFMessageComposeViewController {
+    func configuredMessageComposeViewController(title:String,text_:String) -> MFMessageComposeViewController {
         let messageComposeVC = MFMessageComposeViewController()
         messageComposeVC.messageComposeDelegate = self  //  Make sure to set this property to self, so that the controller can be dismissed!
         
         //these need to be fixed
-        messageComposeVC.recipients = ["14087721993"]
-        messageComposeVC.body = "Hey friend - Just sending a text message in-app using Swift!"
+        messageComposeVC.recipients = [text_]
+        messageComposeVC.body = "inqury Regarding " + title
         return messageComposeVC
     }
     

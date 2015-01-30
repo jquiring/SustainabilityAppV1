@@ -19,7 +19,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var refreshControl = UIRefreshControl()
     var needsReloading = true
     var bottomNeedsMore = true
-    @IBOutlet var table: UITableView!
+    @IBOutlet internal var table: UITableView!
     var arrayOfPosts: [ListPost] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        setUpPosts("")
+        setUpPosts("",older: true)
         setupTable()
         //navigationController?.hidesBarsOnSwipe = true
         
@@ -47,11 +47,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     func didRefresh(){
         
-        setUpPosts("")
+        setUpPosts(arrayOfPosts[0].date,older: false)
         self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
         self.refreshControl.endRefreshing()
     }
-    func setUpPosts(date:String){
+    func setUpPosts(date:String,older:Bool){
      
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/postquery/")!)
         //trenton
@@ -67,12 +67,15 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         let min_price = "" //"" means no min_price
         let max_price = "" //"" means no max_price
         let free = "0" //false means not free only, true means is free only
-        
+        let dividerDateTime  = date //empty string returns newest
+        let older = true //newer posts or older posts [empty string older is true if loading first posts]
         let params = ["categories":categories,
             "keywordSearch":keywordSearch,
             "min_price":min_price,
             "max_price":max_price,
-            "free":free,]  //images array
+            "free":free,
+            "divider_date_time":dividerDateTime,
+            "older": older]  //images array
             as Dictionary<String,AnyObject>
         
         //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
@@ -118,6 +121,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                                 
                                 //get the easy ones, title and display_value
                                 //HERE ARE THE TEXTUAL INFORMATION PIECES FOR THE POST
+                                    
                                     let title = post["title"] as String
                                     let display_value = post["display_value"]! as String
                                     let postID = post["id"]! as Int
@@ -138,7 +142,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                                     else{
                                         new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date)
                                     }
-                                    self.arrayOfPosts.append(new_post)
+                                    if(older){
+                                        self.arrayOfPosts.insert(new_post, atIndex: 0)
+                                    }
+                                    else{
+                                        
+                                    }
                                 }
                             }
                             not_ready = false
@@ -203,10 +212,27 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         let cell:ListPostCell = table.dequeueReusableCellWithIdentifier("ListCell") as ListPostCell
         println("still working")
         let postCell = arrayOfPosts[indexPath.row]
-        cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value)
-        cell.layoutIfNeeded()
+        cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
+        //cell.unwrappedLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds)
+ 
+        cell.setNeedsDisplay()
+        cell.setNeedsLayout()
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
         return cell
         
+    }
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        self.table.estimatedRowHeight = 120
+    }
+    func tableView(tableView: UITableView,
+        estimatedHeightForRowAtIndexPath indexPath: NSIndexPath)
+        -> CGFloat {
+            return 120
+    }
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
@@ -230,7 +256,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 println("Time to reload table")
                 println(arrayOfPosts[oldLength].id)
                 //send request for more posts
-                setUpPosts(arrayOfPosts[oldLength].date)
+                setUpPosts(arrayOfPosts[oldLength].date,older:true)
             
                 //var indexes = [oldLength...self.arrayOfPosts.count]
                 //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)
@@ -241,14 +267,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 }
                 //need to reload twice for some damn reason
                 
-                
-                
                 table.reloadData()
-                table.reloadData()
+                self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+
                 
-                self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: arrayOfPosts.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-                self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: (oldLength)  , inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
                 
+                self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: (oldLength)   , inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
                 bottomNeedsMore = true
                 
             }
