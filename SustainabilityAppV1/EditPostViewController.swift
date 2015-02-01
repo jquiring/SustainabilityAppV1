@@ -61,7 +61,38 @@ class EditPostViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if(indexPath.section == 0 || indexPath.section == 3){
+            return 30
+        }
+        if(indexPath.section == 1){
+            return 128
+        }
+        if(indexPath.section == 2){
+            return 150
+        }
+        if(indexPath.section == 4 /*&& category.text == "Ride Shares"*/){
+            return 50
+        }
+        if((indexPath.section == 5 || indexPath.section == 6 || indexPath.section == 7) /*&& category.text == "Ride Shares"*/){
+            return 30
+        }
+        if(indexPath.section == 8 /*&& category.text == "Ride Shares" && round_trip_switch.on*/){
+            return 30
+        }
+        if(indexPath.section == 9 /*&& category.text == "Books"*/){
+            return 30
+        }
+        if((indexPath.section == 10 || indexPath.section == 11 ) /* && (category.text == "Services" || category.text == "Events")*/){
+            return 30
+        }
+        if(indexPath.section == 12){
+            return 100
+        }
+        return 0
+    }
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
