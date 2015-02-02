@@ -19,6 +19,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var refreshControl = UIRefreshControl()
     var needsReloading = true
     var bottomNeedsMore = true
+    var no_more_posts = "1"
     @IBOutlet internal var table: UITableView!
     var arrayOfPosts: [ListPost] = []
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        setUpPosts("",older: true)
+        setUpPosts("",older: "1")
         setupTable()
         //navigationController?.hidesBarsOnSwipe = true
         
@@ -46,12 +47,16 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         
     }
     func didRefresh(){
-        
-        setUpPosts(arrayOfPosts[0].date,older: false)
+        if(arrayOfPosts.count != 0){
+            setUpPosts(arrayOfPosts[0].date,older: "0")
+        }
+        else{
+            setUpPosts("",older: "1")
+        }
         self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
         self.refreshControl.endRefreshing()
     }
-    func setUpPosts(date:String,older:Bool){
+    func setUpPosts(date:String,older:String){
      
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/postquery/")!)
         //trenton
@@ -67,14 +72,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         let min_price = "" //"" means no min_price
         let max_price = "" //"" means no max_price
         let free = "0" //false means not free only, true means is free only
-        let dividerDateTime  = date //empty string returns newest
-        let older = true //newer posts or older posts [empty string older is true if loading first posts]
+         //newer posts or older posts [empty string older is true if loading first posts]
         let params = ["categories":categories,
             "keywordSearch":keywordSearch,
             "min_price":min_price,
             "max_price":max_price,
             "free":free,
-            "divider_date_time":dividerDateTime,
+            "divider_date_time":date,
             "older": older]  //images array
             as Dictionary<String,AnyObject>
         
@@ -142,11 +146,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                                     else{
                                         new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date)
                                     }
-                                    if(older){
+                                    if(older == "0"){
                                         self.arrayOfPosts.insert(new_post, atIndex: 0)
                                     }
                                     else{
-                                        
+                                        self.arrayOfPosts.append(new_post)
                                     }
                                 }
                             }
@@ -185,7 +189,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         
         println("something is not working")
         while(not_ready){
-            
+        
         }
 
         
@@ -204,7 +208,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(arrayOfPosts.count)
+        
+        println("ARRAY OF POSTS COUNT" + String(arrayOfPosts.count))
         return arrayOfPosts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -251,12 +256,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             var currentOffset = scrollView.contentOffset.y;
             var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
             var oldLength = arrayOfPosts.count - 1
-            if(maximumOffset - currentOffset <= 0 && bottomNeedsMore){
+            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
                 bottomNeedsMore = false
                 println("Time to reload table")
                 println(arrayOfPosts[oldLength].id)
                 //send request for more posts
-                setUpPosts(arrayOfPosts[oldLength].date,older:true)
+                setUpPosts(arrayOfPosts[oldLength].date,older:"1")
+                print("DATE" + arrayOfPosts[oldLength].date)
             
                 //var indexes = [oldLength...self.arrayOfPosts.count]
                 //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)

@@ -98,6 +98,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         //trenton
         //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/viewpost/")!)
         //server
+        var flag = true
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/viewpost/")!)
         request.HTTPMethod = "POST"
         
@@ -143,6 +144,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 println("Error could not parse JSON: '\(jsonStr)'")
             }
+            
             else{
                 if let parseJSON = json as? Dictionary<String,AnyObject>{
                     
@@ -213,7 +215,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     }
                 }
             }
-            
+           
             //downcast NSURLResponse object to NSHTTPURLResponse
             if let httpResponse = response as? NSHTTPURLResponse {
                 
@@ -303,22 +305,29 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                     if category_ == "Books"{
                         self.isbn_label.text = isbn_
                     }
+                    flag = false
                 }
                 //400 = BAD_REQUEST: error in creating user, display error!
                 else if(status_code == 400){
                     println(title_)
+                    flag = false
                 }
                     //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
                 else if(status_code == 500){
                     println("The server is down! Call the fire department!")
+                    
+                    flag = false
                 }
             } else {
                 println("Error in casting response, data incomplete")
+                
             }
         })
         task.resume()
         
-        sleep(5)
+        while(flag){
+            
+        }
     }
     
     func createScroll(){

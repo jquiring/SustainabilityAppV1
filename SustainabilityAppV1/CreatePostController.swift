@@ -441,21 +441,22 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         let cost = price.text
         let title = title_field.text
         let category_ = category.text // not sure
-        let gonzaga_email = "0"
-        if(gmail == UIImage(named: "ZagMail.png")){
-            let gonzaga_email = "1" //boolean contact option
+        var gonzaga_email = "0"
+        if(gmail.image == UIImage(named: "ZagMail.png")){
+            println("USing zagmail")
+             gonzaga_email = "1" //boolean contact option
         }
-        let pref_email = "0" //boolean contact option
-        if(gmail == UIImage(named: "eMail.png")){
-            let pref_email = "1"
+        var pref_email = "0" //boolean contact option
+        if(pEmail.image == UIImage(named: "eMail.png")){
+            pref_email = "1"
         }
-        let phone = "0"
-        if(gmail == UIImage(named: "SMS.png")){
-            let phone = "1" //boolean contact option
+        var text_bool = "0"
+        if(text.image == UIImage(named: "SMS.png")){
+            text_bool = "1" //boolean contact option
         }
-        let text_bool = "0"
-        if(gmail == UIImage(named: "Call.png")){
-            let text_bool = "1"
+        var phone_bool = "0"
+        if(phone.image == UIImage(named: "Call.png")){
+            phone_bool = "1"
         }
         // need text message boolean too
         //rideshare specific
@@ -482,7 +483,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             "category":category_,           // |
             "gonzaga_email":gonzaga_email,  // |
             "pref_email":pref_email,        // |
-            "call":phone,                   // |
+            "call":phone_bool,                   // |
             "text":text_bool,               // <
             "departure_date_time":departure_date_time,  //rideshare specific
             "start_location":start_location,            // |

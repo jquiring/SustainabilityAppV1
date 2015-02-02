@@ -49,6 +49,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
     }
     @IBAction func helpAndFAQ(sender: AnyObject) {
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("helpAndFAQ") as HelpAndFAQController
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.presentViewController(navController, animated:true, completion: nil)
 
 
     }
