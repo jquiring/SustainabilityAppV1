@@ -47,16 +47,23 @@ class ProfilePost {
         var image =  UIImage(named:"tv.png")
         self.imageName = UIImageJPEGRepresentation(image, 1)
     }
-    func upDateNSData(){
-        var new_post = [title,imageName,category]
+    func getID() -> String{
+        return id
+    }
+    func upDateNSData(newer:Bool){
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-            var current_posts:Dictionary<String,AnyObject> = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as Dictionary<String,AnyObject>
-            current_posts[id] = new_post
+            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+            if(newer){
+                current_posts.insert([id,title,imageName,category], atIndex: 0)
+            }
+            else {
+                current_posts.append([id,title,imageName,category])
+            }
             NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
             
         }
         else {
-            let dict:Dictionary<String,AnyObject> = [id:new_post]
+            let dict:[[AnyObject!]] = [[id,title,imageName,category]]
             NSUserDefaults.standardUserDefaults().setObject(dict, forKey: "user_posts")
         }
     }

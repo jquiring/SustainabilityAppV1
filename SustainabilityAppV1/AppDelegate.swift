@@ -140,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 new_post = ProfilePost(title: title, id: String(postID),cat:category)
                                                 
                                             }
-                                            new_post.upDateNSData()
+                                            new_post.upDateNSData(false)
                                         }
                                     }
                                 }

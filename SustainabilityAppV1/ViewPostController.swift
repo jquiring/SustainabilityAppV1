@@ -383,7 +383,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
     }
     @IBAction func phoneIsTouched(sender: AnyObject) {
-        let alertController = UIAlertController(title: "Would you like to call the seller right now?", message:
+        let alertController = UIAlertController(title: "Call " + self.call_  + "?", message:
             nil, preferredStyle: UIAlertControllerStyle.Alert)
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))

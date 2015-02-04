@@ -127,7 +127,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             }
                             if let _phone = parseJSON["phone"] as? String{
                                 if( _phone) != "" {
-                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["p_email"] as? String, forKey: "phone")
+                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["phone"] as? String, forKey: "phone")
                                 }
                                 
                             }
@@ -137,7 +137,9 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             println("Valid credentials! Carry on to main page...")
                             returnVal = 200
                             if let posts: AnyObject = parseJSON["posts"]{
-                                
+                                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
+                                //TODO: ^^ should already be nill
+
                                 //iterate through each post
                                 if(posts.count != 0){
                                     for i in 0...(posts.count - 1){
@@ -164,7 +166,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
                                             new_post = ProfilePost(title: title, id: String(postID),cat:category)
                                         //NO IMAGE WITH POST
                                         }
-                                        new_post.upDateNSData()
+                                        new_post.upDateNSData(false)
                                     }
                                 }
                             }

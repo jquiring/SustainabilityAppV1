@@ -31,6 +31,7 @@
 		F840537E1A070ED5007D671A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537D1A070ED5007D671A /* ProfileController.swift */; };
 		F84B53E01A69C910002E9597 /* ListPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B53DF1A69C910002E9597 /* ListPost.swift */; };
 		F84B53E21A69CB2E002E9597 /* ListPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B53E11A69CB2E002E9597 /* ListPostCell.swift */; };
+		F8776E421A804E81002C698F /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */; };
 		F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
 		F892C95019F59B4200113C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F892C94E19F59B4200113C26 /* Main.storyboard */; };
 		F892C95219F59B4200113C26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F892C95119F59B4200113C26 /* Images.xcassets */; };
@@ -369,6 +370,7 @@
 				CA4C2EA41A78663400070B3B /* ContainerViewController.swift in Sources */,
 				CA4C2EA31A78663200070B3B /* CenterViewController.swift in Sources */,
 				CA4C2EAA1A78664300070B3B /* ProfilePost.swift in Sources */,
+				F8776E421A804E81002C698F /* EditPostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

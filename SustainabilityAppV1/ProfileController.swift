@@ -20,6 +20,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var arrayOfPosts: [ProfilePost] = []
     var category :String?
     var id:String?
+    var firstAppear = true
     func setUpPosts(){
         /*
         var post1 = ProfilePost(title: "Fresh Bike", imageName: "bike.jpg",id:"id1")
@@ -31,15 +32,123 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         */
         arrayOfPosts = []
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-            var current_posts:Dictionary<String,AnyObject> = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as Dictionary<String,AnyObject>
-            for (id,post) in current_posts {
-                println("new_post)")
-                var new_post:ProfilePost
-                new_post = ProfilePost(title: post[0] as String, imageName: post[1] as NSData, id: id,cat:post[2] as String)
-         
+            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+            for post in current_posts {
+                id = post[0] as? String
+                var new_post = ProfilePost(title: post[1] as String, imageName: post[2] as NSData, id: id!,cat:post[3] as String)
                 arrayOfPosts.append(new_post)
             }
         }
+    }
+    @IBAction func deleteSelected(sender: AnyObject) {
+        let cat:String = arrayOfPosts[sender.tag].category as String
+        let id:String = arrayOfPosts[sender.tag].id as String
+        let alertController = UIAlertController(title: "Are you sure you wish to delete " + arrayOfPosts[sender.tag].title  + "?", message:
+            nil, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+            self.deletePost(cat, id:id)
+            if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+                current_posts.removeAtIndex(sender.tag)
+                NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+                
+            }
+            self.arrayOfPosts.removeAtIndex(sender.tag)
+            self.table.reloadData()
+
+        }))
+        presentViewController(alertController, animated: true, completion: nil)
+       
+        
+    }
+    func deletePost(category:String, id:String){
+        //create a mutable request with api view path /deletepost/, set method to POST
+        //server
+        //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/deletepost/")!)
+        //trenton
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/deletepost/")!)
+        
+        request.HTTPMethod = "POST"
+        
+        //open NSURLSession
+        var session = NSURLSession.sharedSession()
+        
+        // Category and id necessary to identify post to be deleted
+        //let category = "Electronics"
+        //let id = "96"
+        
+        //this is the parameters array that will be formulated as JSON.
+        //it has space for EVERY attribute of EVERY category.
+        //only fill attributes that pertain to the category
+        let params = ["id":id,    // id to identify post
+            "category":category]  //category to identify table
+            as Dictionary<String,AnyObject>
+        
+        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        //define NSURLSession data task with completionHandler call back function
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            
+            //read the message from the response
+            var message = ""
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
+            if(err != nil) {
+                println(err!.localizedDescription)
+                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("Error could not parse JSON: '\(jsonStr)'")
+            }
+            else{
+                if let parseJSON = json as? Dictionary<String,AnyObject>{
+                    message = parseJSON["message"] as String
+                }
+            }
+            
+            //downcast NSURLResponse object to NSHTTPURLResponse
+            if let httpResponse = response as? NSHTTPURLResponse {
+                
+                //get the status code
+                var status_code = httpResponse.statusCode
+                
+                //200 = OK: user created, carry on!
+                if(status_code == 200){
+                    println(message)
+                    println(id)
+                }
+                    //400 = BAD_REQUEST: error in creating user, display error!
+                else if(status_code == 400){
+                    println(message)
+                }
+                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
+                else if(status_code == 500){
+                    println("The server is down! Call the fire department!")
+                }
+                
+            } else {
+                println("Error in casting response, data incomplete")
+            }
+        })
+        task.resume()
+        sleep(5)
+    }
+    @IBAction func editSelected(sender: AnyObject) {
+        println(sender.tag)
+        NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[sender.tag].id, forKey: "post_id")
+        NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[sender.tag].category, forKey: "cat")
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        
+        self.presentViewController(navController, animated:true, completion: nil)
+
+    }
+    
+    @IBAction func bumpButton(sender: AnyObject) {
     }
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
@@ -90,15 +199,18 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         table.delegate = self
         //table.preformSeg
         self.table.tableFooterView = UIView()
-        
-        
+        table.reloadData()
+        println("view did load")
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {
+        
         setUpPosts()
         makeLayout()
         self.table.reloadData()
         println("view did appear")
+        firstAppear = false
+       
 
     }
     @IBAction func newPost(sender: AnyObject) {
@@ -296,6 +408,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
         let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as ProfilePostCell
         let postCell = arrayOfPosts[indexPath.row]
+        cell.edit.tag = indexPath.row
+        cell.delete.tag = indexPath.row
+        cell.bump.tag = indexPath.row
         cell.setCell(postCell.title, imageName: postCell.imageName)
         cell.setTranslatesAutoresizingMaskIntoConstraints(false)
         

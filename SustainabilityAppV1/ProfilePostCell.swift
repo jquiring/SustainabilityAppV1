@@ -13,6 +13,9 @@ class ProfilePostCell: UITableViewCell {
     
     @IBOutlet var itemImage: UIImageView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet var edit: UIButton!
+    @IBOutlet var delete: UIButton!
+    @IBOutlet var bump: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

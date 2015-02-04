@@ -563,7 +563,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             println(title)
             
             println("got past here")
-            new_post.upDateNSData()
+            new_post.upDateNSData(true)
         }
         
         
