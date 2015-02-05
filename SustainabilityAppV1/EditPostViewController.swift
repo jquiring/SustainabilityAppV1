@@ -66,6 +66,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         tableView.delegate = self
         var postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
         var category_ = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
+        category = category_
         //start spinning icon
         getPostRequest(postid_, category_:category_)
         //end spinning icon
@@ -84,7 +85,13 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         setUpImageGestures()
         assignDelegates()
         self.view.backgroundColor = UIColor.whiteColor()
+        tableView.reloadData()
     }
+    
+    @IBAction func rount_trip_switch_changed(sender: AnyObject) {
+        self.tableView.reloadData()
+    }
+    
     func updateUI(parseJSON:NSDictionary){
         self.title_field.text = parseJSON["title"] as String
         self.descOutlet.text = parseJSON["description"] as String
@@ -127,12 +134,16 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         
         if self.category == "Ride Shares"{
             self.leaves.text = parseJSON["departure_date_time"] as String
-            self.round_trip_switch.selected = parseJSON["round_trip"] as Bool
+            let rts = parseJSON["round_trip"] as Int
+            if(rts == 1){
+                self.round_trip_switch.setOn(true, animated: false)
+            }
+            //self.round_trip_switch.selected = parseJSON["round_trip"] as Bool
             let trip_ = parseJSON["trip"] as String
-            let trip_array = trip_.componentsSeparatedByString(" From ")
-            let to_ = trip_array[0].componentsSeparatedByString("To ")
-            self.to.text = to_[1]
-            self.from.text = trip_array[1]
+            let trip_array = trip_.componentsSeparatedByString(" To ")
+            let to_ = trip_array[0].componentsSeparatedByString("From ")
+            self.from.text = to_[1]
+            self.to.text = trip_array[1]
             if parseJSON["round_trip"] as Bool{
                 self.comesBack.text = parseJSON["return_date_time"] as String
             }
@@ -386,7 +397,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
     //creates the custom view headers
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
-        print(section)
+        //print(section)
         var header : UILabel = UILabel()
         header.text = categoryTitles[section]
         header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
@@ -398,17 +409,21 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     
     //sets the category header height to 0 if it is not being used
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        let rideShareOneWaySections = [5,6,7,8]
-        let rideShareBothWaysSections = [5,6,7,8,9]
-        let eventSections = [11,12]
-        if(section == 9 && (!round_trip_switch.on || category != "Ride Shares")){
+        //println(category)
+        let rideShareOneWaySections = [4,5,6,7]
+        let rideShareBothWaysSections = [4,5,6,7,8]
+        let eventSections = [10,11]
+        if(section == 8 && !round_trip_switch.on && category == "Ride Shares"){
             return 0
+        }
+        if(section == 8 && round_trip_switch.on && category == "Ride Shares"){
+            return 24
         }
         if(contains(rideShareOneWaySections,section) && category != "Ride Shares"){
             return 0
         }
         
-        if(section == 10 && category != "Books"){
+        if(section == 9 && category != "Books"){
             return 0
         }
         if(contains(eventSections,section) && category !=  "Services" && category != "Events"){
@@ -423,11 +438,12 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     func submitEditedPost(){
         // modified submit post
     }
-    
+    /*
     func splitFromAndToFields(location: String) -> String{
         // this function will be called to split the location into 2 strings, a 'From" and a "To"
         return ""
     }
+    */
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0 || indexPath.section == 3){
             return 30
@@ -438,19 +454,19 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         if(indexPath.section == 2){
             return 150
         }
-        if(indexPath.section == 4 /*&& category.text == "Ride Shares"*/){
+        if(indexPath.section == 4 && category == "Ride Shares"){
             return 50
         }
-        if((indexPath.section == 5 || indexPath.section == 6 || indexPath.section == 7) /*&& category.text == "Ride Shares"*/){
+        if((indexPath.section == 5 || indexPath.section == 6 || indexPath.section == 7) && category == "Ride Shares"){
             return 30
         }
-        if(indexPath.section == 8 /*&& category.text == "Ride Shares" && round_trip_switch.on*/){
+        if(indexPath.section == 8 && category == "Ride Shares" && round_trip_switch.on){
             return 30
         }
-        if(indexPath.section == 9 /*&& category.text == "Books"*/){
+        if(indexPath.section == 9 && category == "Books"){
             return 30
         }
-        if((indexPath.section == 10 || indexPath.section == 11 ) /* && (category.text == "Services" || category.text == "Events")*/){
+        if((indexPath.section == 10 || indexPath.section == 11 ) && (category == "Services" || category == "Events")){
             return 30
         }
         if(indexPath.section == 12){
@@ -509,7 +525,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 //200 = OK: user created, carry on!
                 if(status_code == 200){
                     var parseJSON = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-                    print(parseJSON!["image1"])
                     if(err != nil) {
                         println(err!.localizedDescription)
                         let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)

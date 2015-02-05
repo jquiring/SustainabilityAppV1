@@ -115,15 +115,16 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
     // MARK: Gesture recognizer
   
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        if(currentState == .LeftPanelExpanded) {
+        
+        //if(currentState == .LeftPanelExpanded) {
         let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
         
         switch(recognizer.state) {
         case .Began:
             if (currentState == .BothCollapsed) {
-                if (gestureIsDraggingFromLeftToRight) {
+                //if (gestureIsDraggingFromLeftToRight) {
                     addLeftPanelViewController()
-                } 
+                //}
                 
                 showShadowForCenterViewController(true)
             }
@@ -131,7 +132,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
             //if(!gestureIsDraggingFromLeftToRight) {
                 recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
                 recognizer.setTranslation(CGPointZero, inView: view)
-           // }
+            //}
         case .Ended:
             if (leftViewController != nil) {
                 // animate the side panel open or closed based on whether the view has moved more or less than halfway
@@ -141,7 +142,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
         default:
             break
         }
-        }
+       // }
         
     }
 }
