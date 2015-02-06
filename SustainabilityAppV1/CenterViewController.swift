@@ -34,7 +34,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        setUpPosts("",older: "1")
+        setUpPosts("",older: "1",fromTop:"1")
         setupTable()
         //navigationController?.hidesBarsOnSwipe = true
         
@@ -47,16 +47,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         
     }
     func didRefresh(){
-        if(arrayOfPosts.count != 0){
-            setUpPosts(arrayOfPosts[0].date,older: "0")
-        }
-        else{
-            setUpPosts("",older: "1")
-        }
+        
+        setUpPosts("",older: "1",fromTop:"1")
+        
         self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
         self.refreshControl.endRefreshing()
     }
-    func setUpPosts(date:String,older:String){
+    func setUpPosts(date:String,older:String,fromTop:String){
      
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/postquery/")!)
         //trenton
@@ -119,6 +116,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                             message = parseJSON["message"] as String
                             
                             let posts: AnyObject = parseJSON["posts"]!
+                            if(fromTop == "1"){
+                                self.arrayOfPosts = []
+                            }
+                            let more_exists = parseJSON["more_exist"] as String
+                            if(more_exists == "1"){
+                                self.bottomNeedsMore = true
+                            }
                             if(posts.count != 0){
                                 for i in 0...(posts.count - 1){
                                     let post: AnyObject! = posts[i] //just so we don't keep re-resolving this reference
@@ -131,6 +135,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                                     let postID = post["id"]! as Int
                                     let category = post["category"] as String
                                     let date = post["post_date_time"] as String
+                                    
                                     println(title)
                                     var new_post:ListPost
                                 
@@ -255,13 +260,15 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             
             var currentOffset = scrollView.contentOffset.y;
             var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-            var oldLength = arrayOfPosts.count - 1
+            
             if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
+                var oldLength = arrayOfPosts.count - 1
                 bottomNeedsMore = false
                 println("Time to reload table")
-                println(arrayOfPosts[oldLength].id)
+                println(arrayOfPosts[oldLength].date)
+                println(arrayOfPosts[oldLength - 1].date)
                 //send request for more posts
-                setUpPosts(arrayOfPosts[oldLength].date,older:"1")
+                setUpPosts(arrayOfPosts[oldLength].date,older:"1",fromTop : "0")
                 print("DATE" + arrayOfPosts[oldLength].date)
             
                 //var indexes = [oldLength...self.arrayOfPosts.count]
@@ -279,7 +286,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 
                 
                 self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: (oldLength)   , inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-                bottomNeedsMore = true
+                
                 
             }
             

@@ -15,6 +15,7 @@ class ProfilePost {
     //var key_value = ""
     var id = ""
     var category = ""
+    //let date_time = ""
     /*
     var cat = ""
     var pic1:NSData

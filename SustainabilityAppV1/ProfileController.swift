@@ -63,12 +63,79 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
        
         
     }
+    func bumpPost(category:String,post_id:String,tag:Int){
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/refreshpost/")!)
+        request.HTTPMethod = "POST"
+        
+        //open NSURLSession
+        var session = NSURLSession.sharedSession()
+        
+        //prepare parameters for json serialization
+        var params = ["post_id":post_id, "category":category] as Dictionary<String, String>
+        
+        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
+        var err: NSError?
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        
+        //define NSURLSession data task with completionHandler call back function
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            
+            //downcast NSURLResponse object to NSHTTPURLResponse
+            if let httpResponse = response as? NSHTTPURLResponse {
+                
+                //get the status code
+                var status_code = httpResponse.statusCode
+                
+                //200 = OK: post successfully refreshed!
+                if(status_code == 200){
+                    var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
+                    if(err != nil) {
+                        println(err!.localizedDescription)
+                        let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        println("Error could not parse JSON: '\(jsonStr)'")
+                    }
+                    else{
+                        if let parseJSON = json as? Dictionary<String,AnyObject>{
+                            let message = parseJSON["message"] as String
+                            let new_post_date_time = parseJSON["post_date_time"] as String
+                            println(new_post_date_time)
+                            
+                            
+                        }
+                    }
+                }
+                    
+                    //400 = BAD_REQUEST: error in refreshing post, display error!
+                else if(status_code == 400){
+                    println(400)
+                }
+                    
+                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
+                else if(status_code == 500){
+                    println(500)
+                }
+                
+                
+            } else {
+                println("Error in casting response, data incomplete")
+            }
+            
+            
+        })
+        task.resume()
+        
+       
+        
+    }
     func deletePost(category:String, id:String){
         //create a mutable request with api view path /deletepost/, set method to POST
         //server
         //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/deletepost/")!)
         //trenton
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/deletepost/")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/deletepost/")!)
         
         request.HTTPMethod = "POST"
         
@@ -149,6 +216,19 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     
     @IBAction func bumpButton(sender: AnyObject) {
+        bumpPost(arrayOfPosts[sender.tag].category,post_id: arrayOfPosts[sender.tag].id,tag:sender.tag)
+        let bumped_post = self.arrayOfPosts[sender.tag]
+        self.arrayOfPosts.removeAtIndex(sender.tag)
+        self.arrayOfPosts.insert(bumped_post, atIndex: 0)
+        if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+            current_posts.removeAtIndex(sender.tag)
+            current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category], atIndex: 0)
+            NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+            
+        }
+
+        self.table.reloadData()
     }
     @IBAction func edit(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
@@ -190,7 +270,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
         self.setUpPosts()
         makeLayout()
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
