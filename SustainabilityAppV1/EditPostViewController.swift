@@ -29,6 +29,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     @IBOutlet var image3: UIImageView!
     
     @IBOutlet var round_trip_switch: UISwitch!
+    var round_trip_flag = false
 
     @IBOutlet var from: UITextField!
     @IBOutlet var price: UITextField!
@@ -90,6 +91,14 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     
     @IBAction func rount_trip_switch_changed(sender: AnyObject) {
         self.tableView.reloadData()
+        if(!round_trip_switch.on){
+            round_trip_flag = false
+            comesBack.hidden = true
+        }
+        else{
+            round_trip_flag = true
+            comesBack.hidden = false
+        }
     }
     
     func updateUI(parseJSON:NSDictionary){
@@ -136,6 +145,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             self.leaves.text = parseJSON["departure_date_time"] as String
             let rts = parseJSON["round_trip"] as Int
             if(rts == 1){
+                round_trip_flag = true
                 self.round_trip_switch.setOn(true, animated: false)
             }
             //self.round_trip_switch.selected = parseJSON["round_trip"] as Bool
@@ -147,6 +157,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             if parseJSON["round_trip"] as Bool{
                 self.comesBack.text = parseJSON["return_date_time"] as String
             }
+        tableView.reloadData()
         }
         
         //The Three images are processed here
@@ -413,11 +424,11 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         let rideShareOneWaySections = [4,5,6,7]
         let rideShareBothWaysSections = [4,5,6,7,8]
         let eventSections = [10,11]
-        if(section == 8 && !round_trip_switch.on && category == "Ride Shares"){
+        if(section == 8 && category != "Ride Shares"){
             return 0
         }
-        if(section == 8 && round_trip_switch.on && category == "Ride Shares"){
-            return 24
+        if(section == 8 && round_trip_flag == false && category == "Ride Shares"){
+            return 0
         }
         if(contains(rideShareOneWaySections,section) && category != "Ride Shares"){
             return 0
