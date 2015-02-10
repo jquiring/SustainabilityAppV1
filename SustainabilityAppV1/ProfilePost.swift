@@ -15,6 +15,7 @@ class ProfilePost {
     //var key_value = ""
     var id = ""
     var category = ""
+    var refreshable = ""
     //let date_time = ""
     /*
     var cat = ""
@@ -40,6 +41,7 @@ class ProfilePost {
         self.imageName = imageName
         self.id = id
         self.category = cat
+        
     }
     init(title:String,id:String,cat:String){
         self.category = cat

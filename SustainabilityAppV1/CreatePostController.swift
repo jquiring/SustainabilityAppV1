@@ -377,28 +377,71 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    @IBAction func createPostSubmit(sender: AnyObject) {
-        //LoadingOverlay.shared.showOverlay(tableView)
+    func validateFields() -> Bool{
+        var validator:FieldValidator = FieldValidator()
         if(category.text == ""){
-            var alert = UIAlertController(title: "Warning", message: "Please enter a category", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+            createAlert("Please select a category")
+            return false
         }
-        else if(title_field.text  == "" ){
-            var alert = UIAlertController(title: "Warning", message: "Please enter a title", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+        if(!validator.checkLength(title_field.text, lengthString: 100, empty:true)){
+            createAlert("Please enter a title under 100 characters")
+            return false
         }
-        else if let n = price.text.toDouble() {
-                createPostRequest()
+        if(price == ""){
+            createAlert("Please enter a price")
+            return false
         }
-        else {
-            var alert = UIAlertController(title: "Warning", message: "Please enter a correct price", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+            
+        if(!validator.checkFloat(price.text)){
+            createAlert("Please enter a valid price")
+            return false
+        }
+        if(!validator.checkPriceUnder1000(price.text)){
+            createAlert("Prices over $10,000 are not allowed on Zig Zag")
+            return false
+        }
+        if(!validator.checkLength(descOutlet.text, lengthString: 1000, empty:false)){
+            createAlert("Please enter a description under 1000 characters")
+            return false
+        }
+        if(category.text == "Ride Shares"){
+            println("is ride shares")
+            if(round_trip_switch.on){
+                println("is roundtrip shares")
+                if(!validator.datesInOrder(leaves.text, date2: comesBack.text)){
+                    
+                    createAlert("Your ride share is planned to come back before it leaves")
+                    return false
+                }
+            }
+            if(!validator.checkLength(to.text, lengthString: 70, empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+            if(!validator.checkLength(from.text, lengthString: 70, empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+            
+        }
+        if(category.text == "Books"){
+            if(!validator.checkLength(ISBN.text, lengthString: 13, empty:false)){
+                createAlert("Please enter an ISBN under 13 characters")
+                return false
+            }
+        }
+        if(category.text == "Events" || category.text == "Services" ){
+            if(!validator.checkLength(location.text, lengthString: 70 , empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+        }
+        return true
+
+    }
+    @IBAction func createPostSubmit(sender: AnyObject) {
+        if(validateFields()){
+            createPostRequest()
         }
         
     }
@@ -549,6 +592,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         while(self.flag == false){
         }
         if(status_code == 200){
+                /**
             var stringid = self.id as NSNumber
             println(self.id)
             var default_image : NSData? = nil
@@ -564,6 +608,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             
             println("got past here")
             new_post.upDateNSData(true)
+*/
         }
         
         
@@ -571,6 +616,13 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         // dismiss the screen
         self.dismissViewControllerAnimated(true, completion: nil)
     
+
+    }
+    func createAlert(message:String){
+        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
 
     }
 }

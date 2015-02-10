@@ -202,7 +202,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     func setupTable(){
         table.delegate = self
         table.dataSource = self
-        table.estimatedRowHeight = 120.0
+        table.estimatedRowHeight = 160.0
         table.rowHeight = UITableViewAutomaticDimension
 
 
@@ -233,12 +233,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         
     }
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        self.table.estimatedRowHeight = 120
+        self.table.estimatedRowHeight = 160
     }
     func tableView(tableView: UITableView,
         estimatedHeightForRowAtIndexPath indexPath: NSIndexPath)
         -> CGFloat {
             return 120
+            //UITableViewAutomaticDimension
     }
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.setNeedsUpdateConstraints()
