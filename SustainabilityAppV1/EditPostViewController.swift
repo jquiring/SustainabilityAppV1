@@ -174,7 +174,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
         else{
             //No image flag
-            self.image1.image = UIImage(named: "tv.png")
+            self.image1.image = UIImage(named: "PlusDark.png")
             //CASE IN WHICH THE POST HAD NO IMAGE 1
         }
         if !imageString[1].isEmpty {
@@ -182,7 +182,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             self.image2.image =  (UIImage(data: imageData2))
         }
         else{
-            self.image2.image = UIImage(named: "tv.png")
+            self.image2.image = UIImage(named: "PlusDark.png")
         }
         if !imageString[2].isEmpty {
             let imageData3 = NSData(base64EncodedString: imageString[2], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
@@ -190,7 +190,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             //do stuff with the image here
         }
         else{
-            self.image3.image = UIImage(named: "tv.png")
+            self.image3.image = UIImage(named: "PlusDark.png")
         }
         println("still happy")
         
@@ -245,34 +245,34 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         self.image1.addGestureRecognizer(gestureRecogniser1)
         let tap = UITapGestureRecognizer(target: self, action: Selector("tableToutched"))
         self.view.addGestureRecognizer(tap)
-        self.image1.image = UIImage(named:"tv.png")
+        self.image1.image = UIImage(named:"PlusDark.png")
         
         //image 2
         let gestureRecogniser2 = UITapGestureRecognizer(target: self, action: Selector("image2Toutched"))
         self.image2.addGestureRecognizer(gestureRecogniser2)
-        self.image2.image = UIImage(named:"tv.png")
+        self.image2.image = UIImage(named:"PlusDark.png")
         
         //image 3
         let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("image3Toutched"))
         self.image3.addGestureRecognizer(gestureRecogniser3)
-        self.image3.image = UIImage(named:"tv.png")
+        self.image3.image = UIImage(named:"PlusDark.png")
         
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
-        self.gmail.image = UIImage(named:"ZagMail.png")
+        self.gmail.image = UIImage(named:"PlusDark.png")
         
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
-        self.pEmail.image = UIImage(named:"eMailOFF.png")
+        self.pEmail.image = UIImage(named:"PlusDark.png")
         
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
-        self.text.image = UIImage(named:"SMSOFF.png")
+        self.text.image = UIImage(named:"PlusDark.png")
         
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
-        self.phone.image = UIImage(named:"CallOFF.png")
+        self.phone.image = UIImage(named:"PlusDark.png")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -344,7 +344,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
         var deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default){
             UIAlertAction in
-            self.currentImage.image = UIImage(named:"tv.png")
+            self.currentImage.image = UIImage(named:"PlusDark.png")
         }
         var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){
             UIAlertAction in
@@ -353,7 +353,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         alert.addAction(cameraAction)
         alert.addAction(gallaryAction)
         alert.addAction(cancelAction)
-        if(currentImage.image != UIImage(named:"tv.png") ){
+        if(currentImage.image != UIImage(named:"PlusDark.png") ){
             alert.addAction(deleteAction)
         }
         // Present the controller
@@ -668,7 +668,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         imagesBase64.append(imageBase64)
         }*/
         for images in UIImageList{
-            if(images != UIImage(named:"tv.png")){
+            if(images != UIImage(named:"PlusDark.png")){
                 imageData = UIImageJPEGRepresentation(images, 1)
                 images_data.append(imageData)
                 imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))

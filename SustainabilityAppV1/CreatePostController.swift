@@ -139,17 +139,17 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.image1.addGestureRecognizer(gestureRecogniser1)
         let tap = UITapGestureRecognizer(target: self, action: Selector("tableToutched"))
         self.view.addGestureRecognizer(tap)
-        self.image1.image = UIImage(named:"tv.png")
+        self.image1.image = UIImage(named:"PlusDark.png")
 
         //image 2
         let gestureRecogniser2 = UITapGestureRecognizer(target: self, action: Selector("image2Toutched"))
         self.image2.addGestureRecognizer(gestureRecogniser2)
-        self.image2.image = UIImage(named:"tv.png")
+        self.image2.image = UIImage(named:"PlusDark.png")
 
         //image 3
         let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("image3Toutched"))
         self.image3.addGestureRecognizer(gestureRecogniser3)
-        self.image3.image = UIImage(named:"tv.png")
+        self.image3.image = UIImage(named:"PlusDark.png")
 
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
@@ -250,7 +250,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
         var deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default){
                 UIAlertAction in
-                self.currentImage.image = UIImage(named:"tv.png")
+                self.currentImage.image = UIImage(named:"PlusDark.png")
         }
         var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){
                 UIAlertAction in
@@ -259,7 +259,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         alert.addAction(cameraAction)
         alert.addAction(gallaryAction)
         alert.addAction(cancelAction)
-        if(currentImage.image != UIImage(named:"tv.png") ){
+        if(currentImage.image != UIImage(named:"PlusDark.png") ){
             alert.addAction(deleteAction)
         }
         // Present the controller
@@ -387,17 +387,13 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             createAlert("Please enter a title under 100 characters")
             return false
         }
-        if(price == ""){
-            createAlert("Please enter a price")
-            return false
-        }
             
         if(!validator.checkFloat(price.text)){
             createAlert("Please enter a valid price")
             return false
         }
-        if(!validator.checkPriceUnder1000(price.text)){
-            createAlert("Prices over $10,000 are not allowed on Zig Zag")
+        if(!validator.checkPriceUnder1000(price.text) && price.text != ""){
+            createAlert("Prices over $10,000 are not allowed on ZigZaga")
             return false
         }
         if(!validator.checkLength(descOutlet.text, lengthString: 1000, empty:false)){
@@ -471,7 +467,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         imagesBase64.append(imageBase64)
         }*/
         for images in UIImageList{
-            if(images != UIImage(named:"tv.png")){
+            if(images != UIImage(named:"PlusDark.png")){
                 imageData = UIImageJPEGRepresentation(images, 1)
                 images_data.append(imageData)
                 imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
