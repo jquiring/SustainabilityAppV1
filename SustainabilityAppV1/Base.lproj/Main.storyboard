@@ -625,31 +625,40 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEC-9h-omf">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXB-5n-lhK">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <state key="normal" title="Edit ">
+                                                    <state key="normal" image="Refresh@22x22.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="editSelected:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="3fH-zP-TeI"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXB-5n-lhK">
-                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <state key="normal" title="Bump">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="195" y="35" width="22" height="22"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="bumpButton:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="2ui-fb-lla"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edU-Av-GjQ">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edU-Av-GjQ">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <state key="normal" title="Delete">
+                                                    <state key="normal" image="TrashCanSmall.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="150" y="35" width="22" height="22"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="deleteSelected:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="oUO-aW-4rV"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEC-9h-omf">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <state key="normal" image="EditPost@22x22.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="105" y="35" width="22" height="22"/>
+                                                    </variation>
+                                                    <connections>
+                                                        <action selector="editSelected:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="3fH-zP-TeI"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -659,7 +668,7 @@
                                                 </constraint>
                                                 <constraint firstItem="edU-Av-GjQ" firstAttribute="top" secondItem="fia-nS-lww" secondAttribute="bottom" constant="17" id="Geo-2A-lKX"/>
                                                 <constraint firstItem="bEC-9h-omf" firstAttribute="top" secondItem="fia-nS-lww" secondAttribute="bottom" constant="17" id="Hlq-ga-bhi"/>
-                                                <constraint firstItem="wXB-5n-lhK" firstAttribute="leading" secondItem="edU-Av-GjQ" secondAttribute="trailing" constant="23" id="Rah-6o-f36"/>
+                                                <constraint firstItem="wXB-5n-lhK" firstAttribute="leading" secondItem="edU-Av-GjQ" secondAttribute="trailing" constant="21" id="Rah-6o-f36"/>
                                                 <constraint firstItem="DgI-iK-Fkb" firstAttribute="leading" secondItem="GU7-yl-fEB" secondAttribute="leadingMargin" constant="6" id="Swd-yU-ZYJ"/>
                                                 <constraint firstItem="wXB-5n-lhK" firstAttribute="top" secondItem="fia-nS-lww" secondAttribute="bottom" constant="17" id="UxV-L1-V77"/>
                                                 <constraint firstItem="fia-nS-lww" firstAttribute="leading" secondItem="DgI-iK-Fkb" secondAttribute="trailing" constant="27" id="aAt-7I-mAW">
@@ -676,9 +685,9 @@
                                                 <mask key="subviews">
                                                     <exclude reference="DgI-iK-Fkb"/>
                                                     <exclude reference="fia-nS-lww"/>
-                                                    <exclude reference="bEC-9h-omf"/>
                                                     <exclude reference="wXB-5n-lhK"/>
                                                     <exclude reference="edU-Av-GjQ"/>
+                                                    <exclude reference="bEC-9h-omf"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="aAt-7I-mAW"/>
@@ -698,9 +707,9 @@
                                                 <mask key="subviews">
                                                     <include reference="DgI-iK-Fkb"/>
                                                     <include reference="fia-nS-lww"/>
-                                                    <include reference="bEC-9h-omf"/>
                                                     <include reference="wXB-5n-lhK"/>
                                                     <include reference="edU-Av-GjQ"/>
+                                                    <include reference="bEC-9h-omf"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="aAt-7I-mAW"/>
@@ -4180,8 +4189,11 @@
     </scenes>
     <resources>
         <image name="Call.png" width="65" height="65"/>
+        <image name="EditPost@22x22.png" width="22" height="22"/>
         <image name="Leaf.png" width="98" height="57"/>
+        <image name="Refresh@22x22.png" width="22" height="22"/>
         <image name="SMS.png" width="65" height="65"/>
+        <image name="TrashCanSmall.png" width="22" height="22"/>
         <image name="ZagMail.png" width="65" height="65"/>
         <image name="eMail.png" width="65" height="65"/>
         <image name="skateboard.jpg" width="750" height="381"/>

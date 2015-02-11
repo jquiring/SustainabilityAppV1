@@ -26,6 +26,9 @@
 		CA4C2EAE1A78664C00070B3B /* ViewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */; };
 		CA6DBE461A101C15000CCFDF /* threelines.png in Resources */ = {isa = PBXBuildFile; fileRef = CA6DBE451A101C15000CCFDF /* threelines.png */; };
 		CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
+		CAFA984F1A8AB9FD009AB46C /* TrashCanSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFA984E1A8AB9FD009AB46C /* TrashCanSmall.png */; };
+		CAFA98511A8ABA36009AB46C /* Refresh@22x22.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFA98501A8ABA36009AB46C /* Refresh@22x22.png */; };
+		CAFA98531A8ABA84009AB46C /* EditPost@22x22.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFA98521A8ABA84009AB46C /* EditPost@22x22.png */; };
 		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537B1A07025A007D671A /* ContainerViewController.swift */; };
 		F840537E1A070ED5007D671A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F840537D1A070ED5007D671A /* ProfileController.swift */; };
@@ -77,6 +80,9 @@
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
 		CA6DBE451A101C15000CCFDF /* threelines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = threelines.png; sourceTree = "<group>"; };
 		CAF78C9B1A196A1E00787075 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		CAFA984E1A8AB9FD009AB46C /* TrashCanSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrashCanSmall.png; sourceTree = "<group>"; };
+		CAFA98501A8ABA36009AB46C /* Refresh@22x22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Refresh@22x22.png"; sourceTree = "<group>"; };
+		CAFA98521A8ABA84009AB46C /* EditPost@22x22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EditPost@22x22.png"; sourceTree = "<group>"; };
 		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
 		F840537B1A07025A007D671A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F840537D1A070ED5007D671A /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -183,6 +189,9 @@
 		F892C94819F59B4200113C26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CAFA98521A8ABA84009AB46C /* EditPost@22x22.png */,
+				CAFA98501A8ABA36009AB46C /* Refresh@22x22.png */,
+				CAFA984E1A8AB9FD009AB46C /* TrashCanSmall.png */,
 				F8B9FD8A1A1431B500DB75CC /* bike.jpg */,
 				F8B9FD8B1A1431B500DB75CC /* tv.png */,
 				F8A898551A770BF80042BB89 /* SMS.png */,
@@ -305,13 +314,16 @@
 				F8A8985F1A770C0A0042BB89 /* eMail.png in Resources */,
 				CA6DBE461A101C15000CCFDF /* threelines.png in Resources */,
 				F892C95019F59B4200113C26 /* Main.storyboard in Resources */,
+				CAFA98511A8ABA36009AB46C /* Refresh@22x22.png in Resources */,
 				F8A898641A770C100042BB89 /* CallOFF.png in Resources */,
 				F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */,
+				CAFA98531A8ABA84009AB46C /* EditPost@22x22.png in Resources */,
 				F8A898571A770BF80042BB89 /* SMS.png in Resources */,
 				F892C95219F59B4200113C26 /* Images.xcassets in Resources */,
 				F8B9FD8E1A1431B500DB75CC /* tv.png in Resources */,
 				F8B9FD8F1A1431B500DB75CC /* skateboard.jpg in Resources */,
 				F8A898601A770C0A0042BB89 /* eMailOFF.png in Resources */,
+				CAFA984F1A8AB9FD009AB46C /* TrashCanSmall.png in Resources */,
 				F8A898581A770BF80042BB89 /* SMSOFF.png in Resources */,
 				F8A898631A770C100042BB89 /* Call.png in Resources */,
 				F8B9FD8D1A1431B500DB75CC /* bike.jpg in Resources */,
