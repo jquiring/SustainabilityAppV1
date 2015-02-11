@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -624,13 +624,10 @@
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="107" y="9" width="199" height="11"/>
-                                                    </variation>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEC-9h-omf">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <state key="normal" image="EditPost@22x22.png">
+                                                    <state key="normal" image="EditPost22.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -648,7 +645,7 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXB-5n-lhK">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <state key="normal" image="Refresh@22x22.png">
+                                                    <state key="normal" image="Refresh22.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -697,9 +694,6 @@
                                                     <exclude reference="wXB-5n-lhK"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="9kK-8Q-ctZ"/>
-                                                    <exclude reference="Swd-yU-ZYJ"/>
-                                                    <exclude reference="xqx-vF-zvT"/>
                                                     <exclude reference="aAt-7I-mAW"/>
                                                     <exclude reference="w8Z-C3-ykP"/>
                                                     <exclude reference="17q-ZZ-0b9"/>
@@ -715,6 +709,9 @@
                                                     <exclude reference="EES-bV-iOQ"/>
                                                     <exclude reference="Rah-6o-f36"/>
                                                     <exclude reference="t0A-a2-lU1"/>
+                                                    <exclude reference="9kK-8Q-ctZ"/>
+                                                    <exclude reference="Swd-yU-ZYJ"/>
+                                                    <exclude reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -726,9 +723,6 @@
                                                     <include reference="wXB-5n-lhK"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="9kK-8Q-ctZ"/>
-                                                    <include reference="Swd-yU-ZYJ"/>
-                                                    <include reference="xqx-vF-zvT"/>
                                                     <include reference="aAt-7I-mAW"/>
                                                     <include reference="w8Z-C3-ykP"/>
                                                     <include reference="17q-ZZ-0b9"/>
@@ -744,6 +738,9 @@
                                                     <include reference="EES-bV-iOQ"/>
                                                     <include reference="Rah-6o-f36"/>
                                                     <include reference="t0A-a2-lU1"/>
+                                                    <include reference="9kK-8Q-ctZ"/>
+                                                    <include reference="Swd-yU-ZYJ"/>
+                                                    <include reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -855,8 +852,7 @@
                                                             <exclude reference="zBX-Hd-EUz"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="8" y="26" width="85" height="85"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="OWK-6T-j20"/>
                                                             <include reference="zBX-Hd-EUz"/>
@@ -869,7 +865,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="101" y="26" width="199" height="40"/>
+                                                        <rect key="frame" x="104" y="9" width="207" height="20"/>
                                                     </variation>
                                                 </label>
                                                 <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfO-ku-tgG">
@@ -878,7 +874,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="188" y="91" width="192" height="20"/>
+                                                        <rect key="frame" x="104" y="90" width="207" height="20"/>
                                                     </variation>
                                                 </label>
                                             </subviews>
@@ -911,14 +907,14 @@
                                                     <exclude reference="mfO-ku-tgG"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="KER-oc-SNC"/>
-                                                    <exclude reference="cHa-aL-7hn"/>
                                                     <exclude reference="Nd5-CH-T0d"/>
                                                     <exclude reference="gTC-va-QLi"/>
                                                     <exclude reference="nbt-RK-LMB"/>
                                                     <exclude reference="jS4-Of-K6f"/>
                                                     <exclude reference="lQm-tp-goh"/>
                                                     <exclude reference="vRE-SX-H8Q"/>
+                                                    <exclude reference="KER-oc-SNC"/>
+                                                    <exclude reference="cHa-aL-7hn"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -928,14 +924,14 @@
                                                     <include reference="mfO-ku-tgG"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="KER-oc-SNC"/>
-                                                    <include reference="cHa-aL-7hn"/>
                                                     <include reference="Nd5-CH-T0d"/>
                                                     <include reference="gTC-va-QLi"/>
                                                     <include reference="nbt-RK-LMB"/>
                                                     <include reference="jS4-Of-K6f"/>
                                                     <include reference="lQm-tp-goh"/>
                                                     <include reference="vRE-SX-H8Q"/>
+                                                    <include reference="KER-oc-SNC"/>
+                                                    <include reference="cHa-aL-7hn"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -946,6 +942,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="1" y="-45" width="398" height="845"/>
+                                </variation>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -985,7 +984,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Recent Posts" id="zg4-vE-x5A">
-                        <barButtonItem key="leftBarButtonItem" image="threelines.png" id="FNg-wJ-k1M">
+                        <barButtonItem key="leftBarButtonItem" image="ThreeLinesDarkGreyColor.png" id="FNg-wJ-k1M">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="profile:" destination="QYY-GH-OmI" id="qSm-kZ-w30"/>
@@ -1243,12 +1242,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="eEf-iO-dZW" kind="relationship" relationship="rootViewController" id="eRX-Iv-qf4"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="VNI-E4-p1V"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4555.5" y="-1750.5"/>
+            <point key="canvasLocation" x="2077.5" y="-2442"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="xhe-cz-s4l">
@@ -3487,10 +3486,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Www-yh-xAc" id="Q2Y-CA-Diz">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skateboard.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="vSW-6W-FmO">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusDark.png" translatesAutoresizingMaskIntoConstraints="NO" id="vSW-6W-FmO">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                 </imageView>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skateboard.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="tQX-Kt-cpp">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusDark.png" translatesAutoresizingMaskIntoConstraints="NO" id="tQX-Kt-cpp">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Default)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbj-Md-F37">
@@ -3499,7 +3498,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skateboard.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bul-dY-alR">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusDark.png" translatesAutoresizingMaskIntoConstraints="NO" id="bul-dY-alR">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                 </imageView>
                                             </subviews>
@@ -4218,14 +4217,15 @@
     </scenes>
     <resources>
         <image name="Call.png" width="65" height="65"/>
-        <image name="EditPost@22x22.png" width="22" height="22"/>
+        <image name="EditPost22.png" width="22" height="22"/>
         <image name="Leaf.png" width="98" height="57"/>
-        <image name="Refresh@22x22.png" width="22" height="22"/>
+        <image name="PlusDark.png" width="100" height="100"/>
+        <image name="Refresh22.png" width="22" height="22"/>
         <image name="SMS.png" width="65" height="65"/>
+        <image name="ThreeLinesDarkGreyColor.png" width="44" height="29"/>
         <image name="TrashCanSmall.png" width="22" height="22"/>
         <image name="ZagMail.png" width="65" height="65"/>
         <image name="eMail.png" width="65" height="65"/>
         <image name="skateboard.jpg" width="750" height="381"/>
-        <image name="threelines.png" width="44" height="29"/>
     </resources>
 </document>
