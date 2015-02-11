@@ -28,7 +28,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     var frame: CGRect = CGRectMake(0, 0, 0, 0)
     let description1 = "description"
     let price = "price"             // |
-    let title1 = "Post from Jake Quiring"            // |
+    var title1 = "Post from Jake Quiring"            // |
     let category = "category"       // |
     var email_type = 0
     /*
@@ -149,6 +149,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 if let parseJSON = json as? Dictionary<String,AnyObject>{
                     
                     title_ = parseJSON["title"] as String
+                    self.title1 = parseJSON["title"] as String
                     description_ = parseJSON["description"] as String
                     price_ = parseJSON["price"] as String
                     self.gonzaga_email_ = parseJSON["gonzaga_email"] as String
@@ -508,6 +509,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
 
         return 24
+            //heightForView(title1, font: UIFont(name: "HelveticaNeue-Light",size: 18)!, width: UIScreen.mainScreen().bounds.width)
     }
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()

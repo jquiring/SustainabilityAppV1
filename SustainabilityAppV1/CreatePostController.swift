@@ -592,7 +592,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         while(self.flag == false){
         }
         if(status_code == 200){
-                /**
+        
             var stringid = self.id as NSNumber
             println(self.id)
             var default_image : NSData? = nil
@@ -608,7 +608,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             
             println("got past here")
             new_post.upDateNSData(true)
-*/
+
         }
         
         

@@ -38,6 +38,7 @@ class EditUserController: UIViewController {
         return NSPredicate(format: "SELF MATCHES %@", emailRegex)?.evaluateWithObject(candidate)
     }
 */
+    
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }

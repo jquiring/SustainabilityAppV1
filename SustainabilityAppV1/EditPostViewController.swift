@@ -449,12 +449,75 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     func submitEditedPost(){
         // modified submit post
     }
-    /*
-    func splitFromAndToFields(location: String) -> String{
-        // this function will be called to split the location into 2 strings, a 'From" and a "To"
-        return ""
+    func createAlert(message:String){
+        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        
     }
-    */
+    func validateFields() -> Bool{
+        var validator:FieldValidator = FieldValidator()
+        if(category == ""){
+            createAlert("Please select a category")
+            return false
+        }
+        if(!validator.checkLength(title_field.text, lengthString: 100, empty:true)){
+            createAlert("Please enter a title under 100 characters")
+            return false
+        }
+        if(price == ""){
+            createAlert("Please enter a price")
+            return false
+        }
+        
+        if(!validator.checkFloat(price.text)){
+            createAlert("Please enter a valid price")
+            return false
+        }
+        if(!validator.checkPriceUnder1000(price.text)){
+            createAlert("Prices over $10,000 are not allowed on Zig Zag")
+            return false
+        }
+        if(!validator.checkLength(descOutlet.text, lengthString: 1000, empty:false)){
+            createAlert("Please enter a description under 1000 characters")
+            return false
+        }
+        if(category == "Ride Shares"){
+            println("is ride shares")
+            if(round_trip_switch.on){
+                println("is roundtrip shares")
+                if(!validator.datesInOrder(leaves.text, date2: comesBack.text)){
+                    
+                    createAlert("Your ride share is planned to come back before it leaves")
+                    return false
+                }
+            }
+            if(!validator.checkLength(to.text, lengthString: 70, empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+            if(!validator.checkLength(from.text, lengthString: 70, empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+            
+        }
+        if(category == "Books"){
+            if(!validator.checkLength(ISBN.text, lengthString: 13, empty:false)){
+                createAlert("Please enter an ISBN under 13 characters")
+                return false
+            }
+        }
+        if(category == "Events" || category == "Services" ){
+            if(!validator.checkLength(location.text, lengthString: 70 , empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+        }
+        return true
+        
+    }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0 || indexPath.section == 3){
             return 30

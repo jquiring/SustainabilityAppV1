@@ -53,6 +53,7 @@ class ProfilePost {
     func getID() -> String{
         return id
     }
+
     func upDateNSData(newer:Bool){
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
             var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]

@@ -22,6 +22,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var no_more_posts = "1"
     @IBOutlet internal var table: UITableView!
     var arrayOfPosts: [ListPost] = []
+    var cellHeights = Dictionary<String,Int>()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -146,10 +147,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                                     if !imageString.isEmpty {
                                         let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                                         new_post = ListPost(title: title as String, imageName: imageData, id: String(postID),keyValue:display_value,cat:category,date:date)
+
                                     //do stuff with the image here
                                     }
                                     else{
                                         new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date)
+                                        
                                     }
                                     if(older == "0"){
                                         self.arrayOfPosts.insert(new_post, atIndex: 0)
@@ -157,6 +160,16 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                                     else{
                                         self.arrayOfPosts.append(new_post)
                                     }
+                                    /*
+                                    let screenSize: CGRect = UIScreen.mainScreen().bounds
+                                    var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
+                                    let titleWidth = screenSize.width - 105
+                                    let keyValueWidth = screenSize.width - 178
+                                    let titleSize = self.heightForView(new_post.title, font: myFont!, width: titleWidth)
+                                    let keyValueSize = self.heightForView(new_post.key_value, font: myFont!, width: keyValueWidth)
+                                    
+                                    self.cellHeights[new_post.id+new_post.category] = Int(titleSize) + 2 + Int(keyValueSize) + 23 + 15
+                                    */
                                 }
                             }
                             not_ready = false
@@ -199,11 +212,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
 
         
     }
+    
     func setupTable(){
         table.delegate = self
         table.dataSource = self
-        table.estimatedRowHeight = 160.0
-        table.rowHeight = UITableViewAutomaticDimension
+        //table.estimatedRowHeight = 160.0
+        //table.rowHeight = UITableViewAutomaticDimension
 
 
     }
@@ -214,13 +228,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        println("ARRAY OF POSTS COUNT" + String(arrayOfPosts.count))
+       
         return arrayOfPosts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println("not broken")
+ 
         let cell:ListPostCell = table.dequeueReusableCellWithIdentifier("ListCell") as ListPostCell
-        println("still working")
+     
         let postCell = arrayOfPosts[indexPath.row]
         cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
         //cell.unwrappedLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds)
@@ -229,22 +243,35 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         cell.setNeedsLayout()
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()
+        
         return cell
         
     }
+    /*
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         self.table.estimatedRowHeight = 160
     }
     func tableView(tableView: UITableView,
         estimatedHeightForRowAtIndexPath indexPath: NSIndexPath)
         -> CGFloat {
-            return 120
-            //UITableViewAutomaticDimension
+            println("getting index " + String(indexPath.row))
+            return CGFloat(self.cellHeights[arrayOfPosts[indexPath.row].id + arrayOfPosts[indexPath.row].category]!)
+    }
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.height + 15
     }
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()
     }
+*/
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
         println(arrayOfPosts[indexPath.row].id)
@@ -262,7 +289,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             var currentOffset = scrollView.contentOffset.y;
             var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
             
-            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
+            if(maximumOffset - currentOffset >= 15 && bottomNeedsMore){
                 var oldLength = arrayOfPosts.count - 1
                 bottomNeedsMore = false
                 println("Time to reload table")
