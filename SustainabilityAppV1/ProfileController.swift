@@ -43,165 +43,138 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     @IBAction func deleteSelected(sender: AnyObject) {
         let cat:String = arrayOfPosts[sender.tag].category as String
         let id:String = arrayOfPosts[sender.tag].id as String
+        
         let alertController = UIAlertController(title: "Are you sure you wish to delete " + arrayOfPosts[sender.tag].title  + "?", message:
             nil, preferredStyle: UIAlertControllerStyle.Alert)
-        
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-            self.deletePost(cat, id:id)
             if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
-                current_posts.removeAtIndex(sender.tag)
-                NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
-                
+                self.deletePost(cat, id:id,sender:sender.tag)
             }
-            self.arrayOfPosts.removeAtIndex(sender.tag)
-            self.table.reloadData()
 
         }))
         presentViewController(alertController, animated: true, completion: nil)
        
         
     }
-    func bumpPost(category:String,post_id:String,tag:Int){
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/refreshpost/")!)
-        request.HTTPMethod = "POST"
-        
-        //open NSURLSession
-        var session = NSURLSession.sharedSession()
-        
-        //prepare parameters for json serialization
-        var params = ["post_id":post_id, "category":category] as Dictionary<String, String>
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        
-        //define NSURLSession data task with completionHandler call back function
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+    func bumpUI(sender:Int,refreshed:String){
+        if(refreshed == "1"){
+            let alertController = UIAlertController(title: "Your post has been bumped", message:
+                nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+               
+                let bumped_post = self.arrayOfPosts[sender]
+                self.arrayOfPosts.removeAtIndex(sender)
+                self.arrayOfPosts.insert(bumped_post, atIndex: 0)
+                if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+                    var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+                    current_posts.removeAtIndex(sender)
+                    current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category], atIndex: 0)
+                    NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+                    
+                }
+                self.table.reloadData()
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+        else{
+            let alertController = UIAlertController(title: "Your post has was not bumped you have already done that today, try again tomorrow", message:
+            nil, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             
-            //downcast NSURLResponse object to NSHTTPURLResponse
-            if let httpResponse = response as? NSHTTPURLResponse {
-                
-                //get the status code
-                var status_code = httpResponse.statusCode
-                
-                //200 = OK: post successfully refreshed!
-                if(status_code == 200){
-                    var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-                    if(err != nil) {
-                        println(err!.localizedDescription)
-                        let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println("Error could not parse JSON: '\(jsonStr)'")
-                    }
-                    else{
-                        if let parseJSON = json as? Dictionary<String,AnyObject>{
-                            let message = parseJSON["message"] as String
-                            let new_post_date_time = parseJSON["post_date_time"] as String
-                            println(new_post_date_time)
-                            
-                            
-                        }
-                    }
-                }
-                    
-                    //400 = BAD_REQUEST: error in refreshing post, display error!
-                else if(status_code == 400){
-                    println(400)
-                }
-                    
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println(500)
-                }
-                
-                
-            } else {
-                println("Error in casting response, data incomplete")
+            let bumped_post = self.arrayOfPosts[sender]
+            self.arrayOfPosts.removeAtIndex(sender)
+            self.arrayOfPosts.insert(bumped_post, atIndex: 0)
+            if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+            current_posts.removeAtIndex(sender)
+            current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category], atIndex: 0)
+            NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+            
             }
-            
-            
-        })
-        task.resume()
+            self.table.reloadData()
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
+
+        }
+    }
+    func bumpPost(category:String,post_id:String,tag:Int){
+        var api_requester: AgoraRequester = AgoraRequester()
+        var not_ready = true
+        let params = ["post_id":post_id, "category":category]
+        api_requester.POST("refreshpost/", params: params,
+            success: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String)})
+                println("success")
+                not_ready = false
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    //500: Server failure
+                    not_ready = false
+                    println("Server Failure!!!!!")
+                }
+                else if code == 400 {
+                    
+                }
+                else if code == 58 {
+                    not_ready = false
+                    println("No Connection!!!!!")
+                }
+                else if code == 599 {
+                    not_ready = false
+                    println("Timeout!!!!!")
+                }
+            }
+        )
+
+    }
+    func deleteUI(sender:Int){
+        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+        current_posts.removeAtIndex(sender)
+        NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+        self.arrayOfPosts.removeAtIndex(sender)
         
-       
+        
+        let alertController = UIAlertController(title: "Your post has been deleted", message:
+            nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+            self.table.reloadData()
+            
+        }))
+        presentViewController(alertController, animated: true, completion: nil)
+
         
     }
-    func deletePost(category:String, id:String){
-        //create a mutable request with api view path /deletepost/, set method to POST
-        //server
-        //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/deletepost/")!)
-        //trenton
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/deletepost/")!)
+    func deletePost(category:String, id:String,sender:Int){
+        var api_requester: AgoraRequester = AgoraRequester()
         
-        request.HTTPMethod = "POST"
-        
-        //open NSURLSession
-        var session = NSURLSession.sharedSession()
-        
-        // Category and id necessary to identify post to be deleted
-        //let category = "Electronics"
-        //let id = "96"
-        
-        //this is the parameters array that will be formulated as JSON.
-        //it has space for EVERY attribute of EVERY category.
-        //only fill attributes that pertain to the category
-        let params = ["id":id,    // id to identify post
-            "category":category]  //category to identify table
-            as Dictionary<String,AnyObject>
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        //define NSURLSession data task with completionHandler call back function
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            
-            //read the message from the response
-            var message = ""
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else{
-                if let parseJSON = json as? Dictionary<String,AnyObject>{
-                    message = parseJSON["message"] as String
+        var not_ready = true
+        let params = ["id":id, "category":category]
+        api_requester.POST("deletepost/", params: params,
+            success: {parseJSON -> Void in
+                
+                dispatch_async(dispatch_get_main_queue(), {self.deleteUI(sender) })
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    //500: Server failure
+                    not_ready = false
+                    println("Server Failure!!!!!")
+                }
+                else if code == 400 {
+                    
+                }
+                else if code == 58 {
+                    not_ready = false
+                    println("No Connection!!!!!")
+                }
+                else if code == 599 {
+                    not_ready = false
+                    println("Timeout!!!!!")
                 }
             }
-            
-            //downcast NSURLResponse object to NSHTTPURLResponse
-            if let httpResponse = response as? NSHTTPURLResponse {
-                
-                //get the status code
-                var status_code = httpResponse.statusCode
-                
-                //200 = OK: user created, carry on!
-                if(status_code == 200){
-                    println(message)
-                    println(id)
-                }
-                    //400 = BAD_REQUEST: error in creating user, display error!
-                else if(status_code == 400){
-                    println(message)
-                }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println("The server is down! Call the fire department!")
-                }
-                
-            } else {
-                println("Error in casting response, data incomplete")
-            }
-        })
-        task.resume()
-        sleep(5)
+        )
     }
     @IBAction func editSelected(sender: AnyObject) {
         println(sender.tag)
@@ -216,21 +189,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     
     @IBAction func bumpButton(sender: AnyObject) {
-        bumpPost(arrayOfPosts[sender.tag].category,post_id: arrayOfPosts[sender.tag].id,tag:sender.tag)
-        let bumped_post = self.arrayOfPosts[sender.tag]
-        self.arrayOfPosts.removeAtIndex(sender.tag)
-        self.arrayOfPosts.insert(bumped_post, atIndex: 0)
-        if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
-            current_posts.removeAtIndex(sender.tag)
-            current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category], atIndex: 0)
-            NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
-            
-        }
-
-        self.table.reloadData()
+        self.bumpPost(arrayOfPosts[sender.tag].category,post_id: arrayOfPosts[sender.tag].id,tag:sender.tag)
+       
+        println("post bumped")
     }
     @IBAction func edit(sender: AnyObject) {
+        
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
@@ -502,7 +466,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         // Get the row data for the selected row
         println(arrayOfPosts[indexPath.row].id)
         category = arrayOfPosts[indexPath.row].category
+        println(category)
         id = arrayOfPosts[indexPath.row].id
+        println(id)
         NSUserDefaults.standardUserDefaults().setObject(id, forKey: "post_id")
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].category, forKey: "cat")
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController

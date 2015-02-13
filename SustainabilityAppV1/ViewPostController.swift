@@ -29,7 +29,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     let description1 = "description"
     let price = "price"             // |
     var title1 = "Post from Jake Quiring"            // |
-    let category = "category"       // |
     var email_type = 0
     /*
     "gonzaga_email":gonzaga_email,  // |
@@ -63,16 +62,11 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     override func viewDidLoad() {
         super.viewDidLoad()
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        
         scrollViewWidth = screenSize.width
-        
-       
         scrollView.delegate = self
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-
-        
         self.tableView.reloadData()
         description_label.numberOfLines = 0
         trip_location_label.numberOfLines = 0
@@ -80,257 +74,38 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         return_date_label.numberOfLines = 0
         location_label.numberOfLines = 0
         date_time_label.numberOfLines = 0
-
         startRequest()
-        createScroll()
-        if(pageImages.count == 1) {
-            pages.hidden  =  true
-        }
-        pages.currentPage = 0
-        pages.numberOfPages = pageImages.count
-
     }
-    
     func startRequest() {
-        //create a mutable request with api view path /viewpost, set method to POST
-        //kyle
-        //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.164.91:8000/viewpost")!)
-        //trenton
-        //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/viewpost/")!)
-        //server
-        var flag = true
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/viewpost/")!)
-        request.HTTPMethod = "POST"
-        
-        //open NSURLSession
-        var session = NSURLSession.sharedSession()
-        
-        //parameter values
-        //common post information ****
-        var postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
-        var category_ = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
-        
-        //this is the parameters array that will be formulated as JSON.
-        // We need both postid and category
-        var params = ["post_id":postid_,          //post id so we find the post
-            "category":category_]                 //category so we know what table to search
-            as Dictionary<String,AnyObject>
-        
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        //_________________________________________________________________
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("In task")
-            //read the message from the response
-            var title_ = ""
-            var description_ = ""
-            var price_ = ""
-            var departure_date_time_ = ""
-            var return_date_time_ = ""
-            var round_trip_ = false
-            var trip_ = ""
-
-            var isbn_ = ""
-            var location_ = ""
-            var date_time_ = ""
-            var imageString: [String]=["","",""]
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            
-            else{
-                if let parseJSON = json as? Dictionary<String,AnyObject>{
+        var api_requester: AgoraRequester = AgoraRequester()
+        var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
+        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
+        let params = ["post_id": post_id, "category":category]
+        var not_ready = true
+        api_requester.POST("viewpost/", params: params,
+            success: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)})
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    //500: Server failure
+                    not_ready = false
+                    println("Server Failure!!!!!")
+                }
+                else if code == 400 {
                     
-                    title_ = parseJSON["title"] as String
-                    self.title1 = parseJSON["title"] as String
-                    description_ = parseJSON["description"] as String
-                    price_ = parseJSON["price"] as String
-                    self.gonzaga_email_ = parseJSON["gonzaga_email"] as String
-                    self.pref_email_ = parseJSON["pref_email"] as String
-                    self.call_ = parseJSON["call"] as String
-                    self.text_ = parseJSON["text"] as String
-                    
-                    
-                    if category_ == "Books"{
-                        isbn_ = parseJSON["isbn"] as String
-                    }
-                    
-                    if category_ == "Events" || category_ == "Services"{
-                        println("We are in events/services")
-                        location_ = parseJSON["location"] as String
-                        date_time_ = parseJSON["date_time"] as String
-                    }
-                    
-                    if category_ == "Ride Shares"{
-                        departure_date_time_ = parseJSON["departure_date_time"] as String
-                        round_trip_ = parseJSON["round_trip"] as Bool
-                        trip_ = parseJSON["trip"] as String
-                        if round_trip_{
-                                return_date_time_ = parseJSON["return_date_time"] as String
-                        }
-                    }
-                    
-                    //The Three images are processed here
-                    imageString[0] = parseJSON["image1"]! as String
-                    imageString[1] = parseJSON["image2"]! as String
-                    imageString[2] = parseJSON["image3"]! as String
-                    if !imageString[0].isEmpty {
-                        let imageData1 = NSData(base64EncodedString: imageString[0], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                        let image1 =  (UIImage(data: imageData1))
-                        
-
-                        self.pageImages.append(image1!)
-                        
-                        //do stuff with the image here
-                    }
-                    else{
-                        //No image flag
-                        let image1 = UIImage(named: "tv.png")
-                        self.pageImages.append(image1!)
-                        //CASE IN WHICH THE POST HAD NO IMAGE 1
-                    }
-                    if !imageString[1].isEmpty {
-                        let imageData2 = NSData(base64EncodedString: imageString[1], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                        let image2 =  (UIImage(data: imageData2))
-                        self.pageImages.append(image2!)
-                        //do stuff with the image here
-                    }
-                    else{
-                        //CASE IN WHICH THE POST HAD NO IMAGE 2
-                    }
-                    if !imageString[2].isEmpty {
-                        let imageData3 = NSData(base64EncodedString: imageString[2], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                        let image3 =  (UIImage(data: imageData3))
-                        self.pageImages.append(image3!)
-                        //do stuff with the image here
-                    }
-                    else{
-                        //CASE IN WHICH THE POST HAD NO IMAGE 3
-                    }
+                }
+                else if code == 58 {
+                    not_ready = false
+                    println("No Connection!!!!!")
+                }
+                else if code == 599 {
+                    not_ready = false
+                    println("Timeout!!!!!")
                 }
             }
-           
-            //downcast NSURLResponse object to NSHTTPURLResponse
-            if let httpResponse = response as? NSHTTPURLResponse {
-                
-                //get the status code
-                var status_code = httpResponse.statusCode
-                
-                //200 = OK: user created, carry on!
-                if(status_code == 200){
-                    
-                    print("Title = ")
-                    println(title_)
-                    print("Description = ")
-                    println(description_)
-                    print("Category = ")
-                    println(category_)
-                    print("Price = ")
-                    println(price_)
-                    print("Gonzaga email = ")
-                    if(self.gonzaga_email_ == ""){
-                        self.zagMailContact.enabled = false
-                        
-                        self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
-                    }
-                    println(self.gonzaga_email_)
-                    print("Pref email = ")
-                    if(self.pref_email_ == ""){
-                        self.emailContact.enabled = false
-                        
-                        self.emailContact.setImage(UIImage(named: "eMailOFF.png"), forState: UIControlState.Disabled)
-
-                    }
-                    
-                    println(self.pref_email_)
-                    print("Call = ")
-                    if(self.call_ == ""){
-                        self.callContact.enabled = false
-                        
-                        self.callContact.setImage(UIImage(named: "CallOFF.png"), forState: UIControlState.Disabled)
-                    }
-                    println(self.call_)
-                    print("Text = ")
-                    if(self.text_ == ""){
-                        self.textContact.enabled = false
-                        
-                        self.textContact.setImage(UIImage(named: "SMSOFF.png"), forState: UIControlState.Disabled)
-                    }
-                    println(self.text_)
-                    
-                    
-                    self.price_label.text = price_
-                    self.description_label.text = description_
-                    
-                    
-                    //RideShares
-                    self.round_trip_label.text = ""
-                    if category_ != "Ride Shares"{
-                        self.trip_location_label.text = ""
-                        self.depature_date_label.text = ""
-                        self.return_date_label.text = ""
-
-                    }
-                    if category_ == "Ride Shares"{
-                        self.trip_location_label.text = trip_
-                        self.depature_date_label.text = departure_date_time_
-                        self.return_date_label.text = return_date_time_
-                        
-                        if round_trip_{
-                            self.round_trip_label.text = "Round trip"
-                        }
-                        else{
-                            self.round_trip_label.text = "One way"
-                        }
-                    }
-                    //Events & Services
-                    if category_ != "Events" && category_ != "Services"{
-                        self.date_time_label.text = ""
-                        self.location_label.text = ""
-                    }
-                    if category_ == "Events" || category_ == "Services"{
-                        self.date_time_label.text = date_time_
-                        self.location_label.text = location_
-                    }
-                    //Books
-                    if category_ != "Books"{
-                        self.isbn_label.text = ""
-                    }
-                    if category_ == "Books"{
-                        self.isbn_label.text = isbn_
-                    }
-                    flag = false
-                }
-                //400 = BAD_REQUEST: error in creating user, display error!
-                else if(status_code == 400){
-                    println(title_)
-                    flag = false
-                }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println("The server is down! Call the fire department!")
-                    
-                    flag = false
-                }
-            } else {
-                println("Error in casting response, data incomplete")
-                
-            }
-        })
-        task.resume()
-        
-        while(flag){
-            
-        }
+        )
     }
-    
     func createScroll(){
         for index in 0..<pageImages.count {
             var image:UIImage  = pageImages[index]
@@ -339,15 +114,97 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             frame.origin.y = 0
             frame.size = CGSize(width: scrollViewWidth, height: scrollViewWidth)
             self.scrollView.pagingEnabled = true
-            
             var subView = UIImageView(frame: frame)
             subView.image = newImage
             self.scrollView.addSubview(subView)
         }
-        
         self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
     }
-
+    func updateUI(parseJSON:NSDictionary){
+        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
+        self.title1 = parseJSON["title"] as String
+        if(parseJSON["gonzaga_email"] as String == ""){
+            self.zagMailContact.enabled = false
+            self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
+        }
+        if(parseJSON["pref_email"] as String == ""){
+            self.emailContact.enabled = false
+            self.emailContact.setImage(UIImage(named: "eMailOFF.png"), forState: UIControlState.Disabled)
+        }
+        if(parseJSON["call"] as String == ""){
+            self.callContact.enabled = false
+            self.callContact.setImage(UIImage(named: "CallOFF.png"), forState: UIControlState.Disabled)
+        }
+        if(parseJSON["text"] as String == ""){
+            self.textContact.enabled = false
+            self.textContact.setImage(UIImage(named: "SMSOFF.png"), forState: UIControlState.Disabled)
+        }
+        self.price_label.text = parseJSON["price"] as? String
+        self.description_label.text = parseJSON["description"] as? String
+        self.round_trip_label.text = ""
+        if category != "Ride Shares"{
+            self.trip_location_label.text = ""
+            self.depature_date_label.text = ""
+            self.return_date_label.text = ""
+        }
+        if category == "Ride Shares"{
+            self.trip_location_label.text = parseJSON["trip"] as? String
+            self.depature_date_label.text = parseJSON["departure_date_time"] as? String
+            if parseJSON["round_trip"] as Bool {
+                self.round_trip_label.text = "Round trip"
+                self.return_date_label.text = parseJSON["return_date_time"] as? String
+            }
+            else{
+                self.return_date_label.text = ""
+                self.round_trip_label.text = "One way"
+            }
+        }
+        if category != "Events" && category != "Services"{
+            self.date_time_label.text = ""
+            self.location_label.text = ""
+        }
+        if category == "Events" || category == "Services"{
+            self.date_time_label.text = parseJSON["date_time"] as? String
+            self.location_label.text = parseJSON["location"] as? String
+        }
+        //Books
+        if category != "Books"{
+            self.isbn_label.text = ""
+        }
+        if category == "Books"{
+            self.isbn_label.text = parseJSON["isbn"] as? String
+        }
+        var imageString: [String]=["","",""]
+        imageString[0] = parseJSON["image1"]! as String
+        imageString[1] = parseJSON["image2"]! as String
+        imageString[2] = parseJSON["image3"]! as String
+        if !imageString[0].isEmpty {
+            let imageData1 = NSData(base64EncodedString: imageString[0], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            let image1 =  (UIImage(data: imageData1))
+            self.pageImages.append(image1!)
+        }
+        else{
+            let image1 = UIImage(named: "no_image.jpg")
+            self.pageImages.append(image1!)
+        }
+        if !imageString[1].isEmpty {
+            let imageData2 = NSData(base64EncodedString: imageString[1], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            let image2 =  (UIImage(data: imageData2))
+            self.pageImages.append(image2!)
+        }
+        if !imageString[2].isEmpty {
+            let imageData3 = NSData(base64EncodedString: imageString[2], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            let image3 =  (UIImage(data: imageData3))
+            self.pageImages.append(image3!)
+        }
+        createScroll()
+        if(pageImages.count == 1) {
+            pages.hidden  =  true
+        }
+        pages.currentPage = 0
+        pages.numberOfPages = pageImages.count
+        self.tableView.reloadData()
+    }
     @IBAction func done(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -394,8 +251,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         presentViewController(alertController, animated: true, completion: nil)
    
     }
-    
-    
    override func scrollViewDidScroll(scrollView: UIScrollView) {
         var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView
         var fractionalPage = self.scrollView.contentOffset.x / pageWidth;

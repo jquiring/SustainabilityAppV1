@@ -57,100 +57,63 @@ class EditUserController: UIViewController {
 
     }
     func updateUserRequest() {
-        var flag_Val = false
-        var return_Val = -1
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/edituser/")!)
-        
-        request.HTTPMethod = "PUT"
-        
-        var session = NSURLSession.sharedSession()
-        
-        //parameter values cahnge these
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
-        var first_name = first_name_field.text
-        var last_name = last_name_field.text
-        var p_email = email.text            //editable field
-        var phone = phone_number.text       //editable field
-        
-        var params = ["username":username, "first_name":first_name, "last_name":last_name, "pref_email":p_email, "phone":phone] as Dictionary<String, String>
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            
-            var message = ""
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else{
-                if let parseJSON = json as? Dictionary<String,AnyObject>{
-                    message = parseJSON["message"] as String
+        var params = ["username":username, "first_name":first_name_field.text, "last_name":last_name_field.text, "pref_email":email.text, "phone":phone_number.text] as Dictionary<String, String>
+        var api_requester: AgoraRequester = AgoraRequester()
+        var not_ready = true
+        api_requester.POST("edituser/", params: params,
+            success: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI()})
+                not_ready = false
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    //500: Server failure
+                    not_ready = false
+                    println("Server Failure!!!!!")
                 }
-            }
-            //downcast NSURLResponse object to NSHTTPURLResponse
-            if let httpResponse = response as? NSHTTPURLResponse {
-                //get the status code
-                var status_code = httpResponse.statusCode
-                
-                //200 = OK: user created, carry on!
-                if(status_code == 200){
-                    
-                    println(message)
-                    return_Val = 200
-                    flag_Val = true
-                }
-                    //400 = BAD_REQUEST: error in creating user, display error!
-                else if(status_code == 400){
-                    println(message)
-                    if(message == "Invalid email"){
-                        self.error_label.text = "Please enter a valide email address"
-                        self.error_label.hidden = false
+                else if code == 400 {
+                    if(message == "Enter a valid email address.") {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.error_label.text = "Please enter a valide email address"
+                            self.error_label.hidden = false
+                        })
                     }
-                    return_Val = 400
-                    flag_Val = true
+                    
+                    not_ready = false
+                    
                 }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println(message)
-                    return_Val = 500
-                    flag_Val = true
+                else if code == 58 {
+                    not_ready = false
+                    println("No Connection!!!!!")
                 }
-            } else {
-                println("Error in casting response, data incomplete")
+                else if code == 599 {
+                    not_ready = false
+                    println("Timeout!!!!!")
+                }
             }
-        })
-        task.resume()
-        while(flag == false){
-            flag = flag_Val
+        )
+        while(not_ready){
         }
-        if(return_Val == 200){
-            NSUserDefaults.standardUserDefaults().setObject(first_name_field.text, forKey: "first_name")
-            NSUserDefaults.standardUserDefaults().setObject(last_name_field.text, forKey: "last_name")
-            if(email.text != "") {
-                
-                NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
-            }
-            else {
-                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
-                
-            }
-            if(phone_number.text != "") {
-                NSUserDefaults.standardUserDefaults().setObject(phone_number.text, forKey: "phone")
-            }
-            else {
-                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
-            }
-            self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func updateUI(){
+        NSUserDefaults.standardUserDefaults().setObject(first_name_field.text, forKey: "first_name")
+        NSUserDefaults.standardUserDefaults().setObject(last_name_field.text, forKey: "last_name")
+        if(email.text != "") {
+            
+            NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
         }
-        
-
+        else {
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
+            
+        }
+        if(phone_number.text != "") {
+            NSUserDefaults.standardUserDefaults().setObject(phone_number.text, forKey: "phone")
+        }
+        else {
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -25,30 +25,20 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     var window: UIWindow?
     @IBAction func submit(sender: AnyObject) {
         if(checkFields()) {
-            var submitRequest = submitData()
-            if(submitRequest == 200){
-                resignKeyboard()
-                NSUserDefaults.standardUserDefaults().setObject(first.text, forKey: "first_name")
-                NSUserDefaults.standardUserDefaults().setObject(last.text, forKey: "last_name")
-                
-                NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
-                NSUserDefaults.standardUserDefaults().setObject(number.text, forKey: "phone")
-                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-                self.window!.backgroundColor = UIColor.whiteColor()
-                let customVC = ContainerViewController()
-                self.window!.rootViewController = customVC
-                self.window!.makeKeyAndVisible()
-            }
-            else if(submitRequest == 400){
-                //email error
-            }
-            else if(submitRequest == 500){
-                //server is down
-            }
-            else{
-                //death
-            }
+            submitData()
         }
+    }
+    func updateUI(){
+        resignKeyboard()
+        NSUserDefaults.standardUserDefaults().setObject(first.text, forKey: "first_name")
+        NSUserDefaults.standardUserDefaults().setObject(last.text, forKey: "last_name")
+        NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
+        NSUserDefaults.standardUserDefaults().setObject(number.text, forKey: "phone")
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window!.backgroundColor = UIColor.whiteColor()
+        let customVC = ContainerViewController()
+        self.window!.rootViewController = customVC
+        self.window!.makeKeyAndVisible()
     }
     @IBOutlet weak var terms: UIButton!
     func checkFields() -> Bool {
@@ -97,83 +87,47 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
     
-    func submitData() -> Int{
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/createuser/")!)
-        request.HTTPMethod = "POST"
-        var session = NSURLSession.sharedSession()
-        var flag_Val = false
-        var return_Val = -1
-        
+    func submitData(){
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var g_email = NSUserDefaults.standardUserDefaults().objectForKey("gonzaga_email") as String
-        var first_name = first.text
-        var last_name = last.text
-        var p_email = email.text
-        var phone = number.text
-        
-        var params = ["username":username, "first_name":first_name, "last_name":last_name, "gonzaga_email":g_email, "pref_email":p_email, "phone":phone] as Dictionary<String, String>
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            
-            //read the message from the response
-            var message = ""
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else{
-                if let parseJSON = json as? Dictionary<String,AnyObject>{
-                    message = parseJSON["message"] as String
+        var params = ["username":username, "first_name":first.text, "last_name":last.text, "gonzaga_email":g_email, "pref_email":email.text, "phone":number.text] as Dictionary<String, String>
+        var api_requester: AgoraRequester = AgoraRequester()
+        var not_ready = true
+        api_requester.POST("createuser/", params: params,
+            success: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI()})
+                not_ready = false
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    not_ready = false
+                    println("Server Failure!!!!!")
                 }
-            }
-            
-            //downcast NSURLResponse object to NSHTTPURLResponse
-            if let httpResponse = response as? NSHTTPURLResponse {
-                
-                //get the status code
-                var status_code = httpResponse.statusCode
-                
-                //200 = OK: user created, carry on!
-                if(status_code == 200){
-                    println(message)
-                    return_Val = 200
-                    flag_Val = true
-                }
-                    //400 = BAD_REQUEST: error in creating user, display error!
-                else if(status_code == 400){
-                    println(message)
+                else if code == 400 {
+                    print(message)
                     if(message == "Enter a valid email address.") {
-                        var alert = UIAlertController(title: "Warning", message: "Please read and agree to the Terms and Conditions for Zig Zag", preferredStyle: UIAlertControllerStyle.Alert)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                            dispatch_async(dispatch_get_main_queue(), {
+                            var alert = UIAlertController(title: "Warning", message: "Please Enter a valid Email address", preferredStyle: UIAlertControllerStyle.Alert)
+                            self.presentViewController(alert, animated: true, completion: nil)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                         }))
+                        })
                     }
-                    return_Val = 400
-                    flag_Val = true
+                    not_ready = false
                 }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println("The server is down! Call the fire department!")
-                    return_Val = 500
-                    flag_Val = true
+                else if code == 58 {
+                    not_ready = false
+                    println("No Connection!!!!!")
                 }
-            } else {
-                println("Error in casting response, data incomplete")
+                else if code == 599 {
+                    not_ready = false
+                    println("Timeout!!!!!")
+                }
             }
-        })
-        task.resume()
-        while(flag == false){
-            flag = flag_Val
+        )
+        while(not_ready){
+            
         }
-        return return_Val
     }
 
     @IBAction func formattingNumber(sender: AnyObject) {

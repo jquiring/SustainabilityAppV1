@@ -25,17 +25,14 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var cellHeights = Dictionary<String,Int>()
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.table.addSubview(self.refreshControl)
-        println("something is not working")
-        
         self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
         self.table.tableFooterView = UIView()
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        setUpPosts("",older: "1",fromTop:"1")
+        setUp("",older: "1",fromTop: "1")
         setupTable()
         //navigationController?.hidesBarsOnSwipe = true
         
@@ -45,173 +42,107 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
             needsReloading = false
         }
-        
     }
     func didRefresh(){
-        
-        setUpPosts("",older: "1",fromTop:"1")
-        
+        setUp("",older: "1",fromTop: "1")
         self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
         self.refreshControl.endRefreshing()
     }
-    func setUpPosts(date:String,older:String,fromTop:String){
-     
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/postquery/")!)
-        //trenton
-        //var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.133:8000/postquery/")!)
-        request.HTTPMethod = "POST"
+    func upDatePosts(parseJSON:Dictionary<String,AnyObject>, date:String,older:String,fromTop:String){
+        let posts: AnyObject = parseJSON["posts"]!
+        if(fromTop == "1"){
+            self.arrayOfPosts = []
+        }
+        let more_exists = parseJSON["more_exist"] as String
+        if(more_exists == "1"){
+            self.bottomNeedsMore = true
+        }
+        if(posts.count != 0){
+            for i in 0...(posts.count - 1){
+                let post: AnyObject! = posts[i] //just so we don't keep re-resolving this reference
+                
+                //get the easy ones, title and display_value
+                //HERE ARE THE TEXTUAL INFORMATION PIECES FOR THE POST
+                
+                let title = post["title"] as String
+                let display_value = post["display_value"]! as String
+                let postID = post["id"]! as Int
+                let category = post["category"] as String
+                let date = post["post_date_time"] as String
+                
+                println(title)
+                var new_post:ListPost
+                let imageString = post["image"]! as String
+                if !imageString.isEmpty {
+                    let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                    new_post = ListPost(title: title as String, imageName: imageData, id: String(postID),keyValue:display_value,cat:category,date:date)
+                    
+                    //do stuff with the image here
+                }
+                else{
+                    new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date)
+                    
+                }
+                if(older == "0"){
+                    self.arrayOfPosts.insert(new_post, atIndex: 0)
+                }
+                else{
+                    self.arrayOfPosts.append(new_post)
+                }
+            }
+        }
+        self.table.reloadData()
+    }
+    func setUp(date:String,older:String,fromTop:String){
+        var api_requester: AgoraRequester = AgoraRequester()
         
-        //open NSURLSession
-        var session = NSURLSession.sharedSession()
-        
-        //set filter parameters
         let categories:[String] = [] //empty string means all categories
         let keywordSearch:String = "" //empty string means no keyword search
         let min_price = "" //"" means no min_price
         let max_price = "" //"" means no max_price
         let free = "0" //false means not free only, true means is free only
-         //newer posts or older posts [empty string older is true if loading first posts]
         let params = ["categories":categories,
             "keywordSearch":keywordSearch,
             "min_price":min_price,
             "max_price":max_price,
             "free":free,
             "divider_date_time":date,
-            "older": older]  //images array
+            "older":older]
             as Dictionary<String,AnyObject>
         
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        var not_ready = true
-
-        //define NSURLSession data task with completionHandler call back function
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            
-            //read the message from the response
-            var message = ""
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else{
+        api_requester.POST("postquery/", params: params,
+            success: { parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop)})
                 
-                //downcast NSURLResponse object to NSHTTPURLResponse
-                if let httpResponse = response as? NSHTTPURLResponse {
-                    
-                    //get the status code
-                    var status_code = httpResponse.statusCode
-                    
-                    //200 = OK: carry on!
-                    if(status_code == 200){
-                        println(message)
-                        
-                        //response code is OK, continue with parsing JSON and reading response data
-                        //THIS IS WHERE RESPONSE HANDLING CODE SHOULD GO
-                        if let parseJSON = json as? Dictionary<String,AnyObject>{
-                            message = parseJSON["message"] as String
-                            
-                            let posts: AnyObject = parseJSON["posts"]!
-                            if(fromTop == "1"){
-                                self.arrayOfPosts = []
-                            }
-                            let more_exists = parseJSON["more_exist"] as String
-                            if(more_exists == "1"){
-                                self.bottomNeedsMore = true
-                            }
-                            if(posts.count != 0){
-                                for i in 0...(posts.count - 1){
-                                    let post: AnyObject! = posts[i] //just so we don't keep re-resolving this reference
-                                
-                                //get the easy ones, title and display_value
-                                //HERE ARE THE TEXTUAL INFORMATION PIECES FOR THE POST
-                                    
-                                    let title = post["title"] as String
-                                    let display_value = post["display_value"]! as String
-                                    let postID = post["id"]! as Int
-                                    let category = post["category"] as String
-                                    let date = post["post_date_time"] as String
-                                    
-                                    println(title)
-                                    var new_post:ListPost
-                                
-                                
-                                
-                                //THE THUMBNAIL IMAGE IS PROCESSED HERE
-                                    let imageString = post["image"]! as String
-                                    if !imageString.isEmpty {
-                                        let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                                        new_post = ListPost(title: title as String, imageName: imageData, id: String(postID),keyValue:display_value,cat:category,date:date)
-
-                                    //do stuff with the image here
-                                    }
-                                    else{
-                                        new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date)
-                                        
-                                    }
-                                    if(older == "0"){
-                                        self.arrayOfPosts.insert(new_post, atIndex: 0)
-                                    }
-                                    else{
-                                        self.arrayOfPosts.append(new_post)
-                                    }
-                                    /*
-                                    let screenSize: CGRect = UIScreen.mainScreen().bounds
-                                    var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
-                                    let titleWidth = screenSize.width - 105
-                                    let keyValueWidth = screenSize.width - 178
-                                    let titleSize = self.heightForView(new_post.title, font: myFont!, width: titleWidth)
-                                    let keyValueSize = self.heightForView(new_post.key_value, font: myFont!, width: keyValueWidth)
-                                    
-                                    self.cellHeights[new_post.id+new_post.category] = Int(titleSize) + 2 + Int(keyValueSize) + 23 + 15
-                                    */
-                                }
-                            }
-                            not_ready = false
-                        }
-                    }
-                        
-                        //400 = BAD_REQUEST: error in creating user, display error!
-                    else if(status_code == 400){
-                        //TODO make this a view on the table instead of
-                        println(message + "another part of the message")
-                        var alert = UIAlertController(title: "Warning", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                        }))
-                        not_ready = false
-                    }
-                        
-                        //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                    else if(status_code == 500){
-                        println("The server is down! I blame Schnagl")
-                        not_ready = false
-                    }
-                    
-                    
+            },
+            failure: {code,message -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    var alert = UIAlertController(title: "Warning", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                    }))
+                })
+              
+                /*
+                if code == 500 {
+                //500: Server failure
+                println("Server Failure!!!!!")
                 }
-                else {
-                    println("Error in casting response, data incomplete")
-                    not_ready = false
+                else if code == 58 {
+                    //58: No Internet Connection
+                    println("No Connection!!!!!")
                 }
+                else if code == 599 {
+                    //599: Request Timeout
+                    println("Timeout!!!!!")
+                }
+                */
             }
-            
-        })
-        
-        task.resume()
-        
-        println("something is not working")
-        while(not_ready){
-        
-        }
-
-        
+        )
     }
+
     
     func setupTable(){
         table.delegate = self
@@ -289,14 +220,14 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             var currentOffset = scrollView.contentOffset.y;
             var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
             
-            if(maximumOffset - currentOffset >= 15 && bottomNeedsMore){
+            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
                 var oldLength = arrayOfPosts.count - 1
                 bottomNeedsMore = false
                 println("Time to reload table")
                 println(arrayOfPosts[oldLength].date)
                 println(arrayOfPosts[oldLength - 1].date)
                 //send request for more posts
-                setUpPosts(arrayOfPosts[oldLength].date,older:"1",fromTop : "0")
+                setUp(arrayOfPosts[oldLength].date,older:"1",fromTop : "0")
                 print("DATE" + arrayOfPosts[oldLength].date)
             
                 //var indexes = [oldLength...self.arrayOfPosts.count]

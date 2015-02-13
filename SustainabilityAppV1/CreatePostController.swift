@@ -388,7 +388,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return false
         }
             
-        if(!validator.checkFloat(price.text)){
+        if(!validator.checkFloat(price.text) && price.text != ""){
             createAlert("Please enter a valid price")
             return false
         }
@@ -443,29 +443,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
 
     func createPostRequest() {
-        flag = false
-        // check all fields first
-        
-        // create a post code
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/createpost/")!)
-        request.HTTPMethod = "POST"
-        var session = NSURLSession.sharedSession()
-        
-        // need to do images
-        //image urls
-        var imageUrls:[NSURL] = [NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisguy.png")!,NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisotherguy.png")!]
+        var not_ready = true
+        var api_requester: AgoraRequester = AgoraRequester()
         var UIImageList = [image1.image,image2.image,image3.image]
-        
-        //formulate imageBase64 array
         var imagesBase64:[String] = []
         var imageData:NSData
         var imageBase64:String
-        /*
-        for url in imageUrls{
-        imageData = NSData(contentsOfURL:url)! //load contents of url into NSData type
-        imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
-        imagesBase64.append(imageBase64)
-        }*/
         for images in UIImageList{
             if(images != UIImage(named:"PlusDark.png")){
                 imageData = UIImageJPEGRepresentation(images, 1)
@@ -483,7 +466,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         var gonzaga_email = "0"
         if(gmail.image == UIImage(named: "ZagMail.png")){
             println("USing zagmail")
-             gonzaga_email = "1" //boolean contact option
+            gonzaga_email = "1" //boolean contact option
         }
         var pref_email = "0" //boolean contact option
         if(pEmail.image == UIImage(named: "eMail.png")){
@@ -497,8 +480,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         if(phone.image == UIImage(named: "Call.png")){
             phone_bool = "1"
         }
-        // need text message boolean too
-        //rideshare specific
         var departure_date_time = leaves.text
         var start_location = from.text
         var end_location = to.text
@@ -507,14 +488,9 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             round_trip = "1"
         }
         var return_date_time = comesBack.text
-        //datelocation specific
         var date_time = date.text
         var location_ = location.text
-        //textbook specific
         var isbn = ISBN.text
-        //this is the parameters array that will be formulated as JSON.
-        //it has space for EVERY attribute of EVERY category.
-        //only fill attributes that pertain to the category
         let params = ["username":username,          //common post information
             "description":description_,
             "price":cost,                   // |
@@ -534,85 +510,53 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             "isbn":isbn,                    //book specific
             "images":imagesBase64]          //images array
             as Dictionary<String,AnyObject>
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        var status_code = 0
-        //define NSURLSession data task with completionHandler call back function
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            //read the message from the response
-            var message = ""
-            
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else{
-                if let parseJSON = json as? Dictionary<String,AnyObject>{
-                    message = parseJSON["message"] as String
-                    self.id = parseJSON["id"] as Int
+        api_requester.POST("createpost/", params: params,
+            success: {parseJSON -> Void in
+                println(self.id)
+                var default_image : NSData? = nil
+                var new_post:ProfilePost
+                var id = parseJSON["id"] as Int
+
+                var stringid = String(id)
+                if(self.images_data != []) {
+                    default_image = self.images_data[0]
+                    new_post = ProfilePost(title: title, imageName: default_image!, id:stringid , cat:category_)
                 }
-            }
-            
-            //downcast NSURLResponse object to NSHTTPURLResponse
-            if let httpResponse = response as? NSHTTPURLResponse {
-                //get the status code
-                status_code = httpResponse.statusCode
-                //200 = OK: user created, carry on!
-                if(status_code == 200){
+                else{
+                    new_post = ProfilePost(title: title, id: stringid,cat:category_)
+                }
+                println(title)
+                
+                println("got past here")
+                new_post.upDateNSData(true)
+                dispatch_async(dispatch_get_main_queue(), {self.dismissViewControllerAnimated(true, completion: nil)})
+                not_ready = false
+                
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    //500: Server failure
+                    not_ready = false
+                    println("Server Failure!!!!!")
+                }
+                else if code == 400 {
                     
-                    println(message)
-                    self.flag = true
                 }
-                    //400 = BAD_REQUEST: error in creating user, display error!
-                else if(status_code == 400){
-                    println(message)
-                    self.flag = true
+                else if code == 58 {
+                    not_ready = false
+                    println("No Connection!!!!!")
                 }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println("The server is down! Call the fire!")
-                    self.flag = true
+                else if code == 599 {
+                    not_ready = false
+                    println("Timeout!!!!!")
                 }
-            } else {
-                println("Error in casting response, data incomplete")
-                self.flag = true
             }
-        })
-        task.resume()
-        while(self.flag == false){
-        }
-        if(status_code == 200){
-        
-            var stringid = self.id as NSNumber
-            println(self.id)
-            var default_image : NSData? = nil
-            var new_post:ProfilePost
-            if(self.images_data != []) {
-                default_image = self.images_data[0]
-                new_post = ProfilePost(title: title, imageName: default_image!, id: stringid.stringValue,cat:category_)
-            }
-            else{
-                new_post = ProfilePost(title: title, id: stringid.stringValue,cat:category_)
-            }
-            println(title)
+        )
+        while(not_ready){
             
-            println("got past here")
-            new_post.upDateNSData(true)
-
-        }
+        }    }
+    func createUI(){
         
-        
-        
-        // dismiss the screen
-        self.dismissViewControllerAnimated(true, completion: nil)
-    
-
     }
     func createAlert(message:String){
         var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)

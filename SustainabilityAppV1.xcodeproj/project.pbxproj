@@ -44,6 +44,8 @@
 		F892C95219F59B4200113C26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F892C95119F59B4200113C26 /* Images.xcassets */; };
 		F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F892C95319F59B4200113C26 /* LaunchScreen.xib */; };
 		F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */; };
+		F89833371A8C20EE001865E8 /* AgoraRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89833361A8C20ED001865E8 /* AgoraRequester.swift */; };
+		F89833381A8C20EE001865E8 /* AgoraRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89833361A8C20ED001865E8 /* AgoraRequester.swift */; };
 		F8A4B86E1A707D6D00A420E7 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4B86D1A707D6D00A420E7 /* Regex.swift */; };
 		F8A898571A770BF80042BB89 /* SMS.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A898551A770BF80042BB89 /* SMS.png */; };
 		F8A898581A770BF80042BB89 /* SMSOFF.png in Resources */ = {isa = PBXBuildFile; fileRef = F8A898561A770BF80042BB89 /* SMSOFF.png */; };
@@ -102,6 +104,7 @@
 		F892C95A19F59B4200113C26 /* SustainabilityAppV1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SustainabilityAppV1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C95F19F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C96019F59B4200113C26 /* SustainabilityAppV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SustainabilityAppV1Tests.swift; sourceTree = "<group>"; };
+		F89833361A8C20ED001865E8 /* AgoraRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraRequester.swift; sourceTree = "<group>"; };
 		F8A4B86D1A707D6D00A420E7 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		F8A898551A770BF80042BB89 /* SMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SMS.png; sourceTree = "<group>"; };
 		F8A898561A770BF80042BB89 /* SMSOFF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SMSOFF.png; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 				F8AE49241A1D5D9E00070211 /* CreatePostController.swift */,
 				F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */,
 				F861EFCC1A896FCB001681A4 /* FieldValidator.swift */,
+				F89833361A8C20ED001865E8 /* AgoraRequester.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
 				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
@@ -358,6 +362,7 @@
 				F861EFCD1A896FCC001681A4 /* FieldValidator.swift in Sources */,
 				F8F43F7A1A080AB800C56D2D /* EditUserController.swift in Sources */,
 				CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */,
+				F89833371A8C20EE001865E8 /* AgoraRequester.swift in Sources */,
 				F84B53E21A69CB2E002E9597 /* ListPostCell.swift in Sources */,
 				F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */,
 				F8A4B86E1A707D6D00A420E7 /* Regex.swift in Sources */,
@@ -383,6 +388,7 @@
 				CA4C2EA51A78663600070B3B /* EditUserController.swift in Sources */,
 				F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */,
 				CA4C2EA11A78662B00070B3B /* LoginController.swift in Sources */,
+				F89833381A8C20EE001865E8 /* AgoraRequester.swift in Sources */,
 				CA4C2EAB1A78664500070B3B /* ListPostCell.swift in Sources */,
 				CA4C2EAC1A78664700070B3B /* ListPost.swift in Sources */,
 				CA4C2EA01A78659100070B3B /* NewUserController.swift in Sources */,

@@ -574,74 +574,34 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         
     }
     func getPostRequest(postid_:String, category_:String){
-   
-        var flag = true
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/viewpost/")!)
-        request.HTTPMethod = "POST"
-        //open NSURLSession
-        var session = NSURLSession.sharedSession()
-        //this is the parameters array that will be formulated as JSON.
-        // We need both postid and category
+        var api_requester: AgoraRequester = AgoraRequester()
         var params = ["post_id":postid_,          //post id so we find the post
             "category":category_]                 //category so we know what table to search
             as Dictionary<String,AnyObject>
-        
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-     
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if let httpResponse = response as? NSHTTPURLResponse {
-                //get the status code
-                var status_code = httpResponse.statusCode
-                self.status_code = status_code
-                //200 = OK: user created, carry on!
-                if(status_code == 200){
-                    var parseJSON = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-                    if(err != nil) {
-                        println(err!.localizedDescription)
-                        let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println("Error could not parse JSON: '\(jsonStr)'")
-                    }
-                    else{
-                        dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON!)})
-                        
-                    }
-                    flag = false
+    
+        api_requester.POST("viewpost/", params: params,
+            success: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)})
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    //500: Server failure
+                    println("Server Failure!!!!!")
                 }
-                //400 = BAD_REQUEST: error in creating user, display error!
-                else if(status_code == 400){
-                    var parseJSON = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? Dictionary<String,AnyObject>
-                    if(err != nil) {
-                        println(err!.localizedDescription)
-                        let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println("Error could not parse JSON: '\(jsonStr)'")
-                    }
-                    else{
-                        
-                        //println(parseJSON["message"] as String)
-                    }
-                    flag = false
+                else if code == 400 {
+                    //400: Bad Client Request
+                    println("Bad Request!!!!!")
                 }
-                //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println("The server is down! Call the fire department!")
-                    flag = false
+                else if code == 58 {
+                    //58: No Internet Connection
+                    println("No Connection!!!!!")
+                }
+                else if code == 599 {
+                    //599: Request Timeout
+                    println("Timeout!!!!!")
                 }
             }
-            else {
-                flag = false
-                println("Error in casting response, data incomplete")
-            }
-        })
-        task.resume()
-        //start a timer
-        while(flag){
-          //if(timer = 10 seconds) 
-            //make flag false
-            //set status code to 600
-        }
+        )
     }
     func createPostRequest() {
         flag = false
