@@ -274,6 +274,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         if(indexPath.section == 1){
             return 77
         }
+        if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "" || price_label.text == "Free")){
+            self.price_text.hidden = true
+            return 0
+        }
         //Description
         if(indexPath.section == 0 && indexPath.row == 2 && description_label.text == ""){
             self.description_text.hidden = true
@@ -355,17 +359,24 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         else{
             header.text = " Contact the seller"
         }
+        header.numberOfLines = 0
         header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
         header.backgroundColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 0.8)
         header.textColor = UIColor.darkGrayColor()
+        header.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        header.sizeToFit()
         
         return header
     }
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-
-        return 24
-            //heightForView(title1, font: UIFont(name: "HelveticaNeue-Light",size: 18)!, width: UIScreen.mainScreen().bounds.width)
+        
+        if(section == 0){
+            return heightForView(title1, font: UIFont(name: "HelveticaNeue-Light",size: 18)!, width: UIScreen.mainScreen().bounds.width)-5
+        }
+        return 25
     }
+    
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property

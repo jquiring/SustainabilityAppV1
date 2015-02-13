@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -194,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3864" y="-1029.75"/>
+            <point key="canvasLocation" x="3741" y="-1319.25"/>
         </scene>
         <!--newUserController-->
         <scene sceneID="zDQ-zD-kBF">
@@ -516,7 +516,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4567.5" y="-1029.75"/>
+            <point key="canvasLocation" x="4567.5" y="-1319.25"/>
         </scene>
         <!--Help and FAQ-->
         <scene sceneID="T1n-0e-JXg">
@@ -575,7 +575,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jk-JG-l1k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3096" y="-1199.25"/>
+            <point key="canvasLocation" x="2943" y="-1319.25"/>
         </scene>
         <!--Profile Controller-->
         <scene sceneID="E4W-5E-Xsq">
@@ -799,7 +799,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xph-O8-dcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3033" y="-1871.25"/>
+            <point key="canvasLocation" x="3741" y="-2030.25"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="TKg-P2-vvD">
@@ -818,7 +818,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HKI-mc-4en" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5316" y="-1029.75"/>
+            <point key="canvasLocation" x="5383.5" y="-1319.25"/>
         </scene>
         <!--Recent Posts-->
         <scene sceneID="MYg-47-nai">
@@ -865,16 +865,22 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="104" y="9" width="207" height="20"/>
+                                                    </variation>
                                                 </label>
                                                 <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfO-ku-tgG">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="104" y="90" width="207" height="20"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="mHT-yk-VM5" secondAttribute="centerY" constant="-9" id="KER-oc-SNC"/>
+                                                <constraint firstAttribute="centerY" secondItem="mHT-yk-VM5" secondAttribute="centerY" id="KER-oc-SNC"/>
                                                 <constraint firstItem="akL-lz-rVP" firstAttribute="leading" secondItem="mHT-yk-VM5" secondAttribute="trailing" constant="17" id="Nd5-CH-T0d">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="2"/>
                                                 </constraint>
@@ -990,7 +996,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NEk-eL-pXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2709" y="-3011.25"/>
+            <point key="canvasLocation" x="2943" y="-2718.75"/>
         </scene>
         <!--Edit User Account-->
         <scene sceneID="hOG-7d-hPa">
@@ -1214,7 +1220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBs-cn-jVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2355" y="-1750.5"/>
+            <point key="canvasLocation" x="2943" y="-2030.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6eC-Vc-ezW">
@@ -1228,7 +1234,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="rRg-Ao-jDM"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="0qO-GX-fxS"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1579,7 +1585,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CKw-dU-6EJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3864" y="-2466.75"/>
+            <point key="canvasLocation" x="4567.5" y="-2718.75"/>
         </scene>
         <!--Post-->
         <scene sceneID="kZC-oP-cnr">
@@ -2380,7 +2386,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Post" id="jpL-qv-gUP">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="wHx-s2-yGJ">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="wHx-s2-yGJ">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="done:" destination="TbU-JY-e6d" id="dHX-4Q-nmg"/>
@@ -2417,7 +2423,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3P-yn-0FQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6283.5" y="-2208.75"/>
+            <point key="canvasLocation" x="5383.5" y="-2718.75"/>
         </scene>
         <!--Create a Post-->
         <scene sceneID="gKi-Gt-4jz">
@@ -3339,7 +3345,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dJJ-Bg-Bb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1629" y="-1029.75"/>
+            <point key="canvasLocation" x="4567.5" y="-2030.25"/>
         </scene>
         <!--Edit Post-->
         <scene sceneID="srV-aU-eVS">
@@ -4199,7 +4205,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adN-Qa-yZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3417" y="-2751.75"/>
+            <point key="canvasLocation" x="3741" y="-2718.75"/>
         </scene>
     </scenes>
     <resources>
