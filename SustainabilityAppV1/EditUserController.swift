@@ -21,12 +21,12 @@ class EditUserController: UIViewController {
     
     @IBAction func save(sender: AnyObject){
         if(first_name_field.text == "" || last_name_field.text == ""){
+            error_label.hidden = false
             error_label.text = "Please enter a first and a last name"
         }
         else if(!phone_number.text.isEmpty && (!isNumeric(phone_number.text) || !(countElements(phone_number.text) == 10 || countElements(phone_number.text) == 11))) {
-            error_label.text = "Please enter a valide phone number"
-        }
-        else if(false){
+            error_label.hidden = false
+            error_label.text = "Please enter a valid phone number"
         }
         else {
             updateUserRequest()

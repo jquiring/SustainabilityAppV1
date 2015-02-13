@@ -37,6 +37,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         //navigationController?.hidesBarsOnSwipe = true
         
     }
+    
+    
     override func viewDidAppear(animated: Bool) {
         if(needsReloading){
             self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
