@@ -58,18 +58,18 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     var status_code = 0
     var images_data:[NSData] = []
     var flag = false
-    var id = 0
+    var postid_ = ""
     let categoryTitles = ["  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
-    
+    var imageDifferences = ["","",""]
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        var postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
-        var category_ = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
-        category = category_
+        postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
+        category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
+ 
         //start spinning icon
-        getPostRequest(postid_, category_:category_)
+        getPostRequest(postid_, category_:category)
         //end spinning icon
         picker?.allowsEditing = true
         var indexPath1 = NSIndexPath(forRow: 1, inSection: 4)
@@ -104,7 +104,19 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     func updateUI(parseJSON:NSDictionary){
         self.title_field.text = parseJSON["title"] as String
         self.descOutlet.text = parseJSON["description"] as String
-        self.price.text = parseJSON["price"] as String
+        let newPrice = parseJSON["description"] as String
+        if(newPrice == "Free"){
+            self.price.text = "0.00"
+        }
+        else if newPrice == "" {
+            self.price.text = ""
+        }
+        else {
+            var new_price = parseJSON["price"] as NSString
+            new_price = new_price.substringFromIndex(1)
+            price.text = new_price
+        }
+        
         if(parseJSON["gonzaga_email"] as String == ""){
             self.gmail.image = UIImage(named: "ZagMailOFF.png")
         }
@@ -260,19 +272,19 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
-        self.gmail.image = UIImage(named:"PlusDark.png")
+
         
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
-        self.pEmail.image = UIImage(named:"PlusDark.png")
+
         
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
-        self.text.image = UIImage(named:"PlusDark.png")
+
         
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
-        self.phone.image = UIImage(named:"PlusDark.png")
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -345,6 +357,15 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         var deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default){
             UIAlertAction in
             self.currentImage.image = UIImage(named:"PlusDark.png")
+            if(self.currentImage == self.image1){
+                self.imageDifferences[0] = "deleted"
+            }
+            else if(self.currentImage == self.image2){
+                self.imageDifferences[1] = "deleted"
+            }
+            else{
+                self.imageDifferences[2] = "deleted"
+            }
         }
         var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){
             UIAlertAction in
@@ -389,6 +410,15 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         let thumbNail = newImage.resizeToBoundingSquare(boundingSquareSideLength:800)
         picker.dismissViewControllerAnimated(true, completion: nil)
         currentImage.image=newImage
+        if(currentImage == image1){
+            self.imageDifferences[0] = "edited"
+        }
+        else if(currentImage == image2){
+            self.imageDifferences[1] = "edited"
+        }
+        else{
+            self.imageDifferences[2] = "edited"
+        }
     }
     func imagePickerControllerDidCancel(picker: UIImagePickerController!){
         println("picker cancel.")
@@ -458,10 +488,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
     func validateFields() -> Bool{
         var validator:FieldValidator = FieldValidator()
-        if(category == ""){
-            createAlert("Please select a category")
-            return false
-        }
         if(!validator.checkLength(title_field.text, lengthString: 100, empty:true)){
             createAlert("Please enter a title under 100 characters")
             return false
@@ -471,11 +497,11 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             return false
         }
         
-        if(!validator.checkFloat(price.text)){
+        if(!validator.checkFloat(price.text) && price != ""){
             createAlert("Please enter a valid price")
             return false
         }
-        if(!validator.checkPriceUnder1000(price.text)){
+        if(!validator.checkPriceUnder1000(price.text) && price != ""){
             createAlert("Prices over $10,000 are not allowed on Zig Zag")
             return false
         }
@@ -484,7 +510,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             return false
         }
         if(category == "Ride Shares"){
-            println("is ride shares")
             if(round_trip_switch.on){
                 println("is roundtrip shares")
                 if(!validator.datesInOrder(leaves.text, date2: comesBack.text)){
@@ -554,24 +579,9 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
 
     @IBAction func editPostSubmit(sender: AnyObject) {
-        //LoadingOverlay.shared.showOverlay(tableView)
-
-        if(title_field.text  == "" ){
-            var alert = UIAlertController(title: "Warning", message: "Please enter a title", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+        if(validateFields()){
+            editPostRequest()
         }
-        else if let n = price.text.toDouble() {
-            createPostRequest()
-        }
-        else {
-            var alert = UIAlertController(title: "Warning", message: "Please enter a correct price", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
-        }
-        
     }
     func getPostRequest(postid_:String, category_:String){
         var api_requester: AgoraRequester = AgoraRequester()
@@ -603,46 +613,56 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             }
         )
     }
-    func createPostRequest() {
-        flag = false
-        // check all fields first
-        
-        // create a post code
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/createpost/")!)
-        request.HTTPMethod = "POST"
-        var session = NSURLSession.sharedSession()
-        
-        // need to do images
-        //image urls
-        var imageUrls:[NSURL] = [NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisguy.png")!,NSURL(fileURLWithPath: "/Users/kylehandy/Desktop/thisotherguy.png")!]
+    func updateNSData(defaultImage:NSData){
+        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+        var new_post = []
+        var the_index = 0
+        for i in 0...current_posts.count - 1 {
+            if current_posts[i][0] as String == postid_ && String(current_posts[i][3] as String) == category {
+                new_post = [String(self.postid_),title_field.text,defaultImage,category]
+                the_index = i
+            }
+        }
+        current_posts.removeAtIndex(the_index)
+        current_posts.insert(new_post, atIndex: the_index)
+        NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func editPostRequest() {
+        var api_requester: AgoraRequester = AgoraRequester()
         var UIImageList = [image1.image,image2.image,image3.image]
-        
-        //formulate imageBase64 array
         var imagesBase64:[String] = []
         var imageData:NSData
         var imageBase64:String
-        /*
-        for url in imageUrls{
-        imageData = NSData(contentsOfURL:url)! //load contents of url into NSData type
-        imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
-        imagesBase64.append(imageBase64)
-        }*/
-        for images in UIImageList{
-            if(images != UIImage(named:"PlusDark.png")){
-                imageData = UIImageJPEGRepresentation(images, 1)
-                images_data.append(imageData)
+        var notChoseDefault = true
+        var defaultImage:NSData? = nil
+        for i in 0...2 {
+            if(imageDifferences[i] == "deleted"){
+                imagesBase64.append("deleted")
+            }
+            else if(imageDifferences[i] == ""){
+                imagesBase64.append("")
+                if(notChoseDefault){
+                    defaultImage = UIImageJPEGRepresentation(image1.image,1)
+                    notChoseDefault = false
+                }
+            }
+            else{
+                imageData = UIImageJPEGRepresentation(UIImageList[i],1)
                 imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
                 imagesBase64.append(imageBase64)
+                if(notChoseDefault){
+                    defaultImage = imageData
+                    notChoseDefault = false
+                }
             }
         }
-        // if statements that only create the necesarry vriables? or always create them all
+        if(defaultImage == nil){
+            defaultImage = UIImageJPEGRepresentation(UIImage(named:"no_image.jpg"),1)
+        }
         let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
-        let description_ = descOutlet.text
-        let cost = price.text
-        let title = title_field.text
         var gonzaga_email = "0"
         if(gmail.image == UIImage(named: "ZagMail.png")){
-            println("USing zagmail")
             gonzaga_email = "1" //boolean contact option
         }
         var pref_email = "0" //boolean contact option
@@ -657,99 +677,56 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         if(phone.image == UIImage(named: "Call.png")){
             phone_bool = "1"
         }
-        // need text message boolean too
-        //rideshare specific
-        var departure_date_time = leaves.text
-        var start_location = from.text
-        var end_location = to.text
         var round_trip = "0" // not sure
         if(round_trip_switch.on){
             round_trip = "1"
         }
-        var return_date_time = comesBack.text
-        //datelocation specific
-        var date_time = date.text
-        var location_ = location.text
-        //textbook specific
-        var isbn = ISBN.text
-        //this is the parameters array that will be formulated as JSON.
-        //it has space for EVERY attribute of EVERY category.
-        //only fill attributes that pertain to the category
         let params = ["username":username,          //common post information
-            "description":description_,
-            "price":cost,                   // |
-            "title":title,                  // |
+            "description":descOutlet.text,
+            "price":price.text,                   // |
+            "title":title_field.text,
+            "post_id" : self.postid_, // |
+            "category" : self.category,
             "gonzaga_email":gonzaga_email,  // |
             "pref_email":pref_email,        // |
             "call":phone_bool,                   // |
             "text":text_bool,               // <
-            "departure_date_time":departure_date_time,  //rideshare specific
-            "start_location":start_location,            // |
-            "end_location":end_location,                // |
+            "departure_date_time":leaves.text,  //rideshare specific
+            "start_location":from.text,            // |
+            "end_location":to.text,                // |
             "round_trip":round_trip,                    // |
-            "return_date_time":return_date_time,        // <
-            "date_time":date_time,          //datelocation specific
-            "location":location_,           // <
-            "isbn":isbn,                    //book specific
+            "return_date_time":comesBack.text,        // <
+            "date_time":date.text,          //datelocation specific
+            "location":location.text,           // <
+            "isbn":ISBN.text,                    //book specific
             "images":imagesBase64]          //images array
             as Dictionary<String,AnyObject>
-        
-        //Load body with JSON serialized parameters, set headers for JSON! (Star trek?)
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        var status_code = 0
-        //define NSURLSession data task with completionHandler call back function
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            //read the message from the response
-            var message = ""
-            
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else{
-                if let parseJSON = json as? Dictionary<String,AnyObject>{
+        var not_ready = true
+        api_requester.POST("editpost/", params: params,
+            success: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {self.updateNSData(defaultImage!)})
+                not_ready = false
+            },
+            failure: {code,message -> Void in
+                if code == 500 {
+                    //500: Server failure
+                    not_ready = false
+                    println("Server Failure!!!!!")
+                }
+                else if code == 400 {
                     
-                    message = parseJSON["message"] as String
-                    self.id = parseJSON["id"] as Int
+                }
+                else if code == 58 {
+                    not_ready = false
+                    println("No Connection!!!!!")
+                }
+                else if code == 599 {
+                    not_ready = false
+                    println("Timeout!!!!!")
                 }
             }
-            
-            //downcast NSURLResponse object to NSHTTPURLResponse
-            if let httpResponse = response as? NSHTTPURLResponse {
-                //get the status code
-                status_code = httpResponse.statusCode
-                //200 = OK: user created, carry on!
-                if(status_code == 200){
-                    
-                    println(message)
-                    self.flag = true
-                }
-                    //400 = BAD_REQUEST: error in creating user, display error!
-                else if(status_code == 400){
-                    println(message)
-                    self.flag = true
-                }
-                    //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                else if(status_code == 500){
-                    println("The server is down! Call the fire!")
-                    self.flag = true
-                }
-            } else {
-                println("Error in casting response, data incomplete")
-                self.flag = true
-            }
-        })
-        task.resume()
-        while(self.flag == false){
-        }
-        if(status_code == 200){
-                   self.dismissViewControllerAnimated(true, completion: nil)
-        
+        )
+        while(not_ready){
         }
     }
 }
