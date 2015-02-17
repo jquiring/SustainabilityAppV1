@@ -42,6 +42,9 @@ class FieldValidator {
         return false
     }
     func checkPriceUnder1000(price:String)->Bool{
+        if(price == ""){
+            return true
+        }
         if(price.toDouble() <= 10000){
                 return true
         }
