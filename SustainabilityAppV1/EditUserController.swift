@@ -57,6 +57,12 @@ class EditUserController: UIViewController {
 
     }
     func updateUserRequest() {
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        actInd.startAnimating()
+        self.navigationController?.view.addSubview(actInd)
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var params = ["username":username, "first_name":first_name_field.text, "last_name":last_name_field.text, "pref_email":email.text, "phone":phone_number.text] as Dictionary<String, String>
         var api_requester: AgoraRequester = AgoraRequester()
@@ -77,6 +83,7 @@ class EditUserController: UIViewController {
                         dispatch_async(dispatch_get_main_queue(), {
                             self.error_label.text = "Please enter a valide email address"
                             self.error_label.hidden = false
+                            actInd.stopAnimating()
                         })
                     }
                     

@@ -75,16 +75,26 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         location_label.numberOfLines = 0
         date_time_label.numberOfLines = 0
         startRequest()
+
     }
     func startRequest() {
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        actInd.startAnimating()
+        self.navigationController?.view.addSubview(actInd)
         var api_requester: AgoraRequester = AgoraRequester()
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         let params = ["post_id": post_id, "category":category]
         var not_ready = true
+        
         api_requester.POST("viewpost/", params: params,
             success: {parseJSON -> Void in
-                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)})
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)
+                        actInd.stopAnimating()
+                })
             },
             failure: {code,message -> Void in
                 if code == 500 {

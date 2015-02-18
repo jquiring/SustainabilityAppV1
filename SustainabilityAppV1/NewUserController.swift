@@ -88,6 +88,12 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     }
     
     func submitData(){
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.navigationController?.view.addSubview(actInd)
+        actInd.startAnimating()
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var g_email = NSUserDefaults.standardUserDefaults().objectForKey("gonzaga_email") as String
         var params = ["username":username, "first_name":first.text, "last_name":last.text, "gonzaga_email":g_email, "pref_email":email.text, "phone":number.text] as Dictionary<String, String>
@@ -95,7 +101,9 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         var not_ready = true
         api_requester.POST("createuser/", params: params,
             success: {parseJSON -> Void in
-                dispatch_async(dispatch_get_main_queue(), {self.updateUI()})
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI()
+                    actInd.stopAnimating()
+                })
                 not_ready = false
             },
             failure: {code,message -> Void in

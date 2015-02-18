@@ -444,6 +444,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
 
     func createPostRequest() {
         var not_ready = true
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        actInd.startAnimating()
+        self.navigationController?.view.addSubview(actInd)
         var api_requester: AgoraRequester = AgoraRequester()
         var UIImageList = [image1.image,image2.image,image3.image]
         var imagesBase64:[String] = []
@@ -529,7 +535,9 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 
                 println("got past here")
                 new_post.upDateNSData(true)
-                dispatch_async(dispatch_get_main_queue(), {self.dismissViewControllerAnimated(true, completion: nil)})
+                dispatch_async(dispatch_get_main_queue(), {self.dismissViewControllerAnimated(true, completion: nil)
+                    actInd.stopAnimating()  
+                })
                 not_ready = false
                 
             },

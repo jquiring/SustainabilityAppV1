@@ -20,6 +20,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var needsReloading = true
     var bottomNeedsMore = true
     var no_more_posts = "1"
+    var first_time = true
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+    
+
+    
     @IBOutlet internal var table: UITableView!
     var arrayOfPosts: [ListPost] = []
     var cellHeights = Dictionary<String,Int>()
@@ -34,6 +39,9 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         setUp("",older: "1",fromTop: "1")
         setupTable()
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         //navigationController?.hidesBarsOnSwipe = true
         
     }
@@ -96,8 +104,19 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         self.table.reloadData()
     }
     func setUp(date:String,older:String,fromTop:String){
+       
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        if(date == ""){
+            if(first_time) {
+                actInd.startAnimating()
+                first_time = false
+            }                                                                                                                    
+        }
+        self.navigationController?.view.addSubview(actInd)
         var api_requester: AgoraRequester = AgoraRequester()
-        
         let categories:[String] = [] //empty string means all categories
         let keywordSearch:String = "" //empty string means no keyword search
         let min_price = "" //"" means no min_price
@@ -116,7 +135,10 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         api_requester.POST("postquery/", params: params,
             success: { parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop)})
+                    self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop)
+                    self.actInd.stopAnimating()
+                    actInd.stopAnimating()})
+                
                 
             },
             failure: {code,message -> Void in
@@ -142,7 +164,9 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 }
                 */
             }
+            
         )
+        
     }
 
     
@@ -205,6 +229,9 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         cell.updateConstraintsIfNeeded()
     }
 */
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return actInd
+    }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
         println(arrayOfPosts[indexPath.row].id)
@@ -229,9 +256,10 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 println(arrayOfPosts[oldLength].date)
                 println(arrayOfPosts[oldLength - 1].date)
                 //send request for more posts
+                actInd.startAnimating()
                 setUp(arrayOfPosts[oldLength].date,older:"1",fromTop : "0")
                 print("DATE" + arrayOfPosts[oldLength].date)
-            
+                
                 //var indexes = [oldLength...self.arrayOfPosts.count]
                 //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)
                 var indexPaths : [Int] = []

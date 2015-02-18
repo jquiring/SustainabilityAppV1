@@ -492,10 +492,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             createAlert("Please enter a title under 100 characters")
             return false
         }
-        if(price == ""){
-            createAlert("Please enter a price")
-            return false
-        }
+
         
         if(!validator.checkFloat(price.text) && price != ""){
             createAlert("Please enter a valid price")
@@ -584,6 +581,13 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
     }
     func getPostRequest(postid_:String, category_:String){
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.navigationController?.view.addSubview(actInd)
+
+        actInd.startAnimating()
         var api_requester: AgoraRequester = AgoraRequester()
         var params = ["post_id":postid_,          //post id so we find the post
             "category":category_]                 //category so we know what table to search
@@ -591,7 +595,9 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     
         api_requester.POST("viewpost/", params: params,
             success: {parseJSON -> Void in
-                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)})
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)
+                actInd.stopAnimating()})
+           
             },
             failure: {code,message -> Void in
                 if code == 500 {
@@ -629,6 +635,13 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     func editPostRequest() {
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.navigationController?.view.addSubview(actInd)
+        
+        actInd.startAnimating()
         var api_requester: AgoraRequester = AgoraRequester()
         var UIImageList = [image1.image,image2.image,image3.image]
         var imagesBase64:[String] = []
@@ -704,7 +717,11 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         var not_ready = true
         api_requester.POST("editpost/", params: params,
             success: {parseJSON -> Void in
-                dispatch_async(dispatch_get_main_queue(), {self.updateNSData(defaultImage!)})
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updateNSData(defaultImage!)
+                    println("stopped spinning")
+                    actInd.stopAnimating()
+                })
                 not_ready = false
             },
             failure: {code,message -> Void in
@@ -728,6 +745,9 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         )
         while(not_ready){
         }
+        
+       //
+       
     }
 }
 

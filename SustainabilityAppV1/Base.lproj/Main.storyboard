@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -625,15 +625,6 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEC-9h-omf">
-                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <state key="normal" image="EditPost22.png">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="editSelected:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="3fH-zP-TeI"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edU-Av-GjQ">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                                     <state key="normal" image="TrashCanSmall.png">
@@ -652,10 +643,20 @@
                                                         <action selector="bumpButton:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="2ui-fb-lla"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEC-9h-omf">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <state key="normal" image="EditPost22.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="editSelected:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="3fH-zP-TeI"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="bEC-9h-omf" secondAttribute="bottom" constant="22" id="17q-ZZ-0b9"/>
                                                 <constraint firstItem="bEC-9h-omf" firstAttribute="height" secondItem="edU-Av-GjQ" secondAttribute="height" id="3Ph-ji-nKh"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="wXB-5n-lhK" secondAttribute="trailing" constant="75" id="9Ui-jh-H0y"/>
                                                 <constraint firstItem="DgI-iK-Fkb" firstAttribute="top" secondItem="fia-nS-lww" secondAttribute="top" constant="-20" id="9kK-8Q-ctZ">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-5"/>
                                                 </constraint>
@@ -677,7 +678,6 @@
                                                 </constraint>
                                                 <constraint firstItem="edU-Av-GjQ" firstAttribute="leading" secondItem="bEC-9h-omf" secondAttribute="trailing" constant="21" id="nyw-MD-k1L"/>
                                                 <constraint firstItem="edU-Av-GjQ" firstAttribute="height" secondItem="wXB-5n-lhK" secondAttribute="height" id="qj7-x1-2yn"/>
-                                                <constraint firstItem="bEC-9h-omf" firstAttribute="leading" secondItem="DgI-iK-Fkb" secondAttribute="trailing" constant="27" id="qzV-9C-Sd5"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="wXB-5n-lhK" secondAttribute="bottom" constant="22" id="t0A-a2-lU1"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="fia-nS-lww" secondAttribute="trailing" constant="32" id="w8Z-C3-ykP">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="1"/>
@@ -689,9 +689,9 @@
                                                 <mask key="subviews">
                                                     <exclude reference="DgI-iK-Fkb"/>
                                                     <exclude reference="fia-nS-lww"/>
-                                                    <exclude reference="bEC-9h-omf"/>
                                                     <exclude reference="edU-Av-GjQ"/>
                                                     <exclude reference="wXB-5n-lhK"/>
+                                                    <exclude reference="bEC-9h-omf"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="aAt-7I-mAW"/>
@@ -700,12 +700,12 @@
                                                     <exclude reference="3Ph-ji-nKh"/>
                                                     <exclude reference="GvW-xf-vtH"/>
                                                     <exclude reference="fBF-oF-oeP"/>
-                                                    <exclude reference="qzV-9C-Sd5"/>
                                                     <exclude reference="EBf-M0-Qkk"/>
                                                     <exclude reference="WKN-7G-C2P"/>
                                                     <exclude reference="nyw-MD-k1L"/>
                                                     <exclude reference="qj7-x1-2yn"/>
                                                     <exclude reference="y4z-1J-5jd"/>
+                                                    <exclude reference="9Ui-jh-H0y"/>
                                                     <exclude reference="EES-bV-iOQ"/>
                                                     <exclude reference="Rah-6o-f36"/>
                                                     <exclude reference="t0A-a2-lU1"/>
@@ -718,9 +718,9 @@
                                                 <mask key="subviews">
                                                     <include reference="DgI-iK-Fkb"/>
                                                     <include reference="fia-nS-lww"/>
-                                                    <include reference="bEC-9h-omf"/>
                                                     <include reference="edU-Av-GjQ"/>
                                                     <include reference="wXB-5n-lhK"/>
+                                                    <include reference="bEC-9h-omf"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="aAt-7I-mAW"/>
@@ -729,12 +729,12 @@
                                                     <include reference="3Ph-ji-nKh"/>
                                                     <include reference="GvW-xf-vtH"/>
                                                     <include reference="fBF-oF-oeP"/>
-                                                    <include reference="qzV-9C-Sd5"/>
                                                     <include reference="EBf-M0-Qkk"/>
                                                     <include reference="WKN-7G-C2P"/>
                                                     <include reference="nyw-MD-k1L"/>
                                                     <include reference="qj7-x1-2yn"/>
                                                     <include reference="y4z-1J-5jd"/>
+                                                    <include reference="9Ui-jh-H0y"/>
                                                     <include reference="EES-bV-iOQ"/>
                                                     <include reference="Rah-6o-f36"/>
                                                     <include reference="t0A-a2-lU1"/>
@@ -1096,9 +1096,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="119" y="185" width="162" height="21"/>
-                                </variation>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prefered email (optional)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m2w-Xv-GQw">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
@@ -1156,6 +1153,11 @@
                                 <exclude reference="m2w-Xv-GQw"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="4lP-hN-Gdj"/>
+                                <exclude reference="lDi-z4-4bV"/>
+                                <exclude reference="qNp-AV-hps"/>
+                                <exclude reference="tkD-Gq-qv9"/>
+                                <exclude reference="g4D-Bg-PWW"/>
                                 <exclude reference="DMW-CW-uyX"/>
                                 <exclude reference="E9C-27-PWd"/>
                                 <exclude reference="KhE-D7-bwv"/>
@@ -1164,11 +1166,6 @@
                                 <exclude reference="LMi-Kj-Spe"/>
                                 <exclude reference="V9t-xm-uD1"/>
                                 <exclude reference="ytZ-8E-bDV"/>
-                                <exclude reference="g4D-Bg-PWW"/>
-                                <exclude reference="4lP-hN-Gdj"/>
-                                <exclude reference="lDi-z4-4bV"/>
-                                <exclude reference="qNp-AV-hps"/>
-                                <exclude reference="tkD-Gq-qv9"/>
                                 <exclude reference="A2F-ud-A5D"/>
                                 <exclude reference="fZe-or-a3E"/>
                             </mask>
@@ -1183,6 +1180,11 @@
                                 <include reference="m2w-Xv-GQw"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="4lP-hN-Gdj"/>
+                                <include reference="lDi-z4-4bV"/>
+                                <include reference="qNp-AV-hps"/>
+                                <include reference="tkD-Gq-qv9"/>
+                                <include reference="g4D-Bg-PWW"/>
                                 <include reference="DMW-CW-uyX"/>
                                 <include reference="E9C-27-PWd"/>
                                 <include reference="KhE-D7-bwv"/>
@@ -1191,11 +1193,6 @@
                                 <include reference="LMi-Kj-Spe"/>
                                 <include reference="V9t-xm-uD1"/>
                                 <include reference="ytZ-8E-bDV"/>
-                                <include reference="g4D-Bg-PWW"/>
-                                <include reference="4lP-hN-Gdj"/>
-                                <include reference="lDi-z4-4bV"/>
-                                <include reference="qNp-AV-hps"/>
-                                <include reference="tkD-Gq-qv9"/>
                                 <include reference="A2F-ud-A5D"/>
                                 <include reference="fZe-or-a3E"/>
                             </mask>
@@ -2733,7 +2730,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cSy-j4-VMc">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="kfI-an-hlD"/>
+                                                        <constraint firstAttribute="height" constant="30" id="kfI-an-hlD">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                        </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -2883,7 +2882,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Th-fN-Eeh">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="GPb-gf-Buv"/>
+                                                        <constraint firstAttribute="height" constant="30" id="GPb-gf-Buv">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                        </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2938,7 +2939,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MIY-Vv-Bv3">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="cWl-ut-3gt"/>
+                                                        <constraint firstAttribute="height" constant="30" id="cWl-ut-3gt">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                        </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -2993,7 +2996,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z69-BS-dic">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="Wv1-NM-UUr"/>
+                                                        <constraint firstAttribute="height" constant="30" id="Wv1-NM-UUr">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                        </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3048,7 +3053,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Twe-aP-B8q">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="EHs-dk-Qss"/>
+                                                        <constraint firstAttribute="height" constant="30" id="EHs-dk-Qss">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                        </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3103,7 +3110,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IDD-FA-JRL">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="m4g-Tr-JAl"/>
+                                                        <constraint firstAttribute="height" constant="30" id="m4g-Tr-JAl">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                        </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3158,7 +3167,9 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Lt-Jx-IEx">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="o4D-ig-puU"/>
+                                                        <constraint firstAttribute="height" constant="30" id="o4D-ig-puU">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                        </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
