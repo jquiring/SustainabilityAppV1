@@ -214,8 +214,8 @@
 				F8A8985E1A770C0A0042BB89 /* eMailOFF.png */,
 				F8A8985A1A770C010042BB89 /* ZagMailOFF.png */,
 				F8B9FD8C1A1431B500DB75CC /* skateboard.jpg */,
-				CA236AD019F5C80400B566CB /* Leaf.png */,
 				F892C95119F59B4200113C26 /* Images.xcassets */,
+				CA236AD019F5C80400B566CB /* Leaf.png */,
 				F892C94919F59B4200113C26 /* Info.plist */,
 			);
 			name = "Supporting Files";
