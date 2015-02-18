@@ -104,7 +104,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     func updateUI(parseJSON:NSDictionary){
         self.title_field.text = parseJSON["title"] as String
         self.descOutlet.text = parseJSON["description"] as String
-        let newPrice = parseJSON["description"] as String
+        let newPrice = parseJSON["price"] as String
         if(newPrice == "Free"){
             self.price.text = "0.00"
         }
@@ -494,7 +494,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
 
         
-        if(!validator.checkFloat(price.text) && price != ""){
+        if(!validator.checkFloat(price.text) && price.text != ""){
             createAlert("Please enter a valid price")
             return false
         }
@@ -655,8 +655,8 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             }
             else if(imageDifferences[i] == ""){
                 imagesBase64.append("")
-                if(notChoseDefault){
-                    defaultImage = UIImageJPEGRepresentation(image1.image,1)
+                if(notChoseDefault && UIImageList[i] != UIImage(named: "PlusDark.png")){
+                    defaultImage = UIImageJPEGRepresentation(UIImageList[i],1)
                     notChoseDefault = false
                 }
             }
@@ -664,7 +664,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 imageData = UIImageJPEGRepresentation(UIImageList[i],1)
                 imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
                 imagesBase64.append(imageBase64)
-                if(notChoseDefault){
+                if(notChoseDefault && UIImageList[i] != UIImage(named: "PlusDark.png")){
                     defaultImage = imageData
                     notChoseDefault = false
                 }

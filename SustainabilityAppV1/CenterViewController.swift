@@ -56,7 +56,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     func didRefresh(){
         setUp("",older: "1",fromTop: "1")
         self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
-        self.refreshControl.endRefreshing()
+        
     }
     func upDatePosts(parseJSON:Dictionary<String,AnyObject>, date:String,older:String,fromTop:String){
         let posts: AnyObject = parseJSON["posts"]!
@@ -137,7 +137,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 dispatch_async(dispatch_get_main_queue(), {
                     self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop)
                     self.actInd.stopAnimating()
-                    actInd.stopAnimating()})
+                    actInd.stopAnimating()
+                    self.refreshControl.endRefreshing()})
                 
                 
             },

@@ -133,9 +133,14 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     func updateUI(parseJSON:NSDictionary){
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         self.title1 = parseJSON["title"] as String
+        gonzaga_email_ = parseJSON["gonzaga_email"] as String
+        pref_email_ = parseJSON["gonzaga_email"] as String
+        text_ = parseJSON["call"] as String
+        call_ = parseJSON["text"] as String
         if(parseJSON["gonzaga_email"] as String == ""){
             self.zagMailContact.enabled = false
             self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
+            gonzaga_email_ = parseJSON["gonzaga_email"] as String
         }
         if(parseJSON["pref_email"] as String == ""){
             self.emailContact.enabled = false
@@ -284,7 +289,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         if(indexPath.section == 1){
             return 77
         }
-        if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "" || price_label.text == "Free")){
+        if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "")){
             self.price_text.hidden = true
             return 0
         }

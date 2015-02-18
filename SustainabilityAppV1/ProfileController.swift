@@ -81,18 +81,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             let alertController = UIAlertController(title: "Your post has was not bumped you have already done that today, try again tomorrow", message:
             nil, preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-            
-            let bumped_post = self.arrayOfPosts[sender]
-            self.arrayOfPosts.removeAtIndex(sender)
-            self.arrayOfPosts.insert(bumped_post, atIndex: 0)
-            if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
-            current_posts.removeAtIndex(sender)
-            current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category], atIndex: 0)
-            NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
-            
-            }
-            self.table.reloadData()
             }))
             presentViewController(alertController, animated: true, completion: nil)
 
