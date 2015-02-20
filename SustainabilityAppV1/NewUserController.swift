@@ -12,6 +12,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
 
     var flag = false
     @IBOutlet weak var first: UITextField!
+    @IBOutlet var warningLabel: UILabel!
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var number: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -43,24 +44,18 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var terms: UIButton!
     func checkFields() -> Bool {
         if(TaA.text == "☐" ) {
-            var alert = UIAlertController(title: "Warning", message: "Please read and agree to the Terms and Conditions for Zig Zag", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+            self.warningLabel.hidden = false
+            self.warningLabel.text = "Please agree to the terms and agreements"
             return false
         }
         else if(first.text.isEmpty || last.text.isEmpty) {
-            var alert = UIAlertController(title: "Warning", message: "Please include a last and first name", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+            self.warningLabel.hidden = false
+            self.warningLabel.text = "Please enter a first and last name"
             return false
         }
         else if(!number.text.isEmpty && (!isNumeric(number.text) || !(countElements(number.text) == 10 || countElements(number.text) == 11))) {
-            var alert = UIAlertController(title: "Warning", message: "Please enter a valid Phone number of all numbers", preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+            self.warningLabel.hidden = false
+            self.warningLabel.text = "Please enter a valid phone number"
             return false
 
         }
@@ -83,7 +78,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         last!.delegate = self
         number!.delegate = self
         email!.delegate = self
-
+        self.warningLabel.hidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -112,15 +107,8 @@ class NewUserController: UIViewController,UITextFieldDelegate {
                     println("Server Failure!!!!!")
                 }
                 else if code == 400 {
-                    print(message)
-                    if(message == "Enter a valid email address.") {
-                            dispatch_async(dispatch_get_main_queue(), {
-                            var alert = UIAlertController(title: "Warning", message: "Please Enter a valid Email address", preferredStyle: UIAlertControllerStyle.Alert)
-                            self.presentViewController(alert, animated: true, completion: nil)
-                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                        }))
-                        })
-                    }
+                    self.warningLabel.hidden = false
+                    self.warningLabel.text = "Please Enter a valid Email address"
                     not_ready = false
                 }
                 else if code == 58 {

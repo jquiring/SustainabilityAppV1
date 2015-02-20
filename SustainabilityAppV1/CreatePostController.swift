@@ -244,7 +244,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 UIAlertAction in
                 self.openCamera()
         }
-        var gallaryAction = UIAlertAction(title: "Gallary", style: UIAlertActionStyle.Default){
+        var gallaryAction = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default){
                 UIAlertAction in
                 self.openGallary()
         }
