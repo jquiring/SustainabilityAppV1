@@ -88,31 +88,13 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     func bumpPost(category:String,post_id:String,tag:Int){
         var api_requester: AgoraRequester = AgoraRequester()
-        var not_ready = true
         let params = ["post_id":post_id, "category":category]
         api_requester.POST("refreshpost/", params: params,
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String)})
-                println("success")
-                not_ready = false
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    //500: Server failure
-                    not_ready = false
-                    println("Server Failure!!!!!")
-                }
-                else if code == 400 {
-                    
-                }
-                else if code == 58 {
-                    not_ready = false
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    not_ready = false
-                    println("Timeout!!!!!")
-                }
+
             }
         )
 
@@ -145,22 +127,14 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 dispatch_async(dispatch_get_main_queue(), {self.deleteUI(sender) })
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    //500: Server failure
-                    not_ready = false
-                    println("Server Failure!!!!!")
-                }
-                else if code == 400 {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let alertController = UIAlertController(title: "Your post has been deleted", message:
+                        nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+                
+                    }))
                     
-                }
-                else if code == 58 {
-                    not_ready = false
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    not_ready = false
-                    println("Timeout!!!!!")
-                }
+                })
             }
         )
     }

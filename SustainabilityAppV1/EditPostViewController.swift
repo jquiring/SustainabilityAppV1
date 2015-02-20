@@ -53,6 +53,8 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     @IBOutlet var text: UIImageView!
     @IBOutlet var pEmail: UIImageView!
     @IBOutlet var gmail: UIImageView!
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+
 
     @IBOutlet var phone: UIImageView!
     var status_code = 0
@@ -67,8 +69,12 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         tableView.delegate = self
         postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
         category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
- 
-        //start spinning icon
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.navigationController?.view.addSubview(actInd)
+        
+        
         getPostRequest(postid_, category_:category)
         //end spinning icon
         picker?.allowsEditing = true
@@ -577,6 +583,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
 
     @IBAction func editPostSubmit(sender: AnyObject) {
         if(validateFields()){
+            actInd.startAnimating()
             editPostRequest()
         }
     }
@@ -600,22 +607,26 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
            
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    //500: Server failure
-                    println("Server Failure!!!!!")
-                }
-                else if code == 400 {
-                    //400: Bad Client Request
-                    println("Bad Request!!!!!")
-                }
-                else if code == 58 {
-                    //58: No Internet Connection
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    //599: Request Timeout
-                    println("Timeout!!!!!")
-                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    if(code == 400){
+                        self.actInd.stopAnimating()
+                        var alert = UIAlertController(title: "This post no longer exists, please refresh or logout and log back in", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }))
+                        
+                    }
+                    else {
+                        actInd.stopAnimating()
+                        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                        }))
+                    }
+                    
+                })
             }
         )
     }
@@ -635,12 +646,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     func editPostRequest() {
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        self.navigationController?.view.addSubview(actInd)
-        
         actInd.startAnimating()
         var api_requester: AgoraRequester = AgoraRequester()
         var UIImageList = [image1.image,image2.image,image3.image]
@@ -652,21 +657,26 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         for i in 0...2 {
             if(imageDifferences[i] == "deleted"){
                 imagesBase64.append("deleted")
+                println("image was a deleted one")
             }
             else if(imageDifferences[i] == ""){
                 imagesBase64.append("")
                 if(notChoseDefault && UIImageList[i] != UIImage(named: "PlusDark.png")){
                     defaultImage = UIImageJPEGRepresentation(UIImageList[i],1)
                     notChoseDefault = false
+                    println("image was the same")
+
                 }
             }
             else{
                 imageData = UIImageJPEGRepresentation(UIImageList[i],1)
                 imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
                 imagesBase64.append(imageBase64)
+                println("was a new image")
                 if(notChoseDefault && UIImageList[i] != UIImage(named: "PlusDark.png")){
                     defaultImage = imageData
                     notChoseDefault = false
+                    
                 }
             }
         }
@@ -720,27 +730,15 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 dispatch_async(dispatch_get_main_queue(), {
                     self.updateNSData(defaultImage!)
                     println("stopped spinning")
-                    actInd.stopAnimating()
+                    self.actInd.stopAnimating()
                 })
                 not_ready = false
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    //500: Server failure
-                    not_ready = false
-                    println("Server Failure!!!!!")
-                }
-                else if code == 400 {
-                    
-                }
-                else if code == 58 {
-                    not_ready = false
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    not_ready = false
-                    println("Timeout!!!!!")
-                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.createAlert("Unable to connect to the server, please try again")
+                    self.actInd.stopAnimating()
+                })
             }
         )
         while(not_ready){

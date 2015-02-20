@@ -81,7 +81,7 @@ class EditUserController: UIViewController {
                 else if code == 400 {
                     if(message == "Enter a valid email address.") {
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.error_label.text = "Please enter a valide email address"
+                            self.error_label.text = "Please enter a valid email address"
                             self.error_label.hidden = false
                             actInd.stopAnimating()
                         })
@@ -90,13 +90,12 @@ class EditUserController: UIViewController {
                     not_ready = false
                     
                 }
-                else if code == 58 {
-                    not_ready = false
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    not_ready = false
-                    println("Timeout!!!!!")
+                else{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.error_label.text = "Unable to connect to the server, please try again"
+                        self.error_label.hidden = false
+                        actInd.stopAnimating()
+                    })
                 }
             }
         )

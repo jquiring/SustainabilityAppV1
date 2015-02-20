@@ -19,6 +19,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var pages: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var pageControll: UIPageControl!
+    
     var gonzaga_email_ = ""
     var pref_email_ = ""
     var call_ = ""
@@ -45,7 +46,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var isbn_label: UILabel!
     @IBOutlet weak var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
-    
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
     @IBOutlet weak var price_text: UILabel!
     @IBOutlet weak var description_text: UILabel!
     @IBOutlet weak var round_trip_text: UILabel!
@@ -78,7 +79,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
 
     }
     func startRequest() {
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+        
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -93,28 +94,39 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         api_requester.POST("viewpost/", params: params,
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)
-                        actInd.stopAnimating()
+                        self.actInd.stopAnimating()
                 })
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    //500: Server failure
-                    not_ready = false
-                    println("Server Failure!!!!!")
+                self.actInd.stopAnimating()
+                if(code == 400){
+                    self.actInd.stopAnimating()
+                    var alert = UIAlertController(title: "This post no longer exists, please refresh or logout and log back in", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }))
+
                 }
-                else if code == 400 {
-                    
-                }
-                else if code == 58 {
-                    not_ready = false
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    not_ready = false
-                    println("Timeout!!!!!")
+                else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.actInd.stopAnimating()
+                        var alert = UIAlertController(title: "Unable to connect to server, please check your connection and try again", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }))
+                    })
                 }
             }
         )
+    }
+    func createAlert(message:String){
+        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        
     }
     func createScroll(){
         for index in 0..<pageImages.count {
@@ -246,6 +258,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     @IBAction func textIsTouched(sender: AnyObject) {
         if (messageComposer.canSendText()) {
+
             let messageComposeVC = messageComposer.configuredMessageComposeViewController(title1,text_: self.text_)
             presentViewController(messageComposeVC, animated: true, completion: nil)
         }
@@ -265,6 +278,38 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             UIApplication.sharedApplication().openURL(url)}))
         presentViewController(alertController, animated: true, completion: nil)
    
+    }
+    @IBAction func reportPost(sender: AnyObject){
+        var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
+        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
+        var username =  NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+            var api_requester: AgoraRequester = AgoraRequester()
+        
+                       let params = ["post_id":post_id,
+                                    "category":category,
+                                    "reporter": username]          //images array
+                as Dictionary<String,AnyObject>
+            api_requester.POST("reportpost/", params: params,
+                success: {parseJSON -> Void in
+                    if(parseJSON["reported"] as String == "1"){
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.createAlert("The post has been reported, Thank you for your help in keeping ZigZaga appropriate")
+                        })
+                    }
+                    else{
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.createAlert("You have already reported this post")
+                        })
+                    }
+                        
+                    },
+                failure: {code,message -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.createAlert("Unable to connect to the server, please check your connection and try again")
+                    })
+            })
+
+
     }
    override func scrollViewDidScroll(scrollView: UIScrollView) {
         var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView

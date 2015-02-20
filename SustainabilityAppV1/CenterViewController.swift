@@ -144,6 +144,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.actInd.stopAnimating()
                     var alert = UIAlertController(title: "Warning", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in

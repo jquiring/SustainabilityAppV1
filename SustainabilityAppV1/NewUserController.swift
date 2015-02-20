@@ -102,22 +102,23 @@ class NewUserController: UIViewController,UITextFieldDelegate {
                 not_ready = false
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    not_ready = false
-                    println("Server Failure!!!!!")
+                if code == 400 {
+                    dispatch_async(dispatch_get_main_queue(), {self.updateUI()
+                        actInd.stopAnimating()
+                        self.warningLabel.hidden = false
+                        self.warningLabel.text = "Please Enter a valid Email address"
+                        not_ready = false
+                    })
                 }
-                else if code == 400 {
-                    self.warningLabel.hidden = false
-                    self.warningLabel.text = "Please Enter a valid Email address"
-                    not_ready = false
-                }
-                else if code == 58 {
-                    not_ready = false
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    not_ready = false
-                    println("Timeout!!!!!")
+                else{
+                    dispatch_async(dispatch_get_main_queue(), {self.updateUI()
+                        actInd.stopAnimating()
+                        self.warningLabel.hidden = false
+                        self.warningLabel.text = "Unable to connect to the sever, please try again"
+                        not_ready = false
+
+                    })
+
                 }
             }
         )
