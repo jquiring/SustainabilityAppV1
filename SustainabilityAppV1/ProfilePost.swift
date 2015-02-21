@@ -47,7 +47,7 @@ class ProfilePost {
         self.category = cat
         self.title = title
         self.id = id
-        var image =  UIImage(named:"no_image.jpg")
+        var image =  UIImage(named:"noImage")
         self.imageName = UIImageJPEGRepresentation(image, 1)
     }
     func getID() -> String{
