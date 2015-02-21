@@ -124,28 +124,28 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
         
         if(parseJSON["gonzaga_email"] as String == ""){
-            self.gmail.image = UIImage(named: "ZagMailOFF.png")
+            self.gmail.image = UIImage(named: "ZagMailOFF")
         }
         else{
-            self.gmail.image = UIImage(named: "ZagMail.png")
+            self.gmail.image = UIImage(named: "ZagMail")
         }
         if(parseJSON["pref_email"] as String == ""){
-            self.pEmail.image = UIImage(named: "eMailOFF.png")
+            self.pEmail.image = UIImage(named: "eMailOFF")
         }
         else{
-            self.pEmail.image = UIImage(named: "eMail.png")
+            self.pEmail.image = UIImage(named: "eMail")
         }
         if(parseJSON["call"] as String == ""){
-            self.phone.image = UIImage(named: "CallOFF.png")
+            self.phone.image = UIImage(named: "CallOFF")
         }
         else{
-            self.phone.image = UIImage(named: "Call.png")
+            self.phone.image = UIImage(named: "Call")
         }
         if(parseJSON["text"] as String == ""){
-            self.text.image = UIImage(named: "SMSOFF.png")
+            self.text.image = UIImage(named: "SMSOFF")
         }
         else{
-            self.text.image = UIImage(named: "SMS.png")
+            self.text.image = UIImage(named: "SMS")
         }
         
         
@@ -315,36 +315,36 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
     //TODO:
     func gMailToutched(){
-        if(self.gmail.image!.isEqual(UIImage(named:"ZagMailOFF.png"))){
-            self.gmail.image = UIImage(named:"ZagMail.png")
+        if(self.gmail.image!.isEqual(UIImage(named:"ZagMailOFF"))){
+            self.gmail.image = UIImage(named:"ZagMail")
         }
         else {
-            self.gmail.image = UIImage(named:"ZagMailOFF.png")
+            self.gmail.image = UIImage(named:"ZagMailOFF")
         }
     }
     func pEmailToutched(){
-        if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF.png")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
-            self.pEmail.image = UIImage(named:"eMail.png")
+        if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
+            self.pEmail.image = UIImage(named:"eMail")
         }
         else{
-            self.pEmail.image = UIImage(named:"eMailOFF.png")
+            self.pEmail.image = UIImage(named:"eMailOFF")
         }
     }
     func textToutched(){
-        if(self.text.image!.isEqual(UIImage(named:"SMSOFF.png")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
-            self.text.image = UIImage(named:"SMS.png")
+        if(self.text.image!.isEqual(UIImage(named:"SMSOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
+            self.text.image = UIImage(named:"SMS")
         }
         else{
-            self.text.image = UIImage(named:"SMSOFF.png")
+            self.text.image = UIImage(named:"SMSOFF")
         }
     }
     func phoneToutched(){
         println("phone touched")
-        if((self.phone.image!.isEqual(UIImage(named:"CallOFF.png"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
-            self.phone.image = UIImage(named:"Call.png")
+        if((self.phone.image!.isEqual(UIImage(named:"CallOFF"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
+            self.phone.image = UIImage(named:"Call")
         }
         else{
-            self.phone.image = UIImage(named:"CallOFF.png")
+            self.phone.image = UIImage(named:"CallOFF")
         }
     }
 
@@ -685,19 +685,19 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
         let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var gonzaga_email = "0"
-        if(gmail.image == UIImage(named: "ZagMail.png")){
+        if(gmail.image == UIImage(named: "ZagMail")){
             gonzaga_email = "1" //boolean contact option
         }
         var pref_email = "0" //boolean contact option
-        if(pEmail.image == UIImage(named: "eMail.png")){
+        if(pEmail.image == UIImage(named: "eMail")){
             pref_email = "1"
         }
         var text_bool = "0"
-        if(text.image == UIImage(named: "SMS.png")){
+        if(text.image == UIImage(named: "SMS")){
             text_bool = "1" //boolean contact option
         }
         var phone_bool = "0"
-        if(phone.image == UIImage(named: "Call.png")){
+        if(phone.image == UIImage(named: "Call")){
             phone_bool = "1"
         }
         var round_trip = "0" // not sure
@@ -741,11 +741,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 })
             }
         )
-        while(not_ready){
-        }
-        
-       //
-       
+
     }
 }
 

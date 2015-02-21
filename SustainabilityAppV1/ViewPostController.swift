@@ -46,7 +46,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var isbn_label: UILabel!
     @IBOutlet weak var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
-    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     @IBOutlet weak var price_text: UILabel!
     @IBOutlet weak var description_text: UILabel!
     @IBOutlet weak var round_trip_text: UILabel!
@@ -156,15 +156,15 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         if(parseJSON["pref_email"] as String == ""){
             self.emailContact.enabled = false
-            self.emailContact.setImage(UIImage(named: "eMailOFF.png"), forState: UIControlState.Disabled)
+            self.emailContact.setImage(UIImage(named: "eMailOFF"), forState: UIControlState.Disabled)
         }
         if(parseJSON["call"] as String == ""){
             self.callContact.enabled = false
-            self.callContact.setImage(UIImage(named: "CallOFF.png"), forState: UIControlState.Disabled)
+            self.callContact.setImage(UIImage(named: "CallOFF"), forState: UIControlState.Disabled)
         }
         if(parseJSON["text"] as String == ""){
             self.textContact.enabled = false
-            self.textContact.setImage(UIImage(named: "SMSOFF.png"), forState: UIControlState.Disabled)
+            self.textContact.setImage(UIImage(named: "SMSOFF"), forState: UIControlState.Disabled)
         }
         self.price_label.text = parseJSON["price"] as? String
         self.description_label.text = parseJSON["description"] as? String
@@ -211,7 +211,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.pageImages.append(image1!)
         }
         else{
-            let image1 = UIImage(named: "no_image.jpg")
+            let image1 = UIImage(named: "noImage")
             self.pageImages.append(image1!)
         }
         if !imageString[1].isEmpty {

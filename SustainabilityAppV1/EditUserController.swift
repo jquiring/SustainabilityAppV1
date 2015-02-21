@@ -17,7 +17,8 @@ class EditUserController: UIViewController {
     @IBOutlet weak var last_name_field: UITextField!
     @IBOutlet weak var phone_number: UITextField!
     @IBOutlet weak var email: UITextField!
-    
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+
     
     @IBAction func save(sender: AnyObject){
         if(first_name_field.text == "" || last_name_field.text == ""){
@@ -44,7 +45,10 @@ class EditUserController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        actInd.startAnimating()
         first_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
         last_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
         if(NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil) {
@@ -57,11 +61,7 @@ class EditUserController: UIViewController {
 
     }
     func updateUserRequest() {
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        actInd.startAnimating()
+
         self.navigationController?.view.addSubview(actInd)
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var params = ["username":username, "first_name":first_name_field.text, "last_name":last_name_field.text, "pref_email":email.text, "phone":phone_number.text] as Dictionary<String, String>
@@ -83,7 +83,7 @@ class EditUserController: UIViewController {
                         dispatch_async(dispatch_get_main_queue(), {
                             self.error_label.text = "Please enter a valid email address"
                             self.error_label.hidden = false
-                            actInd.stopAnimating()
+                            self.actInd.stopAnimating()
                         })
                     }
                     
@@ -94,13 +94,12 @@ class EditUserController: UIViewController {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.error_label.text = "Unable to connect to the server, please try again"
                         self.error_label.hidden = false
-                        actInd.stopAnimating()
+                        self.actInd.stopAnimating()
                     })
                 }
             }
         )
-        while(not_ready){
-        }
+
     }
     func updateUI(){
         NSUserDefaults.standardUserDefaults().setObject(first_name_field.text, forKey: "first_name")

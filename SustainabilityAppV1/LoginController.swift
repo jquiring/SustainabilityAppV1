@@ -18,18 +18,21 @@ class LoginController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var incorrectLoginLabel: UILabel!
-    
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     @IBAction func login(sender: AnyObject) {
         //if ldap confirmed && user in DB login 
         //if ladap confirmed -- new user
         //set the incorrectLoginLabel.hidden = false if the login has failed
+        self.actInd.startAnimating()
         var LDAPRequest = LDAPLogin()
         password.resignFirstResponder()
         email.resignFirstResponder()
 
         if(LDAPRequest.0 == 200){
+            self.actInd.stopAnimating()
             print(LDAPRequest.1)
            if(LDAPRequest.1 == "yes"){
+            
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
                 self.window!.backgroundColor = UIColor.whiteColor()
                 let customVC = ContainerViewController()
@@ -68,11 +71,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
 
     }
     func LDAPLogin() -> (Int,String) {
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        self.navigationController?.view.addSubview(actInd)
+        
         actInd.startAnimating()
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
@@ -182,7 +181,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             NSUserDefaults.standardUserDefaults().setObject(last_name, forKey: "last_name")
                             NSUserDefaults.standardUserDefaults().setObject(g_email, forKey: "gonzaga_email")
                             
-                            dispatch_async(dispatch_get_main_queue(), {actInd.stopAnimating()
+                            dispatch_async(dispatch_get_main_queue(), {
                             })
                             flag_Val = true
                         }
@@ -225,6 +224,11 @@ class LoginController: UIViewController,UITextFieldDelegate {
         email!.delegate = self
         password!.delegate = self
         incorrectLoginLabel.hidden = true
+        
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.navigationController?.view.addSubview(actInd)
 
         // Do any additional setup after loading the view, typically from a nib.
     }

@@ -16,7 +16,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     var popover:UIPopoverController?=nil
     //Further Details Text Fields
     var currentText:UITextField = UITextField()
-    
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
     
     var picker:UIImagePickerController?=UIImagePickerController()
     weak var cat_picker: UIPickerView!
@@ -154,19 +154,19 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
-        self.gmail.image = UIImage(named:"ZagMail.png")
+        self.gmail.image = UIImage(named:"ZagMail")
 
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
-        self.pEmail.image = UIImage(named:"eMailOFF.png")
+        self.pEmail.image = UIImage(named:"eMailOFF")
 
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
-        self.text.image = UIImage(named:"SMSOFF.png")
+        self.text.image = UIImage(named:"SMSOFF")
 
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
-        self.phone.image = UIImage(named:"CallOFF.png")
+        self.phone.image = UIImage(named:"CallOFF")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -199,36 +199,36 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     //TODO:
     func gMailToutched(){
-        if(self.gmail.image!.isEqual(UIImage(named:"ZagMailOFF.png"))){
-            self.gmail.image = UIImage(named:"ZagMail.png")
+        if(self.gmail.image!.isEqual(UIImage(named:"ZagMailOFF"))){
+            self.gmail.image = UIImage(named:"ZagMail")
         }
         else {
-            self.gmail.image = UIImage(named:"ZagMailOFF.png")
+            self.gmail.image = UIImage(named:"ZagMailOFF")
         }
     }
     func pEmailToutched(){
-        if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF.png")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
-            self.pEmail.image = UIImage(named:"eMail.png")
+        if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
+            self.pEmail.image = UIImage(named:"eMail")
         }
         else{
-            self.pEmail.image = UIImage(named:"eMailOFF.png")
+            self.pEmail.image = UIImage(named:"eMailOFF")
         }
     }
     func textToutched(){
-        if(self.text.image!.isEqual(UIImage(named:"SMSOFF.png")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
-            self.text.image = UIImage(named:"SMS.png")
+        if(self.text.image!.isEqual(UIImage(named:"SMSOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
+            self.text.image = UIImage(named:"SMS")
         }
         else{
-            self.text.image = UIImage(named:"SMSOFF.png")
+            self.text.image = UIImage(named:"SMSOFF")
         }
     }
     func phoneToutched(){
         println("phone touched")
-        if((self.phone.image!.isEqual(UIImage(named:"CallOFF.png"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
-            self.phone.image = UIImage(named:"Call.png")
+        if((self.phone.image!.isEqual(UIImage(named:"CallOFF"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
+            self.phone.image = UIImage(named:"Call")
         }
         else{
-            self.phone.image = UIImage(named:"CallOFF.png")
+            self.phone.image = UIImage(named:"CallOFF")
         }
     }
     func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
@@ -444,7 +444,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
 
     func createPostRequest() {
         var not_ready = true
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+        
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -470,20 +470,20 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         let title = title_field.text
         let category_ = category.text // not sure
         var gonzaga_email = "0"
-        if(gmail.image == UIImage(named: "ZagMail.png")){
+        if(gmail.image == UIImage(named: "ZagMail")){
             println("USing zagmail")
             gonzaga_email = "1" //boolean contact option
         }
         var pref_email = "0" //boolean contact option
-        if(pEmail.image == UIImage(named: "eMail.png")){
+        if(pEmail.image == UIImage(named: "eMail")){
             pref_email = "1"
         }
         var text_bool = "0"
-        if(text.image == UIImage(named: "SMS.png")){
+        if(text.image == UIImage(named: "SMS")){
             text_bool = "1" //boolean contact option
         }
         var phone_bool = "0"
-        if(phone.image == UIImage(named: "Call.png")){
+        if(phone.image == UIImage(named: "Call")){
             phone_bool = "1"
         }
         var departure_date_time = leaves.text
@@ -536,28 +536,20 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 println("got past here")
                 new_post.upDateNSData(true)
                 dispatch_async(dispatch_get_main_queue(), {self.dismissViewControllerAnimated(true, completion: nil)
-                    actInd.stopAnimating()  
+                    self.actInd.stopAnimating()
                 })
                 not_ready = false
                 
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    //500: Server failure
-                    not_ready = false
-                    println("Server Failure!!!!!")
-                }
-                else if code == 400 {
-                    
-                }
-                else if code == 58 {
-                    not_ready = false
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    not_ready = false
-                    println("Timeout!!!!!")
-                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.actInd.stopAnimating()
+                    var alert = UIAlertController(title: "Unable to connect to server, please check your connection and try again", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }))
+                })
             }
         )
         while(not_ready){
