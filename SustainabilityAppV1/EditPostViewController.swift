@@ -463,7 +463,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         if(section == 8 && category != "Ride Shares"){
             return 0
         }
-        if(section == 8 && round_trip_flag == false && category == "Ride Shares"){
+        if(section == 8 && round_trip_switch.on == false && category == "Ride Shares"){
             return 0
         }
         if(contains(rideShareOneWaySections,section) && category != "Ride Shares"){
