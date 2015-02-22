@@ -87,6 +87,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         if(category.text == ""){
             category.text = "Books"
         }
+        if(category.text == "Ride Shares"){
+            self.round_trip_switch.hidden = false
+        }
+        else{
+            self.round_trip_switch.hidden = true
+        }
         currentText.resignFirstResponder()
         print("DoneCat")
     }

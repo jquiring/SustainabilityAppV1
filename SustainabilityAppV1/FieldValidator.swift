@@ -26,7 +26,6 @@ class FieldValidator {
                 println("ending comparison")
                 return false
             }
-
         }
         return true
     }

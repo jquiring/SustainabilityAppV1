@@ -28,15 +28,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     var pageImages: [UIImage] = []
     var frame: CGRect = CGRectMake(0, 0, 0, 0)
     let description1 = "description"
-    let price = "price"             // |
-    var title1 = "Post from Jake Quiring"            // |
+    let price = "Price"
+    var title1 = "Post"
     var email_type = 0
-    /*
-    "gonzaga_email":gonzaga_email,  // |
-    "pref_email":pref_email,        // |
-    "call":phone,                   // |
-    "text":text_bool,               // <
-    */
+   
     @IBOutlet var price_label: UILabel!
     @IBOutlet weak var description_label: UILabel!
     @IBOutlet weak var round_trip_label: UILabel!
@@ -76,8 +71,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         location_label.numberOfLines = 0
         date_time_label.numberOfLines = 0
         startRequest()
-
     }
+    
     func startRequest() {
         
         actInd.center = self.view.center

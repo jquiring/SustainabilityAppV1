@@ -23,8 +23,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var first_time = true
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
     
-
-    
     @IBOutlet internal var table: UITableView!
     var arrayOfPosts: [ListPost] = []
     var cellHeights = Dictionary<String,Int>()
@@ -42,10 +40,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        //navigationController?.hidesBarsOnSwipe = true
-        
     }
-    
     
     override func viewDidAppear(animated: Bool) {
         if(needsReloading){
@@ -131,7 +126,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             "older":older]
             as Dictionary<String,AnyObject>
         
-        
         api_requester.POST("postquery/", params: params,
             success: { parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -139,8 +133,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                     self.actInd.stopAnimating()
                     actInd.stopAnimating()
                     self.refreshControl.endRefreshing()})
-                
-                
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -150,21 +142,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                     }))
                 })
-              
-                /*
-                if code == 500 {
-                //500: Server failure
-                println("Server Failure!!!!!")
-                }
-                else if code == 58 {
-                    //58: No Internet Connection
-                    println("No Connection!!!!!")
-                }
-                else if code == 599 {
-                    //599: Request Timeout
-                    println("Timeout!!!!!")
-                }
-                */
             }
             
         )
@@ -175,16 +152,16 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     func setupTable(){
         table.delegate = self
         table.dataSource = self
-        //table.estimatedRowHeight = 160.0
-        //table.rowHeight = UITableViewAutomaticDimension
-
-
     }
     @IBAction func profile(sender: AnyObject) {
         if let d = delegate {
             d.toggleLeftPanel?()
         }
     }
+    @IBAction func search(sender: AnyObject) {
+       //this is where we go to the search page view controller
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
        
@@ -196,7 +173,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
      
         let postCell = arrayOfPosts[indexPath.row]
         cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
-        //cell.unwrappedLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds)
  
         cell.setNeedsDisplay()
         cell.setNeedsLayout()
@@ -206,31 +182,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         return cell
         
     }
-    /*
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        self.table.estimatedRowHeight = 160
-    }
-    func tableView(tableView: UITableView,
-        estimatedHeightForRowAtIndexPath indexPath: NSIndexPath)
-        -> CGFloat {
-            println("getting index " + String(indexPath.row))
-            return CGFloat(self.cellHeights[arrayOfPosts[indexPath.row].id + arrayOfPosts[indexPath.row].category]!)
-    }
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        label.font = font
-        label.text = text
-        
-        label.sizeToFit()
-        return label.frame.height + 15
-    }
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.setNeedsUpdateConstraints()
-        cell.updateConstraintsIfNeeded()
-    }
-*/
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return actInd
     }
@@ -274,8 +225,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 table.reloadData()
                 self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
 
-                
-                
                 self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: (oldLength)   , inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
                 
                 
@@ -288,23 +237,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     @IBOutlet weak private var creatorLabel: UILabel!
     
     var delegate: CenterViewControllerDelegate?
-    
-    // MARK: Button actions
-    
-    
-    
-    
 }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-
+    
