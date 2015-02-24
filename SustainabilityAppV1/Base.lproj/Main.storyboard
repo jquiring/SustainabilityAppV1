@@ -1282,7 +1282,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="eeB-jp-K1q" kind="relationship" relationship="rootViewController" id="T12-LT-qUP"/>
+                        <segue destination="hga-eu-drM" kind="relationship" relationship="rootViewController" id="xPi-NX-Vn4"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3403,6 +3403,7 @@
                         <outlet property="ISBN" destination="Twe-aP-B8q" id="fQC-6Q-GMQ"/>
                         <outlet property="category" destination="c4A-RF-GN1" id="AEx-tI-WmF"/>
                         <outlet property="comesBack" destination="z69-BS-dic" id="33y-55-PDA"/>
+                        <outlet property="createOutlet" destination="oPs-gV-VqW" id="a1z-dT-w6A"/>
                         <outlet property="date" destination="4Lt-Jx-IEx" id="2ik-Lg-rtx"/>
                         <outlet property="descOutlet" destination="Ry8-Ak-HAd" id="dBc-OM-Tcm"/>
                         <outlet property="from" destination="MoL-Fn-zcD" id="TzC-BW-NxO"/>

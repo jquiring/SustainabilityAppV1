@@ -11,12 +11,13 @@ import Foundation
 
 class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextFieldDelegate,UITextViewDelegate {
     
+    @IBOutlet var createOutlet: UIBarButtonItem!
     var orientation: UIImageOrientation = .Up
     var currentImage:UIImageView = UIImageView()
     var popover:UIPopoverController?=nil
     //Further Details Text Fields
     var currentText:UITextField = UITextField()
-    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     
     var picker:UIImagePickerController?=UIImagePickerController()
     weak var cat_picker: UIPickerView!
@@ -450,7 +451,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
 
     func createPostRequest() {
         var not_ready = true
-        
+        createOutlet.enabled = false
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -549,6 +550,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.createOutlet.enabled = true
                     self.actInd.stopAnimating()
                     var alert = UIAlertController(title: "Unable to connect to server, please check your connection and try again", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -558,9 +560,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 })
             }
         )
-        while(not_ready){
-            
-        }    }
+      }
     func createUI(){
         
     }

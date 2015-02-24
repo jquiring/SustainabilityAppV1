@@ -21,7 +21,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var bottomNeedsMore = true
     var no_more_posts = "1"
     var first_time = true
-    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     var postsLoaded = false
     @IBOutlet internal var table: UITableView!
     var arrayOfPosts: [ListPost] = []
