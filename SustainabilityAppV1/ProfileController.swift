@@ -22,15 +22,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var id:String?
     var firstAppear = true
     func setUpPosts(){
-        /*
-        var post1 = ProfilePost(title: "Fresh Bike", imageName: "bike.jpg",id:"id1")
-        var post2 = ProfilePost(title: "Cheap Tv for all you ladies out there and now the title is a litte bit bigger", imageName: "tv.png",id:"id2")
-        var post3 = ProfilePost(title: "Hurt myself Skating -- Need to sell", imageName: "skateboard.jpg",id:"id3")
-        arrayOfPosts.append(post1)
-        arrayOfPosts.append(post2)
-        arrayOfPosts.append(post3)
-        */
-        arrayOfPosts = []
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
             var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
             for post in current_posts {
@@ -40,6 +31,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }
         }
     }
+
     @IBAction func deleteSelected(sender: AnyObject) {
         let cat:String = arrayOfPosts[sender.tag].category as String
         let id:String = arrayOfPosts[sender.tag].id as String
@@ -193,7 +185,16 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         }))
 
 
-    }
+    }/*
+    override func viewWillAppear(animated: Bool) {
+        println("view will appear")
+        
+        self.setUpPosts()
+        makeLayout()
+        
+        table.reloadData()
+        self.view.setNeedsDisplay()
+    }*/
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpPosts()
@@ -208,16 +209,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         println("view did load")
         // Do any additional setup after loading the view.
     }
-    override func viewDidAppear(animated: Bool) {
-        
-        setUpPosts()
-        makeLayout()
-        self.table.reloadData()
-        println("view did appear")
-        firstAppear = false
-       
 
-    }
+
     @IBAction func newPost(sender: AnyObject) {
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as CreatePostController
         let navController = UINavigationController(rootViewController: VC1)
@@ -407,6 +400,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     
     //table view functions
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        println(arrayOfPosts.count)
+        if(arrayOfPosts.count == 0){
+            makeLayout()
+            self.reloadInputViews()
+        }
         return arrayOfPosts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

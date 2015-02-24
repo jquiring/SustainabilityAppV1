@@ -9,6 +9,7 @@
 import UIKit
 
 class NewUserController: UIViewController,UITextFieldDelegate {
+    @IBOutlet var submitButton: UIButton!
 
     var flag = false
     @IBOutlet weak var first: UITextField!
@@ -88,26 +89,25 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.navigationController?.view.addSubview(actInd)
+        submitButton.enabled = false
         actInd.startAnimating()
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var g_email = NSUserDefaults.standardUserDefaults().objectForKey("gonzaga_email") as String
         var params = ["username":username, "first_name":first.text, "last_name":last.text, "gonzaga_email":g_email, "pref_email":email.text, "phone":number.text] as Dictionary<String, String>
         var api_requester: AgoraRequester = AgoraRequester()
-        var not_ready = true
         api_requester.POST("createuser/", params: params,
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {self.updateUI()
                     actInd.stopAnimating()
                 })
-                not_ready = false
             },
             failure: {code,message -> Void in
+                self.submitButton.enabled = true
                 if code == 400 {
                     dispatch_async(dispatch_get_main_queue(), {self.updateUI()
                         actInd.stopAnimating()
                         self.warningLabel.hidden = false
                         self.warningLabel.text = "Please Enter a valid Email address"
-                        not_ready = false
                     })
                 }
                 else{
@@ -115,16 +115,13 @@ class NewUserController: UIViewController,UITextFieldDelegate {
                         actInd.stopAnimating()
                         self.warningLabel.hidden = false
                         self.warningLabel.text = "Unable to connect to the sever, please try again"
-                        not_ready = false
 
                     })
 
                 }
             }
         )
-        while(not_ready){
-            
-        }
+
     }
 
     @IBAction func formattingNumber(sender: AnyObject) {

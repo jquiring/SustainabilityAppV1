@@ -22,7 +22,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var no_more_posts = "1"
     var first_time = true
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
-    
+    var postsLoaded = false
     @IBOutlet internal var table: UITableView!
     var arrayOfPosts: [ListPost] = []
     var cellHeights = Dictionary<String,Int>()
@@ -132,7 +132,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                     self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop)
                     self.actInd.stopAnimating()
                     actInd.stopAnimating()
-                    self.refreshControl.endRefreshing()})
+                    self.refreshControl.endRefreshing()
+                    self.postsLoaded = true})
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -195,6 +196,28 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
 
+    }
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if(arrayOfPosts.count != 0 ){
+            println("returning 1")
+            self.table.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            self.table.backgroundView = UIView()
+            return 1
+        }
+        else if(postsLoaded && arrayOfPosts.count == 0){
+            println("creating empty tableview")
+            var label:UILabel = UILabel()
+            label.frame = CGRectMake(0,0,self.view.bounds.width,self.view.bounds.height)
+            label.text = "No data is currently available. Please pull down to refresh or change search constraints"
+            label.textColor = UIColor.blackColor()
+            label.textAlignment = NSTextAlignment.Center
+            label.numberOfLines = 0
+            label.font = UIFont(name: "HelveticaNeue-UltraLight",size: 24)
+            label.sizeToFit()
+            self.table.backgroundView = label
+            self.table.separatorStyle = UITableViewCellSeparatorStyle.None
+        }
+            return 0
     }
     func scrollViewDidScroll(scrollView: UIScrollView){
         if(arrayOfPosts.count >= 10 ){

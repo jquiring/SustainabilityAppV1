@@ -15,6 +15,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
     var flag = false
     //Made a change
     var window: UIWindow?
+    @IBOutlet var loginOutlet: UIButton!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var incorrectLoginLabel: UILabel!
@@ -24,6 +25,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         //if ladap confirmed -- new user
         //set the incorrectLoginLabel.hidden = false if the login has failed
         self.actInd.startAnimating()
+        loginOutlet.enabled = false
         var LDAPRequest = LDAPLogin()
         password.resignFirstResponder()
         email.resignFirstResponder()
@@ -73,6 +75,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
     func LDAPLogin() -> (Int,String) {
         
         actInd.startAnimating()
+        //TODO: disable and enable submitOutlet
         var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/ldapauth/")!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"

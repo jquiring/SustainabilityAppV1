@@ -12,6 +12,7 @@ import Foundation
 class EditUserController: UIViewController {
     var flag = false
  
+    @IBOutlet var saveOutlet: UIBarButtonItem!
     @IBOutlet weak var error_label: UILabel!
     @IBOutlet weak var first_name_field: UITextField!
     @IBOutlet weak var last_name_field: UITextField!
@@ -47,8 +48,8 @@ class EditUserController: UIViewController {
         super.viewDidLoad()
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
+        self.navigationController?.view.addSubview(actInd)
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        actInd.startAnimating()
         first_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
         last_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
         if(NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil) {
@@ -61,8 +62,8 @@ class EditUserController: UIViewController {
 
     }
     func updateUserRequest() {
-
-        self.navigationController?.view.addSubview(actInd)
+        actInd.startAnimating()
+        saveOutlet.enabled = false
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var params = ["username":username, "first_name":first_name_field.text, "last_name":last_name_field.text, "pref_email":email.text, "phone":phone_number.text] as Dictionary<String, String>
         var api_requester: AgoraRequester = AgoraRequester()
@@ -73,12 +74,8 @@ class EditUserController: UIViewController {
                 not_ready = false
             },
             failure: {code,message -> Void in
-                if code == 500 {
-                    //500: Server failure
-                    not_ready = false
-                    println("Server Failure!!!!!")
-                }
-                else if code == 400 {
+                self.saveOutlet.enabled = true
+                if code == 400 {
                     if(message == "Enter a valid email address.") {
                         dispatch_async(dispatch_get_main_queue(), {
                             self.error_label.text = "Please enter a valid email address"
@@ -99,7 +96,6 @@ class EditUserController: UIViewController {
                 }
             }
         )
-
     }
     func updateUI(){
         NSUserDefaults.standardUserDefaults().setObject(first_name_field.text, forKey: "first_name")

@@ -274,37 +274,45 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         presentViewController(alertController, animated: true, completion: nil)
    
     }
-    @IBAction func reportPost(sender: AnyObject){
+    func reportPostRequest(){
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         var username =  NSUserDefaults.standardUserDefaults().objectForKey("username") as String
-            var api_requester: AgoraRequester = AgoraRequester()
+        var api_requester: AgoraRequester = AgoraRequester()
         
-                       let params = ["post_id":post_id,
-                                    "category":category,
-                                    "reporter": username]          //images array
-                as Dictionary<String,AnyObject>
-            api_requester.POST("reportpost/", params: params,
-                success: {parseJSON -> Void in
-                    if(parseJSON["reported"] as String == "1"){
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.createAlert("The post has been reported, Thank you for your help in keeping ZigZaga appropriate")
-                        })
-                    }
-                    else{
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.createAlert("You have already reported this post")
-                        })
-                    }
-                        
-                    },
-                failure: {code,message -> Void in
+        let params = ["post_id":post_id,
+            "category":category,
+            "reporter": username]          //images array
+            as Dictionary<String,AnyObject>
+        api_requester.POST("reportpost/", params: params,
+            success: {parseJSON -> Void in
+                if(parseJSON["reported"] as String == "1"){
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.createAlert("Unable to connect to the server, please check your connection and try again")
+                        self.createAlert("The post has been reported, Thank you for your help in keeping ZigZaga appropriate")
                     })
-            })
-
-
+                }
+                else{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.createAlert("You have already reported this post")
+                    })
+                }
+                
+            },
+            failure: {code,message -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.createAlert("Unable to connect to the server, please check your connection and try again")
+                })
+        })
+    }
+    @IBAction func reportPost(sender: AnyObject){
+        let alertController = UIAlertController(title: "Are you sure you wish to report this post for inappropriate content?", message:
+            nil, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+                self.reportPostRequest()
+        }))
+        presentViewController(alertController, animated: true, completion: nil)
     }
    override func scrollViewDidScroll(scrollView: UIScrollView) {
         var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView
@@ -441,7 +449,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         else{
             mailComposerVC.setToRecipients([gonzaga_email_]) //zagmail
         }
-        mailComposerVC.setSubject("Inqury regarding " + title1)
+        mailComposerVC.setSubject("Inqury regarding " + title1 + "\n")
         mailComposerVC.setMessageBody("", isHTML: false)
         
         return mailComposerVC
@@ -472,7 +480,7 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
         
         //these need to be fixed
         messageComposeVC.recipients = [text_]
-        messageComposeVC.body = "inqury Regarding " + title
+        messageComposeVC.body = "Inqury Regarding " + title + "\n"
         return messageComposeVC
     }
     

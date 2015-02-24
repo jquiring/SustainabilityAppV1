@@ -19,6 +19,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     @IBOutlet var descOutlet: UITextView!
     var category = ""
     
+    @IBOutlet var editOutlet: UIBarButtonItem!
     @IBOutlet var title_field: UITextField!
     var picker:UIImagePickerController?=UIImagePickerController()
     weak var cat_picker: UIPickerView!
@@ -584,7 +585,9 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     @IBAction func editPostSubmit(sender: AnyObject) {
         if(validateFields()){
             actInd.startAnimating()
+            self.editOutlet.enabled = false
             editPostRequest()
+            
         }
     }
     func getPostRequest(postid_:String, category_:String){
@@ -622,7 +625,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                         var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                                self.dismissViewControllerAnimated(true, completion: nil)
                         }))
                     }
                     
@@ -738,6 +740,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 dispatch_async(dispatch_get_main_queue(), {
                     self.createAlert("Unable to connect to the server, please try again")
                     self.actInd.stopAnimating()
+                    self.editOutlet.enabled = true
                 })
             }
         )

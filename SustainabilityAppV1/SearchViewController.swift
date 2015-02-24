@@ -10,6 +10,9 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    @IBOutlet var search: UITextField!
+    @IBOutlet var minPrice: UITextField!
+    @IBOutlet var maxPrice: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 

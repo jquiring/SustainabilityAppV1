@@ -242,10 +242,11 @@
 				TargetAttributes = {
 					F892C94419F59B4100113C26 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 63K7WV6YUZ;
+						DevelopmentTeam = GUYPJD4NUE;
 					};
 					F892C95919F59B4200113C26 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = GUYPJD4NUE;
 						TestTargetID = F892C94419F59B4100113C26;
 					};
 				};
