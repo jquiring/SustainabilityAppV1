@@ -54,6 +54,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.round_trip_switch.hidden = true
         picker?.allowsEditing = true
         var indexPath1 = NSIndexPath(forRow: 1, inSection: 4)
         let SelectedCellHeight: CGFloat = 0
@@ -95,9 +96,9 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.round_trip_switch.hidden = true
         }
         currentText.resignFirstResponder()
-        print("DoneCat")
     }
     func doneDate(){
+        
         currentText.resignFirstResponder()
     }
     
@@ -137,7 +138,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         var strDate = dateFormatter.stringFromDate(date_picker.date)
-        print (strDate)
         currentText.text = strDate
     }
     func setUpImageGestures(){
@@ -538,9 +538,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 else{
                     new_post = ProfilePost(title: title, id: stringid,cat:category_)
                 }
-                println(title)
-                
-                println("got past here")
                 new_post.upDateNSData(true)
                 dispatch_async(dispatch_get_main_queue(), {self.dismissViewControllerAnimated(true, completion: nil)
                     self.actInd.stopAnimating()
