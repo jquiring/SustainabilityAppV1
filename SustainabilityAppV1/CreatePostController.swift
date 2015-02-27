@@ -529,14 +529,14 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 var default_image : NSData? = nil
                 var new_post:ProfilePost
                 var id = parseJSON["id"] as Int
-
+                var date = parseJSON["post_date_time"] as String
                 var stringid = String(id)
                 if(self.images_data != []) {
                     default_image = self.images_data[0]
-                    new_post = ProfilePost(title: title, imageName: default_image!, id:stringid , cat:category_)
+                    new_post = ProfilePost(title: title, imageName: default_image!, id:stringid , cat:category_,date:date)
                 }
                 else{
-                    new_post = ProfilePost(title: title, id: stringid,cat:category_)
+                    new_post = ProfilePost(title: title, id: stringid,cat:category_,date:date)
                 }
                 new_post.upDateNSData(true)
                 dispatch_async(dispatch_get_main_queue(), {self.dismissViewControllerAnimated(true, completion: nil)

@@ -28,6 +28,14 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var cellHeights = Dictionary<String,Int>()
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "username")
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "first_name")
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "last_name")
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "moreUserPosts")
+        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "profileNeedsReloading")
         self.table.addSubview(self.refreshControl)
         self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
@@ -100,7 +108,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     func setUp(date:String,older:String,fromTop:String){
        
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray

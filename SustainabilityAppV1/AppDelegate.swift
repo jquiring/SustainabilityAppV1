@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     func refreshUserPosts(){
+        /*
         if(userDefaults.objectForKey("username") != nil) {
             if(userDefaults.objectForKey("user_posts") != nil) {
                 println("GOT TO THIS LINE OF CODE")
@@ -131,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                             var new_post:ProfilePost
                                             if !imageString.isEmpty {
                                                 let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                                                new_post = ProfilePost(title: title, imageName: imageData, id: String(postID),cat:category)
+                                                new_post = ProfilePost(title: title, imageName: imageData, id: String(postID),cat:category,date:)
                                                 
                                             }
                                                 
@@ -171,6 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+ */
     }
  }
  

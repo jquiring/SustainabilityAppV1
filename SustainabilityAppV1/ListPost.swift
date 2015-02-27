@@ -11,16 +11,13 @@ import UIKit
 
 class ListPost: ProfilePost  {
     var key_value = ""
-    var date = ""
     init(title:String,imageName:NSData,id:String,keyValue:String,cat:String,date:String){
-        super.init(title:title,imageName:imageName,id:id,cat:cat)
+        super.init(title:title,imageName:imageName,id:id,cat:cat,date:date)
         self.key_value = keyValue
-        self.date = date
     }
     init(title:String,id:String,keyValue:String,cat:String,date:String){
-        super.init(title:title,id:id,cat:cat)
+        super.init(title:title,id:id,cat:cat,date:date)
         self.key_value = keyValue
-        self.date = date
     }
     
 }

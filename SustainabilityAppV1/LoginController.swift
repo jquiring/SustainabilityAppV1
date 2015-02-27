@@ -19,7 +19,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var incorrectLoginLabel: UILabel!
-    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     @IBAction func login(sender: AnyObject) {
         //if ldap confirmed && user in DB login 
         //if ladap confirmed -- new user
@@ -144,46 +144,14 @@ class LoginController: UIViewController,UITextFieldDelegate {
                             }
                             println("Valid credentials! Carry on to main page...")
                             returnVal = 200
-                            if let posts: AnyObject = parseJSON["posts"]{
-                                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
-                                //TODO: ^^ should already be nill
-
-                                //iterate through each post
-                                if(posts.count != 0){
-                                    for i in 0...(posts.count - 1){
-                                        let post: AnyObject! = posts[i] //just so we don't keep re-resolving this reference
-                                    
-                                    //get the easy ones, title, display_value and post ID
-                                        let title = post["title"] as String
-                                        let postID = post["id"]! as Int
-                                        let category = post["category"] as String
-                                    
-                                    //read imageString, base64 encoded
-                                        let imageString = post["image"]! as String
-                                    
-                                    //make sure there is an image...
-                                        var new_post:ProfilePost
-                                        if !imageString.isEmpty {
-                                            let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                                            new_post = ProfilePost(title: title, imageName: imageData, id: String(postID),cat:category)
-                                        //THIS IS WHERE IMAGES ARE HANDLED, if there are any...
-                                        }
-                                   
-                                        //no image included...
-                                        else{
-                                            new_post = ProfilePost(title: title, id: String(postID),cat:category)
-                                        //NO IMAGE WITH POST
-                                        }
-                                        new_post.upDateNSData(false)
-                                    }
-                                }
-                            }
 
                             NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username")
                             NSUserDefaults.standardUserDefaults().setObject(first_name, forKey: "first_name")
                             NSUserDefaults.standardUserDefaults().setObject(last_name, forKey: "last_name")
                             NSUserDefaults.standardUserDefaults().setObject(g_email, forKey: "gonzaga_email")
-                            
+                            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
+                            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
+
                             dispatch_async(dispatch_get_main_queue(), {
                             })
                             flag_Val = true

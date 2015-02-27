@@ -21,12 +21,20 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var category :String?
     var id:String?
     var firstAppear = true
-    func setUpPosts(){
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+    var centerLoad : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+    //NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
+    var bottomNeedsMore = NSUserDefaults.standardUserDefaults().objectForKey("moreUserPosts") as Bool
+    var firstLoad = NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool
+    func setUpPosts(fromAppear:Bool){
+        if(fromAppear){
+            arrayOfPosts = []
+        }
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
             var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
             for post in current_posts {
                 id = post[0] as? String
-                var new_post = ProfilePost(title: post[1] as String, imageName: post[2] as NSData, id: id!,cat:post[3] as String)
+                var new_post = ProfilePost(title: post[1] as String, imageName: post[2] as NSData, id: id!,cat:post[3] as String,date:post[4] as String)
                 arrayOfPosts.append(new_post)
             }
         }
@@ -49,7 +57,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
        
         
     }
-    func bumpUI(sender:Int,refreshed:String){
+    func bumpUI(sender:Int,refreshed:String,date:String){
         if(refreshed == "1"){
             let alertController = UIAlertController(title: "Your post has been bumped", message:
                 nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -62,6 +70,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
                     current_posts.removeAtIndex(sender)
                     current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category], atIndex: 0)
+                    current_posts[0][4] = date
                     NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
                     
                 }
@@ -83,7 +92,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let params = ["post_id":post_id, "category":category]
         api_requester.POST("refreshpost/", params: params,
             success: {parseJSON -> Void in
-                dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String)})
+                
+                dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String,date:parseJSON["post_date_time"] as String)})
             },
             failure: {code,message -> Void in
 
@@ -175,6 +185,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "moreUserPosts")
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "profileNeedsReloading")
             //set the rest of the user defaults to nil?
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as LoginController
             let navController = UINavigationController(rootViewController: VC1)
@@ -195,18 +207,47 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         table.reloadData()
         self.view.setNeedsDisplay()
     }*/
+
+    override func viewDidAppear(animated: Bool) {
+        setUpPosts(true)
+       // makeLayout()
+
+        table.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpPosts()
-        makeLayout()
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
-        //view.setTranslatesAutoresizingMaskIntoConstraints(false)
         table.dataSource = self
         table.delegate = self
+        centerLoad.center = self.view.center
+        centerLoad.hidesWhenStopped = true
+        centerLoad.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.table.addSubview(centerLoad)
+        makeLayout()
+
+        if(firstLoad){
+            centerLoad.startAnimating()
+            arrayOfPosts = []
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
+            getMorePosts("", older: "1", fromTop: true)
+            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
+            self.setUpPosts(false)
+            
+            table.reloadData()
+
+        }
+        
+        //view.setTranslatesAutoresizingMaskIntoConstraints(false)
+
         //table.preformSeg
         self.table.tableFooterView = UIView()
-        table.reloadData()
+
         println("view did load")
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+
         // Do any additional setup after loading the view.
     }
 
@@ -338,14 +379,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view3.titleLabel!.font = buttonFont
         view3.addConstraints(view3_constraint_H)
         view3.addConstraints(view3_constraint_V)
-
-
-        //casts width to a string then uses the width to set the width of the screen (denoted as H for some reason)
-        
-        
-        
-        
-
         view.addSubview(view1)
         view.addSubview(view2)
         view.addSubview(view3)
@@ -353,43 +386,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view.addSubview(table)
         view.addSubview(logoutButton)
         view.addSubview(twitterFeed)
-        if(arrayOfPosts.count == 0){
-            //No posts
-            table.removeFromSuperview()
-            noPosts.setTitle("You currently have no posts", forState: UIControlState.Normal)
-            noPosts.titleLabel!.font = labelFont
-            noPosts.setTranslatesAutoresizingMaskIntoConstraints(false)
-            noPosts.backgroundColor = backgroundColor
-            noPosts.userInteractionEnabled = false
-            let noPosts_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[noPosts(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-            let noPosts_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[noPosts(noPostsHeight)]", options:
-                NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-            noPosts.addConstraints(noPosts_constraint_H)
-            noPosts.addConstraints(noPosts_constraint_V)
-            view.addSubview(noPosts)
-            self.table.hidden = true
-
-            //filler
-            filler.setTranslatesAutoresizingMaskIntoConstraints(false)
-            filler.setTitle("", forState: UIControlState.Normal)
-            filler.userInteractionEnabled = false
-            filler.backgroundColor = UIColor.whiteColor()
-            let filler_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[filler(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-            let filler_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[filler(bottomHeight)]", options:
-                NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-            filler.addConstraints(filler_constraint_H)
-            filler.addConstraints(filler_constraint_V)
-            view.addSubview(filler)
-            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[noPosts]-distanceBetweenButtons-[filler]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
-            view.addConstraints(view_constraint_V)
-        }
-        else {
-        //spaces it away from the top a little bit
-        //this seems to be breaking the code right now
-            let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
+        view.addConstraints(view_constraint_V)
         
-            view.addConstraints(view_constraint_V)
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -438,6 +437,170 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         self.presentViewController(navController, animated:true, completion: nil)
 
     }
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if(arrayOfPosts.count != 0 ){
+            println("f")
+            self.table.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            self.table.backgroundView = UIView()
+            return 1
+        }
+        else if(arrayOfPosts.count == 0){
+            var label:UILabel = UILabel()
+            label.frame = CGRectMake(0,0,self.view.bounds.width,self.view.bounds.height)
+            if(self.centerLoad.isAnimating()){
+                label.text = "Loading your posts"
+            }
+            else{
+                label.text = "You currently have no posts"
+            }
+            label.textColor = UIColor.blackColor()
+            label.textAlignment = NSTextAlignment.Center
+            label.numberOfLines = 0
+            label.font = UIFont(name: "HelveticaNeue-UltraLight",size: 24)
+            label.sizeToFit()
+            self.table.backgroundView = label
+            self.table.separatorStyle = UITableViewCellSeparatorStyle.None
+        }
+        return 0
+    }
+    func updateNSData(newDate:String,id:String,category:String){
+        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+        var new_post = []
+        var the_index = 0
+        for i in 0...current_posts.count - 1 {
+            if current_posts[i][0] as String == id && String(current_posts[i][3] as String) == category {
+                the_index = i
+            }
+        }
+        current_posts[the_index][4] = newDate
+        NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func getMorePosts(date:String,older:String,fromTop:Bool){
+        var api_requester: AgoraRequester = AgoraRequester()
+        if(!fromTop){
+            actInd.startAnimating()
+        }
+        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+        //let divider_date_time = ""
+        let divider_date_time = date
+        
+        let params = ["username":username,
+            "divider_date_time":divider_date_time,
+            "older":older]
+            as Dictionary<String,AnyObject>
+        
+        api_requester.POST("userposts/",params:params,
+            success: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updatePosts(parseJSON)})
+            },
+            failure: {code,message -> Void in
+                if(code == 500){
+                    //server error
+                }
+                else if (code == 599){
+                    //timeout
+                }
+                else if (code == 58){
+                    //no internet connection
+                }
+            }
+        )
+    }
+    /*
+    func didRefresh(){
+        if(arrayOfPosts.count == 0){
+            getMorePosts("", older: "0",fromTop:true)
+        }
+        else{
+            getMorePosts(arrayOfPosts[0].date,older:"",fromTop:true)
+        }
+        table.reloadData()
+    }
+    */
+    func updatePosts(parseJSON:NSDictionary){
+        let posts: AnyObject = parseJSON["posts"]!
+        let more = parseJSON["more_exist"] as String //1 or zero
+
+        let recent_del: String = parseJSON["recent_post_deletion"] as String
+        if posts.count > 0{
+            for i in 0...(posts.count - 1){
+                let post: AnyObject! = posts[i]
+                var postID = post["id"]! as Int
+                let title = post["title"]! as String
+                let category = post["category"] as String
+                let post_date_time = post["post_date_time"]! as String
+                let display_value = post["display_value"]! as String
+                //THE THUMBNAIL IMAGE IS PROCESSED HERE
+                let imageString = post["image"]! as String
+                var newPost:ProfilePost
+                if !imageString.isEmpty {
+                    let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                    newPost = ProfilePost(title: title, imageName: imageData, id: String(postID), cat: category, date: post_date_time)
+                }
+                else{
+                    newPost = ProfilePost(title: title, id: String(postID), cat: category, date: post_date_time)
+                }
+                newPost.upDateNSData(false)
+                arrayOfPosts.append(newPost)
+            }
+        }
+        println("reloading data")
+        self.table.reloadData()
+        self.actInd.stopAnimating()
+        centerLoad.stopAnimating()
+        if(more == "1"){
+            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
+            bottomNeedsMore = true
+        }
+        else{
+            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "moreUserPosts")
+            bottomNeedsMore = false
+        }
+        table.needsUpdateConstraints()
+        table.reloadData()
+
+    }
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return actInd
+    }
+    func scrollViewDidScroll(scrollView: UIScrollView){
+        if(arrayOfPosts.count >= 10 ){
+            var currentOffset = scrollView.contentOffset.y;
+            var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+            
+            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
+                self.actInd.startAnimating()
+                var oldLength = arrayOfPosts.count - 1
+                bottomNeedsMore = false
+                println("Time to reload table")
+                println(arrayOfPosts[oldLength].date)
+                println(arrayOfPosts[oldLength - 1].date)
+                //send request for more posts
+                //actInd.startAnimating()
+                getMorePosts(arrayOfPosts[oldLength].date,older:"1",fromTop:false)
+                
+                //var indexes = [oldLength...self.arrayOfPosts.count]
+                //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)
+                var indexPaths : [Int] = []
+                for i in oldLength...arrayOfPosts.count {
+                    indexPaths.append(0)
+                    indexPaths.append(i)
+                }
+                //need to reload twice for some damn reason
+                
+                table.reloadData()
+                self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+                
+                self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: (oldLength)   , inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                
+                
+            }
+            
+        }
+    }
+
 
         
   
