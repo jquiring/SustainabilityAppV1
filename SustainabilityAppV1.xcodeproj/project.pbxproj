@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CA0F9D6A1A7EBA3900BA7AA3 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */; };
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
-		CA2450B71A9BF71E00B51126 /* SearchPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2450B61A9BF71E00B51126 /* SearchPageViewController.swift */; };
 		CA4C2EA01A78659100070B3B /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		CA4C2EA11A78662B00070B3B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
 		CA4C2EA21A78662E00070B3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
@@ -67,7 +66,6 @@
 /* Begin PBXFileReference section */
 		CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
-		CA2450B61A9BF71E00B51126 /* SearchPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPageViewController.swift; sourceTree = "<group>"; };
 		CAB51B0C1A8C0EEA001A7805 /* PlusDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlusDark.png; sourceTree = "<group>"; };
 		CAF78C9B1A196A1E00787075 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 				F89833361A8C20ED001865E8 /* AgoraRequester.swift */,
 				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
 				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
-				CA2450B61A9BF71E00B51126 /* SearchPageViewController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -306,7 +303,6 @@
 				F84B53E21A69CB2E002E9597 /* ListPostCell.swift in Sources */,
 				F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */,
 				F8A4B86E1A707D6D00A420E7 /* Regex.swift in Sources */,
-				CA2450B71A9BF71E00B51126 /* SearchPageViewController.swift in Sources */,
 				F84B53E01A69C910002E9597 /* ListPost.swift in Sources */,
 				F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */,
 				F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */,

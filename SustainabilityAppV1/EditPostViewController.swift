@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextFieldDelegate,UITextViewDelegate {
     
@@ -74,7 +75,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.navigationController?.view.addSubview(actInd)
-        
+        self.round_trip_switch.hidden = true
         
         getPostRequest(postid_, category_:category)
         //end spinning icon
@@ -161,6 +162,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
         
         if self.category == "Ride Shares"{
+            self.round_trip_switch.hidden = false
             self.leaves.text = parseJSON["departure_date_time"] as String
             let rts = parseJSON["round_trip"] as Int
             if(rts == 1){
@@ -187,9 +189,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         if !imageString[0].isEmpty {
             let imageData1 = NSData(base64EncodedString: imageString[0], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
             self.image1.image =  (UIImage(data: imageData1))
-            
-            
-            //do stuff with the image here
         }
         else{
             //No image flag
@@ -314,7 +313,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         currentText.resignFirstResponder()
         descOutlet.resignFirstResponder()
     }
-    //TODO:
     func gMailToutched(){
         if(self.gmail.image!.isEqual(UIImage(named:"ZagMailOFF"))){
             self.gmail.image = UIImage(named:"ZagMail")
@@ -435,17 +433,14 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     func textFieldDidBeginEditing(textField: UITextField!){    //delegate method
         currentText = textField
     }
-    //TODO: do we need these next two functions
     func textFieldShouldEndEditing(textField: UITextField!) -> Bool{  //delegate method
         return true
     }
     func textFieldShouldReturn(textField: UITextField!) -> Bool{   //delegate method
-        //textField.resignFirstResponder()
         return true
     }
     //creates the custom view headers
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
-        //print(section)
         var header : UILabel = UILabel()
         header.text = categoryTitles[section]
         header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
@@ -457,7 +452,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     
     //sets the category header height to 0 if it is not being used
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        //println(category)
         let rideShareOneWaySections = [4,5,6,7]
         let rideShareBothWaysSections = [4,5,6,7,8]
         let eventSections = [10,11]
@@ -478,13 +472,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             return 0
         }
         return 24
-    }
-    func pullPostInfoRequest(){
-        //basically modified view post
-    }
-    
-    func submitEditedPost(){
-        // modified submit post
     }
     func createAlert(message:String){
         var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -547,6 +534,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         return true
         
     }
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0 || indexPath.section == 3){
             return 30
@@ -706,25 +694,29 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         if(round_trip_switch.on){
             round_trip = "1"
         }
-        let params = ["username":username,          //common post information
+        if(gonzaga_email == "0" && pref_email == "0" && text_bool == "0" && phone_bool == "0"){
+            //self.createAlert("Please select at least one contact option")
+            //do something in here to stop the function
+        }
+        let params = ["username":username,
             "description":descOutlet.text,
-            "price":price.text,                   // |
+            "price":price.text,
             "title":title_field.text,
-            "post_id" : self.postid_, // |
+            "post_id" : self.postid_,
             "category" : self.category,
-            "gonzaga_email":gonzaga_email,  // |
-            "pref_email":pref_email,        // |
-            "call":phone_bool,                   // |
-            "text":text_bool,               // <
-            "departure_date_time":leaves.text,  //rideshare specific
-            "start_location":from.text,            // |
-            "end_location":to.text,                // |
-            "round_trip":round_trip,                    // |
-            "return_date_time":comesBack.text,        // <
-            "date_time":date.text,          //datelocation specific
-            "location":location.text,           // <
-            "isbn":ISBN.text,                    //book specific
-            "images":imagesBase64]          //images array
+            "gonzaga_email":gonzaga_email,
+            "pref_email":pref_email,
+            "call":phone_bool,
+            "text":text_bool,
+            "departure_date_time":leaves.text,
+            "start_location":from.text,
+            "end_location":to.text,
+            "round_trip":round_trip,
+            "return_date_time":comesBack.text,
+            "date_time":date.text,
+            "location":location.text,
+            "isbn":ISBN.text,
+            "images":imagesBase64]         
             as Dictionary<String,AnyObject>
         var not_ready = true
         api_requester.POST("editpost/", params: params,
