@@ -14,6 +14,7 @@ class HelpAndFAQController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     override func viewDidLoad() {
+        println("view did load")
         super.viewDidLoad()
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)

@@ -34,6 +34,8 @@
 		F861EFCD1A896FCC001681A4 /* FieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861EFCC1A896FCB001681A4 /* FieldValidator.swift */; };
 		F861EFCE1A896FCC001681A4 /* FieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861EFCC1A896FCB001681A4 /* FieldValidator.swift */; };
 		F8776E421A804E81002C698F /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */; };
+		F88E9A9A1AA1381A00F39336 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E9A991AA1381A00F39336 /* FilterViewController.swift */; };
+		F88E9A9B1AA1381A00F39336 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E9A991AA1381A00F39336 /* FilterViewController.swift */; };
 		F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
 		F892C95019F59B4200113C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F892C94E19F59B4200113C26 /* Main.storyboard */; };
 		F892C95219F59B4200113C26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F892C95119F59B4200113C26 /* Images.xcassets */; };
@@ -74,6 +76,7 @@
 		F84B53DF1A69C910002E9597 /* ListPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPost.swift; sourceTree = "<group>"; };
 		F84B53E11A69CB2E002E9597 /* ListPostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPostCell.swift; sourceTree = "<group>"; };
 		F861EFCC1A896FCB001681A4 /* FieldValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldValidator.swift; sourceTree = "<group>"; };
+		F88E9A991AA1381A00F39336 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		F892C94519F59B4100113C26 /* SustainabilityAppV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SustainabilityAppV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F892C94919F59B4200113C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F892C94A19F59B4200113C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +160,7 @@
 				F89833361A8C20ED001865E8 /* AgoraRequester.swift */,
 				F8E90E1E1A70740A00B57AF4 /* LoadingOverlay.swift */,
 				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
+				F88E9A991AA1381A00F39336 /* FilterViewController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -294,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F88E9A9A1AA1381A00F39336 /* FilterViewController.swift in Sources */,
 				F8A99C501A2D6DBD004245DB /* ViewPostController.swift in Sources */,
 				F8B9FD891A14307900DB75CC /* ProfilePost.swift in Sources */,
 				F861EFCD1A896FCC001681A4 /* FieldValidator.swift in Sources */,
@@ -335,6 +340,7 @@
 				CA4C2EA71A78663C00070B3B /* TermsAndConditionsConroller.swift in Sources */,
 				CA4C2EA91A78664000070B3B /* ProfileController.swift in Sources */,
 				CA4C2EA81A78663E00070B3B /* ProfilePostCell.swift in Sources */,
+				F88E9A9B1AA1381A00F39336 /* FilterViewController.swift in Sources */,
 				CA4C2EAD1A78664A00070B3B /* CreatePostController.swift in Sources */,
 				CA4C2EA41A78663400070B3B /* ContainerViewController.swift in Sources */,
 				CA4C2EA31A78663200070B3B /* CenterViewController.swift in Sources */,

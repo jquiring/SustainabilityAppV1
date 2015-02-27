@@ -28,14 +28,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var cellHeights = Dictionary<String,Int>()
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "username")
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "first_name")
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "last_name")
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "pref_email")
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "moreUserPosts")
-        NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "profileNeedsReloading")
         self.table.addSubview(self.refreshControl)
         self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
@@ -168,7 +160,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
     }
     @IBAction func search(sender: AnyObject) {
-       //this is where we go to the search page view controller
+       
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

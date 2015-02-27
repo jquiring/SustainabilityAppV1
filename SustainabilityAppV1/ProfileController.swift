@@ -69,8 +69,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
                     var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
                     current_posts.removeAtIndex(sender)
-                    current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category], atIndex: 0)
-                    current_posts[0][4] = date
+                    current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category,date], atIndex: 0)
                     NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
                     
                 }
@@ -225,7 +224,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         centerLoad.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.table.addSubview(centerLoad)
         makeLayout()
-
+        
         if(firstLoad){
             centerLoad.startAnimating()
             arrayOfPosts = []

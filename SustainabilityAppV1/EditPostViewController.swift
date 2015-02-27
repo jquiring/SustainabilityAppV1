@@ -620,13 +620,13 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             }
         )
     }
-    func updateNSData(defaultImage:NSData){
+    func updateNSData(defaultImage:NSData,date:String){
         var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
         var new_post = []
         var the_index = 0
         for i in 0...current_posts.count - 1 {
             if current_posts[i][0] as String == postid_ && String(current_posts[i][3] as String) == category {
-                new_post = [String(self.postid_),title_field.text,defaultImage,category]
+                new_post = [String(self.postid_),title_field.text,defaultImage,category,date]
                 the_index = i
             }
         }
@@ -722,8 +722,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         api_requester.POST("editpost/", params: params,
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.updateNSData(defaultImage!)
-                    println("stopped spinning")
+                    self.updateNSData(defaultImage!,date:parseJSON["post_date_time"] as String)
                     self.actInd.stopAnimating()
                 })
                 not_ready = false

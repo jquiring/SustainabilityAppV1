@@ -21,174 +21,81 @@ class LoginController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var incorrectLoginLabel: UILabel!
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     @IBAction func login(sender: AnyObject) {
-        //if ldap confirmed && user in DB login 
-        //if ladap confirmed -- new user
-        //set the incorrectLoginLabel.hidden = false if the login has failed
         self.actInd.startAnimating()
         loginOutlet.enabled = false
-        var LDAPRequest = LDAPLogin()
         password.resignFirstResponder()
         email.resignFirstResponder()
-
-        if(LDAPRequest.0 == 200){
-            self.actInd.stopAnimating()
-            print(LDAPRequest.1)
-           if(LDAPRequest.1 == "yes"){
+        LDAPLogin()
+    }
+    func updateUI(parseJSON:Dictionary<String,AnyObject>){
+        self.actInd.stopAnimating()
+        if let _username = parseJSON["username"] as? String{
+            NSUserDefaults.standardUserDefaults().setObject(_username, forKey: "username")
+        }
+        if let first = parseJSON["first_name"] as? String{
+            NSUserDefaults.standardUserDefaults().setObject(first, forKey: "first_name")
+        }
+        if let last = parseJSON["last_name"] as? String{
+            NSUserDefaults.standardUserDefaults().setObject(last, forKey: "last_name")
+        }
+        if let _g_email = parseJSON["g_email"] as? String{
+            NSUserDefaults.standardUserDefaults().setObject(_g_email, forKey: "gonzaga_email")
+        }
+        if let _p_email = parseJSON["p_email"] as? String{
+            if(_p_email != ""){
+                NSUserDefaults.standardUserDefaults().setObject(parseJSON["p_email"] as? String, forKey: "pref_email")
+            }
+        }
+        if let _phone = parseJSON["phone"] as? String{
+            if( _phone) != "" {
+                NSUserDefaults.standardUserDefaults().setObject(parseJSON["phone"] as? String, forKey: "phone")
+            }
+        }
+        NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
+        NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
+        if(parseJSON["exists"] as String == "yes"){
             
-                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-                self.window!.backgroundColor = UIColor.whiteColor()
-                let customVC = ContainerViewController()
-                self.window!.rootViewController = customVC
-                self.window!.makeKeyAndVisible()
-            }
-            //else if (true){
-            else if(LDAPRequest.1 == "no"){
-                //need to pass email in to create user page to send to DB ***************************************************
-                var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
-                let navController = UINavigationController(rootViewController: VC1)
-                self.presentViewController(navController, animated:true, completion: nil)
-            }
-            else{
-                incorrectLoginLabel.hidden = false
-                incorrectLoginLabel.text = "Server Error: Please try again later"
-            }
-        }
-        else if(LDAPRequest.0 == 400){
-            incorrectLoginLabel.hidden = false
-        }
-        else if(LDAPRequest.0 == 500){
-            incorrectLoginLabel.hidden = false
-            incorrectLoginLabel.text = "Server Error2: Please try again later"
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            self.window!.backgroundColor = UIColor.whiteColor()
+            let customVC = ContainerViewController()
+            self.window!.rootViewController = customVC
+            self.window!.makeKeyAndVisible()
         }
         else{
-            incorrectLoginLabel.hidden = false
-            incorrectLoginLabel.text = "Server Error: Server IP + Port has changed"
+            //need to pass email in to create user page to send to DB ***************************************************
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
+            let navController = UINavigationController(rootViewController: VC1)
+            self.presentViewController(navController, animated:true, completion: nil)
         }
+    
     }
-    func makeAlert(text:String){
-    var alert = UIAlertController(title: nil, message: text, preferredStyle: UIAlertControllerStyle.Alert)
-            self.presentViewController(alert, animated: true, completion: nil)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            }))
+    func LDAPLogin(){
+        var api_requester: AgoraRequester = AgoraRequester()
+        api_requester.LdapAuth(email.text, password: password.text,
+            success: { parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updateUI(parseJSON)})
+            },
+            failure: {code,message -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.incorrectLoginLabel.hidden = false
+                    self.incorrectLoginLabel.text = "Problem connecting to the server, check connection and try again"
+                    self.password.text = ""
+                    self.loginOutlet.enabled = true
+                    self.actInd.stopAnimating()
 
+                })
+            },
+            badCreds: { () -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.incorrectLoginLabel.hidden = false
+                    self.incorrectLoginLabel.text = "Incorrect username or password"
+                    self.password.text = ""
+                    self.loginOutlet.enabled = true
+                    self.actInd.stopAnimating()
+                })
+            })
     }
-    func LDAPLogin() -> (Int,String) {
-        
-        actInd.startAnimating()
-        //TODO: disable and enable submitOutlet
-        var request = NSMutableURLRequest(URL: NSURL(string: "http://147.222.165.3:8000/ldapauth/")!)
-        var session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
-        var username = ""
-        var first_name = ""
-        var last_name = ""
-        var g_email = ""
-        var p_email = ""
-        var phone = ""
-        var existingUser = ""
-        var params = ["username":email.text, "password":password.text] as Dictionary<String, String>
-        var err: NSError?
-        var returnVal = -1
-        var flag_Val = false
-        flag = false
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if let httpResponse = response as? NSHTTPURLResponse {
-                
-                var status_code = httpResponse.statusCode
-                var jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                var err: NSError?
-                var json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? NSDictionary
-                
-                if(err != nil) {
-                    println(err!.localizedDescription)
-                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("Error could not parse JSON: '\(jsonStr)'")
-                }
-                    
-                else {
-                    if let parseJSON = json as? Dictionary<String,AnyObject>{
-                        // Okay, the parsedJSON is here, let's get the value for 'success' out of it
-                        //200 = OK, valid credentials
-                        if(status_code == 200){
-                            if let _username = parseJSON["username"] as? String{
-                                username = _username
-                            }
-                            if let first = parseJSON["first_name"] as? String{
-                                first_name = first
-                            }
-                            if let last = parseJSON["last_name"] as? String{
-                                last_name = last
-                            }
-                            if let _g_email = parseJSON["g_email"] as? String{
-                                g_email = _g_email
-                            }
-                            if let _p_email = parseJSON["p_email"] as? String{
-                                p_email = _p_email
-                                if(_p_email != ""){
-                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["p_email"] as? String, forKey: "pref_email")
-                                }
-                            }
-                            if let _phone = parseJSON["phone"] as? String{
-                                if( _phone) != "" {
-                                    NSUserDefaults.standardUserDefaults().setObject(parseJSON["phone"] as? String, forKey: "phone")
-                                }
-                                
-                            }
-                            if let _exists = parseJSON["exists"] as? String{
-                                existingUser = _exists
-                            }
-                            println("Valid credentials! Carry on to main page...")
-                            returnVal = 200
-
-                            NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username")
-                            NSUserDefaults.standardUserDefaults().setObject(first_name, forKey: "first_name")
-                            NSUserDefaults.standardUserDefaults().setObject(last_name, forKey: "last_name")
-                            NSUserDefaults.standardUserDefaults().setObject(g_email, forKey: "gonzaga_email")
-                            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
-                            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
-
-                            dispatch_async(dispatch_get_main_queue(), {
-                            })
-                            flag_Val = true
-                        }
-                            //400 = BAD_REQUEST, invalid crentials
-                        else if(status_code == 400){
-                            if let message = parseJSON["message"] as? String{
-                                println("message: \(message)")
-                            }
-                            returnVal = 400
-                            flag_Val = true
-                        }
-                            //500 = INTERNAL_SERVER_ERROR. Oh snap *_*
-                        else if(status_code == 500){
-                            println("The server is down! Call the fire!")
-                            returnVal = 500
-                            flag_Val = true
-                        }
-                    }
-                    else {
-                        // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
-                        let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println("Error could not parse JSON: \(jsonStr)")
-                        flag_Val = true
-                    }
-                }
-            }
-        })
-        task.resume()
-        while(flag == false){
-            flag = flag_Val
-        }
-        return (returnVal, existingUser)
-        
-    }
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
