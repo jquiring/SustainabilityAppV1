@@ -159,9 +159,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             d.toggleLeftPanel?()
         }
     }
+    
     @IBAction func search(sender: AnyObject) {
-       
         
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("searchPage") as FilterViewController
+        let navController = UINavigationController(rootViewController: VC1)
+        self.presentViewController(navController, animated:true, completion: nil)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -229,13 +232,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
                 var oldLength = arrayOfPosts.count - 1
                 bottomNeedsMore = false
-                println("Time to reload table")
-                println(arrayOfPosts[oldLength].date)
-                println(arrayOfPosts[oldLength - 1].date)
+                //println("Time to reload table")
+                //println(arrayOfPosts[oldLength].date)
+                //println(arrayOfPosts[oldLength - 1].date)
                 //send request for more posts
                 actInd.startAnimating()
                 setUp(arrayOfPosts[oldLength].date,older:"1",fromTop : "0")
-                print("DATE" + arrayOfPosts[oldLength].date)
+                //print("DATE" + arrayOfPosts[oldLength].date)
                 
                 //var indexes = [oldLength...self.arrayOfPosts.count]
                 //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)

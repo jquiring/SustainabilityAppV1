@@ -16,7 +16,6 @@ class ListPostCell: UITableViewCell {
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        println("selected")
         // Configure the view for the selected state
     }
     override func awakeFromNib() {
