@@ -16,6 +16,8 @@ protocol CenterViewControllerDelegate {
 }
 
 class CenterViewController: UIViewController,  UITableViewDataSource,UITableViewDelegate {
+    
+    
     var refreshControl = UIRefreshControl()
     var needsReloading = true
     var bottomNeedsMore = true
@@ -28,6 +30,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var cellHeights = Dictionary<String,Int>()
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(!checkFilteredSearch()){
+            println("isnt a filtered search")
+
+        }
+        else {
+            println("is a filtered search")
+        }
         self.table.addSubview(self.refreshControl)
         self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
@@ -43,9 +52,35 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     
     override func viewDidAppear(animated: Bool) {
+        if(NSUserDefaults.standardUserDefaults().objectForKey("newFilterPerameters") as Bool){
+            NSUserDefaults.standardUserDefaults().setObject(false,forKey:"newFilterPerameters")
+            setUp("",older: "1",fromTop: "1")
+            self.table.reloadData()
+            if(!checkFilteredSearch()){
+                println("isnt a filtered search")
+            }
+            else {
+
+            }
+        }
         if(needsReloading){
             self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
             needsReloading = false
+        }
+    }
+    func checkFilteredSearch() -> Bool {
+        
+        var max_price : String = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as String
+        if(( max_price != "") ||
+            (NSUserDefaults.standardUserDefaults().objectForKey("min_price") as String != "") ||
+            (NSUserDefaults.standardUserDefaults().objectForKey("free") as String != "0") ||
+            (NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String != "") ||
+        (NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != ["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"])){
+    
+            return true
+        }
+        else{
+            return false
         }
     }
     func didRefresh(){
@@ -75,7 +110,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 let category = post["category"] as String
                 let date = post["post_date_time"] as String
                 
-                println(title)
                 var new_post:ListPost
                 let imageString = post["image"]! as String
                 if !imageString.isEmpty {
@@ -112,11 +146,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
         self.navigationController?.view.addSubview(actInd)
         var api_requester: AgoraRequester = AgoraRequester()
-        let categories:[String] = [] //empty string means all categories
-        let keywordSearch:String = "" //empty string means no keyword search
-        let min_price = "" //"" means no min_price
-        let max_price = "" //"" means no max_price
-        let free = "0" //false means not free only, true means is free only
+        let categories = NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String]
+        let keywordSearch:String = NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String
+        let min_price = NSUserDefaults.standardUserDefaults().objectForKey("min_price") as String
+        let max_price = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as String
+        let free = NSUserDefaults.standardUserDefaults().objectForKey("free") as String
         let params = ["categories":categories,
             "keywordSearch":keywordSearch,
             "min_price":min_price,
@@ -192,7 +226,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
-        println(arrayOfPosts[indexPath.row].id)
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].id, forKey: "post_id")
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].category, forKey: "cat")
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
@@ -203,13 +236,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(arrayOfPosts.count != 0 ){
-            println("returning 1")
             self.table.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
             self.table.backgroundView = UIView()
             return 1
         }
         else if(postsLoaded && arrayOfPosts.count == 0){
-            println("creating empty tableview")
             var label:UILabel = UILabel()
             label.frame = CGRectMake(0,0,self.view.bounds.width,self.view.bounds.height)
             label.text = "No data is currently available. Please pull down to refresh or change search constraints"

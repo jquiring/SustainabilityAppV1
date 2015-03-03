@@ -14,7 +14,7 @@ import Accounts
 class TwitterRequester{
     
     var dataSource = [AnyObject]()
-    
+    init() {}
     func getTimeLine() {
         
         let account = ACAccountStore()

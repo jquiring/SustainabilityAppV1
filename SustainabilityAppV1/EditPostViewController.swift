@@ -67,6 +67,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     var imageDifferences = ["","",""]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.dataSource = self
         tableView.delegate = self
         postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
@@ -671,7 +672,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             }
         }
         if(defaultImage == nil){
-            defaultImage = UIImageJPEGRepresentation(UIImage(named:"no_image.jpg"),1)
+            defaultImage = UIImageJPEGRepresentation(UIImage(named:"noImage"),1)
         }
         let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var gonzaga_email = "0"
@@ -722,6 +723,8 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         api_requester.POST("editpost/", params: params,
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                    //TODO: found null while unwrapping
+                    var post_date = parseJSON["post_date_time"] as String
                     self.updateNSData(defaultImage!,date:parseJSON["post_date_time"] as String)
                     self.actInd.stopAnimating()
                 })

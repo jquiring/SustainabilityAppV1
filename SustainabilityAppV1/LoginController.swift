@@ -51,8 +51,14 @@ class LoginController: UIViewController,UITextFieldDelegate {
                 NSUserDefaults.standardUserDefaults().setObject(parseJSON["phone"] as? String, forKey: "phone")
             }
         }
+        NSUserDefaults.standardUserDefaults().setObject(true,forKey:"newFilterPerameters")
         NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
         NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
+        NSUserDefaults.standardUserDefaults().setObject("0",forKey:"free")
+        NSUserDefaults.standardUserDefaults().setObject("",forKey:"min_price")
+        NSUserDefaults.standardUserDefaults().setObject("",forKey:"max_price")
+        NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
+        NSUserDefaults.standardUserDefaults().setObject(["Books","Electronics","Household","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"],forKey:"categories")
         if(parseJSON["exists"] as String == "yes"){
             
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
