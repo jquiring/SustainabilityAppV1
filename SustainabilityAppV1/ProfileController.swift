@@ -345,7 +345,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
         //twitterFeed
         twitterFeed.setTitle("@ZagsGoGreen", forState: UIControlState.Normal)
-        twitterFeed.titleLabel!.font = UIFont(name: "HelveticaNeue-UltraLight",size: 15)
+        twitterFeed.titleLabel!.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
         twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
         twitterFeed.backgroundColor = backgroundColor
         twitterFeed.userInteractionEnabled = false
@@ -355,6 +355,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         twitterFeed.addConstraints(twitterFeed_constraint_H)
         twitterFeed.addConstraints(twitterFeed_constraint_V)
+        
         //Logout
         logoutButton.setTitle("Logout", forState: UIControlState.Normal)
         logoutButton.setTranslatesAutoresizingMaskIntoConstraints(false)

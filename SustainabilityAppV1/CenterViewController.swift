@@ -38,12 +38,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         var r = self.view.bounds
         var r2 = CGRect()
         r2.size.width = r.width
-        r2.size.height = 28
+        r2.size.height = 30
         cancelButton.bounds = r2
         cancelButton.backgroundColor = UIColor.lightGrayColor()
         cancelButton.setTitle("Filtered Search     X", forState: UIControlState.Normal)
         cancelButton.addTarget(self, action: "cancelAction", forControlEvents: UIControlEvents.TouchUpInside)
-        cancelButton.center = CGPoint(x: self.view.bounds.width/2, y: 70)
+        cancelButton.center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height-15)
         cancelButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 18)
         cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         //self.view.addSubview(cancelButton)
