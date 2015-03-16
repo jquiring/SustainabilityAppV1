@@ -228,6 +228,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
     }
     
+    @IBAction func filter(sender: AnyObject) {
+        if let d = delegate {
+            //d.toggleRightPanel?()
+        }
+    }
+    
     @IBAction func search(sender: AnyObject) {
         
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("searchPage") as FilterViewController
