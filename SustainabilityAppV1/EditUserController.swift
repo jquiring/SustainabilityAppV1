@@ -62,6 +62,8 @@ class EditUserController: UIViewController {
 
     }
     func updateUserRequest() {
+        self.view.userInteractionEnabled = false
+
         actInd.startAnimating()
         saveOutlet.enabled = false
         var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
@@ -90,6 +92,8 @@ class EditUserController: UIViewController {
                 else{
                     dispatch_async(dispatch_get_main_queue(), {
                         self.error_label.text = "Unable to connect to the server, please try again"
+                        self.view.userInteractionEnabled = false
+
                         self.error_label.hidden = false
                         self.actInd.stopAnimating()
                     })

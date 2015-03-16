@@ -84,6 +84,8 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     }
     
     func submitData(){
+        self.view.userInteractionEnabled = false
+
         var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
@@ -106,14 +108,18 @@ class NewUserController: UIViewController,UITextFieldDelegate {
                 if code == 400 {
                     dispatch_async(dispatch_get_main_queue(), {self.updateUI()
                         actInd.stopAnimating()
-                        self.warningLabel.hidden = false
+                        self.warningLabel.hidden = true
                         self.warningLabel.text = "Please Enter a valid Email address"
+                        self.view.userInteractionEnabled = true
+
                     })
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), {self.updateUI()
                         actInd.stopAnimating()
                         self.warningLabel.hidden = false
+                        self.view.userInteractionEnabled = true
+
                         self.warningLabel.text = "Unable to connect to the sever, please try again"
 
                     })

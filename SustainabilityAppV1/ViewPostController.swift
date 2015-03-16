@@ -70,11 +70,12 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         return_date_label.numberOfLines = 0
         location_label.numberOfLines = 0
         date_time_label.numberOfLines = 0
+        self.tableView.tableFooterView = UIView()
         startRequest()
     }
     
     func startRequest() {
-        
+        self.tableView.userInteractionEnabled = false
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -90,6 +91,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)
                         self.actInd.stopAnimating()
+                        self.tableView.userInteractionEnabled = true
+
                 })
             },
             failure: {code,message -> Void in

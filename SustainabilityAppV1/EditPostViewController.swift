@@ -638,6 +638,8 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
     func editPostRequest() {
         actInd.startAnimating()
+        self.tableView.userInteractionEnabled = false
+
         var api_requester: AgoraRequester = AgoraRequester()
         var UIImageList = [image1.image,image2.image,image3.image]
         var imagesBase64:[String] = []
@@ -735,6 +737,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                     self.createAlert("Unable to connect to the server, please try again")
                     self.actInd.stopAnimating()
                     self.editOutlet.enabled = true
+                    self.tableView.userInteractionEnabled = true
                 })
             }
         )

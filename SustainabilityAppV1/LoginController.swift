@@ -22,6 +22,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     @IBAction func login(sender: AnyObject) {
         self.actInd.startAnimating()
+        self.view.userInteractionEnabled = false
         loginOutlet.enabled = false
         password.resignFirstResponder()
         email.resignFirstResponder()
@@ -90,7 +91,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
                     self.password.text = ""
                     self.loginOutlet.enabled = true
                     self.actInd.stopAnimating()
-
+                    self.view.userInteractionEnabled = true
                 })
             },
             badCreds: { () -> Void in
@@ -99,6 +100,8 @@ class LoginController: UIViewController,UITextFieldDelegate {
                     self.incorrectLoginLabel.text = "Incorrect username or password"
                     self.password.text = ""
                     self.loginOutlet.enabled = true
+                    self.view.userInteractionEnabled = true
+
                     self.actInd.stopAnimating()
                 })
             })

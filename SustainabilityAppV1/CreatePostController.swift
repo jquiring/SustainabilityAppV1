@@ -552,7 +552,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                     var alert = UIAlertController(title: "Unable to connect to server, please check your connection and try again", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                        self.dismissViewControllerAnimated(true, completion: nil)
                     }))
                 })
             }
