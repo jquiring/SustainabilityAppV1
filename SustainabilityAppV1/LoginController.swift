@@ -51,6 +51,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
                 NSUserDefaults.standardUserDefaults().setObject(parseJSON["phone"] as? String, forKey: "phone")
             }
         }
+        //TODO:should we set any of these differently in the newuser controller?
         NSUserDefaults.standardUserDefaults().setObject(true,forKey:"newFilterPerameters")
         NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
         NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
@@ -58,7 +59,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"min_price")
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"max_price")
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
-        NSUserDefaults.standardUserDefaults().setObject(["Books","Electronics","Household","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"],forKey:"categories")
+    NSUserDefaults.standardUserDefaults().setObject(["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"],forKey:"categories")
         if(parseJSON["exists"] as String == "yes"){
             
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)

@@ -25,7 +25,7 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
         self.baseURLst  = "http://147.222.165.3:8000/"
         self.baseHTTPSURLst = "https://147.222.165.3:8001/"
         self.seshConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-        seshConfig.timeoutIntervalForRequest = 20
+        seshConfig.timeoutIntervalForRequest = 60
         super.init()
     }
     

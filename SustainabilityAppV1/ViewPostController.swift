@@ -449,7 +449,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         else{
             mailComposerVC.setToRecipients([gonzaga_email_]) //zagmail
         }
-        mailComposerVC.setSubject("Inqury regarding " + title1 + "\n")
+        mailComposerVC.setSubject("Inquiry regarding " + title1 + "\n")
         mailComposerVC.setMessageBody("", isHTML: false)
         
         return mailComposerVC
@@ -480,7 +480,7 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
         
         //these need to be fixed
         messageComposeVC.recipients = [text_]
-        messageComposeVC.body = "Inqury Regarding " + title + "\n"
+        messageComposeVC.body = "Inquiry Regarding " + title + "\n"
         return messageComposeVC
     }
     

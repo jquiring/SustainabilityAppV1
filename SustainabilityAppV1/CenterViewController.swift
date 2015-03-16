@@ -17,7 +17,8 @@ protocol CenterViewControllerDelegate {
 
 class CenterViewController: UIViewController,  UITableViewDataSource,UITableViewDelegate {
     
-    
+    var cancelButton :UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     var refreshControl = UIRefreshControl()
     var needsReloading = true
     var bottomNeedsMore = true
@@ -30,12 +31,30 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var cellHeights = Dictionary<String,Int>()
     override func viewDidLoad() {
         super.viewDidLoad()
+        centerActInd.center = self.view.center
+        centerActInd.hidesWhenStopped = true
+        centerActInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.navigationController?.view.addSubview(centerActInd)
+        var r = self.view.bounds
+        var r2 = CGRect()
+        r2.size.width = r.width
+        r2.size.height = 28
+        cancelButton.bounds = r2
+        cancelButton.backgroundColor = UIColor.lightGrayColor()
+        cancelButton.setTitle("Filtered Search     X", forState: UIControlState.Normal)
+        cancelButton.addTarget(self, action: "cancelAction", forControlEvents: UIControlEvents.TouchUpInside)
+        cancelButton.center = CGPoint(x: self.view.bounds.width/2, y: 70)
+        cancelButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 18)
+        cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        //self.view.addSubview(cancelButton)
+        self.navigationController?.view.addSubview(cancelButton)
         if(!checkFilteredSearch()){
             println("isnt a filtered search")
-
+            cancelButton.hidden = true
         }
         else {
             println("is a filtered search")
+            cancelButton.hidden = false
         }
         self.table.addSubview(self.refreshControl)
         self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -44,23 +63,34 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        setUp("",older: "1",fromTop: "1")
+        setUp("",older: "1",fromTop: "1",fromNewFilter:false)
         setupTable()
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
     }
-    
+    func cancelAction(){
+        println("cancel clicked")
+        NSUserDefaults.standardUserDefaults().setObject("0",forKey:"free")
+        NSUserDefaults.standardUserDefaults().setObject("",forKey:"min_price")
+        NSUserDefaults.standardUserDefaults().setObject("",forKey:"max_price")
+        NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
+    NSUserDefaults.standardUserDefaults().setObject(["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"],forKey:"categories")
+        setUp("",older: "1",fromTop: "1",fromNewFilter:true)
+        self.table.reloadData()
+        cancelButton.hidden = true
+    }
     override func viewDidAppear(animated: Bool) {
         if(NSUserDefaults.standardUserDefaults().objectForKey("newFilterPerameters") as Bool){
             NSUserDefaults.standardUserDefaults().setObject(false,forKey:"newFilterPerameters")
-            setUp("",older: "1",fromTop: "1")
+            setUp("",older: "1",fromTop: "1",fromNewFilter:true)
             self.table.reloadData()
             if(!checkFilteredSearch()){
                 println("isnt a filtered search")
+                cancelButton.hidden = true
             }
             else {
-
+                cancelButton.hidden = false
             }
         }
         if(needsReloading){
@@ -84,8 +114,10 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
     }
     func didRefresh(){
-        setUp("",older: "1",fromTop: "1")
-        self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+        if(!centerActInd.isAnimating()){
+            setUp("",older: "1",fromTop: "1",fromNewFilter:false)
+            self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+        }
         
     }
     func upDatePosts(parseJSON:Dictionary<String,AnyObject>, date:String,older:String,fromTop:String){
@@ -132,19 +164,18 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
         self.table.reloadData()
     }
-    func setUp(date:String,older:String,fromTop:String){
+    func setUp(date:String,older:String,fromTop:String,fromNewFilter:Bool){
        
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        
+
         if(date == ""){
-            if(first_time) {
-                actInd.startAnimating()
+            if(first_time || fromNewFilter) {
+                centerActInd.startAnimating()
                 first_time = false
+                cancelButton.enabled = false
             }                                                                                                                    
         }
-        self.navigationController?.view.addSubview(actInd)
+        
         var api_requester: AgoraRequester = AgoraRequester()
         let categories = NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String]
         let keywordSearch:String = NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String
@@ -165,9 +196,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 dispatch_async(dispatch_get_main_queue(), {
                     self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop)
                     self.actInd.stopAnimating()
-                    actInd.stopAnimating()
+                    self.centerActInd.stopAnimating()
                     self.refreshControl.endRefreshing()
-                    self.postsLoaded = true})
+                    self.postsLoaded = true
+                    self.table.reloadData()
+                    self.cancelButton.enabled = true
+                })
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -260,7 +294,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             var currentOffset = scrollView.contentOffset.y;
             var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
             
-            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
+            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore && !centerActInd.isAnimating() && !refreshControl.refreshing){
                 var oldLength = arrayOfPosts.count - 1
                 bottomNeedsMore = false
                 //println("Time to reload table")
@@ -268,7 +302,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 //println(arrayOfPosts[oldLength - 1].date)
                 //send request for more posts
                 actInd.startAnimating()
-                setUp(arrayOfPosts[oldLength].date,older:"1",fromTop : "0")
+                setUp(arrayOfPosts[oldLength].date,older:"1",fromTop : "0",fromNewFilter:false)
                 //print("DATE" + arrayOfPosts[oldLength].date)
                 
                 //var indexes = [oldLength...self.arrayOfPosts.count]
