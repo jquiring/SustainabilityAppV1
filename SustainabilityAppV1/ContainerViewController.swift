@@ -62,6 +62,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
     }
     
     func toggleRightPanel() {
+        println("toggling panel right")
         let notAlreadyExpanded = (currentState != .RightPanelExpanded)
         
         if notAlreadyExpanded {
@@ -85,6 +86,8 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
     func addLeftPanelViewController() {
         if (leftViewController == nil) {
             leftViewController = UIStoryboard.leftViewController()
+   
+            
             addChildSidePanelController(leftViewController!)
         }
     }
@@ -92,11 +95,20 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
     func addRightPanelViewController() {
         if (rightViewController == nil) {
             rightViewController = UIStoryboard.rightViewController()
+            
             addChildSidePanelController(rightViewController!)
         }
     }
     
-    func addChildSidePanelController(sidePanelController: UIViewController) {
+    func addChildSidePanelController(sidePanelController: FilterViewController) {
+        sidePanelController.delegate = centerViewController
+        
+        view.insertSubview(sidePanelController.view, atIndex: 0)
+        
+        addChildViewController(sidePanelController)
+        sidePanelController.didMoveToParentViewController(self)
+    }
+    func addChildSidePanelController(sidePanelController: ProfileController) {
         
         view.insertSubview(sidePanelController.view, atIndex: 0)
         

@@ -8,9 +8,13 @@
 
 import UIKit
 
+@objc
+protocol FilterViewControllerDelegate {
+    func filterSelected()
+}
 class FilterViewController: UIViewController {
-    @IBOutlet var keywordOutlet: UITextField!
 
+    @IBOutlet var keywordOutlet: UITextField!
     @IBOutlet var maxpriceOutlet: UITextField!
     @IBOutlet var minpriceOutlet: UITextField!
     @IBOutlet var booksOutlet: UIButton!
@@ -23,6 +27,7 @@ class FilterViewController: UIViewController {
     @IBOutlet var eventsOutlet: UIButton!
     @IBOutlet var freeOutlet: UIButton!
     var categoryString = ""
+    var delegate:FilterViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
@@ -93,11 +98,9 @@ class FilterViewController: UIViewController {
         }
         if(freeOutlet.backgroundColor == UIColor.darkGrayColor()){
             NSUserDefaults.standardUserDefaults().setObject("1",forKey:"free")
-            println("setting free to a 1")
         }
         else{
             NSUserDefaults.standardUserDefaults().setObject("0",forKey:"free")
-            println("setting free to a 0")
         }
        
         NSUserDefaults.standardUserDefaults().setObject(keywordOutlet.text,forKey:"keyword")
@@ -111,8 +114,12 @@ class FilterViewController: UIViewController {
             
         NSUserDefaults.standardUserDefaults().setObject(categories,forKey:"categories")
         NSUserDefaults.standardUserDefaults().setObject(true,forKey:"newFilterPerameters")
-        self.dismissViewControllerAnimated(true, completion: nil)
-    
+        println("before")
+
+        delegate?.filterSelected()
+        println("after")
+      
+   
 
     }
     @IBAction func clothingAction(sender: AnyObject) {

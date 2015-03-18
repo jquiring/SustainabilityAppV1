@@ -9,14 +9,14 @@
 import UIKit
 
 @objc
-
 protocol CenterViewControllerDelegate {
-    optional func toggleLeftPanel()
+    optional  func toggleLeftPanel()
+    optional func toggleRightPanel()
     optional func collapseSidePanels()
 }
 
-class CenterViewController: UIViewController,  UITableViewDataSource,UITableViewDelegate {
-    
+class CenterViewController: UIViewController,  UITableViewDataSource,UITableViewDelegate,FilterViewControllerDelegate {
+    var delegate: CenterViewControllerDelegate?
     var cancelButton :UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
     var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     var refreshControl = UIRefreshControl()
@@ -98,6 +98,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             needsReloading = false
         }
     }
+
     func checkFilteredSearch() -> Bool {
         
         var max_price : String = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as String
@@ -113,6 +114,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             return false
         }
     }
+
     func didRefresh(){
         if(!centerActInd.isAnimating()){
             setUp("",older: "1",fromTop: "1",fromNewFilter:false)
@@ -224,13 +226,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     @IBAction func profile(sender: AnyObject) {
         if let d = delegate {
-            d.toggleLeftPanel?()
+            d.toggleLeftPanel!()
         }
     }
     
     @IBAction func filter(sender: AnyObject) {
         if let d = delegate {
-            //d.toggleRightPanel?()
+            d.toggleRightPanel!()
         }
     }
     
@@ -260,6 +262,18 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         
         return cell
         
+    }
+    func filterSelected(){
+        println("filter selected")
+        
+        if(!checkFilteredSearch()){
+            cancelButton.hidden = true
+        }
+        else{
+            cancelButton.hidden = false
+        }
+        setUp("",older: "1",fromTop: "1",fromNewFilter:true)
+        delegate?.collapseSidePanels?()
     }
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return actInd
@@ -329,12 +343,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             }
             
         }
+
     }
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var creatorLabel: UILabel!
     
-    var delegate: CenterViewControllerDelegate?
+    
 }
     
 
