@@ -302,7 +302,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view1.titleLabel!.font = UIFont(name: "HelveticaNeue-Light",size: 24)
         view1.setTranslatesAutoresizingMaskIntoConstraints(false)
         view1.backgroundColor = barColor
-        view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -22, 0)
+        view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -17, 0)
         view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         //view1.setTitleColor(color:UIColor.whiteColor(), forState: UIControlState.Normal)
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)

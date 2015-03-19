@@ -14,6 +14,7 @@ protocol FilterViewControllerDelegate {
 }
 class FilterViewController: UIViewController {
 
+    @IBOutlet var barLabel: UIButton!
     @IBOutlet var keywordOutlet: UITextField!
     @IBOutlet var maxpriceOutlet: UITextField!
     @IBOutlet var minpriceOutlet: UITextField!
@@ -37,6 +38,7 @@ class FilterViewController: UIViewController {
             categoryString = categoryString + string
         }
         setUpButtons()
+        barLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, -23, 0)
         // Do any additional setup after loading the view.
     }
     @IBAction func freeAction(sender: AnyObject) {
