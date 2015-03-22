@@ -153,9 +153,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     
     @IBAction func bumpButton(sender: AnyObject) {
         self.bumpPost(arrayOfPosts[sender.tag].category,post_id: arrayOfPosts[sender.tag].id,tag:sender.tag)
-       
-        println("post bumped")
     }
+    
     @IBAction func edit(sender: AnyObject) {
         
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
@@ -172,6 +171,17 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
 
 
     }
+    
+    @IBAction func tweets(sender: AnyObject) {
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("twttr") as TwitterTableViewController
+        let navController = UINavigationController(rootViewController: VC1)
+        // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.presentViewController(navController, animated:true, completion: nil)
+        
+        
+    }
+
+    
     @IBAction func logout(sender: AnyObject) {
         
         var alert = UIAlertController(title:nil, message: "Are you sure you wish to logout?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -348,7 +358,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         twitterFeed.titleLabel!.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
         twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
         twitterFeed.backgroundColor = backgroundColor
-        twitterFeed.userInteractionEnabled = false
+        twitterFeed.addTarget(self, action: "tweets:", forControlEvents: UIControlEvents.TouchUpInside)
+        //twitterFeed.userInteractionEnabled = false
         twitterFeed.backgroundColor = UIColor.whiteColor()
         let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let twitterFeed_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[twitterFeed(twitterFeedHeight)]", options:

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CA0F9D6A1A7EBA3900BA7AA3 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */; };
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
-		CA2E276D1AA3D5F900A9C8CD /* TwitterRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2E276C1AA3D5F900A9C8CD /* TwitterRequester.swift */; };
 		CA4C2EA01A78659100070B3B /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		CA4C2EA11A78662B00070B3B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
 		CA4C2EA21A78662E00070B3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
@@ -25,6 +24,14 @@
 		CA4C2EAC1A78664700070B3B /* ListPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84B53DF1A69C910002E9597 /* ListPost.swift */; };
 		CA4C2EAD1A78664A00070B3B /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE49241A1D5D9E00070211 /* CreatePostController.swift */; };
 		CA4C2EAE1A78664C00070B3B /* ViewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A99C4F1A2D6DBD004245DB /* ViewPostController.swift */; };
+		CAAF33A21ABF5C310042EBFA /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAF339F1ABF5C310042EBFA /* TwitterKit.framework */; };
+		CAAF33A31ABF5C310042EBFA /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAF339F1ABF5C310042EBFA /* TwitterKit.framework */; };
+		CAAF33A41ABF5C310042EBFA /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CAAF33A01ABF5C310042EBFA /* TwitterKitResources.bundle */; };
+		CAAF33A51ABF5C310042EBFA /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CAAF33A01ABF5C310042EBFA /* TwitterKitResources.bundle */; };
+		CAAF33A61ABF5C310042EBFA /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAF33A11ABF5C310042EBFA /* Fabric.framework */; };
+		CAAF33A71ABF5C310042EBFA /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAF33A11ABF5C310042EBFA /* Fabric.framework */; };
+		CAAF33A91ABF5F700042EBFA /* TwitterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF33A81ABF5F700042EBFA /* TwitterTableViewController.swift */; };
+		CAAF33AA1ABF5F700042EBFA /* TwitterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF33A81ABF5F700042EBFA /* TwitterTableViewController.swift */; };
 		CAB51B0D1A8C0EEA001A7805 /* PlusDark.png in Resources */ = {isa = PBXBuildFile; fileRef = CAB51B0C1A8C0EEA001A7805 /* PlusDark.png */; };
 		CAF78C9C1A196A1E00787075 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
 		F811B15319FECE34005EDE59 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
@@ -69,7 +76,10 @@
 /* Begin PBXFileReference section */
 		CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
-		CA2E276C1AA3D5F900A9C8CD /* TwitterRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterRequester.swift; sourceTree = "<group>"; };
+		CAAF339F1ABF5C310042EBFA /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		CAAF33A01ABF5C310042EBFA /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		CAAF33A11ABF5C310042EBFA /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		CAAF33A81ABF5F700042EBFA /* TwitterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterTableViewController.swift; sourceTree = "<group>"; };
 		CAB51B0C1A8C0EEA001A7805 /* PlusDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlusDark.png; sourceTree = "<group>"; };
 		CAF78C9B1A196A1E00787075 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		F811B15219FECE34005EDE59 /* NewUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
@@ -106,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAAF33A21ABF5C310042EBFA /* TwitterKit.framework in Frameworks */,
+				CAAF33A61ABF5C310042EBFA /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +125,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAAF33A31ABF5C310042EBFA /* TwitterKit.framework in Frameworks */,
+				CAAF33A71ABF5C310042EBFA /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +139,9 @@
 				F892C94719F59B4200113C26 /* SustainabilityAppV1 */,
 				F892C95D19F59B4200113C26 /* SustainabilityAppV1Tests */,
 				F892C94619F59B4100113C26 /* Products */,
+				CAAF339F1ABF5C310042EBFA /* TwitterKit.framework */,
+				CAAF33A01ABF5C310042EBFA /* TwitterKitResources.bundle */,
+				CAAF33A11ABF5C310042EBFA /* Fabric.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,7 +180,7 @@
 				F8A4B86D1A707D6D00A420E7 /* Regex.swift */,
 				F88E9A991AA1381A00F39336 /* FilterViewController.swift */,
 				F861EFCC1A896FCB001681A4 /* FieldValidator.swift */,
-				CA2E276C1AA3D5F900A9C8CD /* TwitterRequester.swift */,
+				CAAF33A81ABF5F700042EBFA /* TwitterTableViewController.swift */,
 				F892C94819F59B4200113C26 /* Supporting Files */,
 			);
 			path = SustainabilityAppV1;
@@ -207,6 +224,7 @@
 				F892C94119F59B4100113C26 /* Sources */,
 				F892C94219F59B4100113C26 /* Frameworks */,
 				F892C94319F59B4100113C26 /* Resources */,
+				CAAF339E1ABF5C130042EBFA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -283,6 +301,7 @@
 				F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */,
 				CAB51B0D1A8C0EEA001A7805 /* PlusDark.png in Resources */,
 				F892C95219F59B4200113C26 /* Images.xcassets in Resources */,
+				CAAF33A41ABF5C310042EBFA /* TwitterKitResources.bundle in Resources */,
 				CA236AD119F5C80400B566CB /* Leaf.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,10 +310,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAAF33A51ABF5C310042EBFA /* TwitterKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CAAF339E1ABF5C130042EBFA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run c3e11e641dff52447f7e8e8f4168f5d6f663c400 d6f5d3f5e9d21d06bc3a2749292cfd27951dba3790fbc74afd27081900e12720";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F892C94119F59B4100113C26 /* Sources */ = {
@@ -311,6 +347,7 @@
 				F84B53E21A69CB2E002E9597 /* ListPostCell.swift in Sources */,
 				F8E426211A02EF0500B93D37 /* CenterViewController.swift in Sources */,
 				F8A4B86E1A707D6D00A420E7 /* Regex.swift in Sources */,
+				CAAF33A91ABF5F700042EBFA /* TwitterTableViewController.swift in Sources */,
 				F84B53E01A69C910002E9597 /* ListPost.swift in Sources */,
 				F840537C1A07025A007D671A /* ContainerViewController.swift in Sources */,
 				F892C94B19F59B4200113C26 /* AppDelegate.swift in Sources */,
@@ -321,7 +358,6 @@
 				F840537E1A070ED5007D671A /* ProfileController.swift in Sources */,
 				F8AE49251A1D5D9E00070211 /* CreatePostController.swift in Sources */,
 				CA0F9D6A1A7EBA3900BA7AA3 /* EditPostViewController.swift in Sources */,
-				CA2E276D1AA3D5F900A9C8CD /* TwitterRequester.swift in Sources */,
 				F8E90E1F1A70740A00B57AF4 /* LoadingOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +371,7 @@
 				F892C96119F59B4200113C26 /* SustainabilityAppV1Tests.swift in Sources */,
 				CA4C2EA11A78662B00070B3B /* LoginController.swift in Sources */,
 				F89833381A8C20EE001865E8 /* AgoraRequester.swift in Sources */,
+				CAAF33AA1ABF5F700042EBFA /* TwitterTableViewController.swift in Sources */,
 				CA4C2EAB1A78664500070B3B /* ListPostCell.swift in Sources */,
 				CA4C2EAC1A78664700070B3B /* ListPost.swift in Sources */,
 				CA4C2EA01A78659100070B3B /* NewUserController.swift in Sources */,
@@ -501,6 +538,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -520,6 +558,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SustainabilityAppV1Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
