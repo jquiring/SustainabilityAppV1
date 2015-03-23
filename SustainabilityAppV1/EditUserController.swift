@@ -18,7 +18,7 @@ class EditUserController: UIViewController {
     @IBOutlet weak var last_name_field: UITextField!
     @IBOutlet weak var phone_number: UITextField!
     @IBOutlet weak var email: UITextField!
-    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 300, 300)) as UIActivityIndicatorView
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
 
     
     @IBAction func save(sender: AnyObject){
@@ -91,7 +91,7 @@ class EditUserController: UIViewController {
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.error_label.text = "Unable to connect to the server, please try again"
+                        self.error_label.text = "Connection error, check signal and try again"
                         self.view.userInteractionEnabled = false
 
                         self.error_label.hidden = false

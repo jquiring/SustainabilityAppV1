@@ -99,7 +99,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 self.actInd.stopAnimating()
                 if(code == 400){
                     self.actInd.stopAnimating()
-                    var alert = UIAlertController(title: "This post no longer exists, please refresh or logout and log back in", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    var alert = UIAlertController(title: "This post no longer exists", message: "Pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                         self.dismissViewControllerAnimated(true, completion: nil)
@@ -109,7 +109,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 else {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.actInd.stopAnimating()
-                        var alert = UIAlertController(title: "Unable to connect to server, please check your connection and try again", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                        var alert = UIAlertController(title: "Connection error", message: "Check signal and try", preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                             self.dismissViewControllerAnimated(true, completion: nil)
@@ -119,8 +119,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             }
         )
     }
-    func createAlert(message:String){
-        var alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+    func createAlert(message:String, title:String?){
+        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         self.presentViewController(alert, animated: true, completion: nil)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
         }))
@@ -291,25 +291,25 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             success: {parseJSON -> Void in
                 if(parseJSON["reported"] as String == "1"){
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.createAlert("The post has been reported, Thank you for your help in keeping ZigZaga appropriate")
+                        self.createAlert("Thank you for helping keep ZigZaga appropriate",title:"The post has been reported")
                     })
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.createAlert("You have already reported this post")
+                        self.createAlert("You have already reported this post",title:nil)
                     })
                 }
                 
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.createAlert("Unable to connect to the server, please check your connection and try again")
+                    self.createAlert("Check signal and try again",title:"Connection error" )
                 })
         })
     }
     @IBAction func reportPost(sender: AnyObject){
-        let alertController = UIAlertController(title: "Are you sure you wish to report this post for inappropriate content?", message:
-            nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: nil, message:
+             "Are you sure you wish to report this post for inappropriate content?", preferredStyle: UIAlertControllerStyle.Alert)
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in

@@ -475,7 +475,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         return 24
     }
     func createAlert(message:String){
-        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        var alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         self.presentViewController(alert, animated: true, completion: nil)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
         }))
@@ -602,7 +602,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 dispatch_async(dispatch_get_main_queue(), {
                     if(code == 400){
                         self.actInd.stopAnimating()
-                        var alert = UIAlertController(title: "This post no longer exists, please refresh or logout and log back in", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                        var alert = UIAlertController(title: "This post no longer exists", message: "Please refresh or logout and log back in", preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                             self.dismissViewControllerAnimated(true, completion: nil)
@@ -611,7 +611,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                     }
                     else {
                         actInd.stopAnimating()
-                        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        var alert = UIAlertController(title: "Connection error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                         }))
@@ -734,7 +734,10 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.createAlert("Unable to connect to the server, please try again")
+                    var alert = UIAlertController(title: "Connection Error", message: "Check signal and try again", preferredStyle: UIAlertControllerStyle.Alert)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                    }))
                     self.actInd.stopAnimating()
                     self.editOutlet.enabled = true
                     self.tableView.userInteractionEnabled = true

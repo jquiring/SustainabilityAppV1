@@ -549,7 +549,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 dispatch_async(dispatch_get_main_queue(), {
                     self.createOutlet.enabled = true
                     self.actInd.stopAnimating()
-                    var alert = UIAlertController(title: "Unable to connect to server, please check your connection and try again", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    var alert = UIAlertController(title: "Connection error", message: "check signal and try again", preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                     }))
@@ -561,7 +561,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         
     }
     func createAlert(message:String){
-        var alert = UIAlertController(title: "Warning", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        var alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         self.presentViewController(alert, animated: true, completion: nil)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
         }))

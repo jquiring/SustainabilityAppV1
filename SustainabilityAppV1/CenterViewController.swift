@@ -19,6 +19,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var delegate: CenterViewControllerDelegate?
     var cancelButton :UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
     var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+    //TODO:MAKE SURE NO DUPLICATE REQUESTS 
     var refreshControl = UIRefreshControl()
     var needsReloading = true
     var bottomNeedsMore = true
@@ -208,6 +209,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.actInd.stopAnimating()
+                    self.centerActInd.stopAnimating()
+                    self.refreshControl.endRefreshing()
                     var alert = UIAlertController(title: "Warning", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
@@ -297,7 +300,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         else if(postsLoaded && arrayOfPosts.count == 0){
             var label:UILabel = UILabel()
             label.frame = CGRectMake(0,0,self.view.bounds.width,self.view.bounds.height)
-            label.text = "No data is currently available. Please pull down to refresh or change search constraints"
+            label.text = "No posts available. Pull down to refresh or change search constraints"
             label.textColor = UIColor.blackColor()
             label.textAlignment = NSTextAlignment.Center
             label.numberOfLines = 0

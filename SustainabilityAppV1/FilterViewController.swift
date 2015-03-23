@@ -72,57 +72,87 @@ class FilterViewController: UIViewController {
             recreationOutlet.setTitle("  ✓ Recreation ", forState: nil)
         }
     }
+    func validatePrice(min:String,max:String) -> String{
+        if(min == "" && max == ""){
+            return "1"
+        }
+        if(!isNumeric(min) && min != ""){
+            return "Please enter a valid minimum price"
+        }
+        if(!isNumeric(max) && max != ""){
+            return "Please enter a valid maximum price"
+        }
+        if(min != "" && max != "" && min.toInt() > max.toInt()){
+            return "Please enter a minimum price lower than maximum"
+        }
+        return "1"
+    }
     @IBAction func submitAction(sender: AnyObject) {
-        var categories:[AnyObject] = []
-        if(booksOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Books")
-        }
-        if(electronicsOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Electronics")
-        }
-        if(householdOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Household")
-        }
-        if(rideshareOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Rideshares")
-        }
-        if(servicesOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Services")
-        }
-        if(eventsOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Events")
-        }
-        if(recreationOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Recreation")
-        }
-        if(clothingOutlet.backgroundColor == UIColor.darkGrayColor()){
-            categories.append("Clothing")
-        }
-        if(freeOutlet.backgroundColor == UIColor.darkGrayColor()){
-            NSUserDefaults.standardUserDefaults().setObject("1",forKey:"free")
+        var message  = validatePrice(minpriceOutlet.text, max: maxpriceOutlet.text)
+        if( message == "1"){
+            var categories:[AnyObject] = []
+            if(booksOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Books")
+            }
+            if(electronicsOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Electronics")
+            }
+            if(householdOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Household")
+            }
+            if(rideshareOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Rideshares")
+            }
+            if(servicesOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Services")
+            }
+            if(eventsOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Events")
+            }
+            if(recreationOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Recreation")
+            }
+            if(clothingOutlet.backgroundColor == UIColor.darkGrayColor()){
+                categories.append("Clothing")
+            }
+            if(freeOutlet.backgroundColor == UIColor.darkGrayColor()){
+                NSUserDefaults.standardUserDefaults().setObject("1",forKey:"free")
+            }
+            else{
+                NSUserDefaults.standardUserDefaults().setObject("0",forKey:"free")
+            }
+           
+            NSUserDefaults.standardUserDefaults().setObject(keywordOutlet.text,forKey:"keyword")
+            
+            
+            NSUserDefaults.standardUserDefaults().setObject(maxpriceOutlet.text,forKey:"max_price")
+            
+            
+           
+            NSUserDefaults.standardUserDefaults().setObject(minpriceOutlet.text,forKey:"min_price")
+                
+            NSUserDefaults.standardUserDefaults().setObject(categories,forKey:"categories")
+            NSUserDefaults.standardUserDefaults().setObject(true,forKey:"newFilterPerameters")
+            println("before")
+
+            delegate?.filterSelected()
+            println("after")
         }
         else{
-            NSUserDefaults.standardUserDefaults().setObject("0",forKey:"free")
+            var alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            }))
         }
-       
-        NSUserDefaults.standardUserDefaults().setObject(keywordOutlet.text,forKey:"keyword")
-        
-        
-        NSUserDefaults.standardUserDefaults().setObject(maxpriceOutlet.text,forKey:"max_price")
-        
-        
-       
-        NSUserDefaults.standardUserDefaults().setObject(minpriceOutlet.text,forKey:"min_price")
-            
-        NSUserDefaults.standardUserDefaults().setObject(categories,forKey:"categories")
-        NSUserDefaults.standardUserDefaults().setObject(true,forKey:"newFilterPerameters")
-        println("before")
-
-        delegate?.filterSelected()
-        println("after")
-      
    
 
+    }
+    func isNumeric(a: String) -> Bool {
+        if let n = a.toInt() {
+            return true
+        } else {
+            return false
+        }
     }
     @IBAction func clothingAction(sender: AnyObject) {
         if(clothingOutlet.backgroundColor == UIColor.darkGrayColor()){
@@ -270,5 +300,12 @@ class FilterViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        //do we need both?
+        minpriceOutlet.resignFirstResponder()
+        maxpriceOutlet.resignFirstResponder()
+        keywordOutlet.resignFirstResponder()
+        
     }
 }

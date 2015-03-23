@@ -120,7 +120,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
                         self.warningLabel.hidden = false
                         self.view.userInteractionEnabled = true
 
-                        self.warningLabel.text = "Unable to connect to the sever, please try again"
+                        self.warningLabel.text = "Connection error, check signal and try again"
 
                     })
 

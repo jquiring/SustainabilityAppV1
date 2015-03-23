@@ -22,7 +22,8 @@ class LoginController: UIViewController,UITextFieldDelegate {
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     @IBAction func login(sender: AnyObject) {
         self.actInd.startAnimating()
-        self.view.userInteractionEnabled = false
+        println("should be animating")
+        //self.view.userInteractionEnabled = false
         loginOutlet.enabled = false
         password.resignFirstResponder()
         email.resignFirstResponder()
@@ -87,7 +88,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.incorrectLoginLabel.hidden = false
-                    self.incorrectLoginLabel.text = "Problem connecting to the server, check connection and try again"
+                    self.incorrectLoginLabel.text = "Connection error, check signal and try again"
                     self.password.text = ""
                     self.loginOutlet.enabled = true
                     self.actInd.stopAnimating()
@@ -117,7 +118,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.navigationController?.view.addSubview(actInd)
-
+        println("view did load")
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
