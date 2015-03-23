@@ -21,11 +21,13 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var category :String?
     var id:String?
     var firstAppear = true
+    var iconRefresh : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-    var centerLoad : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+    var centerLoad : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,30, 25, 25)) as UIActivityIndicatorView
     //NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
     var bottomNeedsMore = NSUserDefaults.standardUserDefaults().objectForKey("moreUserPosts") as Bool
     var firstLoad = NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool
+    var refreshControl = UIRefreshControl()
     func setUpPosts(fromAppear:Bool){
         if(fromAppear){
             arrayOfPosts = []
@@ -39,13 +41,21 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }
         }
     }
-
+    func didRefresh(){
+        if(!actInd.isAnimating() && !centerLoad.isAnimating()){
+            getMorePosts("",older:"1",fromTop:true,refresh:true)
+        }
+        else{
+            refreshControl.endRefreshing()
+        }
+    }
     @IBAction func deleteSelected(sender: AnyObject) {
+        
         let cat:String = arrayOfPosts[sender.tag].category as String
         let id:String = arrayOfPosts[sender.tag].id as String
         
-        let alertController = UIAlertController(title: "Are you sure you wish to delete " + arrayOfPosts[sender.tag].title  + "?", message:
-            nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: nil, message:
+            "Are you sure you wish to delete " + arrayOfPosts[sender.tag].title  + "?", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
@@ -58,9 +68,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         
     }
     func bumpUI(sender:Int,refreshed:String,date:String){
+        
         if(refreshed == "1"){
-            let alertController = UIAlertController(title: "Your post has been bumped", message:
-                nil, preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: nil, message:
+                "Your post has been bumped", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
                
                 let bumped_post = self.arrayOfPosts[sender]
@@ -78,8 +89,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             presentViewController(alertController, animated: true, completion: nil)
         }
         else{
-            let alertController = UIAlertController(title: "Your post has was not bumped you have already done that today, try again tomorrow", message:
-            nil, preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "Your post was not bumped" , message:
+            "You have already done that today, you may bump the post again tomorrow", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             }))
             presentViewController(alertController, animated: true, completion: nil)
@@ -87,6 +98,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         }
     }
     func bumpPost(category:String,post_id:String,tag:Int){
+        
         var api_requester: AgoraRequester = AgoraRequester()
         let params = ["post_id":post_id, "category":category]
         api_requester.POST("refreshpost/", params: params,
@@ -107,8 +119,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         self.arrayOfPosts.removeAtIndex(sender)
         
         
-        let alertController = UIAlertController(title: "Your post has been deleted", message:
-            nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: nil , message:
+            "Your post has been deleted", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             self.table.reloadData()
             
@@ -129,8 +141,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    let alertController = UIAlertController(title: "Your post has been deleted", message:
-                        nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    let alertController = UIAlertController(title: "Connection error", message:
+                        "Your post was not deleted, check signal and try again", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
                 
                     }))
@@ -218,10 +230,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }*/
 
     override func viewDidAppear(animated: Bool) {
-        setUpPosts(true)
-       // makeLayout()
-
-        table.reloadData()
+        if(NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool){
+            setUpPosts(true)
+            println("view did appear");
+            table.reloadData()
+            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
+        }
     }
 
     override func viewDidLoad() {
@@ -229,24 +243,29 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         self.table.registerClass(UITableViewCell.self,forCellReuseIdentifier:"cell")
         table.dataSource = self
         table.delegate = self
-        centerLoad.center = self.view.center
+        centerLoad.center = CGPoint(x:self.view.center.x - 30 , y:self.view.center.y)
         centerLoad.hidesWhenStopped = true
         centerLoad.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        iconRefresh.hidesWhenStopped = true
+        iconRefresh.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.table.addSubview(centerLoad)
+        self.table.addSubview(self.refreshControl)
+        self.refreshControl.addTarget(self, action: "didRefresh", forControlEvents: UIControlEvents.ValueChanged)
         makeLayout()
         
         if(firstLoad){
             centerLoad.startAnimating()
             arrayOfPosts = []
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
-            getMorePosts("", older: "1", fromTop: true)
+            getMorePosts("", older: "1", fromTop: true,refresh:false)
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
             self.setUpPosts(false)
             
             table.reloadData()
 
         }
-        
+        setUpPosts(true)
+        table.reloadData()
         //view.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         //table.preformSeg
@@ -462,7 +481,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 label.text = "Loading your posts"
             }
             else{
-                label.text = "You currently have no posts"
+                label.text = "No posts currently loaded"
             }
             label.textColor = UIColor.blackColor()
             label.textAlignment = NSTextAlignment.Center
@@ -487,7 +506,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    func getMorePosts(date:String,older:String,fromTop:Bool){
+    func getMorePosts(date:String,older:String,fromTop:Bool,refresh:Bool){
         var api_requester: AgoraRequester = AgoraRequester()
         if(!fromTop){
             actInd.startAnimating()
@@ -504,9 +523,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         api_requester.POST("userposts/",params:params,
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.updatePosts(parseJSON)})
+                    self.updatePosts(parseJSON,refresh: refresh)})
             },
             failure: {code,message -> Void in
+                self.refreshControl.endRefreshing()
+                self.actInd.stopAnimating()
+                self.centerLoad.stopAnimating()
                 if(code == 500){
                     //server error
                 }
@@ -517,6 +539,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     //no internet connection
                 }
             }
+            
         )
     }
     /*
@@ -530,11 +553,23 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         table.reloadData()
     }
     */
-    func updatePosts(parseJSON:NSDictionary){
+    func updatePosts(parseJSON:NSDictionary,refresh:Bool){
+        if(refresh){
+            arrayOfPosts = []
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
+
+        }
         let posts: AnyObject = parseJSON["posts"]!
         let more = parseJSON["more_exist"] as String //1 or zero
 
         let recent_del: String = parseJSON["recent_post_deletion"] as String
+        if(recent_del == "1"){
+            let alertController = UIAlertController(title: "A post of yours over three weeks old has been deleted" , message:
+                "Bump your posts before three weeks if you wish to avoid this in the future", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
+        }
         if posts.count > 0{
             for i in 0...(posts.count - 1){
                 let post: AnyObject! = posts[i]
@@ -569,6 +604,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "moreUserPosts")
             bottomNeedsMore = false
         }
+        refreshControl.endRefreshing()
         table.needsUpdateConstraints()
         table.reloadData()
 
@@ -581,7 +617,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             var currentOffset = scrollView.contentOffset.y;
             var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
             
-            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore){
+            if(maximumOffset - currentOffset <= 15 && bottomNeedsMore && !refreshControl.refreshing){
                 self.actInd.startAnimating()
                 var oldLength = arrayOfPosts.count - 1
                 bottomNeedsMore = false
@@ -590,7 +626,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 println(arrayOfPosts[oldLength - 1].date)
                 //send request for more posts
                 //actInd.startAnimating()
-                getMorePosts(arrayOfPosts[oldLength].date,older:"1",fromTop:false)
+                getMorePosts(arrayOfPosts[oldLength].date,older:"1",fromTop:false,refresh:false)
                 
                 //var indexes = [oldLength...self.arrayOfPosts.count]
                 //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)

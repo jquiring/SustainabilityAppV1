@@ -117,11 +117,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
 
     func didRefresh(){
-        if(!centerActInd.isAnimating()){
+        if(!centerActInd.isAnimating() && !actInd.isAnimating()){
             setUp("",older: "1",fromTop: "1",fromNewFilter:false)
             self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
         }
-        
+        else{
+            refreshControl.endRefreshing()
+        }
     }
     func upDatePosts(parseJSON:Dictionary<String,AnyObject>, date:String,older:String,fromTop:String){
         let posts: AnyObject = parseJSON["posts"]!
@@ -211,7 +213,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                     self.actInd.stopAnimating()
                     self.centerActInd.stopAnimating()
                     self.refreshControl.endRefreshing()
-                    var alert = UIAlertController(title: "Warning", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
+                    var alert = UIAlertController(title: "Connection error", message: "Check signal then pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                     }))
@@ -267,6 +269,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         
     }
     func filterSelected(){
+        //TODO: Sending this request while there is another request already happening?
         println("filter selected")
         
         if(!checkFilteredSearch()){
