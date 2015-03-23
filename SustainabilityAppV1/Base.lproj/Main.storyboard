@@ -517,7 +517,7 @@
                     <navigationItem key="navigationItem" title="Create Your Account" id="4g7-y5-Yuv">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="d1m-36-7HY">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="show" id="eQ4-qM-TJ8"/>
+                                <segue destination="vXZ-lx-hvc" kind="showDetail" id="eQ4-qM-TJ8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -849,7 +849,7 @@
         <!--Terms and Agreements-->
         <scene sceneID="TKg-P2-vvD">
             <objects>
-                <viewController title="Terms and Agreements" id="UcG-P1-DXl" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaA" title="Terms and Agreements" id="UcG-P1-DXl" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DiC-6z-Qg3"/>
                         <viewControllerLayoutGuide type="bottom" id="XpV-I4-mhw"/>
@@ -857,8 +857,63 @@
                     <view key="view" contentMode="scaleToFill" id="hFi-cx-TPW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" keyboardDismissMode="onDrag" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcO-iF-qS2">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">WELCOME TO ZIGZAGA. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "ZZ"), you agree to these Terms of Use ("TOU"), last updated March 18th, 2015.
+
+LICENSE. If you are 18 or older, and either a student, faculty member, or alumni we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access ZZ in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from ZZ, excluding content you create and sharing with friends/family. 
+
+USE. You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with ZZ, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users' personal and/or contact information ("PI"). You agree not to post inappropriate pictures or content on our app. 
+MODERATION. You agree we may moderate ZZ access and use in our sole discretion, e.g. by blocking (e.g. Specific Zagmail Accounts), filtering, deletion, delay, omission, verification, and/or access/account/license termination. You agree (1) not to bypass said moderation, (2) we are not liable for moderating, not moderating, or representations as to moderating, and (3) nothing we say or do waives our right to moderate, or not.
+Possible reasons for a post to be removed:
+Inappropriate posts that have been reported more than two times will be removed
+Older posts that have not been refreshed in 31 days will be removed.
+
+To the extent permitted by law, (1) we make no promise as to ZZ, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and ZZ is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your ZZ use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("ZZ ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) ZZ ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); </mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="25" y="81" width="350" height="1019"/>
+                                </variation>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dcO-iF-qS2" firstAttribute="leading" secondItem="hFi-cx-TPW" secondAttribute="leadingMargin" id="1z8-dm-RrL">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstItem="XpV-I4-mhw" firstAttribute="top" secondItem="dcO-iF-qS2" secondAttribute="bottom" id="5mo-qE-4Uy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dcO-iF-qS2" secondAttribute="trailing" id="7OB-tq-JCN">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstItem="dcO-iF-qS2" firstAttribute="top" secondItem="DiC-6z-Qg3" secondAttribute="bottom" id="SKc-ew-hdI"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="dcO-iF-qS2"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="1z8-dm-RrL"/>
+                                <exclude reference="7OB-tq-JCN"/>
+                                <exclude reference="SKc-ew-hdI"/>
+                                <exclude reference="5mo-qE-4Uy"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="dcO-iF-qS2"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="1z8-dm-RrL"/>
+                                <include reference="7OB-tq-JCN"/>
+                                <include reference="SKc-ew-hdI"/>
+                                <include reference="5mo-qE-4Uy"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="PkG-cg-5wN"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HKI-mc-4en" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -910,18 +965,12 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="104" y="90" width="207" height="20"/>
-                                                    </variation>
                                                 </label>
                                                 <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akL-lz-rVP">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="112" y="17" width="199" height="20"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -985,7 +1034,7 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="1" y="-1" width="398" height="801"/>
+                                    <rect key="frame" x="1" y="-45" width="398" height="845"/>
                                 </variation>
                             </tableView>
                         </subviews>
@@ -1290,7 +1339,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="2Lx-xs-YLT" kind="relationship" relationship="rootViewController" id="xDL-Cu-Cd3"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="lKo-iQ-m06"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2728,6 +2777,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="twttr" id="2Lx-xs-YLT" customClass="TwitterTableViewController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4fO-VP-hhs">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
