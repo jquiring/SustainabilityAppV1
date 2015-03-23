@@ -539,12 +539,10 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                     new_post = ProfilePost(title: title, id: stringid,cat:category_,date:date)
                 }
                 new_post.upDateNSData(true)
-                dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(dispatch_get_main_queue(), {self.dismissViewControllerAnimated(true, completion: nil)
                     self.actInd.stopAnimating()
-                    NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
-                    self.dismissViewControllerAnimated(true, completion: nil)
-
                 })
+                not_ready = false
                 
             },
             failure: {code,message -> Void in

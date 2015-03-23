@@ -634,7 +634,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         current_posts.removeAtIndex(the_index)
         current_posts.insert(new_post, atIndex: the_index)
         NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
-        NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     func editPostRequest() {
@@ -731,6 +730,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                     self.updateNSData(defaultImage!,date:parseJSON["post_date_time"] as String)
                     self.actInd.stopAnimating()
                 })
+                not_ready = false
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {

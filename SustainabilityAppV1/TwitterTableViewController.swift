@@ -18,7 +18,8 @@ class TwitterTableViewController: UITableViewController , TWTRTweetViewDelegate 
             tweetTable.reloadData()
         }
     }
-    let tweetIDs = ["20"] // our favorite bike Tweet
+    let tweetIDs = ["20", // @jack's first Tweet
+        "510908133917487104"] // our favorite bike Tweet
     
     @IBOutlet var tweetTable: UITableView!
     override func viewDidLoad() {
@@ -36,7 +37,6 @@ class TwitterTableViewController: UITableViewController , TWTRTweetViewDelegate 
                 println("Failed to load tweets: \(error.localizedDescription)")
             }
         }
-        tweetTable.reloadData()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
