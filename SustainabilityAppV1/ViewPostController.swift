@@ -63,7 +63,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        toggleHidden()
         self.tableView.reloadData()
+       
         description_label.numberOfLines = 0
         trip_location_label.numberOfLines = 0
         depature_date_label.numberOfLines = 0
@@ -75,11 +77,13 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     
     func startRequest() {
-        self.tableView.userInteractionEnabled = false
+ 
+        //self.tableView.userInteractionEnabled = false
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         actInd.startAnimating()
+        self.tableView.reloadData()
         self.navigationController?.view.addSubview(actInd)
         var api_requester: AgoraRequester = AgoraRequester()
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
@@ -141,6 +145,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
     }
     func updateUI(parseJSON:NSDictionary){
+        toggleHidden()
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         self.title1 = parseJSON["title"] as String
         gonzaga_email_ = parseJSON["gonzaga_email"] as String
@@ -223,9 +228,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.pageImages.append(image3!)
         }
         createScroll()
-        if(pageImages.count == 1) {
-            pages.hidden  =  true
-        }
+
         pages.currentPage = 0
         pages.numberOfPages = pageImages.count
         self.tableView.reloadData()
@@ -331,81 +334,196 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
-        
-        //This needs to be only the picture cell
-        if(indexPath.section == 0 && indexPath.row == 0 ){
-            return scrollViewWidth + 20
-        }
-        //Contact options section
         if(indexPath.section == 1){
             return 77
         }
-        if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "")){
-            self.price_text.hidden = true
+        if(indexPath.section == 0 && indexPath.row == 0 ){
+            return scrollViewWidth + 20
+        }
+        if(!actInd.isAnimating()){
+            //This needs to be only the picture cell
+
+            //Contact options section
+  
+            if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "")){
+                self.price_text.hidden = true
+                return 0
+            }
+            //Description
+            if(indexPath.section == 0 && indexPath.row == 2 && description_label.text == ""){
+                self.description_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 2){
+                var return_val = heightForView(description_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            //Hiding post specific information based upon category
+            if(indexPath.section == 0 && indexPath.row == 3 && round_trip_label.text == ""){
+                self.round_trip_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 4 && trip_location_label.text == ""){
+                self.trip_location_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 4){
+                var return_val = heightForView(trip_location_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            if(indexPath.section == 0 && indexPath.row == 5 && depature_date_label.text == ""){
+                self.depature_date_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 5){
+                var return_val = heightForView(depature_date_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            if(indexPath.section == 0 && indexPath.row == 6 && return_date_label.text == ""){
+                self.return_date_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 6){
+                var return_val = heightForView(return_date_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            if(indexPath.section == 0 && indexPath.row == 7 && isbn_label.text == ""){
+                self.isbn_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 8 && location_label.text == ""){
+                self.location_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 8){
+                var return_val = heightForView(location_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            
+            if(indexPath.section == 0 && indexPath.row == 9 && date_time_label.text == ""){
+                self.date_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 9){
+                var return_val = heightForView(date_time_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            return 30
+        }
+        else{
             return 0
         }
-        //Description
-        if(indexPath.section == 0 && indexPath.row == 2 && description_label.text == ""){
-            self.description_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 2){
-            var return_val = heightForView(description_label.text!, font: myFont!, width: (screenSize.width - 110))
-            return return_val
-        }
-        //Hiding post specific information based upon category
-        if(indexPath.section == 0 && indexPath.row == 3 && round_trip_label.text == ""){
-            self.round_trip_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 4 && trip_location_label.text == ""){
-            self.trip_location_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 4){
-            var return_val = heightForView(trip_location_label.text!, font: myFont!, width: (screenSize.width - 110))
-            return return_val
-        }
-        if(indexPath.section == 0 && indexPath.row == 5 && depature_date_label.text == ""){
-            self.depature_date_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 5){
-            var return_val = heightForView(depature_date_label.text!, font: myFont!, width: (screenSize.width - 110))
-            return return_val
-        }
-        if(indexPath.section == 0 && indexPath.row == 6 && return_date_label.text == ""){
-            self.return_date_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 6){
-            var return_val = heightForView(return_date_label.text!, font: myFont!, width: (screenSize.width - 110))
-            return return_val
-        }
-        if(indexPath.section == 0 && indexPath.row == 7 && isbn_label.text == ""){
-            self.isbn_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 8 && location_label.text == ""){
-            self.location_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 8){
-            var return_val = heightForView(location_label.text!, font: myFont!, width: (screenSize.width - 110))
-            return return_val
-        }
-        
-        if(indexPath.section == 0 && indexPath.row == 9 && date_time_label.text == ""){
-            self.date_text.hidden = true
-            return 0
-        }
-        if(indexPath.section == 0 && indexPath.row == 9){
-            var return_val = heightForView(date_time_label.text!, font: myFont!, width: (screenSize.width - 110))
-            return return_val
-        }
-        return 30
     }
-    
+    func toggleHidden(){
+        if(price_label.hidden){
+            price_label.hidden = false
+        }
+        else{
+            price_label.hidden = true
+        }
+        if description_label.hidden {
+            description_label.hidden = false
+        }
+        else{
+            description_label.hidden = true
+        }
+        if round_trip_label.hidden {
+            round_trip_label.hidden = false
+        }
+        else {
+            round_trip_label.hidden = true
+        }
+        if(trip_location_label.hidden){
+            trip_location_label.hidden = false
+        }
+        else {
+            trip_location_label.hidden = true
+        }
+        if(depature_date_label.hidden){
+            depature_date_label.hidden = false
+        }
+        else {
+            depature_date_label.hidden = true
+        }
+        if(return_date_label.hidden){
+            return_date_label.hidden = false
+        }
+        else{
+            return_date_label.hidden = true
+        }
+        if isbn_label.hidden {
+            isbn_label.hidden = false
+        }
+        else{
+            isbn_label.hidden = true
+        }
+        if location_label.hidden {
+            location_label.hidden = false
+        }
+        else {
+            location_label.hidden = true
+        }
+        if date_time_label.hidden {
+            date_time_label.hidden = false
+        }
+        else {
+            date_time_label.hidden = true
+        }
+        if price_text.hidden {
+            price_text.hidden = false
+        }
+        else {
+            price_text.hidden = true
+        }
+        if description_text.hidden {
+            description_text.hidden = false
+        }
+        else {
+            description_text.hidden = true
+        }
+        if round_trip_text.hidden {
+            round_trip_text.hidden = false
+        }
+        else{
+            round_trip_text.hidden = true
+        }
+        if trip_location_text.hidden {
+            trip_location_text.hidden = false
+        }
+        else {
+            trip_location_text.hidden = true
+        }
+        if depature_date_text.hidden {
+            depature_date_text.hidden = false
+        }
+        else {
+            depature_date_text.hidden = true
+        }
+        if return_date_text.hidden {
+            return_date_text.hidden = false
+        }
+        else{
+            return_date_text.hidden = true
+        }
+        if isbn_text.hidden {
+            isbn_text.hidden = false
+        }
+        else{
+            isbn_text.hidden = true
+        }
+        if location_text.hidden {
+            location_text.hidden = false
+        }
+        else {
+            location_text.hidden = true
+        }
+        if date_text.hidden {
+            date_text.hidden = false
+        }
+        else{
+            date_text.hidden = true
+        }
+    }
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
         label.numberOfLines = 0

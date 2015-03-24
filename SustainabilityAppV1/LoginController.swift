@@ -63,7 +63,6 @@ class LoginController: UIViewController,UITextFieldDelegate {
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
     NSUserDefaults.standardUserDefaults().setObject(["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"],forKey:"categories")
         if(parseJSON["exists"] as String == "yes"){
-            printf("new line")
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window!.backgroundColor = UIColor.whiteColor()
             let customVC = ContainerViewController()
