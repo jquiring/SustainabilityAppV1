@@ -117,15 +117,18 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
 
     func didRefresh(){
-        if(!centerActInd.isAnimating()){
+        if(!centerActInd.isAnimating() && !actInd.isAnimating()){
             setUp("",older: "1",fromTop: "1",fromNewFilter:false)
             self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
         }
+        else{
+            refreshControl.endRefreshing()
+        }
         
     }
-    func upDatePosts(parseJSON:Dictionary<String,AnyObject>, date:String,older:String,fromTop:String){
+    func upDatePosts(parseJSON:Dictionary<String,AnyObject>, date:String,older:String,fromTop:String,fromNewFilter:Bool){
         let posts: AnyObject = parseJSON["posts"]!
-        if(fromTop == "1"){
+        if(fromTop == "1" || fromNewFilter){
             self.arrayOfPosts = []
         }
         let more_exists = parseJSON["more_exist"] as String
@@ -173,6 +176,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
 
         if(date == ""){
             if(first_time || fromNewFilter) {
+                
                 centerActInd.startAnimating()
                 first_time = false
                 cancelButton.enabled = false
@@ -197,7 +201,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         api_requester.POST("postquery/", params: params,
             success: { parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop)
+                    self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop,fromNewFilter:fromNewFilter)
                     self.actInd.stopAnimating()
                     self.centerActInd.stopAnimating()
                     self.refreshControl.endRefreshing()
@@ -208,13 +212,21 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                    
+                    self.cancelButton.enabled = true
+                    self.postsLoaded = true
                     self.actInd.stopAnimating()
                     self.centerActInd.stopAnimating()
                     self.refreshControl.endRefreshing()
-                    var alert = UIAlertController(title: "Warning", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
+                    
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                        
                     }))
+                    
+                    self.table.reloadData()
                 })
             }
             

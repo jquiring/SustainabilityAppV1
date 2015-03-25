@@ -22,8 +22,8 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
     
     //default initializer, specifies the target URL
     override init(){
-        self.baseURLst  = "http://cs-design.gonzaga.edu:8000/"
-        self.baseHTTPSURLst = "https://cs-design.gonzaga.edu:8001/"
+        self.baseURLst  = "https://cs-design.gonzaga.edu:8000/"
+        self.baseHTTPSURLst = "https://cs-design.gonzaga.edu:8000/"
         self.seshConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         seshConfig.timeoutIntervalForRequest = 60
         super.init()

@@ -182,11 +182,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     
     @IBAction func tweets(sender: AnyObject) {
+        /*
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("twttr") as TwitterTableViewController
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
-        
+        */
         
     }
 
@@ -523,6 +524,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 self.refreshControl.endRefreshing()
                 self.actInd.stopAnimating()
                 self.centerLoad.stopAnimating()
+                var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                
+                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                    
+                }))
                 if(code == 500){
                     //server error
                 }

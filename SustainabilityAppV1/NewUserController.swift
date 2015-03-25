@@ -65,11 +65,18 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         }
     }
     func isNumeric(a: String) -> Bool {
-        if let n = a.toInt() {
-            return true
+        if let n = a.toDouble() {
+            if(a.rangeOfString(".") != nil){
+                
+                return false
+            }
+            else{
+                return true
+            }
         } else {
             return false
         }
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()

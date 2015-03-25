@@ -22,11 +22,24 @@ class EditUserController: UIViewController {
 
     
     @IBAction func save(sender: AnyObject){
+        var phone_number_text = phone_number.text
+        if(phone_number_text != ""){
+            println("not empty")
+        }
+        if(!isNumeric("1")){
+            println("not numeric")
+        }
+        if(countElements(phone_number_text) != 10){
+            println("count != 10")
+        }
+        if(countElements(phone_number_text) != 11){
+            println("count != 11")
+        }
         if(first_name_field.text == "" || last_name_field.text == ""){
             error_label.hidden = false
             error_label.text = "Please enter a first and a last name"
         }
-        else if(!phone_number.text.isEmpty && (!isNumeric(phone_number.text) || !(countElements(phone_number.text) == 10 || countElements(phone_number.text) == 11))) {
+        else if(phone_number_text != "" && (!isNumeric(phone_number_text) || (countElements(phone_number_text) != 10 && countElements(phone_number_text) != 11))) {
             error_label.hidden = false
             error_label.text = "Please enter a valid phone number"
         }
@@ -126,12 +139,12 @@ class EditUserController: UIViewController {
     }
     
     func checkFields() -> Bool {
-        if(first_name_field.text.isEmpty || last_name_field.text.isEmpty) {
+        if(first_name_field.text == "" || last_name_field.text == "") {
             //var alert = UIAlertController(title: "Warning", message: "Please include a last and first name", preferredStyle: UIAlertControllerStyle.Alert)
             //self.presentViewController(alert, animated: true, completion: nil)
             //alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in }))
             error_label.hidden = false
-            error_label.text = "Please enter a valid phone number"
+            error_label.text = "Please enter a first and last name"
             return false
         }
         else if(!phone_number.text.isEmpty && (!isNumeric(phone_number.text) || !(countElements(phone_number.text) == 10 || countElements(phone_number.text) == 11))) {
@@ -149,8 +162,14 @@ class EditUserController: UIViewController {
     }
     
     func isNumeric(a: String) -> Bool {
-        if let n = a.toInt() {
-            return true
+        if let n = a.toDouble() {
+            if(a.rangeOfString(".") != nil){
+            
+                return false
+            }
+            else{
+                return true
+            }
         } else {
             return false
         }

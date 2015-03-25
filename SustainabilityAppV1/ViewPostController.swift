@@ -18,7 +18,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var callContact: UIButton!
     @IBOutlet var pages: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var pageControll: UIPageControl!
     
     var gonzaga_email_ = ""
     var pref_email_ = ""
@@ -29,7 +28,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     var frame: CGRect = CGRectMake(0, 0, 0, 0)
     let description1 = "description"
     let price = "Price"
-    var title1 = "Post"
+    var title1 = "Loading information..."
     var email_type = 0
    
     @IBOutlet var price_label: UILabel!
@@ -65,7 +64,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         toggleHidden()
         self.tableView.reloadData()
-       
         description_label.numberOfLines = 0
         trip_location_label.numberOfLines = 0
         depature_date_label.numberOfLines = 0
@@ -73,18 +71,20 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         location_label.numberOfLines = 0
         date_time_label.numberOfLines = 0
         self.tableView.tableFooterView = UIView()
+        pages.numberOfPages = 1
         startRequest()
     }
     
     func startRequest() {
  
         //self.tableView.userInteractionEnabled = false
-        actInd.center = self.view.center
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        actInd.center = CGPoint(x:self.view.center.x  , y:(45 + screenSize.width/2))
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         actInd.startAnimating()
         self.tableView.reloadData()
-        self.navigationController?.view.addSubview(actInd)
+        self.tableView.addSubview(actInd)
         var api_requester: AgoraRequester = AgoraRequester()
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
@@ -157,17 +157,30 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
             gonzaga_email_ = parseJSON["gonzaga_email"] as String
         }
+        else{
+            self.zagMailContact.enabled = true
+
+        }
         if(parseJSON["pref_email"] as String == ""){
             self.emailContact.enabled = false
             self.emailContact.setImage(UIImage(named: "eMailOFF"), forState: UIControlState.Disabled)
+        }
+        else{
+            self.emailContact.enabled = true
         }
         if(parseJSON["call"] as String == ""){
             self.callContact.enabled = false
             self.callContact.setImage(UIImage(named: "CallOFF"), forState: UIControlState.Disabled)
         }
+        else{
+            
+        }
         if(parseJSON["text"] as String == ""){
             self.textContact.enabled = false
             self.textContact.setImage(UIImage(named: "SMSOFF"), forState: UIControlState.Disabled)
+        }
+        else{
+            self.textContact.enabled = true
         }
         self.price_label.text = parseJSON["price"] as? String
         self.description_label.text = parseJSON["description"] as? String
@@ -415,6 +428,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
     }
     func toggleHidden(){
+        self.zagMailContact.enabled = false
+        self.emailContact.enabled = false
+        self.textContact.enabled = false
+        self.callContact.enabled = false
         if(price_label.hidden){
             price_label.hidden = false
         }
