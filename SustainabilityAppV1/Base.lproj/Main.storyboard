@@ -1899,7 +1899,7 @@
         <!--View Post Controller-->
         <scene sceneID="kZC-oP-cnr">
             <objects>
-                <tableViewController storyboardIdentifier="viewPost" id="TbU-JY-e6d" customClass="ViewPostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="viewPost" modalTransitionStyle="crossDissolve" modalPresentationStyle="formSheet" id="TbU-JY-e6d" customClass="ViewPostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3KI-me-tBz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

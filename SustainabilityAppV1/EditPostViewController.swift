@@ -728,6 +728,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                     //TODO: found null while unwrapping
                     var post_date = parseJSON["post_date_time"] as String
                     self.updateNSData(defaultImage!,date:parseJSON["post_date_time"] as String)
+                    NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
                     self.actInd.stopAnimating()
                 })
                 not_ready = false
