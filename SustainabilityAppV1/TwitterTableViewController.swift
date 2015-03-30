@@ -18,8 +18,8 @@ class TwitterTableViewController: UITableViewController , TWTRTweetViewDelegate 
             tweetTable.reloadData()
         }
     }
-    let tweetIDs = ["2011", // @jack's first Tweet
-        "510908133917487104"] // our favorite bike Tweet
+    let tweetIDs = ["581494139705040896", // @jack's first Tweet
+        "580819330654441473"] // our favorite bike Tweet
     
     @IBOutlet var tweetTable: UITableView!
     override func viewDidLoad() {
@@ -28,13 +28,48 @@ class TwitterTableViewController: UITableViewController , TWTRTweetViewDelegate 
         tweetTable.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
         tweetTable.allowsSelection = false
         tweetTable.registerClass(TWTRTweetTableViewCell.self, forCellReuseIdentifier: tweetTableReuseIdentifier)
+       
+        getTweets()
         
+        //getTweetsMan()
+        
+    }
+    
+    func getTweetsMan(){
+        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+        let params = ["user_id": "1601601674"]
+        var clientError : NSError?
+        
+        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod(
+                "GET", URL: statusesShowEndpoint, parameters: params,
+                error: &clientError)
+        
+        if request != nil {
+            Twitter.sharedInstance().APIClient.sendTwitterRequest(request) {
+                    (response, data, connectionError) -> Void in
+                    if (connectionError == nil) {
+                        var jsonError : NSError?
+                        let json : AnyObject? =
+                        NSJSONSerialization.JSONObjectWithData(data,
+                            options: nil,
+                            error: &jsonError)
+                    }
+                    else {
+                        println("Error: \(connectionError)")
+                    }
+            }
+        } else {
+            println("Error: \(clientError)")
+        }
+    }
+    
+    func getTweets(){
         // Load Tweets
         Twitter.sharedInstance().logInGuestWithCompletion { guestSession, error in
             if (guestSession != nil) {
                 Twitter.sharedInstance().APIClient.loadUserWithID("1601601674") { user, error in
                     if let userID = user as TWTRUser?{
-                        println(user.description)
+                        //println(user.description)
                         //self.tweetIDs = usersWithJSONArray(userID)
                         Twitter.sharedInstance().APIClient.loadTweetsWithIDs(self.tweetIDs) { tweets, error in
                             if let ts = tweets as? [TWTRTweet] {
@@ -42,12 +77,15 @@ class TwitterTableViewController: UITableViewController , TWTRTweetViewDelegate 
                             } else {
                                 println("Failed to load tweets: \(error.localizedDescription)")
                             }
-                        }}}
+                        }
+                    }
+                }
             } else {
                 println("error: \(error.localizedDescription)");
             }
         }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
