@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -648,10 +648,10 @@
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="601-cB-O1L">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="24"/>
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="22"/>
                                                         </constraint>
                                                         <constraint firstAttribute="width" constant="22" id="agq-g6-VgL">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="24"/>
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="22"/>
                                                         </constraint>
                                                     </constraints>
                                                     <state key="normal" image="TrashCan">
@@ -723,14 +723,66 @@
                                                         <action selector="editSelected:" destination="MAP-Kg-YVT" eventType="touchUpInside" id="3fH-zP-TeI"/>
                                                     </connections>
                                                 </button>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aYB-FW-Cf8">
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="AKb-FX-hMc">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="22"/>
+                                                        </constraint>
+                                                        <constraint firstAttribute="width" constant="22" id="Hzh-ne-Sxt">
+                                                            <variation key="heightClass=regular-widthClass=compact" constant="22"/>
+                                                        </constraint>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="AKb-FX-hMc"/>
+                                                            <exclude reference="Hzh-ne-Sxt"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="AKb-FX-hMc"/>
+                                                            <include reference="Hzh-ne-Sxt"/>
+                                                        </mask>
+                                                    </variation>
+                                                </activityIndicatorView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X0C-HR-hTA">
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="94P-Th-soV"/>
+                                                        <constraint firstAttribute="height" constant="22" id="Kra-02-geG"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="94P-Th-soV"/>
+                                                            <exclude reference="Kra-02-geG"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="233" y="56" width="22" height="22"/>
+                                                        <mask key="constraints">
+                                                            <include reference="94P-Th-soV"/>
+                                                            <include reference="Kra-02-geG"/>
+                                                        </mask>
+                                                    </variation>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="aYB-FW-Cf8" secondAttribute="bottom" constant="5" id="09J-HZ-Zlv">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="3"/>
+                                                </constraint>
+                                                <constraint firstItem="aYB-FW-Cf8" firstAttribute="top" secondItem="edU-Av-GjQ" secondAttribute="top" id="2V9-yI-fSZ"/>
+                                                <constraint firstItem="aYB-FW-Cf8" firstAttribute="leading" secondItem="edU-Av-GjQ" secondAttribute="trailing" constant="22" id="5l9-YR-BR9"/>
+                                                <constraint firstItem="X0C-HR-hTA" firstAttribute="top" secondItem="bEC-9h-omf" secondAttribute="top" id="6ee-g9-jKr"/>
                                                 <constraint firstItem="DgI-iK-Fkb" firstAttribute="top" secondItem="fia-nS-lww" secondAttribute="top" constant="-20" id="9kK-8Q-ctZ">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-5"/>
                                                 </constraint>
                                                 <constraint firstItem="edU-Av-GjQ" firstAttribute="top" secondItem="wXB-5n-lhK" secondAttribute="top" id="AtY-ef-Aim"/>
                                                 <constraint firstItem="bEC-9h-omf" firstAttribute="top" secondItem="edU-Av-GjQ" secondAttribute="top" id="EYl-bw-1JI"/>
                                                 <constraint firstItem="wXB-5n-lhK" firstAttribute="leading" secondItem="edU-Av-GjQ" secondAttribute="trailing" constant="22" id="NCt-vP-wCD"/>
+                                                <constraint firstItem="aYB-FW-Cf8" firstAttribute="leading" secondItem="X0C-HR-hTA" secondAttribute="trailing" constant="20" id="Nj1-CV-JcX">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="22"/>
+                                                </constraint>
                                                 <constraint firstItem="DgI-iK-Fkb" firstAttribute="leading" secondItem="GU7-yl-fEB" secondAttribute="leadingMargin" constant="6" id="Swd-yU-ZYJ"/>
                                                 <constraint firstItem="fia-nS-lww" firstAttribute="leading" secondItem="DgI-iK-Fkb" secondAttribute="trailing" constant="27" id="aAt-7I-mAW">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="10"/>
@@ -739,11 +791,17 @@
                                                 <constraint firstItem="edU-Av-GjQ" firstAttribute="leading" secondItem="bEC-9h-omf" secondAttribute="trailing" constant="19" id="ej9-hu-OKF">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="22"/>
                                                 </constraint>
+                                                <constraint firstItem="X0C-HR-hTA" firstAttribute="leading" secondItem="bEC-9h-omf" secondAttribute="trailing" constant="24" id="ufC-lK-5zs">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="22"/>
+                                                </constraint>
                                                 <constraint firstAttribute="trailingMargin" secondItem="fia-nS-lww" secondAttribute="trailing" constant="32" id="w8Z-C3-ykP">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="1"/>
                                                 </constraint>
                                                 <constraint firstAttribute="centerY" secondItem="DgI-iK-Fkb" secondAttribute="centerY" constant="-0.5" id="xqx-vF-zvT"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="wXB-5n-lhK" secondAttribute="bottom" constant="3" id="yfH-Rr-eqo"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="aYB-FW-Cf8" secondAttribute="trailing" constant="8" id="zbr-vk-JRi">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="10"/>
+                                                </constraint>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
@@ -752,19 +810,28 @@
                                                     <exclude reference="edU-Av-GjQ"/>
                                                     <exclude reference="wXB-5n-lhK"/>
                                                     <exclude reference="bEC-9h-omf"/>
+                                                    <exclude reference="aYB-FW-Cf8"/>
+                                                    <exclude reference="X0C-HR-hTA"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="9kK-8Q-ctZ"/>
+                                                    <exclude reference="Swd-yU-ZYJ"/>
+                                                    <exclude reference="xqx-vF-zvT"/>
                                                     <exclude reference="aAt-7I-mAW"/>
                                                     <exclude reference="w8Z-C3-ykP"/>
                                                     <exclude reference="EYl-bw-1JI"/>
                                                     <exclude reference="AtY-ef-Aim"/>
                                                     <exclude reference="ej9-hu-OKF"/>
+                                                    <exclude reference="6ee-g9-jKr"/>
+                                                    <exclude reference="ufC-lK-5zs"/>
+                                                    <exclude reference="09J-HZ-Zlv"/>
+                                                    <exclude reference="2V9-yI-fSZ"/>
+                                                    <exclude reference="5l9-YR-BR9"/>
+                                                    <exclude reference="Nj1-CV-JcX"/>
+                                                    <exclude reference="zbr-vk-JRi"/>
                                                     <exclude reference="NCt-vP-wCD"/>
                                                     <exclude reference="eiD-Gs-ITh"/>
                                                     <exclude reference="yfH-Rr-eqo"/>
-                                                    <exclude reference="9kK-8Q-ctZ"/>
-                                                    <exclude reference="Swd-yU-ZYJ"/>
-                                                    <exclude reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -774,25 +841,36 @@
                                                     <include reference="edU-Av-GjQ"/>
                                                     <include reference="wXB-5n-lhK"/>
                                                     <include reference="bEC-9h-omf"/>
+                                                    <include reference="aYB-FW-Cf8"/>
+                                                    <include reference="X0C-HR-hTA"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="9kK-8Q-ctZ"/>
+                                                    <include reference="Swd-yU-ZYJ"/>
+                                                    <include reference="xqx-vF-zvT"/>
                                                     <include reference="aAt-7I-mAW"/>
                                                     <include reference="w8Z-C3-ykP"/>
                                                     <include reference="EYl-bw-1JI"/>
                                                     <include reference="AtY-ef-Aim"/>
                                                     <include reference="ej9-hu-OKF"/>
+                                                    <include reference="6ee-g9-jKr"/>
+                                                    <include reference="ufC-lK-5zs"/>
+                                                    <include reference="09J-HZ-Zlv"/>
+                                                    <include reference="2V9-yI-fSZ"/>
+                                                    <include reference="5l9-YR-BR9"/>
+                                                    <include reference="Nj1-CV-JcX"/>
+                                                    <include reference="zbr-vk-JRi"/>
                                                     <include reference="NCt-vP-wCD"/>
                                                     <include reference="eiD-Gs-ITh"/>
                                                     <include reference="yfH-Rr-eqo"/>
-                                                    <include reference="9kK-8Q-ctZ"/>
-                                                    <include reference="Swd-yU-ZYJ"/>
-                                                    <include reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="bump" destination="wXB-5n-lhK" id="t4i-DD-mhH"/>
+                                            <outlet property="bumpRefresh" destination="aYB-FW-Cf8" id="aCc-SP-LVR"/>
                                             <outlet property="delete" destination="edU-Av-GjQ" id="91n-ln-dnz"/>
+                                            <outlet property="deleteRefresh" destination="X0C-HR-hTA" id="Lya-Hz-wSt"/>
                                             <outlet property="edit" destination="bEC-9h-omf" id="Yya-1A-tyj"/>
                                             <outlet property="itemImage" destination="DgI-iK-Fkb" id="hID-aM-7Xe"/>
                                             <outlet property="title" destination="fia-nS-lww" id="OS2-FA-XiR"/>
@@ -861,7 +939,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVt-BE-sia">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">WELCOME TO ZIGZAGA. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "ZZ"), you agree to these Terms of Use ("TOU"), last updated March 18th, 2015.
+                                <string key="text">WELCOME TO ZIGZAGA. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "ZZ"), you agree to these Terms of Use ("TOU"), last updated March 18th, 2015.
 
 LICENSE. If you are 18 or older, and either a student, faculty member, or alumni we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access ZZ in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from ZZ, excluding content you create and sharing with friends/family. 
 
@@ -871,7 +949,7 @@ Possible reasons for a post to be removed:
 - Inappropriate posts that have been reported more than two times will be removed.
 - Older posts that have not been refreshed in 21 to 31 days will be removed.
 
-To the extent permitted by law, (1) we make no promise as to ZZ, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and ZZ is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your ZZ use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("ZZ ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) ZZ ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); </mutableString>
+To the extent permitted by law, (1) we make no promise as to ZZ, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and ZZ is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your ZZ use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("ZZ ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) ZZ ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -888,10 +966,10 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                 <exclude reference="YVt-BE-sia"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="LHK-nl-9Jn"/>
                                 <exclude reference="Cmh-j1-BAl"/>
                                 <exclude reference="Mdq-4b-jpU"/>
                                 <exclude reference="VL5-4J-16F"/>
-                                <exclude reference="LHK-nl-9Jn"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -899,10 +977,10 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                 <include reference="YVt-BE-sia"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="LHK-nl-9Jn"/>
                                 <include reference="Cmh-j1-BAl"/>
                                 <include reference="Mdq-4b-jpU"/>
                                 <include reference="VL5-4J-16F"/>
-                                <include reference="LHK-nl-9Jn"/>
                             </mask>
                         </variation>
                     </view>
@@ -945,7 +1023,8 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="zBX-Hd-EUz"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="19" y="17" width="85" height="85"/>
                                                         <mask key="constraints">
                                                             <include reference="OWK-6T-j20"/>
                                                             <include reference="zBX-Hd-EUz"/>
@@ -970,11 +1049,37 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <rect key="frame" x="112" y="17" width="199" height="20"/>
                                                     </variation>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q2G-YP-MNQ">
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="84" id="wwp-PJ-N6n"/>
+                                                        <constraint firstAttribute="height" constant="84" id="yfo-n3-1bZ"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="wwp-PJ-N6n"/>
+                                                            <exclude reference="yfo-n3-1bZ"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="19" y="18" width="84" height="84"/>
+                                                        <mask key="constraints">
+                                                            <include reference="wwp-PJ-N6n"/>
+                                                            <include reference="yfo-n3-1bZ"/>
+                                                        </mask>
+                                                    </variation>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="mHT-yk-VM5" secondAttribute="centerY" id="KER-oc-SNC"/>
                                                 <constraint firstItem="akL-lz-rVP" firstAttribute="leading" secondItem="mHT-yk-VM5" secondAttribute="trailing" constant="10" id="Nd5-CH-T0d"/>
+                                                <constraint firstItem="mHT-yk-VM5" firstAttribute="centerY" secondItem="q2G-YP-MNQ" secondAttribute="centerY" constant="-5.5" id="Pjg-Ln-Dkp">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
                                                 <constraint firstItem="mHT-yk-VM5" firstAttribute="leading" secondItem="Gbh-F6-xgA" secondAttribute="leadingMargin" constant="9" id="cHa-aL-7hn"/>
+                                                <constraint firstItem="mHT-yk-VM5" firstAttribute="centerX" secondItem="q2G-YP-MNQ" secondAttribute="centerX" constant="-2.5" id="cqX-iy-Gwc">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
                                                 <constraint firstItem="akL-lz-rVP" firstAttribute="top" secondItem="mHT-yk-VM5" secondAttribute="top" id="fjZ-KI-EM0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="akL-lz-rVP" secondAttribute="trailing" constant="81" id="gTC-va-QLi">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="1"/>
@@ -994,16 +1099,19 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <exclude reference="mHT-yk-VM5"/>
                                                     <exclude reference="mfO-ku-tgG"/>
                                                     <exclude reference="akL-lz-rVP"/>
+                                                    <exclude reference="q2G-YP-MNQ"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="KER-oc-SNC"/>
+                                                    <exclude reference="Pjg-Ln-Dkp"/>
+                                                    <exclude reference="cHa-aL-7hn"/>
+                                                    <exclude reference="cqX-iy-Gwc"/>
                                                     <exclude reference="Nd5-CH-T0d"/>
                                                     <exclude reference="fjZ-KI-EM0"/>
                                                     <exclude reference="gTC-va-QLi"/>
                                                     <exclude reference="jS4-Of-K6f"/>
                                                     <exclude reference="lQm-tp-goh"/>
                                                     <exclude reference="vRE-SX-H8Q"/>
-                                                    <exclude reference="KER-oc-SNC"/>
-                                                    <exclude reference="cHa-aL-7hn"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -1011,26 +1119,33 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <include reference="mHT-yk-VM5"/>
                                                     <include reference="mfO-ku-tgG"/>
                                                     <include reference="akL-lz-rVP"/>
+                                                    <include reference="q2G-YP-MNQ"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="KER-oc-SNC"/>
+                                                    <include reference="Pjg-Ln-Dkp"/>
+                                                    <include reference="cHa-aL-7hn"/>
+                                                    <include reference="cqX-iy-Gwc"/>
                                                     <include reference="Nd5-CH-T0d"/>
                                                     <include reference="fjZ-KI-EM0"/>
                                                     <include reference="gTC-va-QLi"/>
                                                     <include reference="jS4-Of-K6f"/>
                                                     <include reference="lQm-tp-goh"/>
                                                     <include reference="vRE-SX-H8Q"/>
-                                                    <include reference="KER-oc-SNC"/>
-                                                    <include reference="cHa-aL-7hn"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imageLoad" destination="q2G-YP-MNQ" id="yQR-vO-FIZ"/>
                                             <outlet property="itemImage" destination="mHT-yk-VM5" id="k7H-pi-v9g"/>
                                             <outlet property="keyValue" destination="mfO-ku-tgG" id="Y7a-4t-aK6"/>
                                             <outlet property="title" destination="akL-lz-rVP" id="8st-pe-ETS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="2" y="-53" width="398" height="845"/>
+                                </variation>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1334,7 +1449,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="2Lx-xs-YLT" kind="relationship" relationship="rootViewController" id="xDL-Cu-Cd3"/>
+                        <segue destination="eeB-jp-K1q" kind="relationship" relationship="rootViewController" id="wyG-AN-slw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1947,7 +2062,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
             </objects>
             <point key="canvasLocation" x="5341.5" y="-2733"/>
         </scene>
-        <!--View Post Controller-->
+        <!--Post-->
         <scene sceneID="kZC-oP-cnr">
             <objects>
                 <tableViewController storyboardIdentifier="viewPost" modalTransitionStyle="crossDissolve" modalPresentationStyle="formSheet" id="TbU-JY-e6d" customClass="ViewPostController" customModule="SustainabilityAppV1" customModuleProvider="target" sceneMemberID="viewController">
@@ -1963,14 +2078,23 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h5P-2m-aRz" id="DDe-6r-ZZ8">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="EzH-3F-kUZ">
+                                                <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="EzH-3F-kUZ">
                                                     <rect key="frame" x="-19" y="-18" width="39" height="37"/>
                                                     <color key="pageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="currentPageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </pageControl>
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Fw-7A-Gkt">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="-31" width="400" height="354"/>
+                                                    </variation>
                                                 </scrollView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TeV-hA-jC5">
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="182" y="326" width="20" height="20"/>
+                                                    </variation>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="1Fw-7A-Gkt" secondAttribute="trailing" constant="59" id="1gb-cT-7Y7">
@@ -1982,6 +2106,8 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <constraint firstItem="EzH-3F-kUZ" firstAttribute="top" secondItem="1Fw-7A-Gkt" secondAttribute="bottom" constant="29" id="LKO-p6-gGR">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-18"/>
                                                 </constraint>
+                                                <constraint firstItem="TeV-hA-jC5" firstAttribute="centerY" secondItem="EzH-3F-kUZ" secondAttribute="centerY" constant="-2.5" id="LkN-dh-Bwi"/>
+                                                <constraint firstItem="TeV-hA-jC5" firstAttribute="centerX" secondItem="EzH-3F-kUZ" secondAttribute="centerX" constant="-0.5" id="VTX-27-Eov"/>
                                                 <constraint firstItem="1Fw-7A-Gkt" firstAttribute="centerX" secondItem="EzH-3F-kUZ" secondAttribute="centerX" constant="8" id="XMJ-w3-xHQ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="1Fw-7A-Gkt" secondAttribute="bottom" constant="23" id="brJ-LI-PCR">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
@@ -1994,28 +2120,34 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <mask key="subviews">
                                                     <exclude reference="EzH-3F-kUZ"/>
                                                     <exclude reference="1Fw-7A-Gkt"/>
+                                                    <exclude reference="TeV-hA-jC5"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="LKO-p6-gGR"/>
                                                     <exclude reference="1gb-cT-7Y7"/>
                                                     <exclude reference="FLT-eM-zMz"/>
                                                     <exclude reference="XMJ-w3-xHQ"/>
                                                     <exclude reference="brJ-LI-PCR"/>
                                                     <exclude reference="zbO-w6-RCD"/>
+                                                    <exclude reference="LkN-dh-Bwi"/>
+                                                    <exclude reference="VTX-27-Eov"/>
+                                                    <exclude reference="LKO-p6-gGR"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
                                                     <include reference="EzH-3F-kUZ"/>
                                                     <include reference="1Fw-7A-Gkt"/>
+                                                    <include reference="TeV-hA-jC5"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="LKO-p6-gGR"/>
                                                     <include reference="1gb-cT-7Y7"/>
                                                     <include reference="FLT-eM-zMz"/>
                                                     <include reference="XMJ-w3-xHQ"/>
                                                     <include reference="brJ-LI-PCR"/>
                                                     <include reference="zbO-w6-RCD"/>
+                                                    <include reference="LkN-dh-Bwi"/>
+                                                    <include reference="VTX-27-Eov"/>
+                                                    <include reference="LKO-p6-gGR"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -2745,7 +2877,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                             <outlet property="delegate" destination="TbU-JY-e6d" id="6Ea-V4-Wim"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="jpL-qv-gUP">
+                    <navigationItem key="navigationItem" title="Post" id="jpL-qv-gUP">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="wHx-s2-yGJ">
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -2769,6 +2901,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                         <outlet property="description_label" destination="AgN-Kd-HwD" id="1kJ-mg-MYh"/>
                         <outlet property="description_text" destination="hiL-3w-5A2" id="qA5-hO-ovl"/>
                         <outlet property="emailContact" destination="gRD-VB-aI1" id="dMg-eo-pxJ"/>
+                        <outlet property="imagesLoading" destination="TeV-hA-jC5" id="xYL-iX-e6p"/>
                         <outlet property="isbn_label" destination="fSm-lt-a8O" id="2H4-pR-8lR"/>
                         <outlet property="isbn_text" destination="UTe-zO-3KY" id="N9j-Zv-Td2"/>
                         <outlet property="location_label" destination="U65-kS-GCo" id="Pw9-0z-2cw"/>

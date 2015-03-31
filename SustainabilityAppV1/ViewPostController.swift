@@ -19,6 +19,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var pages: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     
+    @IBOutlet var imagesLoading: UIActivityIndicatorView!
     var gonzaga_email_ = ""
     var pref_email_ = ""
     var call_ = ""
@@ -40,7 +41,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var isbn_label: UILabel!
     @IBOutlet weak var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
-    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+
     @IBOutlet weak var price_text: UILabel!
     @IBOutlet weak var description_text: UILabel!
     @IBOutlet weak var round_trip_text: UILabel!
@@ -72,6 +73,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         date_time_label.numberOfLines = 0
         self.tableView.tableFooterView = UIView()
         pages.numberOfPages = 1
+        navigationController?.navigationBar.barStyle = UIBarStyle.Default
+        navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         startRequest()
     }
     
@@ -79,12 +83,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
  
         //self.tableView.userInteractionEnabled = false
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        actInd.center = CGPoint(x:self.view.center.x  , y:(45 + screenSize.width/2))
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        actInd.startAnimating()
+
+
         self.tableView.reloadData()
-        self.tableView.addSubview(actInd)
+
         var api_requester: AgoraRequester = AgoraRequester()
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
@@ -94,15 +96,16 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         api_requester.POST("viewpost/", params: params,
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)
-                        self.actInd.stopAnimating()
+                        self.imagesLoading.stopAnimating()
+                    self.pages.hidden = false
                         self.tableView.userInteractionEnabled = true
 
                 })
             },
             failure: {code,message -> Void in
-                self.actInd.stopAnimating()
+                self.imagesLoading.stopAnimating()
+                self.pages.hidden = false
                 if(code == 400){
-                    self.actInd.stopAnimating()
                     var alert = UIAlertController(title: "This post no longer exists", message: "Pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                     self.presentViewController(alert, animated: true, completion: nil)
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
@@ -112,7 +115,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 }
                 else {
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.actInd.stopAnimating()
                         var alert = UIAlertController(title: "Connection error", message: "Check signal and try", preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
@@ -353,7 +355,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         if(indexPath.section == 0 && indexPath.row == 0 ){
             return scrollViewWidth + 20
         }
-        if(!actInd.isAnimating()){
+        if(!imagesLoading.isAnimating()){
             //This needs to be only the picture cell
 
             //Contact options section

@@ -12,6 +12,7 @@ class ListPostCell: UITableViewCell {
     @IBOutlet var title: UILabel!
     @IBOutlet var keyValue: UILabel!
     @IBOutlet var itemImage: UIImageView!
+    @IBOutlet var imageLoad: UIActivityIndicatorView!
 
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -19,6 +19,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
     var arrayOfPosts: [ProfilePost] = []
+    var arrayofCells: [ProfilePostCell] = []
     var category :String?
     var id:String?
     var firstAppear = true
@@ -30,6 +31,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func setUpPosts(fromAppear:Bool){
         if(fromAppear){
             arrayOfPosts = []
+            arrayofCells = []
         }
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
             var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
@@ -52,12 +54,14 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     @IBAction func deleteSelected(sender: AnyObject) {
         let cat:String = arrayOfPosts[sender.tag].category as String
         let id:String = arrayOfPosts[sender.tag].id as String
-        
+
         let alertController = UIAlertController(title: nil, message:
             "Are you sure you wish to delete " + arrayOfPosts[sender.tag].title  + "?", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+                self.arrayofCells[sender.tag].delete.hidden = true
+                self.arrayofCells[sender.tag].deleteRefresh.startAnimating()
                 self.deletePost(cat, id:id,sender:sender.tag)
             }
 
@@ -71,7 +75,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             let alertController = UIAlertController(title: nil , message:
                 "Your post has been bumped", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-               
+                self.arrayofCells[sender].bump.hidden = false
+                self.arrayofCells[sender].bumpRefresh.stopAnimating()
                 let bumped_post = self.arrayOfPosts[sender]
                 self.arrayOfPosts.removeAtIndex(sender)
                 self.arrayOfPosts.insert(bumped_post, atIndex: 0)
@@ -82,14 +87,17 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
                     
                 }
+                self.arrayofCells = []
                 self.table.reloadData()
             }))
             presentViewController(alertController, animated: true, completion: nil)
         }
         else{
-            let alertController = UIAlertController(title: "Your post has was not bumped", message:
+            let alertController = UIAlertController(title: "Your post was not bumped", message:
             "You can only bump posts once a day", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+                self.arrayofCells[sender].bump.hidden = false
+                self.arrayofCells[sender].bumpRefresh.stopAnimating()
             }))
             presentViewController(alertController, animated: true, completion: nil)
 
@@ -101,10 +109,18 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         api_requester.POST("refreshpost/", params: params,
             success: {parseJSON -> Void in
                 
-                dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String,date:parseJSON["post_date_time"] as String)})
+                dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String,date:parseJSON["post_date_time"] as String)
+                    self.arrayofCells[tag].delete.hidden = false
+                    })
             },
             failure: {code,message -> Void in
-
+                let alertController = UIAlertController(title: "Connection error", message:
+                    "Your post was not bumped check connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+                    
+                }))
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
             }
         )
 
@@ -114,11 +130,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         current_posts.removeAtIndex(sender)
         NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
         self.arrayOfPosts.removeAtIndex(sender)
-        
+        self.arrayofCells.removeAtIndex(sender)
         
         let alertController = UIAlertController(title: nil, message:
             "Your post has been deleted", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+            self.arrayofCells = []
             self.table.reloadData()
             
         }))
@@ -141,6 +158,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     let alertController = UIAlertController(title: "Connection error", message:
                         "Your post was not deleted, check signal and try again", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+                        self.arrayofCells[sender].delete.hidden = false
+                        self.arrayofCells[sender].deleteRefresh.stopAnimating()
                     }))
 
                     
@@ -161,6 +180,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     
     @IBAction func bumpButton(sender: AnyObject) {
+        arrayofCells[sender.tag].bumpRefresh.startAnimating()
+        arrayofCells[sender.tag].bump.hidden = true
         self.bumpPost(arrayOfPosts[sender.tag].category,post_id: arrayOfPosts[sender.tag].id,tag:sender.tag)
     }
     
@@ -231,6 +252,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         if(NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool){
             setUpPosts(true)
             println("view did appear");
+            self.arrayofCells = []
             table.reloadData()
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
         }
@@ -255,7 +277,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             getMorePosts("", older: "1", fromTop: true,refresh:false)
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
             self.setUpPosts(false)
-            
+            self.arrayofCells = []
             table.reloadData()
 
         }
@@ -434,17 +456,18 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as ProfilePostCell
+        cell.addSubview(UIView())
         let postCell = arrayOfPosts[indexPath.row]
         cell.edit.tag = indexPath.row
         cell.delete.tag = indexPath.row
         cell.bump.tag = indexPath.row
         cell.setCell(postCell.title, imageName: postCell.imageName)
         cell.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        
-        
+        cell.bumpRefresh.stopAnimating()
+        cell.deleteRefresh.stopAnimating()
+        cell.delete.hidden = false
+        arrayofCells.append(cell)
         return cell
-    
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
@@ -556,6 +579,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func updatePosts(parseJSON:NSDictionary,refresh:Bool){
         if(refresh){
             arrayOfPosts = []
+            arrayofCells = []
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
                 
         }
@@ -593,6 +617,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }
         }
         println("reloading data")
+        self.arrayofCells = []
         self.table.reloadData()
         refreshControl.endRefreshing()
         self.actInd.stopAnimating()
@@ -606,6 +631,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             bottomNeedsMore = false
         }
         table.needsUpdateConstraints()
+        self.arrayofCells = []
         table.reloadData()
 
     }
@@ -636,7 +662,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     indexPaths.append(i)
                 }
                 //need to reload twice for some damn reason
-                
+                self.arrayofCells = []
                 table.reloadData()
                 self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
                 
