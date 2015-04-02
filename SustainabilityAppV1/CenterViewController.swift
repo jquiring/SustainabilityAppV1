@@ -85,7 +85,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         if(NSUserDefaults.standardUserDefaults().objectForKey("newFilterPerameters") as Bool){
             NSUserDefaults.standardUserDefaults().setObject(false,forKey:"newFilterPerameters")
             setUp("",older: "1",fromTop: "1",fromNewFilter:true)
-            self.table.reloadData()
             if(!checkFilteredSearch()){
                 println("isnt a filtered search")
                 cancelButton.hidden = true
@@ -147,8 +146,10 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 let postID = post["id"]! as Int
                 let category = post["category"] as String
                 let date = post["post_date_time"] as String
-                
+                let image  = post["has_image"] as Bool
                 var new_post:ListPost
+                /*
+                
                 let imageString = post["image"]! as String
                 if !imageString.isEmpty {
                     let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
@@ -156,10 +157,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                     
                     //do stuff with the image here
                 }
+
                 else{
-                    new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date)
-                    
-                }
+                */
+
+                new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date,has_image:image)
+              
                 if(older == "0"){
                     self.arrayOfPosts.insert(new_post, atIndex: 0)
                 }
@@ -198,35 +201,72 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             "older":older]
             as Dictionary<String,AnyObject>
         
-        api_requester.POST("postquery/", params: params,
-            success: { parseJSON -> Void in
+        api_requester.PostQuery(params,
+            info: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                    
                     self.upDatePosts(parseJSON, date:date,older:older,fromTop:fromTop,fromNewFilter:fromNewFilter)
                     self.actInd.stopAnimating()
                     self.centerActInd.stopAnimating()
                     self.refreshControl.endRefreshing()
                     self.postsLoaded = true
-                    self.table.reloadData()
                     self.cancelButton.enabled = true
                 })
             },
-            failure: {code,message -> Void in
+            imageReceived: {category,postID,imageData -> Void in
+                //imageReceived function only called IF there is an image
+                //no point in running this function just to determine there is no image...
+                print("Received image for" + category + " ")
+                println(postID)
+                imageData.writeToFile("/Users/kylehandy/Desktop/" + category + String(postID) + ".png",atomically: false)
+                var postCount = 0
+                var hitCount:Int = 0
+                for post in self.arrayOfPosts{
+                    if(String(postID) == post.id && category == post.category){
+                        post.imageName = imageData
+                        post.image_loaded = true
+                        hitCount = postCount
+                    }
+                    postCount++
+                }
                 dispatch_async(dispatch_get_main_queue(), {
+                    var indexPath = NSIndexPath(forRow: hitCount, inSection: 0)
+                    self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+                    //self.table.reloadData()
                     
-                    self.cancelButton.enabled = true
-                    self.postsLoaded = true
-                    self.actInd.stopAnimating()
-                    self.centerActInd.stopAnimating()
-                    self.refreshControl.endRefreshing()
-                    
-                    var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                })
+            },
+            failure: {isImage,postID,category,code,message -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if(isImage){
+                        var postCount = 0
+                        var hitCount = 0
+                        for post in self.arrayOfPosts {
+                            if((String(postID!) == post.id) && (category == post.category)){
+                                post.image_error = true
+                                hitCount = postCount;
+                  
+                            }
+                            postCount++
+                        }
+                        dispatch_async(dispatch_get_main_queue(), {
+                            var indexPath = NSIndexPath(forRow: postCount, inSection: 0)
+                            self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                        })
+                    }
+                    else{
+                        var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
-                    }))
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                            
+                        }))
+                        
+
+                    }
+
                     
-                    self.table.reloadData()
+                    
                 })
             }
             
@@ -268,8 +308,15 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         let cell:ListPostCell = table.dequeueReusableCellWithIdentifier("ListCell") as ListPostCell
      
         let postCell = arrayOfPosts[indexPath.row]
-        cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
- 
+        if(postCell.image_error){
+            cell.setCell(postCell.title,keyValue:postCell.key_value,bounds:table.bounds,hasError:true)
+        }
+        else if(postCell.has_image && !postCell.image_loaded){
+            cell.setCell(postCell.title,keyValue:postCell.key_value,bounds:table.bounds)
+        }
+        else {
+            cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
+        }
         cell.setNeedsDisplay()
         cell.setNeedsLayout()
         cell.setNeedsUpdateConstraints()

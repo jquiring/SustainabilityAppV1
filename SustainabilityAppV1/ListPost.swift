@@ -11,13 +11,19 @@ import UIKit
 
 class ListPost: ProfilePost  {
     var key_value = ""
-    init(title:String,imageName:NSData,id:String,keyValue:String,cat:String,date:String){
+    var has_image:Bool
+    var image_loaded:Bool = false
+    var image_error:Bool = false
+    init(title:String,imageName:NSData,id:String,keyValue:String,cat:String,date:String,has_image:Bool){
+        self.has_image = has_image
+        self.key_value = keyValue
+        self.image_loaded = false
         super.init(title:title,imageName:imageName,id:id,cat:cat,date:date)
-        self.key_value = keyValue
     }
-    init(title:String,id:String,keyValue:String,cat:String,date:String){
+    init(title:String,id:String,keyValue:String,cat:String,date:String,has_image:Bool){
+        self.has_image = has_image
+        self.key_value = keyValue
+        self.image_loaded = false
         super.init(title:title,id:id,cat:cat,date:date)
-        self.key_value = keyValue
     }
-    
 }

@@ -175,7 +175,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.callContact.setImage(UIImage(named: "CallOFF"), forState: UIControlState.Disabled)
         }
         else{
-            
+            self.callContact.enabled = true
         }
         if(parseJSON["text"] as String == ""){
             self.textContact.enabled = false

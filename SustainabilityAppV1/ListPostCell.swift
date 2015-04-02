@@ -27,7 +27,6 @@ class ListPostCell: UITableViewCell {
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
     }
     func maxWidth() -> CGFloat {
-        
         var appMax = self.frame.width
         return appMax
     }
@@ -38,6 +37,28 @@ class ListPostCell: UITableViewCell {
         itemImage.image = UIImage(data:imageName)
         self.title.preferredMaxLayoutWidth = maxWidth() - 90
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
+        imageLoad.stopAnimating()
+        itemImage.hidden = false
+        println("has an image " + title + keyValue)
+    }
+    func setCell(title:String,keyValue:String,bounds:CGRect){
+        self.title.text = title
+        self.keyValue.text = keyValue
+        var err: NSError?
+        self.title.preferredMaxLayoutWidth = maxWidth() - 90
+        self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
+    }
+    func setCell(title:String,keyValue:String,bounds:CGRect,hasError:Bool){
+        self.title.text = title
+        self.keyValue.text = keyValue
+        var err: NSError?
+        var image =  UIImage(named:"eMail")
+        itemImage.image = image
+        self.title.preferredMaxLayoutWidth = maxWidth() - 90
+        self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
+        imageLoad.stopAnimating()
+        itemImage.hidden = false
+        println("has an error " + title + keyValue)
     }
     override func layoutSubviews() {
         super.layoutSubviews()

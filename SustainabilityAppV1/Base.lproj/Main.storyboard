@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -758,8 +759,7 @@
                                                             <exclude reference="Kra-02-geG"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="233" y="56" width="22" height="22"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="94P-Th-soV"/>
                                                             <include reference="Kra-02-geG"/>
@@ -814,14 +814,8 @@
                                                     <exclude reference="X0C-HR-hTA"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="9kK-8Q-ctZ"/>
-                                                    <exclude reference="Swd-yU-ZYJ"/>
-                                                    <exclude reference="xqx-vF-zvT"/>
                                                     <exclude reference="aAt-7I-mAW"/>
                                                     <exclude reference="w8Z-C3-ykP"/>
-                                                    <exclude reference="EYl-bw-1JI"/>
-                                                    <exclude reference="AtY-ef-Aim"/>
-                                                    <exclude reference="ej9-hu-OKF"/>
                                                     <exclude reference="6ee-g9-jKr"/>
                                                     <exclude reference="ufC-lK-5zs"/>
                                                     <exclude reference="09J-HZ-Zlv"/>
@@ -829,9 +823,15 @@
                                                     <exclude reference="5l9-YR-BR9"/>
                                                     <exclude reference="Nj1-CV-JcX"/>
                                                     <exclude reference="zbr-vk-JRi"/>
+                                                    <exclude reference="EYl-bw-1JI"/>
+                                                    <exclude reference="AtY-ef-Aim"/>
+                                                    <exclude reference="ej9-hu-OKF"/>
                                                     <exclude reference="NCt-vP-wCD"/>
                                                     <exclude reference="eiD-Gs-ITh"/>
                                                     <exclude reference="yfH-Rr-eqo"/>
+                                                    <exclude reference="9kK-8Q-ctZ"/>
+                                                    <exclude reference="Swd-yU-ZYJ"/>
+                                                    <exclude reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -845,14 +845,8 @@
                                                     <include reference="X0C-HR-hTA"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="9kK-8Q-ctZ"/>
-                                                    <include reference="Swd-yU-ZYJ"/>
-                                                    <include reference="xqx-vF-zvT"/>
                                                     <include reference="aAt-7I-mAW"/>
                                                     <include reference="w8Z-C3-ykP"/>
-                                                    <include reference="EYl-bw-1JI"/>
-                                                    <include reference="AtY-ef-Aim"/>
-                                                    <include reference="ej9-hu-OKF"/>
                                                     <include reference="6ee-g9-jKr"/>
                                                     <include reference="ufC-lK-5zs"/>
                                                     <include reference="09J-HZ-Zlv"/>
@@ -860,9 +854,15 @@
                                                     <include reference="5l9-YR-BR9"/>
                                                     <include reference="Nj1-CV-JcX"/>
                                                     <include reference="zbr-vk-JRi"/>
+                                                    <include reference="EYl-bw-1JI"/>
+                                                    <include reference="AtY-ef-Aim"/>
+                                                    <include reference="ej9-hu-OKF"/>
                                                     <include reference="NCt-vP-wCD"/>
                                                     <include reference="eiD-Gs-ITh"/>
                                                     <include reference="yfH-Rr-eqo"/>
+                                                    <include reference="9kK-8Q-ctZ"/>
+                                                    <include reference="Swd-yU-ZYJ"/>
+                                                    <include reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1011,7 +1011,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xbn-Td-Yeg" id="Gbh-F6-xgA">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mHT-yk-VM5">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mHT-yk-VM5">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="85" id="OWK-6T-j20"/>
@@ -1023,8 +1023,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="zBX-Hd-EUz"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="19" y="17" width="85" height="85"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="OWK-6T-j20"/>
                                                             <include reference="zBX-Hd-EUz"/>
@@ -1049,7 +1048,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <rect key="frame" x="112" y="17" width="199" height="20"/>
                                                     </variation>
                                                 </label>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q2G-YP-MNQ">
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q2G-YP-MNQ">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="84" id="wwp-PJ-N6n"/>
@@ -1061,8 +1060,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="yfo-n3-1bZ"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="19" y="18" width="84" height="84"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="wwp-PJ-N6n"/>
                                                             <include reference="yfo-n3-1bZ"/>
@@ -1102,16 +1100,16 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <exclude reference="q2G-YP-MNQ"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="KER-oc-SNC"/>
-                                                    <exclude reference="Pjg-Ln-Dkp"/>
-                                                    <exclude reference="cHa-aL-7hn"/>
-                                                    <exclude reference="cqX-iy-Gwc"/>
                                                     <exclude reference="Nd5-CH-T0d"/>
                                                     <exclude reference="fjZ-KI-EM0"/>
                                                     <exclude reference="gTC-va-QLi"/>
                                                     <exclude reference="jS4-Of-K6f"/>
                                                     <exclude reference="lQm-tp-goh"/>
                                                     <exclude reference="vRE-SX-H8Q"/>
+                                                    <exclude reference="KER-oc-SNC"/>
+                                                    <exclude reference="Pjg-Ln-Dkp"/>
+                                                    <exclude reference="cHa-aL-7hn"/>
+                                                    <exclude reference="cqX-iy-Gwc"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -1122,16 +1120,16 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <include reference="q2G-YP-MNQ"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="KER-oc-SNC"/>
-                                                    <include reference="Pjg-Ln-Dkp"/>
-                                                    <include reference="cHa-aL-7hn"/>
-                                                    <include reference="cqX-iy-Gwc"/>
                                                     <include reference="Nd5-CH-T0d"/>
                                                     <include reference="fjZ-KI-EM0"/>
                                                     <include reference="gTC-va-QLi"/>
                                                     <include reference="jS4-Of-K6f"/>
                                                     <include reference="lQm-tp-goh"/>
                                                     <include reference="vRE-SX-H8Q"/>
+                                                    <include reference="KER-oc-SNC"/>
+                                                    <include reference="Pjg-Ln-Dkp"/>
+                                                    <include reference="cHa-aL-7hn"/>
+                                                    <include reference="cqX-iy-Gwc"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1143,9 +1141,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="2" y="-53" width="398" height="845"/>
-                                </variation>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1696,26 +1691,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                     <action selector="submitAction:" destination="lEI-4c-kl2" eventType="touchUpInside" id="acC-IO-6jB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVd-TJ-YEx">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="rm8-nJ-gAR"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="rm8-nJ-gAR"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="rm8-nJ-gAR"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rkc-hS-e7o">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.65098039220000004" green="0.85098039219999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1757,6 +1732,26 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                     </mask>
                                 </variation>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVd-TJ-YEx">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="rm8-nJ-gAR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="rm8-nJ-gAR"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="rm8-nJ-gAR"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1774,7 +1769,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                             <constraint firstItem="MWx-m2-ZaP" firstAttribute="leading" secondItem="xu7-1R-Y6L" secondAttribute="leadingMargin" constant="60" id="8sz-IF-iQt"/>
                             <constraint firstItem="Unx-tX-Xt0" firstAttribute="centerX" secondItem="8Wl-Rc-un6" secondAttribute="centerX" id="8wq-Nl-OX8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rkc-hS-e7o" secondAttribute="trailing" constant="222" id="CYy-BT-WBg">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="-20"/>
                             </constraint>
                             <constraint firstItem="ooa-fF-ZUm" firstAttribute="top" secondItem="e3Y-gJ-G01" secondAttribute="bottom" constant="15" id="Ebb-0e-U1J"/>
                             <constraint firstItem="Unx-tX-Xt0" firstAttribute="leading" secondItem="xu7-1R-Y6L" secondAttribute="leadingMargin" constant="146" id="FgT-6l-cwq"/>
@@ -1801,7 +1796,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                             <constraint firstItem="cSb-bB-4mA" firstAttribute="top" secondItem="Unx-tX-Xt0" secondAttribute="bottom" constant="15" id="WSe-so-toN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8Wl-Rc-un6" secondAttribute="trailing" constant="5" id="X3H-sq-ao1"/>
                             <constraint firstItem="jVd-TJ-YEx" firstAttribute="leading" secondItem="xu7-1R-Y6L" secondAttribute="leadingMargin" id="XP6-Cu-7bw">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-15"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="-20"/>
                             </constraint>
                             <constraint firstItem="zRC-0b-ibY" firstAttribute="trailing" secondItem="yM7-4W-pHv" secondAttribute="trailing" id="Xe7-0h-eES"/>
                             <constraint firstItem="e3Y-gJ-G01" firstAttribute="leading" secondItem="MWx-m2-ZaP" secondAttribute="leading" id="YLd-Il-eB3"/>
@@ -1879,9 +1874,9 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                 <exclude reference="GXz-8p-8Zy"/>
                                 <exclude reference="jzB-ec-nyr"/>
                                 <exclude reference="ooa-fF-ZUm"/>
-                                <exclude reference="jVd-TJ-YEx"/>
                                 <exclude reference="Rkc-hS-e7o"/>
                                 <exclude reference="RsL-XD-92e"/>
+                                <exclude reference="jVd-TJ-YEx"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="tM1-fz-jJt"/>
@@ -1964,9 +1959,9 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                 <include reference="GXz-8p-8Zy"/>
                                 <include reference="jzB-ec-nyr"/>
                                 <include reference="ooa-fF-ZUm"/>
-                                <include reference="jVd-TJ-YEx"/>
                                 <include reference="Rkc-hS-e7o"/>
                                 <include reference="RsL-XD-92e"/>
+                                <include reference="jVd-TJ-YEx"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="tM1-fz-jJt"/>
@@ -2085,15 +2080,9 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 </pageControl>
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Fw-7A-Gkt">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="8" y="-31" width="400" height="354"/>
-                                                    </variation>
                                                 </scrollView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TeV-hA-jC5">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="182" y="326" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <constraints>
@@ -2123,14 +2112,14 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <exclude reference="TeV-hA-jC5"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="LkN-dh-Bwi"/>
+                                                    <exclude reference="VTX-27-Eov"/>
+                                                    <exclude reference="LKO-p6-gGR"/>
                                                     <exclude reference="1gb-cT-7Y7"/>
                                                     <exclude reference="FLT-eM-zMz"/>
                                                     <exclude reference="XMJ-w3-xHQ"/>
                                                     <exclude reference="brJ-LI-PCR"/>
                                                     <exclude reference="zbO-w6-RCD"/>
-                                                    <exclude reference="LkN-dh-Bwi"/>
-                                                    <exclude reference="VTX-27-Eov"/>
-                                                    <exclude reference="LKO-p6-gGR"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -2140,14 +2129,14 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <include reference="TeV-hA-jC5"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="LkN-dh-Bwi"/>
+                                                    <include reference="VTX-27-Eov"/>
+                                                    <include reference="LKO-p6-gGR"/>
                                                     <include reference="1gb-cT-7Y7"/>
                                                     <include reference="FLT-eM-zMz"/>
                                                     <include reference="XMJ-w3-xHQ"/>
                                                     <include reference="brJ-LI-PCR"/>
                                                     <include reference="zbO-w6-RCD"/>
-                                                    <include reference="LkN-dh-Bwi"/>
-                                                    <include reference="VTX-27-Eov"/>
-                                                    <include reference="LKO-p6-gGR"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -2759,9 +2748,22 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufR-96-lD7">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="ufR-96-lD7" secondAttribute="height" multiplier="29:22" id="wVm-aK-BW7"/>
+                                                    </constraints>
                                                     <state key="normal" image="ZagMail">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="wVm-aK-BW7"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="wVm-aK-BW7"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="zagmailIsTouched:" destination="TbU-JY-e6d" eventType="touchUpInside" id="P1V-oj-95Q"/>
                                                     </connections>

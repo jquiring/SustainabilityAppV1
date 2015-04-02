@@ -87,7 +87,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
                     
                 }
-                self.arrayofCells = []
+               // self.arrayofCells = []
                 self.table.reloadData()
             }))
             presentViewController(alertController, animated: true, completion: nil)
@@ -110,14 +110,15 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             success: {parseJSON -> Void in
                 
                 dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String,date:parseJSON["post_date_time"] as String)
-                    self.arrayofCells[tag].delete.hidden = false
+                    
                     })
             },
             failure: {code,message -> Void in
                 let alertController = UIAlertController(title: "Connection error", message:
                     "Your post was not bumped check connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                    
+                    self.arrayofCells[tag].bump.hidden = false
+                    self.arrayofCells[tag].bumpRefresh.stopAnimating()
                 }))
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
@@ -135,7 +136,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let alertController = UIAlertController(title: nil, message:
             "Your post has been deleted", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-            self.arrayofCells = []
             self.table.reloadData()
             
         }))
@@ -154,6 +154,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 dispatch_async(dispatch_get_main_queue(), {self.deleteUI(sender) })
             },
             failure: {code,message -> Void in
+                println("failure")
                 dispatch_async(dispatch_get_main_queue(), {
                     let alertController = UIAlertController(title: "Connection error", message:
                         "Your post was not deleted, check signal and try again", preferredStyle: UIAlertControllerStyle.Alert)
@@ -161,7 +162,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                         self.arrayofCells[sender].delete.hidden = false
                         self.arrayofCells[sender].deleteRefresh.stopAnimating()
                     }))
-
+                   self.presentViewController(alertController, animated: true, completion: nil)
                     
                 })
             }
@@ -466,7 +467,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         cell.bumpRefresh.stopAnimating()
         cell.deleteRefresh.stopAnimating()
         cell.delete.hidden = false
-        arrayofCells.append(cell)
+        if(!contains(arrayofCells,cell)){
+            arrayofCells.append(cell)
+        }
+        else{
+            println("already contained")
+        }
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
