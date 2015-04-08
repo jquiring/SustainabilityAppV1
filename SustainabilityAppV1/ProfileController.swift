@@ -332,9 +332,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let postsLabel = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let noPosts = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let filler = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let twitterFeed = UIButton.buttonWithType(UIButtonType.System) as UIButton
-       // let yourPosts = UILabel as UILabel
-       // var tableView:UITableView
+        let twitterFeed = MarqueeLabel()
+        //let twitterFeed = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        //let yourPosts = UILabel as UILabel
+        //var tableView:UITableView
         let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts,"filler":filler,"twitterFeed":twitterFeed]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight,"twitterFeedHeight":twitterFeedHeight ]
@@ -391,11 +392,18 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         //table.addConstraints(table_constraint_V)
         
         //twitterFeed
-        twitterFeed.setTitle("@ZagsGoGreen", forState: UIControlState.Normal)
-        twitterFeed.titleLabel!.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
+        //twitterFeed.setTitle("@ZagsGoGreen", forState: UIControlState.Normal)
+        //twitterFeed.titleLabel!.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
+        twitterFeed.marqueeType = .MLLeftRight
+        twitterFeed.scrollDuration = 15.0
+        twitterFeed.fadeLength = 10.0
+        twitterFeed.continuousMarqueeExtraBuffer = 10.0
+        twitterFeed.text = "This is a test of MarqueeLabel - the text is long enough that it needs to scroll to see the whole thing."
+        twitterFeed.tag = 101
+
         twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
         twitterFeed.backgroundColor = backgroundColor
-        twitterFeed.addTarget(self, action: "tweets:", forControlEvents: UIControlEvents.TouchUpInside)
+        //twitterFeed.addTarget(self, action: "tweets:", forControlEvents: UIControlEvents.TouchUpInside)
         //twitterFeed.userInteractionEnabled = false
         twitterFeed.backgroundColor = UIColor.whiteColor()
         let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)

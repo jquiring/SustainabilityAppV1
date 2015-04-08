@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		CA0F9D6A1A7EBA3900BA7AA3 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */; };
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
+		CA3ED4C01AD1ED0900DEC559 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */; };
+		CA3ED4C11AD1ED0900DEC559 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */; };
 		CA4C2EA01A78659100070B3B /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F811B15219FECE34005EDE59 /* NewUserController.swift */; };
 		CA4C2EA11A78662B00070B3B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF78C9B1A196A1E00787075 /* LoginController.swift */; };
 		CA4C2EA21A78662E00070B3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F892C94A19F59B4200113C26 /* AppDelegate.swift */; };
@@ -76,6 +78,10 @@
 /* Begin PBXFileReference section */
 		CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
+		CA3ED4BC1AD1ED0800DEC559 /* SustainabilityAppV1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SustainabilityAppV1-Bridging-Header.h"; sourceTree = "<group>"; };
+		CA3ED4BD1AD1ED0800DEC559 /* SustainabilityAppV1Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SustainabilityAppV1Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		CA3ED4BE1AD1ED0900DEC559 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
+		CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
 		CAAF339F1ABF5C310042EBFA /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		CAAF33A01ABF5C310042EBFA /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		CAAF33A11ABF5C310042EBFA /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -157,6 +163,10 @@
 		F892C94719F59B4200113C26 /* SustainabilityAppV1 */ = {
 			isa = PBXGroup;
 			children = (
+				CA3ED4BE1AD1ED0900DEC559 /* MarqueeLabel.h */,
+				CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */,
+				CA3ED4BC1AD1ED0800DEC559 /* SustainabilityAppV1-Bridging-Header.h */,
+				CA3ED4BD1AD1ED0800DEC559 /* SustainabilityAppV1Tests-Bridging-Header.h */,
 				CAF78C9B1A196A1E00787075 /* LoginController.swift */,
 				F892C94A19F59B4200113C26 /* AppDelegate.swift */,
 				CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */,
@@ -337,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA3ED4C01AD1ED0900DEC559 /* MarqueeLabel.m in Sources */,
 				F88E9A9A1AA1381A00F39336 /* FilterViewController.swift in Sources */,
 				F8A99C501A2D6DBD004245DB /* ViewPostController.swift in Sources */,
 				F8B9FD891A14307900DB75CC /* ProfilePost.swift in Sources */,
@@ -381,6 +392,7 @@
 				CA4C2EA71A78663C00070B3B /* TermsAndConditionsConroller.swift in Sources */,
 				CA4C2EA91A78664000070B3B /* ProfileController.swift in Sources */,
 				CA4C2EA81A78663E00070B3B /* ProfilePostCell.swift in Sources */,
+				CA3ED4C11AD1ED0900DEC559 /* MarqueeLabel.m in Sources */,
 				F88E9A9B1AA1381A00F39336 /* FilterViewController.swift in Sources */,
 				CA4C2EAD1A78664A00070B3B /* CreatePostController.swift in Sources */,
 				CA4C2EA41A78663400070B3B /* ContainerViewController.swift in Sources */,
@@ -501,6 +513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -511,6 +524,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SustainabilityAppV1/SustainabilityAppV1-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -518,6 +533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -528,6 +544,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SustainabilityAppV1/SustainabilityAppV1-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -535,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -547,6 +565,8 @@
 				INFOPLIST_FILE = SustainabilityAppV1Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SustainabilityAppV1/SustainabilityAppV1Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SustainabilityAppV1.app/SustainabilityAppV1";
 			};
 			name = Debug;
@@ -555,6 +575,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -563,6 +584,7 @@
 				INFOPLIST_FILE = SustainabilityAppV1Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SustainabilityAppV1/SustainabilityAppV1Tests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SustainabilityAppV1.app/SustainabilityAppV1";
 			};
 			name = Release;
