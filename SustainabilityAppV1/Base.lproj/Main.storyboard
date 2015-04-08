@@ -1444,7 +1444,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="eeB-jp-K1q" kind="relationship" relationship="rootViewController" id="wyG-AN-slw"/>
+                        <segue destination="TbU-JY-e6d" kind="relationship" relationship="rootViewController" id="KcQ-Sw-Rk6"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2911,6 +2911,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                         <outlet property="pages" destination="EzH-3F-kUZ" id="C2l-dF-PhS"/>
                         <outlet property="price_label" destination="ohX-9X-OA7" id="tF5-1T-3cE"/>
                         <outlet property="price_text" destination="cxI-Me-Yxr" id="gYB-PG-KWM"/>
+                        <outlet property="reportButton" destination="IRN-b2-bA9" id="eyV-96-kcD"/>
                         <outlet property="return_date_label" destination="qkX-3B-75D" id="3TP-e6-RA6"/>
                         <outlet property="return_date_text" destination="v00-AH-Olh" id="nmj-7H-JSU"/>
                         <outlet property="round_trip_label" destination="Nbd-GF-5BC" id="edf-UC-PO0"/>

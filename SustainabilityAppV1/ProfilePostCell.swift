@@ -18,6 +18,8 @@ class ProfilePostCell: UITableViewCell {
     @IBOutlet var edit: UIButton!
     @IBOutlet var delete: UIButton!
     @IBOutlet var bump: UIButton!
+    var id = "0"
+    var category = "0"
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,6 +33,28 @@ class ProfilePostCell: UITableViewCell {
         self.title.text = title
         var err: NSError?
         itemImage.image = UIImage(data:imageName)
+    }
+    func setCell(title:String,imageName:NSData,refreshing:Bool,deleting:Bool){
+        self.title.text = title
+        var err: NSError?
+        itemImage.image = UIImage(data:imageName)
+        if(refreshing){
+            bump.hidden = true
+            bumpRefresh.startAnimating()
+        }
+        else{
+            bump.hidden = false
+            bumpRefresh.stopAnimating()
+        }
+        if(deleting){
+            delete.hidden = true
+            println("deleting animation starting")
+            deleteRefresh.startAnimating()
+        }
+        else{
+            delete.hidden = false
+            deleteRefresh.stopAnimating()
+        }
     }
 
 }

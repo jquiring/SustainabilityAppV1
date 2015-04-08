@@ -39,7 +39,6 @@ class ListPostCell: UITableViewCell {
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
         imageLoad.stopAnimating()
         itemImage.hidden = false
-        println("has an image " + title + keyValue)
     }
     func setCell(title:String,keyValue:String,bounds:CGRect){
         self.title.text = title

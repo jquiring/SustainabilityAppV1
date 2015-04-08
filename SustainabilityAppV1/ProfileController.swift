@@ -19,7 +19,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
     var arrayOfPosts: [ProfilePost] = []
-    var arrayofCells: [ProfilePostCell] = []
     var category :String?
     var id:String?
     var firstAppear = true
@@ -31,7 +30,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func setUpPosts(fromAppear:Bool){
         if(fromAppear){
             arrayOfPosts = []
-            arrayofCells = []
         }
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
             var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
@@ -60,8 +58,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-                self.arrayofCells[sender.tag].delete.hidden = true
-                self.arrayofCells[sender.tag].deleteRefresh.startAnimating()
+                self.arrayOfPosts[sender.tag].deleting = true
+                var index = NSIndexPath(forItem: sender.tag, inSection: 0)
+
+
                 self.deletePost(cat, id:id,sender:sender.tag)
             }
 
@@ -75,11 +75,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             let alertController = UIAlertController(title: nil , message:
                 "Your post has been bumped", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                self.arrayofCells[sender].bump.hidden = false
-                self.arrayofCells[sender].bumpRefresh.stopAnimating()
                 let bumped_post = self.arrayOfPosts[sender]
                 self.arrayOfPosts.removeAtIndex(sender)
                 self.arrayOfPosts.insert(bumped_post, atIndex: 0)
+                self.arrayOfPosts[0].refreshing = false
                 if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
                     var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
                     current_posts.removeAtIndex(sender)
@@ -87,25 +86,33 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
                     
                 }
-               // self.arrayofCells = []
+                else {
+                    var current_posts = [bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category,date]
+                    NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+                }
                 self.table.reloadData()
             }))
             presentViewController(alertController, animated: true, completion: nil)
+            
         }
         else{
             let alertController = UIAlertController(title: "Your post was not bumped", message:
             "You can only bump posts once a day", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                self.arrayofCells[sender].bump.hidden = false
-                self.arrayofCells[sender].bumpRefresh.stopAnimating()
+                self.arrayOfPosts[sender].refreshing = false
+                self.table.reloadData()
+              
             }))
             presentViewController(alertController, animated: true, completion: nil)
-
         }
+        
     }
     func bumpPost(category:String,post_id:String,tag:Int){
         var api_requester: AgoraRequester = AgoraRequester()
         let params = ["post_id":post_id, "category":category]
+        self.arrayOfPosts[tag].refreshing = true
+        var indexPath:NSIndexPath = NSIndexPath(forItem: tag, inSection: 0)
+        self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         api_requester.POST("refreshpost/", params: params,
             success: {parseJSON -> Void in
                 
@@ -117,8 +124,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 let alertController = UIAlertController(title: "Connection error", message:
                     "Your post was not bumped check connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                    self.arrayofCells[tag].bump.hidden = false
-                    self.arrayofCells[tag].bumpRefresh.stopAnimating()
+                    self.arrayOfPosts[tag].deleting = false
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.table.reloadData()
+                    })
+                    
                 }))
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
@@ -131,12 +141,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         current_posts.removeAtIndex(sender)
         NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
         self.arrayOfPosts.removeAtIndex(sender)
-        self.arrayofCells.removeAtIndex(sender)
         
         let alertController = UIAlertController(title: nil, message:
             "Your post has been deleted", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             self.table.reloadData()
+            
             
         }))
         presentViewController(alertController, animated: true, completion: nil)
@@ -145,7 +155,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     func deletePost(category:String, id:String,sender:Int){
         var api_requester: AgoraRequester = AgoraRequester()
-        
+        var indexPath:NSIndexPath = NSIndexPath(forItem: sender, inSection: 0)
+        self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         var not_ready = true
         let params = ["id":id, "category":category]
         api_requester.POST("deletepost/", params: params,
@@ -159,8 +170,10 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                     let alertController = UIAlertController(title: "Connection error", message:
                         "Your post was not deleted, check signal and try again", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                        self.arrayofCells[sender].delete.hidden = false
-                        self.arrayofCells[sender].deleteRefresh.stopAnimating()
+                        self.arrayOfPosts[sender].deleting = false
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.table.reloadData()
+                        })
                     }))
                    self.presentViewController(alertController, animated: true, completion: nil)
                     
@@ -169,7 +182,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         )
     }
     @IBAction func editSelected(sender: AnyObject) {
-        println(sender.tag)
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[sender.tag].id, forKey: "post_id")
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[sender.tag].category, forKey: "cat")
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
@@ -181,8 +193,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     
     @IBAction func bumpButton(sender: AnyObject) {
-        arrayofCells[sender.tag].bumpRefresh.startAnimating()
-        arrayofCells[sender.tag].bump.hidden = true
+       
         self.bumpPost(arrayOfPosts[sender.tag].category,post_id: arrayOfPosts[sender.tag].id,tag:sender.tag)
     }
     
@@ -253,7 +264,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         if(NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool){
             setUpPosts(true)
             println("view did appear");
-            self.arrayofCells = []
             table.reloadData()
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
         }
@@ -278,7 +288,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             getMorePosts("", older: "1", fromTop: true,refresh:false)
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
             self.setUpPosts(false)
-            self.arrayofCells = []
             table.reloadData()
 
         }
@@ -455,7 +464,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     
     //table view functions
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println(arrayOfPosts.count)
+
         if(arrayOfPosts.count == 0){
             makeLayout()
             self.reloadInputViews()
@@ -470,26 +479,19 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         cell.edit.tag = indexPath.row
         cell.delete.tag = indexPath.row
         cell.bump.tag = indexPath.row
-        cell.setCell(postCell.title, imageName: postCell.imageName)
+        if(postCell.deleting == true){
+            println("deleting " + postCell.title)
+        }
+        cell.setCell(postCell.title, imageName: postCell.imageName,refreshing:postCell.refreshing,deleting:postCell.deleting)
         cell.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cell.bumpRefresh.stopAnimating()
-        cell.deleteRefresh.stopAnimating()
-        cell.delete.hidden = false
-        if(!contains(arrayofCells,cell)){
-            arrayofCells.append(cell)
-        }
-        else{
-            println("already contained")
-        }
+        cell.id = postCell.id
+        cell.category = postCell.category
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Get the row data for the selected row
-        println(arrayOfPosts[indexPath.row].id)
         category = arrayOfPosts[indexPath.row].category
-        println(category)
         id = arrayOfPosts[indexPath.row].id
-        println(id)
         NSUserDefaults.standardUserDefaults().setObject(id, forKey: "post_id")
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].category, forKey: "cat")
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
@@ -501,7 +503,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(arrayOfPosts.count != 0 ){
-            println("f")
             self.table.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
             self.table.backgroundView = UIView()
             return 1
@@ -593,7 +594,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func updatePosts(parseJSON:NSDictionary,refresh:Bool){
         if(refresh){
             arrayOfPosts = []
-            arrayofCells = []
+            println("refresh")
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
                 
         }
@@ -631,8 +632,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }
         }
         println("reloading data")
-        self.arrayofCells = []
-        self.table.reloadData()
         refreshControl.endRefreshing()
         self.actInd.stopAnimating()
         centerLoad.stopAnimating()
@@ -644,9 +643,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "moreUserPosts")
             bottomNeedsMore = false
         }
-        table.needsUpdateConstraints()
-        self.arrayofCells = []
-        table.reloadData()
+        self.table.reloadData()
+        self.table.reloadData()
 
     }
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -670,17 +668,13 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 
                 //var indexes = [oldLength...self.arrayOfPosts.count]
                 //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)
-                var indexPaths : [Int] = []
-                for i in oldLength...arrayOfPosts.count {
-                    indexPaths.append(0)
-                    indexPaths.append(i)
-                }
+
                 //need to reload twice for some damn reason
-                self.arrayofCells = []
-                table.reloadData()
+                /*
                 self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
                 
                 self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: (oldLength)   , inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                */
                 
                 
             }

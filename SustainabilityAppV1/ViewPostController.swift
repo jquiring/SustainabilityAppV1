@@ -12,6 +12,7 @@ import Foundation
 
 class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComposeViewControllerDelegate{
 
+    @IBOutlet var reportButton: UIBarButtonItem!
     @IBOutlet var zagMailContact: UIButton!
     @IBOutlet var emailContact: UIButton!
     @IBOutlet var textContact: UIButton!
@@ -150,10 +151,16 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         toggleHidden()
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         self.title1 = parseJSON["title"] as String
+        //TODO:What is the alternate email key?
         gonzaga_email_ = parseJSON["gonzaga_email"] as String
         pref_email_ = parseJSON["gonzaga_email"] as String
         text_ = parseJSON["call"] as String
         call_ = parseJSON["text"] as String
+        //NSUserDefaults.standardUserDefaults().objectForKey("username") as String == parseJSON["username"] as String
+        if(true){
+            reportButton.title = "Edit"
+        }
+        
         if(parseJSON["gonzaga_email"] as String == ""){
             self.zagMailContact.enabled = false
             self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
@@ -300,7 +307,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         var username =  NSUserDefaults.standardUserDefaults().objectForKey("username") as String
         var api_requester: AgoraRequester = AgoraRequester()
-        
         let params = ["post_id":post_id,
             "category":category,
             "reporter": username]          //images array
@@ -326,14 +332,24 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         })
     }
     @IBAction func reportPost(sender: AnyObject){
-        let alertController = UIAlertController(title: nil, message:
-             "Are you sure you wish to report this post for inappropriate content?", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                self.reportPostRequest()
-        }))
-        presentViewController(alertController, animated: true, completion: nil)
+        if(reportButton.title == "Report"){
+            let alertController = UIAlertController(title: nil, message:
+                 "Are you sure you wish to report this post for inappropriate content?", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+                    self.reportPostRequest()
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+        else{
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
+            let navController = UINavigationController(rootViewController: VC1)
+            //self.dismissViewControllerAnimated(false, completion: nil)
+            //TODO:Figure out how to make this dismiss the view post controller so save or cancel from editpost goes back to main page
+            self.presentViewController(navController, animated:true, completion: {})
+            
+        }
     }
    override func scrollViewDidScroll(scrollView: UIScrollView) {
         var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView

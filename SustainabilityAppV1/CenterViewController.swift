@@ -179,7 +179,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
 
         if(date == ""){
             if(first_time || fromNewFilter) {
-                
                 centerActInd.startAnimating()
                 first_time = false
                 cancelButton.enabled = false
@@ -309,12 +308,15 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
      
         let postCell = arrayOfPosts[indexPath.row]
         if(postCell.image_error){
+            //hide refresh show error image
             cell.setCell(postCell.title,keyValue:postCell.key_value,bounds:table.bounds,hasError:true)
         }
         else if(postCell.has_image && !postCell.image_loaded){
+            //show refresh hide image
             cell.setCell(postCell.title,keyValue:postCell.key_value,bounds:table.bounds)
         }
         else {
+            //show image hide refresh
             cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
         }
 

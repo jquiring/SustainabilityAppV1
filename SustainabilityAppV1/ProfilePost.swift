@@ -17,6 +17,8 @@ class ProfilePost {
     var category = ""
     var refreshable = ""
     var date = ""
+    var refreshing = false
+    var deleting = false
     //let date_time = ""
     /*
     var cat = ""
