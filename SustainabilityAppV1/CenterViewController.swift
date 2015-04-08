@@ -317,6 +317,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         else {
             cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
         }
+
         cell.setNeedsDisplay()
         cell.setNeedsLayout()
         cell.setNeedsUpdateConstraints()

@@ -44,6 +44,8 @@ class ListPostCell: UITableViewCell {
     func setCell(title:String,keyValue:String,bounds:CGRect){
         self.title.text = title
         self.keyValue.text = keyValue
+        self.itemImage.hidden = true
+        self.imageLoad.startAnimating()
         var err: NSError?
         self.title.preferredMaxLayoutWidth = maxWidth() - 90
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
@@ -52,6 +54,7 @@ class ListPostCell: UITableViewCell {
         self.title.text = title
         self.keyValue.text = keyValue
         var err: NSError?
+        //TODO: change to failed image 
         var image =  UIImage(named:"eMail")
         itemImage.image = image
         self.title.preferredMaxLayoutWidth = maxWidth() - 90
