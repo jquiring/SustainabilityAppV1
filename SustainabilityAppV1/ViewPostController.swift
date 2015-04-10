@@ -32,7 +32,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     let price = "Price"
     var title1 = "Loading information..."
     var email_type = 0
-   
+    var image_count = 0
+    var image_grabbed = 0
+    var loaded_images:[Int] = []
     @IBOutlet var price_label: UILabel!
     @IBOutlet weak var description_label: UILabel!
     @IBOutlet weak var round_trip_label: UILabel!
@@ -79,52 +81,91 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         startRequest()
     }
-    
+    override func viewDidAppear(animated: Bool) {
+        if (NSUserDefaults.standardUserDefaults().objectForKey("fromEdit") != nil){
+            if(NSUserDefaults.standardUserDefaults().objectForKey("fromEdit") as Bool){
+                NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
+                self.dismissViewControllerAnimated(false, completion: nil)
+            }
+        }
+        else{
+            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
+        }
+    }
     func startRequest() {
- 
-        //self.tableView.userInteractionEnabled = false
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
-
-
         self.tableView.reloadData()
-
         var api_requester: AgoraRequester = AgoraRequester()
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
-        let params = ["post_id": post_id, "category":category]
-        var not_ready = true
-        
-        api_requester.POST("viewpost/", params: params,
-            success: {parseJSON -> Void in
-                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)
-                        self.imagesLoading.stopAnimating()
+        api_requester.ViewPost(category, id: post_id.toInt()!,
+            info: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updateUI(parseJSON)
+                    self.imagesLoading.stopAnimating()
                     self.pages.hidden = false
-                        self.tableView.userInteractionEnabled = true
-
+                    self.tableView.userInteractionEnabled = true
                 })
             },
-            failure: {code,message -> Void in
-                self.imagesLoading.stopAnimating()
-                self.pages.hidden = false
-                if(code == 400){
-                    var alert = UIAlertController(title: "This post no longer exists", message: "Pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    }))
-
-                }
-                else {
+            image1: {imageData -> Void in
+                self.image_grabbed += 1
+                self.loaded_images.append(0)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updateImages(imageData!,imageNumber:0,failure:false)
+                })
+            },
+            image2: {imageData -> Void in
+                self.image_grabbed += 1
+                self.loaded_images.append(1)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updateImages(imageData!,imageNumber:1,failure:false)
+                    
+                })
+                
+            },
+            image3: {imageData -> Void in
+                self.image_grabbed += 1
+                self.loaded_images.append(2)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.updateImages(imageData!,imageNumber:2,failure:false)
+                })
+            },
+            failure: {isImage,imageNumber,code,message -> Void in
+                if !isImage{
                     dispatch_async(dispatch_get_main_queue(), {
-                        var alert = UIAlertController(title: "Connection error", message: "Check signal and try", preferredStyle: UIAlertControllerStyle.Alert)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                            self.dismissViewControllerAnimated(true, completion: nil)
-                        }))
+                        self.imagesLoading.stopAnimating()
+                        self.pages.hidden = false
+                    })
+                    if(code == 400){
+                        dispatch_async(dispatch_get_main_queue(), {
+                            var alert = UIAlertController(title: "This post no longer exists", message: "Pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
+                            self.presentViewController(alert, animated: true, completion: nil)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            }))
+                        })
+                        
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            var alert = UIAlertController(title: "Connection error", message: "Check signal and try", preferredStyle: UIAlertControllerStyle.Alert)
+                            self.presentViewController(alert, animated: true, completion: nil)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            }))
+                        })
+                    }
+                }
+                else{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.image_grabbed += 1
+                        self.loaded_images.append(imageNumber!)
+                        self.updateImages(nil,imageNumber:imageNumber!,failure:true)
                     })
                 }
             }
         )
+
+
     }
     func createAlert(message:String, title:String?){
         var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -133,8 +174,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }))
         
     }
-    func createScroll(){
-        for index in 0..<pageImages.count {
+    func createScroll(fromStart:Bool,newImageIndex:Int){
+        for index in 0...(pageImages.count - 1) {
+
             var image:UIImage  = pageImages[index]
             var newImage = image.resizeToBoundingSquare(boundingSquareSideLength: scrollViewWidth)
             frame.origin.x = scrollViewWidth * CGFloat(index)
@@ -142,10 +184,35 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             frame.size = CGSize(width: scrollViewWidth, height: scrollViewWidth)
             self.scrollView.pagingEnabled = true
             var subView = UIImageView(frame: frame)
-            subView.image = newImage
+            if(contains(loaded_images,index)){
+                println("adding image ")
+                print(newImage)
+                for view in subView.subviews {
+                    view.removeFromSuperview()
+                }
+                subView.image = newImage
+            }
+            else if(fromStart){
+                var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+                centerActInd.center = subView.center
+                centerActInd.hidesWhenStopped = true
+                centerActInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                centerActInd.startAnimating()
+                subView.addSubview(centerActInd)
+            }
             self.scrollView.addSubview(subView)
         }
         self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
+    }
+    func updateImages(imageData:NSData?, imageNumber:Int,failure:Bool){
+        if(!failure){
+            self.pageImages[imageNumber] = UIImage(data: imageData!)!
+        }
+        else{
+            self.pageImages[imageNumber] = UIImage(named: "Call")!
+        }
+ 
+        createScroll(false, newImageIndex: imageNumber)
     }
     func updateUI(parseJSON:NSDictionary){
         toggleHidden()
@@ -153,12 +220,19 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         self.title1 = parseJSON["title"] as String
         //TODO:What is the alternate email key?
         gonzaga_email_ = parseJSON["gonzaga_email"] as String
-        pref_email_ = parseJSON["gonzaga_email"] as String
+        pref_email_ = parseJSON["pref_email"] as String
         text_ = parseJSON["call"] as String
+        println(pref_email_)
+        println(gonzaga_email_)
+        println(text_)
         call_ = parseJSON["text"] as String
-        //NSUserDefaults.standardUserDefaults().objectForKey("username") as String == parseJSON["username"] as String
-        if(true){
+        println(call_)
+    
+        if(NSUserDefaults.standardUserDefaults().objectForKey("username") as String == parseJSON["username"] as String){
             reportButton.title = "Edit"
+        }
+        else {
+            reportButton.title = "Report"
         }
         
         if(parseJSON["gonzaga_email"] as String == ""){
@@ -226,33 +300,21 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         if category == "Books"{
             self.isbn_label.text = parseJSON["isbn"] as? String
         }
-        var imageString: [String]=["","",""]
-        imageString[0] = parseJSON["image1"]! as String
-        imageString[1] = parseJSON["image2"]! as String
-        imageString[2] = parseJSON["image3"]! as String
-        if !imageString[0].isEmpty {
-            let imageData1 = NSData(base64EncodedString: imageString[0], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            let image1 =  (UIImage(data: imageData1))
-            self.pageImages.append(image1!)
+        var images:Int = parseJSON["image_count"] as Int
+        if(images == 0){
+            pageImages.append(UIImage(named: "noImage")!)
+            pages.numberOfPages = 1
+            loaded_images.append(0)
         }
         else{
-            let image1 = UIImage(named: "noImage")
-            self.pageImages.append(image1!)
+            for i in 0...(images-1){
+                pageImages.append(UIImage(named: "TapToReload")!)
+            }
+            pages.numberOfPages = images
         }
-        if !imageString[1].isEmpty {
-            let imageData2 = NSData(base64EncodedString: imageString[1], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            let image2 =  (UIImage(data: imageData2))
-            self.pageImages.append(image2!)
-        }
-        if !imageString[2].isEmpty {
-            let imageData3 = NSData(base64EncodedString: imageString[2], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            let image3 =  (UIImage(data: imageData3))
-            self.pageImages.append(image3!)
-        }
-        createScroll()
-
+        image_count = images
+        createScroll(true, newImageIndex: -1)
         pages.currentPage = 0
-        pages.numberOfPages = pageImages.count
         self.tableView.reloadData()
     }
     @IBAction func done(sender: AnyObject) {
@@ -343,6 +405,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             presentViewController(alertController, animated: true, completion: nil)
         }
         else{
+            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "fromEdit")
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
             let navController = UINavigationController(rootViewController: VC1)
             //self.dismissViewControllerAnimated(false, completion: nil)
@@ -632,11 +695,12 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
     // Configures and returns a MFMessageComposeViewController instance
     func configuredMessageComposeViewController(title:String,text_:String) -> MFMessageComposeViewController {
         let messageComposeVC = MFMessageComposeViewController()
-        messageComposeVC.messageComposeDelegate = self  //  Make sure to set this property to self, so that the controller can be dismissed!
+        //  Make sure to set this property to self, so that the controller can be dismissed!
         
         //these need to be fixed
-        messageComposeVC.recipients = [text_]
+        messageComposeVC.messageComposeDelegate = self
         messageComposeVC.body = "Inquiry Regarding " + title + "\n"
+        messageComposeVC.recipients = [text_]
         return messageComposeVC
     }
     

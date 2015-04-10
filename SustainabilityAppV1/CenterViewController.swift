@@ -39,7 +39,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         var r = self.view.bounds
         var r2 = CGRect()
         r2.size.width = r.width
-        r2.size.height = 30
+        r2.size.height = 35
         cancelButton.bounds = r2
         cancelButton.backgroundColor = UIColor.lightGrayColor()
         cancelButton.setTitle("Filtered Search     X", forState: UIControlState.Normal)
@@ -76,11 +76,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"min_price")
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"max_price")
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
-    NSUserDefaults.standardUserDefaults().setObject(["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"],forKey:"categories")
+        NSUserDefaults.standardUserDefaults().setObject([],forKey:"categories")
         setUp("",older: "1",fromTop: "1",fromNewFilter:true)
         self.table.reloadData()
         cancelButton.hidden = true
     }
+    /*
     override func viewDidAppear(animated: Bool) {
         if(NSUserDefaults.standardUserDefaults().objectForKey("newFilterPerameters") as Bool){
             NSUserDefaults.standardUserDefaults().setObject(false,forKey:"newFilterPerameters")
@@ -98,7 +99,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             needsReloading = false
         }
     }
-
+    */
     func checkFilteredSearch() -> Bool {
         
         var max_price : String = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as String
@@ -106,7 +107,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             (NSUserDefaults.standardUserDefaults().objectForKey("min_price") as String != "") ||
             (NSUserDefaults.standardUserDefaults().objectForKey("free") as String != "0") ||
             (NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String != "") ||
-        (NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != ["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"])){
+        (NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != [] && NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != ["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"])){
     
             return true
         }
@@ -174,14 +175,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         self.table.reloadData()
     }
     func setUp(date:String,older:String,fromTop:String,fromNewFilter:Bool){
-       
-        
-
         if(date == ""){
             if(first_time || fromNewFilter) {
                 centerActInd.startAnimating()
                 first_time = false
-                cancelButton.enabled = false
+                //TODO: Do we want to disable to cancel button during requests?
+                //cancelButton.enabled = false
             }                                                                                                                    
         }
         
@@ -215,7 +214,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             imageReceived: {category,postID,imageData -> Void in
                 //imageReceived function only called IF there is an image
                 //no point in running this function just to determine there is no image...
-                print("Received image for" + category + " ")
                 println(postID)
                 imageData.writeToFile("/Users/kylehandy/Desktop/" + category + String(postID) + ".png",atomically: false)
                 var postCount = 0
@@ -223,11 +221,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 for post in self.arrayOfPosts{
                     if(String(postID) == post.id && category == post.category){
                         post.imageName = imageData
+                        print("Received image for" + category + " ")
                         post.image_loaded = true
                         hitCount = postCount
                     }
                     postCount++
                 }
+                //self.table.reloadData()
                 dispatch_async(dispatch_get_main_queue(), {
                     var indexPath = NSIndexPath(forRow: hitCount, inSection: 0)
                     self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
@@ -254,6 +254,9 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                         })
                     }
                     else{
+                        self.actInd.stopAnimating()
+                        self.centerActInd.stopAnimating()
+                        self.refreshControl.endRefreshing()
                         var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         
@@ -338,6 +341,8 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             cancelButton.hidden = false
         }
         setUp("",older: "1",fromTop: "1",fromNewFilter:true)
+        
+        //self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
         delegate?.collapseSidePanels?()
     }
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

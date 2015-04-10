@@ -11,6 +11,10 @@ import Foundation
 
 class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextFieldDelegate,UITextViewDelegate {
     
+    @IBOutlet var image3Load: UIActivityIndicatorView!
+    @IBOutlet var image2Load: UIActivityIndicatorView!
+    @IBOutlet var image1Load: UIActivityIndicatorView!
+    
     var orientation: UIImageOrientation = .Up
     var currentImage:UIImageView = UIImageView()
     var popover:UIPopoverController?=nil
@@ -171,6 +175,16 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 self.round_trip_switch.setOn(true, animated: false)
             }
             //self.round_trip_switch.selected = parseJSON["round_trip"] as Bool
+            /*
+            
+                if(trip.substringWithRange(NSRange(location: 0, length: 2){
+            
+                }
+                else if(trip.substringWithRange(NSRange(location: 0, length: 4)) == "From"){
+            
+                }
+
+            */
             let trip_ = parseJSON["trip"] as String
             let trip_array = trip_.componentsSeparatedByString(" To ")
             let to_ = trip_array[0].componentsSeparatedByString("From ")
@@ -179,40 +193,24 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             if parseJSON["round_trip"] as Bool{
                 self.comesBack.text = parseJSON["return_date_time"] as String
             }
+        }
         tableView.reloadData()
+        var image_count: Int = parseJSON["image_count"] as Int
+        if(image_count < 3){
+            image3.image = UIImage(named: "PlusDark.png")
+            image3.hidden = false
+            image3Load.stopAnimating()
         }
-        
-        //The Three images are processed here
-        var imageString: [String]=["","",""]
-        imageString[0] = parseJSON["image1"]! as String
-        imageString[1] = parseJSON["image2"]! as String
-        imageString[2] = parseJSON["image3"]! as String
-        if !imageString[0].isEmpty {
-            let imageData1 = NSData(base64EncodedString: imageString[0], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            self.image1.image =  (UIImage(data: imageData1))
+        if(image_count < 2){
+            image2.image = UIImage(named: "PlusDark.png")
+            image2.hidden = false
+            image2Load.stopAnimating()
         }
-        else{
-            //No image flag
-            self.image1.image = UIImage(named: "PlusDark.png")
-            //CASE IN WHICH THE POST HAD NO IMAGE 1
+        if(image_count < 1){
+            image1.image = UIImage(named: "PlusDark.png")
+            image1.hidden = false
+            image1Load.stopAnimating()
         }
-        if !imageString[1].isEmpty {
-            let imageData2 = NSData(base64EncodedString: imageString[1], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            self.image2.image =  (UIImage(data: imageData2))
-        }
-        else{
-            self.image2.image = UIImage(named: "PlusDark.png")
-        }
-        if !imageString[2].isEmpty {
-            let imageData3 = NSData(base64EncodedString: imageString[2], options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            self.image3.image =  (UIImage(data: imageData3))
-            //do stuff with the image here
-        }
-        else{
-            self.image3.image = UIImage(named: "PlusDark.png")
-        }
-        println("still happy")
-        
     }
     func assignDelegates(){
         self.leaves.delegate = self
@@ -279,19 +277,22 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
+        self.gmail.image = UIImage(named:"ZagMail")
 
         
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
+        self.pEmail.image = UIImage(named:"eMailOFF")
 
         
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
+        self.text.image = UIImage(named:"SMSOFF")
 
         
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
-
+        self.phone.image = UIImage(named:"CallOFF")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -568,6 +569,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
 
     @IBAction func cancel(sender: AnyObject) {
+          NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
           self.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -579,30 +581,58 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             
         }
     }
+    func failedImage(imageNumber:Int){
+        if(imageNumber == 1){
+            image1.image = UIImage(named: "leaf.png")
+            image1.hidden = false
+            image1Load.stopAnimating()
+        }
+        else if(imageNumber == 2){
+            image2.image = UIImage(named: "leaf.png")
+            image2.hidden = false
+            image2Load.stopAnimating()
+        }
+        else if(imageNumber == 3){
+            image2.image = UIImage(named: "leaf.png")
+            image2.hidden = false
+            image2Load.stopAnimating()
+        }
+    }
     func getPostRequest(postid_:String, category_:String){
-        var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        self.navigationController?.view.addSubview(actInd)
-
-        actInd.startAnimating()
         var api_requester: AgoraRequester = AgoraRequester()
-        var params = ["post_id":postid_,          //post id so we find the post
-            "category":category_]                 //category so we know what table to search
-            as Dictionary<String,AnyObject>
-    
-        api_requester.POST("viewpost/", params: params,
-            success: {parseJSON -> Void in
-                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)
-                actInd.stopAnimating()})
-           
+        api_requester.ViewPost(category_, id: postid_.toInt()!,
+            info: {parseJSON -> Void in
+                dispatch_async(dispatch_get_main_queue(), {self.updateUI(parseJSON)})
             },
-            failure: {code,message -> Void in
+            image1: {imageData -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.image1.image = UIImage(data:imageData!)
+                    self.image1.hidden = false
+                    self.image1Load.stopAnimating()
+                })
+            },
+            image2: {imageData -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
+                    self.image2.image = UIImage(data:imageData!)
+                    self.image2.hidden = false
+                    self.image2Load.stopAnimating()
+                })
+                        
+            },
+            image3: {imageData -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.image3.image =  UIImage(data:imageData!)
+                    self.image3.hidden = false
+                    self.image3Load.stopAnimating()
+                })
+            },
+            failure: {isImage,imageNumber,code,message -> Void in
+                if !isImage{
+                    self.failedImage(imageNumber!)
+                }
+                else{
                     if(code == 400){
-                        self.actInd.stopAnimating()
-                        var alert = UIAlertController(title: "This post no longer exists", message: "Please refresh or logout and log back in", preferredStyle: UIAlertControllerStyle.Alert)
+                        var alert = UIAlertController(title: "This post no longer exists", message: "Pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
                             self.dismissViewControllerAnimated(true, completion: nil)
@@ -610,14 +640,16 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                         
                     }
                     else {
-                        actInd.stopAnimating()
-                        var alert = UIAlertController(title: "Connection error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                        }))
+                        dispatch_async(dispatch_get_main_queue(), {
+                            var alert = UIAlertController(title: "Connection error", message: "Check signal and try", preferredStyle: UIAlertControllerStyle.Alert)
+                            self.presentViewController(alert, animated: true, completion: nil)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            }))
+                        })
                     }
                     
-                })
+                }
             }
         )
     }
