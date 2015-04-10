@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwifteriOS
+
 
 class ProfileController: UIViewController, UITableViewDataSource,UITableViewDelegate{
     @IBOutlet weak var table: UITableView!
@@ -18,6 +20,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
+    let twitterFeed = MarqueeLabel()
     var arrayOfPosts: [ProfilePost] = []
     var category :String?
     var id:String?
@@ -213,17 +216,17 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
 
 
     }
-    
+    /*
     @IBAction func tweets(sender: AnyObject) {
-        /*
+        
         var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("twttr") as TwitterTableViewController
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
-        */
+
         
     }
-
+*/
     
     @IBAction func logout(sender: AnyObject) {
         
@@ -302,7 +305,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-
+      
         // Do any additional setup after loading the view.
     }
 
@@ -341,7 +344,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let postsLabel = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let noPosts = UIButton.buttonWithType(UIButtonType.System) as UIButton
         let filler = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let twitterFeed = MarqueeLabel()
+        
         //let twitterFeed = UIButton.buttonWithType(UIButtonType.System) as UIButton
         //let yourPosts = UILabel as UILabel
         //var tableView:UITableView
@@ -401,13 +404,24 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         //table.addConstraints(table_constraint_V)
         
         //twitterFeed
-        //twitterFeed.setTitle("@ZagsGoGreen", forState: UIControlState.Normal)
-        //twitterFeed.titleLabel!.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
-        twitterFeed.marqueeType = .MLLeftRight
+        twitterFeed.marqueeType = .MLContinuous
+        twitterFeed.font = UIFont(name: "HelveticaNeue-Light",size: 16)
         twitterFeed.scrollDuration = 15.0
         twitterFeed.fadeLength = 10.0
-        twitterFeed.continuousMarqueeExtraBuffer = 10.0
-        twitterFeed.text = "This is a test of MarqueeLabel - the text is long enough that it needs to scroll to see the whole thing."
+        twitterFeed.continuousMarqueeExtraBuffer = -5.0
+        let twitterText = " @ZagsGoGreen: "
+        let swifter = Swifter(consumerKey:"ZWYgoh4EdRMbqvysDom4Far29", consumerSecret:"lksmS293yiW8D1q8F9BSqXlyGGx65lh3uHSwspfnqemdLu78qB")
+        swifter.getStatusesUserTimelineWithUserID("1601601674", count: 1, sinceID: nil, maxID: nil, trimUser: true, contributorDetails: false, includeEntities: true,
+            success: {
+                statuses -> Void in
+                if let statusText = statuses![0]["text"].string {
+                    let newText = "  @ZagsGoGreen: " + statusText
+                    self.twitterFeed.text = newText
+                }
+            }, failure: {
+                (error: NSError) in
+        })
+        twitterFeed.text = twitterText
         twitterFeed.tag = 101
 
         twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -453,6 +467,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view.addSubview(twitterFeed)
         let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
         view.addConstraints(view_constraint_V)
+        
+    }
+    func updateTweets(tweet: String) -> Void{
         
     }
 
