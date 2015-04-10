@@ -407,15 +407,15 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         twitterFeed.marqueeType = .MLContinuous
         twitterFeed.font = UIFont(name: "HelveticaNeue-Light",size: 16)
         twitterFeed.scrollDuration = 15.0
-        twitterFeed.fadeLength = 10.0
-        twitterFeed.continuousMarqueeExtraBuffer = -5.0
+        twitterFeed.fadeLength = 0.0
+        twitterFeed.continuousMarqueeExtraBuffer = 0.0
         let twitterText = " @ZagsGoGreen: "
         let swifter = Swifter(consumerKey:"ZWYgoh4EdRMbqvysDom4Far29", consumerSecret:"lksmS293yiW8D1q8F9BSqXlyGGx65lh3uHSwspfnqemdLu78qB")
         swifter.getStatusesUserTimelineWithUserID("1601601674", count: 1, sinceID: nil, maxID: nil, trimUser: true, contributorDetails: false, includeEntities: true,
             success: {
                 statuses -> Void in
                 if let statusText = statuses![0]["text"].string {
-                    let newText = "  @ZagsGoGreen: " + statusText
+                    let newText = " @ZagsGoGreen: " + statusText + "   |"
                     self.twitterFeed.text = newText
                 }
             }, failure: {

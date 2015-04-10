@@ -19,8 +19,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var callContact: UIButton!
     @IBOutlet var pages: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
-    
     @IBOutlet var imagesLoading: UIActivityIndicatorView!
+    
     var gonzaga_email_ = ""
     var pref_email_ = ""
     var call_ = ""
@@ -35,6 +35,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     var image_count = 0
     var image_grabbed = 0
     var loaded_images:[Int] = []
+    
     @IBOutlet var price_label: UILabel!
     @IBOutlet weak var description_label: UILabel!
     @IBOutlet weak var round_trip_label: UILabel!
@@ -55,7 +56,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet weak var location_text: UILabel!
     @IBOutlet weak var date_text: UILabel!
     
-    
+    @IBOutlet var tv: UITableView!
     let messageComposer = MessageComposer()
     
     override func viewDidLoad() {
@@ -79,6 +80,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:")
+        recognizer.direction = .Right
+        self.tv.addGestureRecognizer(recognizer)
+        
         startRequest()
     }
     override func viewDidAppear(animated: Bool) {
@@ -91,6 +96,11 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         else{
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
         }
+    }
+    func swipeLeft(recognizer : UISwipeGestureRecognizer) {
+        println("swiped")
+        //self.performSegueWithIdentifier("swipeBack", sender: self)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     func startRequest() {
         self.tableView.reloadData()
@@ -164,8 +174,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 }
             }
         )
-
-
     }
     func createAlert(message:String, title:String?){
         var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -175,16 +183,17 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
     }
     func createScroll(fromStart:Bool,newImageIndex:Int){
-        for index in 0...(pageImages.count - 1) {
+        for index in 0...(image_count) {
 
-            var image:UIImage  = pageImages[index]
-            var newImage = image.resizeToBoundingSquare(boundingSquareSideLength: scrollViewWidth)
+           
             frame.origin.x = scrollViewWidth * CGFloat(index)
             frame.origin.y = 0
             frame.size = CGSize(width: scrollViewWidth, height: scrollViewWidth)
             self.scrollView.pagingEnabled = true
             var subView = UIImageView(frame: frame)
             if(contains(loaded_images,index)){
+                var image:UIImage  = pageImages[index]
+                var newImage = image.resizeToBoundingSquare(boundingSquareSideLength: scrollViewWidth)
                 println("adding image ")
                 print(newImage)
                 for view in subView.subviews {
@@ -305,14 +314,13 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             pageImages.append(UIImage(named: "noImage")!)
             pages.numberOfPages = 1
             loaded_images.append(0)
+            image_count = 1
         }
         else{
-            for i in 0...(images-1){
-                pageImages.append(UIImage(named: "TapToReload")!)
-            }
             pages.numberOfPages = images
+            image_count = images
         }
-        image_count = images
+        
         createScroll(true, newImageIndex: -1)
         pages.currentPage = 0
         self.tableView.reloadData()
