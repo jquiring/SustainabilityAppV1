@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let containerViewController = ContainerViewController()
             window!.rootViewController = containerViewController
             window!.makeKeyAndVisible()
+            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
         }
        
         return true

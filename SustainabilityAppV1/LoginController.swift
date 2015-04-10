@@ -61,7 +61,8 @@ class LoginController: UIViewController,UITextFieldDelegate {
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"min_price")
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"max_price")
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
-    NSUserDefaults.standardUserDefaults().setObject([],forKey:"categories")
+        NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
+        NSUserDefaults.standardUserDefaults().setObject([],forKey:"categories")
         if(parseJSON["exists"] as String == "yes"){
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window!.backgroundColor = UIColor.whiteColor()
