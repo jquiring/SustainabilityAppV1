@@ -11,7 +11,7 @@ import MessageUI
 import Foundation
 
 class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComposeViewControllerDelegate{
-
+    
     @IBOutlet var reportButton: UIBarButtonItem!
     @IBOutlet var zagMailContact: UIButton!
     @IBOutlet var emailContact: UIButton!
@@ -26,7 +26,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     var call_ = ""
     var text_ = ""
     var scrollViewWidth:CGFloat = 0.0
-    var pageImages: [UIImage] = []
+    var pageImages = [Int:UIImage]()
     var frame: CGRect = CGRectMake(0, 0, 0, 0)
     let description1 = "description"
     let price = "Price"
@@ -45,7 +45,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var isbn_label: UILabel!
     @IBOutlet weak var location_label: UILabel!
     @IBOutlet var date_time_label: UILabel!
-
+    
     @IBOutlet weak var price_text: UILabel!
     @IBOutlet weak var description_text: UILabel!
     @IBOutlet weak var round_trip_text: UILabel!
@@ -117,15 +117,13 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 })
             },
             image1: {imageData -> Void in
-                self.image_grabbed += 1
-                self.loaded_images.append(0)
+                
                 dispatch_async(dispatch_get_main_queue(), {
                     self.updateImages(imageData!,imageNumber:0,failure:false)
                 })
             },
             image2: {imageData -> Void in
-                self.image_grabbed += 1
-                self.loaded_images.append(1)
+                
                 dispatch_async(dispatch_get_main_queue(), {
                     self.updateImages(imageData!,imageNumber:1,failure:false)
                     
@@ -133,8 +131,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 
             },
             image3: {imageData -> Void in
-                self.image_grabbed += 1
-                self.loaded_images.append(2)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.updateImages(imageData!,imageNumber:2,failure:false)
                 })
@@ -183,16 +179,17 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
     }
     func createScroll(fromStart:Bool,newImageIndex:Int){
-        for index in 0...(image_count) {
-
-           
+        for index in 0...(image_count-1) {
+            
+            
             frame.origin.x = scrollViewWidth * CGFloat(index)
             frame.origin.y = 0
             frame.size = CGSize(width: scrollViewWidth, height: scrollViewWidth)
             self.scrollView.pagingEnabled = true
             var subView = UIImageView(frame: frame)
             if(contains(loaded_images,index)){
-                var image:UIImage  = pageImages[index]
+                println(index)
+                var image:UIImage  = pageImages[index]!
                 var newImage = image.resizeToBoundingSquare(boundingSquareSideLength: scrollViewWidth)
                 println("adding image ")
                 print(newImage)
@@ -201,7 +198,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 }
                 subView.image = newImage
             }
-            else if(fromStart){
+            else {
                 var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
                 centerActInd.center = subView.center
                 centerActInd.hidesWhenStopped = true
@@ -214,13 +211,15 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
     }
     func updateImages(imageData:NSData?, imageNumber:Int,failure:Bool){
+        self.image_grabbed += 1
+        
         if(!failure){
-            self.pageImages[imageNumber] = UIImage(data: imageData!)!
+            self.pageImages[imageNumber] = (UIImage(data: imageData!)!)
         }
         else{
             self.pageImages[imageNumber] = UIImage(named: "Call")!
         }
- 
+        self.loaded_images.append(imageNumber)
         createScroll(false, newImageIndex: imageNumber)
     }
     func updateUI(parseJSON:NSDictionary){
@@ -236,7 +235,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         println(text_)
         call_ = parseJSON["text"] as String
         println(call_)
-    
+        
         if(NSUserDefaults.standardUserDefaults().objectForKey("username") as String == parseJSON["username"] as String){
             reportButton.title = "Edit"
         }
@@ -251,7 +250,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         else{
             self.zagMailContact.enabled = true
-
+            
         }
         if(parseJSON["pref_email"] as String == ""){
             self.emailContact.enabled = false
@@ -283,7 +282,12 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.return_date_label.text = ""
         }
         if category == "Ride Shares"{
-            self.trip_location_label.text = parseJSON["trip"] as? String
+            
+            var trip = parseJSON["trip"] as String
+            
+            var Trip = trip.stringByReplacingOccurrencesOfString("To*&", withString: "to", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    
+            self.trip_location_label.text = Trip
             self.depature_date_label.text = parseJSON["departure_date_time"] as? String
             if parseJSON["round_trip"] as Bool {
                 self.round_trip_label.text = "Round trip"
@@ -311,7 +315,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         var images:Int = parseJSON["image_count"] as Int
         if(images == 0){
-            pageImages.append(UIImage(named: "noImage")!)
+            pageImages[0] = UIImage(named: "noImage")!
             pages.numberOfPages = 1
             loaded_images.append(0)
             image_count = 1
@@ -337,7 +341,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         } else {
             self.showSendMailErrorAlert()
         }
-       
+        
     }
     @IBAction func prefEmailIsTouched(sender: AnyObject) {
         email_type = 1
@@ -351,7 +355,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     @IBAction func textIsTouched(sender: AnyObject) {
         if (messageComposer.canSendText()) {
-
+            
             let messageComposeVC = messageComposer.configuredMessageComposeViewController(title1,text_: self.text_)
             presentViewController(messageComposeVC, animated: true, completion: nil)
         }
@@ -370,7 +374,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             var url:NSURL = NSURL(string: "tel://" + self.call_)!
             UIApplication.sharedApplication().openURL(url)}))
         presentViewController(alertController, animated: true, completion: nil)
-   
+        
     }
     func reportPostRequest(){
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
@@ -404,11 +408,11 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBAction func reportPost(sender: AnyObject){
         if(reportButton.title == "Report"){
             let alertController = UIAlertController(title: nil, message:
-                 "Are you sure you wish to report this post for inappropriate content?", preferredStyle: UIAlertControllerStyle.Alert)
+                "Are you sure you wish to report this post for inappropriate content?", preferredStyle: UIAlertControllerStyle.Alert)
             
             alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                    self.reportPostRequest()
+                self.reportPostRequest()
             }))
             presentViewController(alertController, animated: true, completion: nil)
         }
@@ -422,7 +426,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             
         }
     }
-   override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
         var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView
         var fractionalPage = self.scrollView.contentOffset.x / pageWidth;
         var page = lround(Double(fractionalPage))
@@ -444,9 +448,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         if(!imagesLoading.isAnimating()){
             //This needs to be only the picture cell
-
+            
             //Contact options section
-  
+            
             if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "")){
                 self.price_text.hidden = true
                 return 0

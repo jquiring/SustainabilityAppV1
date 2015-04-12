@@ -29,39 +29,39 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     var picker:UIImagePickerController?=UIImagePickerController()
     weak var cat_picker: UIPickerView!
     //3 images for taking pics
-
+    
     @IBOutlet var image1: UIImageView!
     @IBOutlet var image2: UIImageView!
     @IBOutlet var image3: UIImageView!
     
     @IBOutlet var round_trip_switch: UISwitch!
     var round_trip_flag = false
-
+    
     @IBOutlet var from: UITextField!
     @IBOutlet var price: UITextField!
     //Ride Share
     
     @IBOutlet var to: UITextField!
-
+    
     @IBOutlet var leaves: UITextField!
     @IBOutlet var comesBack: UITextField!
-
+    
     //Textbooks
     @IBOutlet var ISBN: UITextField!
-
+    
     //Events
     @IBOutlet var location: UITextField!
-
+    
     @IBOutlet var date: UITextField!
     let date_picker:UIDatePicker = UIDatePicker()
     //contact options images
-
+    
     @IBOutlet var text: UIImageView!
     @IBOutlet var pEmail: UIImageView!
     @IBOutlet var gmail: UIImageView!
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-
-
+    
+    
     @IBOutlet var phone: UIImageView!
     var status_code = 0
     var images_data:[NSData] = []
@@ -177,21 +177,48 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             //self.round_trip_switch.selected = parseJSON["round_trip"] as Bool
             /*
             
-                if(trip.substringWithRange(NSRange(location: 0, length: 2){
+            if(trip.substringWithRange(NSRange(location: 0, length: 2){
             
-                }
-                else if(trip.substringWithRange(NSRange(location: 0, length: 4)) == "From"){
+            }
+            else if(trip.substringWithRange(NSRange(location: 0, length: 4)) == "From"){
             
-                }
-
+            }
+            
             */
+            
+            
+            
             let trip_ = parseJSON["trip"] as String
-            let trip_array = trip_.componentsSeparatedByString(" To ")
-            let to_ = trip_array[0].componentsSeparatedByString("From ")
-            self.from.text = to_[1]
-            self.to.text = trip_array[1]
+            var range = NSRange(location:0,length:2)
+            if(trip_ == ""){
+                println ("empty")
+                self.from.text = ""
+                self.to.text = ""
+            }
+            else if(trip_[0...1] == "To"){
+                println("To")
+                self.from.text = ""
+                var end = countElements(trip_) - 1
+                self.to.text = trip_[3...end]
+            }
+            else if(trip_.rangeOfString("To*&") != nil){
+                
+                println("From")
+                trip_.stringByReplacingOccurrencesOfString("To*&", withString: "To", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                println(trip_)
+                let trip_array = trip_.componentsSeparatedByString(" To*& ")
+                let to_ = trip_array[0].componentsSeparatedByString("From ")
+                self.from.text = to_[1]
+                self.to.text = trip_array[1]
+            }
+            else{
+                println("both")
+                self.from.text = trip_[5...(countElements(trip_) - 1)]
+                self.to.text = ""
+            }
             if parseJSON["round_trip"] as Bool{
                 self.comesBack.text = parseJSON["return_date_time"] as String
+                
             }
         }
         tableView.reloadData()
@@ -224,7 +251,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         self.descOutlet.delegate = self
         self.title_field.delegate = self
     }
-
+    
     func doneDate(){
         currentText.resignFirstResponder()
     }
@@ -278,17 +305,17 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
         self.gmail.image = UIImage(named:"ZagMail")
-
+        
         
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
         self.pEmail.image = UIImage(named:"eMailOFF")
-
+        
         
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
         self.text.image = UIImage(named:"SMSOFF")
-
+        
         
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
@@ -298,7 +325,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func image1Toutched(){ //touched
         currentImage = self.image1
         getImage()
@@ -348,7 +375,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             self.phone.image = UIImage(named:"CallOFF")
         }
     }
-
+    
     func getImage(){
         //Create the alert action that comes up when the images are selected
         currentText.resignFirstResponder()
@@ -488,7 +515,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             createAlert("Please enter a title under 100 characters")
             return false
         }
-
+        
         
         if(!validator.checkFloat(price.text) && price.text != ""){
             createAlert("Please enter a valid price")
@@ -567,12 +594,12 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         }
         return 0
     }
-
+    
     @IBAction func cancel(sender: AnyObject) {
-          NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
-          self.dismissViewControllerAnimated(true, completion: nil)
+        NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
     @IBAction func editPostSubmit(sender: AnyObject) {
         if(validateFields()){
             actInd.startAnimating()
@@ -612,12 +639,12 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 })
             },
             image2: {imageData -> Void in
-                    dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(dispatch_get_main_queue(), {
                     self.image2.image = UIImage(data:imageData!)
                     self.image2.hidden = false
                     self.image2Load.stopAnimating()
                 })
-                        
+                
             },
             image3: {imageData -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -671,7 +698,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     func editPostRequest() {
         actInd.startAnimating()
         self.tableView.userInteractionEnabled = false
-
+        
         var api_requester: AgoraRequester = AgoraRequester()
         var UIImageList = [image1.image,image2.image,image3.image]
         var imagesBase64:[String] = []
@@ -690,7 +717,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                     defaultImage = UIImageJPEGRepresentation(UIImageList[i],1)
                     notChoseDefault = false
                     println("image was the same")
-
+                    
                 }
             }
             else{
@@ -751,7 +778,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             "date_time":date.text,
             "location":location.text,
             "isbn":ISBN.text,
-            "images":imagesBase64]         
+            "images":imagesBase64]
             as Dictionary<String,AnyObject>
         var not_ready = true
         api_requester.POST("editpost/", params: params,
@@ -777,12 +804,14 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 })
             }
         )
-
+        
     }
+    
 }
 
 
 
 
-    
+
+
 

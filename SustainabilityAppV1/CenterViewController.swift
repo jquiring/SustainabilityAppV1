@@ -19,7 +19,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     var delegate: CenterViewControllerDelegate?
     var cancelButton :UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
     var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-    //TODO:MAKE SURE NO DUPLICATE REQUESTS 
+    //TODO:MAKE SURE NO DUPLICATE REQUESTS
     var refreshControl = UIRefreshControl()
     var needsReloading = true
     var bottomNeedsMore = true
@@ -83,21 +83,21 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     /*
     override func viewDidAppear(animated: Bool) {
-        if(NSUserDefaults.standardUserDefaults().objectForKey("newFilterPerameters") as Bool){
-            NSUserDefaults.standardUserDefaults().setObject(false,forKey:"newFilterPerameters")
-            setUp("",older: "1",fromTop: "1",fromNewFilter:true)
-            if(!checkFilteredSearch()){
-                println("isnt a filtered search")
-                cancelButton.hidden = true
-            }
-            else {
-                cancelButton.hidden = false
-            }
-        }
-        if(needsReloading){
-            self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
-            needsReloading = false
-        }
+    if(NSUserDefaults.standardUserDefaults().objectForKey("newFilterPerameters") as Bool){
+    NSUserDefaults.standardUserDefaults().setObject(false,forKey:"newFilterPerameters")
+    setUp("",older: "1",fromTop: "1",fromNewFilter:true)
+    if(!checkFilteredSearch()){
+    println("isnt a filtered search")
+    cancelButton.hidden = true
+    }
+    else {
+    cancelButton.hidden = false
+    }
+    }
+    if(needsReloading){
+    self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
+    needsReloading = false
+    }
     }
     */
     func checkFilteredSearch() -> Bool {
@@ -107,15 +107,15 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             (NSUserDefaults.standardUserDefaults().objectForKey("min_price") as String != "") ||
             (NSUserDefaults.standardUserDefaults().objectForKey("free") as String != "0") ||
             (NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String != "") ||
-        (NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != [] && NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != ["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"])){
-    
-            return true
+            (NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != [] && NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != ["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"])){
+                
+                return true
         }
         else{
             return false
         }
     }
-
+    
     func didRefresh(){
         if(!centerActInd.isAnimating() && !actInd.isAnimating()){
             setUp("",older: "1",fromTop: "1",fromNewFilter:false)
@@ -153,17 +153,17 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 
                 let imageString = post["image"]! as String
                 if !imageString.isEmpty {
-                    let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                    new_post = ListPost(title: title as String, imageName: imageData, id: String(postID),keyValue:display_value,cat:category,date:date)
-                    
-                    //do stuff with the image here
+                let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                new_post = ListPost(title: title as String, imageName: imageData, id: String(postID),keyValue:display_value,cat:category,date:date)
+                
+                //do stuff with the image here
                 }
-
+                
                 else{
                 */
-
+                
                 new_post = ListPost(title: title as String, id: String(postID),keyValue:display_value,cat:category,date:date,has_image:image)
-              
+                
                 if(older == "0"){
                     self.arrayOfPosts.insert(new_post, atIndex: 0)
                 }
@@ -181,7 +181,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 first_time = false
                 //TODO: Do we want to disable to cancel button during requests?
                 //cancelButton.enabled = false
-            }                                                                                                                    
+            }
         }
         
         var api_requester: AgoraRequester = AgoraRequester()
@@ -215,7 +215,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 //imageReceived function only called IF there is an image
                 //no point in running this function just to determine there is no image...
                 println(postID)
-                imageData.writeToFile("/Users/kylehandy/Desktop/" + category + String(postID) + ".png",atomically: false)
                 var postCount = 0
                 var hitCount:Int = 0
                 for post in self.arrayOfPosts{
@@ -244,7 +243,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                             if((String(postID!) == post.id) && (category == post.category)){
                                 post.image_error = true
                                 hitCount = postCount;
-                  
+                                
                             }
                             postCount++
                         }
@@ -264,9 +263,9 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                             
                         }))
                         
-
+                        
                     }
-
+                    
                     
                     
                 })
@@ -275,7 +274,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         )
         
     }
-
+    
     
     func setupTable(){
         table.delegate = self
@@ -302,13 +301,13 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-       
+        
         return arrayOfPosts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
- 
+        
         let cell:ListPostCell = table.dequeueReusableCellWithIdentifier("ListCell") as ListPostCell
-     
+        
         let postCell = arrayOfPosts[indexPath.row]
         if(postCell.image_error){
             //hide refresh show error image
@@ -322,7 +321,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             //show image hide refresh
             cell.setCell(postCell.title, imageName: postCell.imageName,keyValue:postCell.key_value,bounds:table.bounds)
         }
-
+        
         cell.setNeedsDisplay()
         cell.setNeedsLayout()
         cell.setNeedsUpdateConstraints()
@@ -356,7 +355,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)
-
+        
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(arrayOfPosts.count != 0 ){
@@ -376,7 +375,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             self.table.backgroundView = label
             self.table.separatorStyle = UITableViewCellSeparatorStyle.None
         }
-            return 0
+        return 0
     }
     func scrollViewDidScroll(scrollView: UIScrollView){
         if(arrayOfPosts.count >= 10 ){
@@ -406,14 +405,14 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 
                 table.reloadData()
                 self.table.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, self.table.numberOfSections())), withRowAnimation: .None)
-
+                
                 self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: (oldLength)   , inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
                 
                 
             }
             
         }
-
+        
     }
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var titleLabel: UILabel!
@@ -421,6 +420,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     
     
 }
-    
+
 
     
