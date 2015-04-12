@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CA0F9D6A1A7EBA3900BA7AA3 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */; };
 		CA2155091ADAFB3E000AD7A3 /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2155021ADAFAE8000AD7A3 /* SwifteriOS.framework */; };
-		CA21550A1ADAFBF1000AD7A3 /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2155021ADAFAE8000AD7A3 /* SwifteriOS.framework */; };
 		CA21550B1ADAFBF1000AD7A3 /* SwifteriOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA2155021ADAFAE8000AD7A3 /* SwifteriOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
 		CA3ED4C01AD1ED0900DEC559 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */; };
@@ -185,7 +184,6 @@
 				CA2155091ADAFB3E000AD7A3 /* SwifteriOS.framework in Frameworks */,
 				CAAF33A21ABF5C310042EBFA /* TwitterKit.framework in Frameworks */,
 				CAAF33A61ABF5C310042EBFA /* Fabric.framework in Frameworks */,
-				CA21550A1ADAFBF1000AD7A3 /* SwifteriOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +344,7 @@
 		F892C93D19F59B4100113C26 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Jake Quiring";
 				TargetAttributes = {
 					F892C94419F59B4100113C26 = {

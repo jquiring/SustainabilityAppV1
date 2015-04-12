@@ -139,6 +139,11 @@ class LoginController: UIViewController,UITextFieldDelegate {
         }
         else if(password.isFirstResponder()){
             password.resignFirstResponder()
+            self.actInd.startAnimating()
+            loginOutlet.enabled = false
+            password.resignFirstResponder()
+            email.resignFirstResponder()
+            LDAPLogin()
         }
         return true
     }

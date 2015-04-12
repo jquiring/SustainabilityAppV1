@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F892C94419F59B4100113C26"
-               BuildableName = "SustainabilityAppV1.app"
-               BlueprintName = "SustainabilityAppV1"
-               ReferencedContainer = "container:SustainabilityAppV1.xcodeproj">
+               BlueprintIdentifier = "8B300C461944AECB00993175"
+               BuildableName = "SwifterDemoMac.app"
+               BlueprintName = "SwifterDemoMac"
+               ReferencedContainer = "container:Swifter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F892C95919F59B4200113C26"
-               BuildableName = "SustainabilityAppV1Tests.xctest"
-               BlueprintName = "SustainabilityAppV1Tests"
-               ReferencedContainer = "container:SustainabilityAppV1.xcodeproj">
+               BlueprintIdentifier = "8B300C591944AECB00993175"
+               BuildableName = "SwifterDemoMacTests.xctest"
+               BlueprintName = "SwifterDemoMacTests"
+               ReferencedContainer = "container:Swifter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,20 +46,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F892C95919F59B4200113C26"
-               BuildableName = "SustainabilityAppV1Tests.xctest"
-               BlueprintName = "SustainabilityAppV1Tests"
-               ReferencedContainer = "container:SustainabilityAppV1.xcodeproj">
+               BlueprintIdentifier = "8B300C591944AECB00993175"
+               BuildableName = "SwifterDemoMacTests.xctest"
+               BlueprintName = "SwifterDemoMacTests"
+               ReferencedContainer = "container:Swifter.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F892C94419F59B4100113C26"
-            BuildableName = "SustainabilityAppV1.app"
-            BlueprintName = "SustainabilityAppV1"
-            ReferencedContainer = "container:SustainabilityAppV1.xcodeproj">
+            BlueprintIdentifier = "8B300C461944AECB00993175"
+            BuildableName = "SwifterDemoMac.app"
+            BlueprintName = "SwifterDemoMac"
+            ReferencedContainer = "container:Swifter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,10 +76,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F892C94419F59B4100113C26"
-            BuildableName = "SustainabilityAppV1.app"
-            BlueprintName = "SustainabilityAppV1"
-            ReferencedContainer = "container:SustainabilityAppV1.xcodeproj">
+            BlueprintIdentifier = "8B300C461944AECB00993175"
+            BuildableName = "SwifterDemoMac.app"
+            BlueprintName = "SwifterDemoMac"
+            ReferencedContainer = "container:Swifter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,10 +95,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F892C94419F59B4100113C26"
-            BuildableName = "SustainabilityAppV1.app"
-            BlueprintName = "SustainabilityAppV1"
-            ReferencedContainer = "container:SustainabilityAppV1.xcodeproj">
+            BlueprintIdentifier = "8B300C461944AECB00993175"
+            BuildableName = "SwifterDemoMac.app"
+            BlueprintName = "SwifterDemoMac"
+            ReferencedContainer = "container:Swifter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

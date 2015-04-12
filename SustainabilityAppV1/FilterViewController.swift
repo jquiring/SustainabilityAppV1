@@ -41,7 +41,13 @@ class FilterViewController: UIViewController {
         barLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, -23, 0)
         // Do any additional setup after loading the view.
     }
+    func resignKeyboard(){
+        keywordOutlet.resignFirstResponder()
+        minpriceOutlet.resignFirstResponder()
+        maxpriceOutlet.resignFirstResponder()
+    }
     @IBAction func freeAction(sender: AnyObject) {
+        resignKeyboard()
         if(freeOutlet.backgroundColor == UIColor.darkGrayColor()){
             freeOutlet.backgroundColor = UIColor.lightGrayColor()
             freeOutlet.setTitle("  ✗ Free ", forState: nil)
@@ -53,6 +59,7 @@ class FilterViewController: UIViewController {
 
     }
     @IBAction func eventsAction(sender: AnyObject) {
+        resignKeyboard()
         if(eventsOutlet.backgroundColor == UIColor.darkGrayColor()){
             eventsOutlet.backgroundColor = UIColor.lightGrayColor()
             eventsOutlet.setTitle("  ✗ Events ", forState: nil)
@@ -63,6 +70,7 @@ class FilterViewController: UIViewController {
         }
     }
     @IBAction func recreationAction(sender: AnyObject) {
+        resignKeyboard()
         if(recreationOutlet.backgroundColor == UIColor.darkGrayColor()){
             recreationOutlet.backgroundColor = UIColor.lightGrayColor()
             recreationOutlet.setTitle("  ✗ Recreation ", forState: nil)
@@ -147,6 +155,7 @@ class FilterViewController: UIViewController {
    
 
     }
+    
     func isNumeric(a: String) -> Bool {
         if let n = a.toInt() {
             return true
@@ -155,6 +164,7 @@ class FilterViewController: UIViewController {
         }
     }
     @IBAction func clothingAction(sender: AnyObject) {
+        resignKeyboard()
         if(clothingOutlet.backgroundColor == UIColor.darkGrayColor()){
             clothingOutlet.backgroundColor = UIColor.lightGrayColor()
             clothingOutlet.setTitle("  ✗ Clothing ", forState: nil)
@@ -165,6 +175,7 @@ class FilterViewController: UIViewController {
         }
     }
     @IBAction func householdAction(sender: AnyObject) {
+        resignKeyboard()
         if(householdOutlet.backgroundColor == UIColor.darkGrayColor()){
             householdOutlet.backgroundColor = UIColor.lightGrayColor()
             householdOutlet.setTitle("  ✗ Household ", forState: nil)
@@ -175,6 +186,7 @@ class FilterViewController: UIViewController {
         }
     }
     @IBAction func servicesAction(sender: AnyObject) {
+        resignKeyboard()
         if(servicesOutlet.backgroundColor == UIColor.darkGrayColor()){
             servicesOutlet.backgroundColor = UIColor.lightGrayColor()
             servicesOutlet.setTitle("  ✗ Services ", forState: nil)
@@ -185,7 +197,7 @@ class FilterViewController: UIViewController {
         }
     }
     @IBAction func rideshareAction(sender: AnyObject) {
-
+        resignKeyboard()
         if(rideshareOutlet.backgroundColor == UIColor.darkGrayColor()){
             rideshareOutlet.backgroundColor = UIColor.lightGrayColor()
             rideshareOutlet.setTitle("  ✗ Rideshares ", forState: nil)
@@ -196,6 +208,7 @@ class FilterViewController: UIViewController {
         }
     }
     @IBAction func ElectronicsAction(sender: AnyObject) {
+        resignKeyboard()
         if(electronicsOutlet.backgroundColor == UIColor.darkGrayColor()){
             electronicsOutlet.backgroundColor = UIColor.lightGrayColor()
             electronicsOutlet.setTitle("  ✗ Electronics ", forState: nil)
@@ -206,6 +219,7 @@ class FilterViewController: UIViewController {
         }
     }
     @IBAction func BooksAction(sender: AnyObject) {
+        resignKeyboard()
         if(booksOutlet.backgroundColor == UIColor.darkGrayColor()){
             booksOutlet.backgroundColor = UIColor.lightGrayColor()
             booksOutlet.setTitle("  ✗ Books ", forState: nil)
