@@ -552,7 +552,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-Ra-vvW">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Q: Why do I need to use Gonzaga Credentials?
+                                <string key="text">Q: Why do I need to use Gonzaga Credentials?
 A: ZigZaga is designed as exclusive to the Gonzaga Community in order to promote safe/trustworthy interactions between buyers and sellers, as well as influencing post content to be themed towards the college lifestyle. This includes faculty, current students and alumni.
 
 Q: What is “bumping” and what does “bumping” my post do?
@@ -586,12 +586,11 @@ Q: What is the maximum price I can give a post?
 A: The maximum price allowed for a post is $10,000. This isn’t the place to sell your BMW.
 
 Q: Why the @ZagsGoGreen Twitter feed?
-A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga. To headline this purpose the Office of Sustainability’s Twitter feed is displayed to spread the latest on sustainability news, events and facts.</mutableString>
+A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga. To headline this purpose the Office of Sustainability’s Twitter feed is displayed to spread the latest on sustainability news, events and facts.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                    <rect key="frame" x="8" y="28" width="384" height="752"/>
                                 </variation>
                             </textView>
                         </subviews>
@@ -607,10 +606,10 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <exclude reference="EkP-Ra-vvW"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="89f-G0-yEy"/>
                                 <exclude reference="dXz-jB-V7W"/>
                                 <exclude reference="jyR-Fe-Izz"/>
                                 <exclude reference="ur6-a5-sl5"/>
-                                <exclude reference="89f-G0-yEy"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -618,10 +617,10 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <include reference="EkP-Ra-vvW"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="89f-G0-yEy"/>
                                 <include reference="dXz-jB-V7W"/>
                                 <include reference="jyR-Fe-Izz"/>
                                 <include reference="ur6-a5-sl5"/>
-                                <include reference="89f-G0-yEy"/>
                             </mask>
                         </variation>
                     </view>
