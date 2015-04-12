@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CA0F9D6A1A7EBA3900BA7AA3 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */; };
+		CA2154F51ADAF571000AD7A3 /* Swifter in Resources */ = {isa = PBXBuildFile; fileRef = CA2154F41ADAF571000AD7A3 /* Swifter */; };
+		CA2154F61ADAF571000AD7A3 /* Swifter in Resources */ = {isa = PBXBuildFile; fileRef = CA2154F41ADAF571000AD7A3 /* Swifter */; };
 		CA236AD119F5C80400B566CB /* Leaf.png in Resources */ = {isa = PBXBuildFile; fileRef = CA236AD019F5C80400B566CB /* Leaf.png */; };
 		CA3ED4C01AD1ED0900DEC559 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */; };
 		CA3ED4C11AD1ED0900DEC559 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */; };
@@ -67,41 +69,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CA3ED4E71AD5EEB600DEC559 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B300C1F1944AA1A00993175;
-			remoteInfo = SwifterDemoiOS;
-		};
-		CA3ED4E91AD5EEB600DEC559 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B9F50EE1944A5AB00894629;
-			remoteInfo = SwifteriOS;
-		};
-		CA3ED4EB1AD5EEB600DEC559 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B9F51131944A61D00894629;
-			remoteInfo = SwifterMac;
-		};
-		CA3ED4ED1AD5EEB600DEC559 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B300C471944AECB00993175;
-			remoteInfo = SwifterDemoMac;
-		};
-		CA3ED4EF1AD5EEB600DEC559 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B300C5A1944AECB00993175;
-			remoteInfo = SwifterDemoMacTests;
-		};
 		F892C95B19F59B4200113C26 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F892C93D19F59B4100113C26 /* Project object */;
@@ -113,12 +80,12 @@
 
 /* Begin PBXFileReference section */
 		CA0F9D691A7EBA3900BA7AA3 /* EditPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
+		CA2154F41ADAF571000AD7A3 /* Swifter */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Swifter; sourceTree = "<group>"; };
 		CA236AD019F5C80400B566CB /* Leaf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leaf.png; sourceTree = "<group>"; };
 		CA3ED4BC1AD1ED0800DEC559 /* SustainabilityAppV1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SustainabilityAppV1-Bridging-Header.h"; sourceTree = "<group>"; };
 		CA3ED4BD1AD1ED0800DEC559 /* SustainabilityAppV1Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SustainabilityAppV1Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		CA3ED4BE1AD1ED0900DEC559 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
 		CA3ED4BF1AD1ED0900DEC559 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
-		CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Swifter.xcodeproj; path = "../../../Downloads/Swifter-master/Swifter.xcodeproj"; sourceTree = "<group>"; };
 		CA3ED4DE1AD5EEA700DEC559 /* SwifteriOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwifteriOS.framework; path = "../../../Downloads/Swifter-master/build/Debug-iphoneos/SwifteriOS.framework"; sourceTree = "<group>"; };
 		CAAF339F1ABF5C310042EBFA /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		CAAF33A01ABF5C310042EBFA /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
@@ -178,22 +145,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CA3ED4E01AD5EEB600DEC559 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CA3ED4E81AD5EEB600DEC559 /* SwifterDemoiOS.app */,
-				CA3ED4EA1AD5EEB600DEC559 /* SwifteriOS.framework */,
-				CA3ED4EC1AD5EEB600DEC559 /* SwifterMac.framework */,
-				CA3ED4EE1AD5EEB600DEC559 /* SwifterDemoMac.app */,
-				CA3ED4F01AD5EEB600DEC559 /* SwifterDemoMacTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F892C93C19F59B4100113C26 = {
 			isa = PBXGroup;
 			children = (
-				CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */,
 				CA3ED4DE1AD5EEA700DEC559 /* SwifteriOS.framework */,
 				F892C94719F59B4200113C26 /* SustainabilityAppV1 */,
 				F892C95D19F59B4200113C26 /* SustainabilityAppV1Tests */,
@@ -252,6 +206,7 @@
 		F892C94819F59B4200113C26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CA2154F41ADAF571000AD7A3 /* Swifter */,
 				CAB51B0C1A8C0EEA001A7805 /* PlusDark.png */,
 				F892C95119F59B4200113C26 /* Images.xcassets */,
 				CA236AD019F5C80400B566CB /* Leaf.png */,
@@ -347,12 +302,6 @@
 			mainGroup = F892C93C19F59B4100113C26;
 			productRefGroup = F892C94619F59B4100113C26 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = CA3ED4E01AD5EEB600DEC559 /* Products */;
-					ProjectRef = CA3ED4CC1AD5EE4600DEC559 /* Swifter.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F892C94419F59B4100113C26 /* SustainabilityAppV1 */,
@@ -361,49 +310,12 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		CA3ED4E81AD5EEB600DEC559 /* SwifterDemoiOS.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = SwifterDemoiOS.app;
-			remoteRef = CA3ED4E71AD5EEB600DEC559 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CA3ED4EA1AD5EEB600DEC559 /* SwifteriOS.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwifteriOS.framework;
-			remoteRef = CA3ED4E91AD5EEB600DEC559 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CA3ED4EC1AD5EEB600DEC559 /* SwifterMac.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwifterMac.framework;
-			remoteRef = CA3ED4EB1AD5EEB600DEC559 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CA3ED4EE1AD5EEB600DEC559 /* SwifterDemoMac.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = SwifterDemoMac.app;
-			remoteRef = CA3ED4ED1AD5EEB600DEC559 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CA3ED4F01AD5EEB600DEC559 /* SwifterDemoMacTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwifterDemoMacTests.xctest;
-			remoteRef = CA3ED4EF1AD5EEB600DEC559 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		F892C94319F59B4100113C26 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA2154F51ADAF571000AD7A3 /* Swifter in Resources */,
 				F892C95019F59B4200113C26 /* Main.storyboard in Resources */,
 				F892C95519F59B4200113C26 /* LaunchScreen.xib in Resources */,
 				CAB51B0D1A8C0EEA001A7805 /* PlusDark.png in Resources */,
@@ -418,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAF33A51ABF5C310042EBFA /* TwitterKitResources.bundle in Resources */,
+				CA2154F61ADAF571000AD7A3 /* Swifter in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
