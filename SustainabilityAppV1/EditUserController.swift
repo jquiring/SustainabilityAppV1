@@ -21,7 +21,7 @@ class EditUserController: UIViewController {
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
 
     
-    @IBAction func save(sender: AnyObject){
+    func saveFunc(){
         var phone_number_text = phone_number.text
         if(phone_number_text != ""){
             println("not empty")
@@ -47,12 +47,35 @@ class EditUserController: UIViewController {
             updateUserRequest()
         }
     }
+    
+    @IBAction func save(sender: AnyObject){
+        saveFunc()
+    }
     /*
     func validateEmail(candidate: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex)?.evaluateWithObject(candidate)
     }
 */
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        if(first_name_field.isFirstResponder()){
+            first_name_field.resignFirstResponder()
+            last_name_field.becomeFirstResponder()
+        }
+        else if(last_name_field.isFirstResponder()){
+            last_name_field.resignFirstResponder()
+            phone_number.becomeFirstResponder()
+        }
+        else if(phone_number.isFirstResponder()){
+            phone_number.resignFirstResponder()
+            email.becomeFirstResponder()
+        }
+        else if(email.isFirstResponder()){
+            email.resignFirstResponder()
+            saveFunc()
+        }
+        return true
+    }
     
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
