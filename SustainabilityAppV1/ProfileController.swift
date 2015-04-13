@@ -493,6 +493,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as ProfilePostCell
         cell.addSubview(UIView())
         let postCell = arrayOfPosts[indexPath.row]
+        
         cell.edit.tag = indexPath.row
         cell.delete.tag = indexPath.row
         cell.bump.tag = indexPath.row
@@ -501,8 +502,23 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         }
         cell.setCell(postCell.title, imageName: postCell.imageName,refreshing:postCell.refreshing,deleting:postCell.deleting)
         cell.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         cell.id = postCell.id
         cell.category = postCell.category
+        if(postCell.imageRefreshing){
+            
+            println("getting for ")
+            print(cell.title.text)
+            cell.imageRefresh.startAnimating()
+            cell.imageView?.hidden = true
+    
+        }
+        else {
+            println("Stopping image animation for")
+            print(cell.title.text)
+            cell.imageRefresh.stopAnimating()
+            cell.imageView?.hidden = false
+        }
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -569,33 +585,72 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             "divider_date_time":divider_date_time,
             "older":older]
             as Dictionary<String,AnyObject>
-        
-        api_requester.POST("userposts/",params:params,
-            success: {parseJSON -> Void in
+        api_requester.UserPosts(params,
+            info: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                    
                     self.updatePosts(parseJSON, refresh:refresh)})
             },
-            failure: {code,message -> Void in
-                self.refreshControl.endRefreshing()
-                self.actInd.stopAnimating()
-                self.centerLoad.stopAnimating()
-                var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
-                self.presentViewController(alert, animated: true, completion: nil)
+            imageReceived: {category,postID,imageData -> Void in
+                //imageReceived function only called IF there is an image
+                //no point in running this function just to determine there is no image...
                 
-                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                self.addImage(postID, category:category, data:imageData,failure:false)
+                println("received image for " + category + " " + String(postID))
+            },
+            failure: {isImage,postID,category,code,message -> Void in
+                if(!isImage){
+                    self.refreshControl.endRefreshing()
+                    self.actInd.stopAnimating()
+                    self.centerLoad.stopAnimating()
+                    var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
-                }))
-                if(code == 500){
-                    //server error
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                        
+                    }))
+                    
                 }
-                else if (code == 599){
-                    //timeout
-                }
-                else if (code == 58){
-                    //no internet connection
+                else{
+                    self.addImage(postID!, category:category!, data:nil,failure:true)
+                    
                 }
             }
         )
+    }
+    func addImage(id:Int, category:String, data:NSData?,failure:Bool){
+        var hitCount = 0
+        var foundPost = 0
+        sleep(1)
+        for post in arrayOfPosts {
+            if(post.id.toInt() == id && category == post.category){
+                if(failure){
+                    var image =  UIImage(named:"failedToReload")
+                    post.imageName = UIImageJPEGRepresentation(image, 1)
+                }
+                else{
+                    post.imageName = data!
+                }
+                post.imageRefreshing = false
+                foundPost = hitCount
+                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+                println(current_posts.count)
+                println(arrayOfPosts.count)
+                println(hitCount)
+                current_posts[hitCount][2] = data!
+                NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+                
+            }
+            hitCount += 1
+        }
+        dispatch_async(dispatch_get_main_queue(), {
+            println("Reloading")
+            print(category)
+            print("id")
+            var indexPath = NSIndexPath(forRow: foundPost, inSection: 0)
+            self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            //self.table.reloadData()
+        })
     }
     /*
     func didRefresh(){
@@ -627,7 +682,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             presentViewController(alertController, animated: true, completion: nil)
         }
         if posts.count > 0{
-            for i in 0...(posts.count - 1){
+            for i in 0...(posts.count - 1 ){
                 let post: AnyObject! = posts[i]
                 var postID = post["id"]! as Int
                 let title = post["title"]! as String
@@ -635,18 +690,30 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 let post_date_time = post["post_date_time"]! as String
                 let display_value = post["display_value"]! as String
                 //THE THUMBNAIL IMAGE IS PROCESSED HERE
-                let imageString = post["image"]! as String
                 var newPost:ProfilePost
-                if !imageString.isEmpty {
-                    let imageData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                    newPost = ProfilePost(title: title, imageName: imageData, id: String(postID), cat: category, date: post_date_time)
+                if(post["has_image"] as Bool){
+                 
+                    newPost = ProfilePost(title: title, id: String(postID), cat: category, date: post_date_time,imageComing:true)
                 }
                 else{
-                    newPost = ProfilePost(title: title, id: String(postID), cat: category, date: post_date_time)
+                    newPost = ProfilePost(title: title, id: String(postID), cat: category, date: post_date_time,imageComing:false)
                 }
+                println("updating to NSData ")
+                print("title")
                 newPost.upDateNSData(false)
                 arrayOfPosts.append(newPost)
             }
+        }
+        println("ARRAYOFPOSTS")
+        for post in arrayOfPosts {
+            println("title: " + String(post.title))
+            println("id: " + String(post.id))
+        }
+        println("CURRENT POSTS")
+        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+        for post in current_posts {
+            println("title: " + String(post[0] as NSString))
+            println("id: " + String(post[1] as NSString))
         }
         println("reloading data")
         refreshControl.endRefreshing()
@@ -661,7 +728,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             bottomNeedsMore = false
         }
         self.table.reloadData()
-        self.table.reloadData()
+        
+        //self.table.reloadData()
 
     }
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

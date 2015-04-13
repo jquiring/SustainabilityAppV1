@@ -11,6 +11,7 @@ import UIKit
 class ProfilePostCell: UITableViewCell {
     
     
+    @IBOutlet var imageRefresh: UIActivityIndicatorView!
     @IBOutlet var deleteRefresh: UIActivityIndicatorView!
     @IBOutlet var bumpRefresh: UIActivityIndicatorView!
     @IBOutlet var itemImage: UIImageView!

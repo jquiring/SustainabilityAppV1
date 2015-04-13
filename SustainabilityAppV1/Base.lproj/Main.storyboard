@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -808,6 +808,12 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                         </mask>
                                                     </variation>
                                                 </activityIndicatorView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DVk-lU-AO7">
+                                                    <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="129" y="60" width="20" height="20"/>
+                                                    </variation>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="aYB-FW-Cf8" secondAttribute="bottom" constant="5" id="09J-HZ-Zlv">
@@ -815,6 +821,9 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                 </constraint>
                                                 <constraint firstItem="aYB-FW-Cf8" firstAttribute="top" secondItem="edU-Av-GjQ" secondAttribute="top" id="2V9-yI-fSZ"/>
                                                 <constraint firstItem="aYB-FW-Cf8" firstAttribute="leading" secondItem="edU-Av-GjQ" secondAttribute="trailing" constant="22" id="5l9-YR-BR9"/>
+                                                <constraint firstItem="DVk-lU-AO7" firstAttribute="centerY" secondItem="DgI-iK-Fkb" secondAttribute="centerY" constant="0.5" id="6Xn-lw-3rh">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
                                                 <constraint firstItem="X0C-HR-hTA" firstAttribute="top" secondItem="bEC-9h-omf" secondAttribute="top" id="6ee-g9-jKr"/>
                                                 <constraint firstItem="DgI-iK-Fkb" firstAttribute="top" secondItem="fia-nS-lww" secondAttribute="top" constant="-20" id="9kK-8Q-ctZ">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="1"/>
@@ -824,6 +833,9 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                 <constraint firstItem="wXB-5n-lhK" firstAttribute="leading" secondItem="edU-Av-GjQ" secondAttribute="trailing" constant="22" id="NCt-vP-wCD"/>
                                                 <constraint firstItem="aYB-FW-Cf8" firstAttribute="leading" secondItem="X0C-HR-hTA" secondAttribute="trailing" constant="20" id="Nj1-CV-JcX">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="22"/>
+                                                </constraint>
+                                                <constraint firstItem="DVk-lU-AO7" firstAttribute="centerX" secondItem="DgI-iK-Fkb" secondAttribute="centerX" constant="7.5" id="NuK-Xp-Iom">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                                 </constraint>
                                                 <constraint firstItem="DgI-iK-Fkb" firstAttribute="leading" secondItem="GU7-yl-fEB" secondAttribute="leadingMargin" constant="6" id="Swd-yU-ZYJ"/>
                                                 <constraint firstItem="fia-nS-lww" firstAttribute="leading" secondItem="DgI-iK-Fkb" secondAttribute="trailing" constant="27" id="aAt-7I-mAW">
@@ -856,26 +868,29 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                     <exclude reference="bEC-9h-omf"/>
                                                     <exclude reference="X0C-HR-hTA"/>
                                                     <exclude reference="aYB-FW-Cf8"/>
+                                                    <exclude reference="DVk-lU-AO7"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="9kK-8Q-ctZ"/>
+                                                    <exclude reference="Swd-yU-ZYJ"/>
+                                                    <exclude reference="xqx-vF-zvT"/>
+                                                    <exclude reference="6Xn-lw-3rh"/>
+                                                    <exclude reference="NuK-Xp-Iom"/>
                                                     <exclude reference="aAt-7I-mAW"/>
                                                     <exclude reference="w8Z-C3-ykP"/>
+                                                    <exclude reference="EYl-bw-1JI"/>
                                                     <exclude reference="6ee-g9-jKr"/>
                                                     <exclude reference="ufC-lK-5zs"/>
+                                                    <exclude reference="AtY-ef-Aim"/>
+                                                    <exclude reference="ej9-hu-OKF"/>
                                                     <exclude reference="09J-HZ-Zlv"/>
                                                     <exclude reference="2V9-yI-fSZ"/>
                                                     <exclude reference="5l9-YR-BR9"/>
                                                     <exclude reference="Nj1-CV-JcX"/>
                                                     <exclude reference="zbr-vk-JRi"/>
-                                                    <exclude reference="EYl-bw-1JI"/>
-                                                    <exclude reference="AtY-ef-Aim"/>
-                                                    <exclude reference="ej9-hu-OKF"/>
                                                     <exclude reference="NCt-vP-wCD"/>
                                                     <exclude reference="eiD-Gs-ITh"/>
                                                     <exclude reference="yfH-Rr-eqo"/>
-                                                    <exclude reference="9kK-8Q-ctZ"/>
-                                                    <exclude reference="Swd-yU-ZYJ"/>
-                                                    <exclude reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -887,26 +902,29 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                     <include reference="bEC-9h-omf"/>
                                                     <include reference="X0C-HR-hTA"/>
                                                     <include reference="aYB-FW-Cf8"/>
+                                                    <include reference="DVk-lU-AO7"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="9kK-8Q-ctZ"/>
+                                                    <include reference="Swd-yU-ZYJ"/>
+                                                    <include reference="xqx-vF-zvT"/>
+                                                    <include reference="6Xn-lw-3rh"/>
+                                                    <include reference="NuK-Xp-Iom"/>
                                                     <include reference="aAt-7I-mAW"/>
                                                     <include reference="w8Z-C3-ykP"/>
+                                                    <include reference="EYl-bw-1JI"/>
                                                     <include reference="6ee-g9-jKr"/>
                                                     <include reference="ufC-lK-5zs"/>
+                                                    <include reference="AtY-ef-Aim"/>
+                                                    <include reference="ej9-hu-OKF"/>
                                                     <include reference="09J-HZ-Zlv"/>
                                                     <include reference="2V9-yI-fSZ"/>
                                                     <include reference="5l9-YR-BR9"/>
                                                     <include reference="Nj1-CV-JcX"/>
                                                     <include reference="zbr-vk-JRi"/>
-                                                    <include reference="EYl-bw-1JI"/>
-                                                    <include reference="AtY-ef-Aim"/>
-                                                    <include reference="ej9-hu-OKF"/>
                                                     <include reference="NCt-vP-wCD"/>
                                                     <include reference="eiD-Gs-ITh"/>
                                                     <include reference="yfH-Rr-eqo"/>
-                                                    <include reference="9kK-8Q-ctZ"/>
-                                                    <include reference="Swd-yU-ZYJ"/>
-                                                    <include reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -916,6 +934,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                             <outlet property="delete" destination="edU-Av-GjQ" id="91n-ln-dnz"/>
                                             <outlet property="deleteRefresh" destination="X0C-HR-hTA" id="Lya-Hz-wSt"/>
                                             <outlet property="edit" destination="bEC-9h-omf" id="Yya-1A-tyj"/>
+                                            <outlet property="imageRefresh" destination="DVk-lU-AO7" id="gT3-mr-dss"/>
                                             <outlet property="itemImage" destination="DgI-iK-Fkb" id="hID-aM-7Xe"/>
                                             <outlet property="title" destination="fia-nS-lww" id="OS2-FA-XiR"/>
                                         </connections>
@@ -1454,11 +1473,13 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Edit User Account" id="ltz-KQ-xCU">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Mth-LJ-pvX">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="cancel:" destination="eeB-jp-K1q" id="W2d-Is-uZM"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Liw-T3-4oV">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="save:" destination="eeB-jp-K1q" id="iWC-SD-4xg"/>
                             </connections>
@@ -1490,12 +1511,12 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="TbU-JY-e6d" kind="relationship" relationship="rootViewController" id="KcQ-Sw-Rk6"/>
+                        <segue destination="eeB-jp-K1q" kind="relationship" relationship="rootViewController" id="bGy-6a-HDX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2943" y="-2733"/>
+            <point key="canvasLocation" x="2703" y="-2895"/>
         </scene>
         <!--Search Posts-->
         <scene sceneID="xhe-cz-s4l">

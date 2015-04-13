@@ -24,6 +24,6 @@ class ListPost: ProfilePost  {
         self.has_image = has_image
         self.key_value = keyValue
         self.image_loaded = false
-        super.init(title:title,id:id,cat:cat,date:date)
+        super.init(title:title,id:id,cat:cat,date:date,imageComing:true)
     }
 }

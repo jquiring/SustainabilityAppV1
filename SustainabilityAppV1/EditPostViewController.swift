@@ -655,6 +655,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             },
             failure: {isImage,imageNumber,code,message -> Void in
                 if !isImage{
+                    //TODO: error not getting image number 
                     self.failedImage(imageNumber!)
                 }
                 else{

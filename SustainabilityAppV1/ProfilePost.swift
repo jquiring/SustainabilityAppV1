@@ -19,6 +19,7 @@ class ProfilePost {
     var date = ""
     var refreshing = false
     var deleting = false
+    var imageRefreshing = false
     //let date_time = ""
     /*
     var cat = ""
@@ -47,12 +48,14 @@ class ProfilePost {
         self.date = date
         
     }
-    init(title:String,id:String,cat:String, date:String){
+
+    init(title:String,id:String,cat:String, date:String,imageComing:Bool){
         self.category = cat
         self.title = title
         self.id = id
         var image =  UIImage(named:"noImage")
         self.imageName = UIImageJPEGRepresentation(image, 1)
+        self.imageRefreshing = imageComing
         self.date = date
     }
     func getID() -> String{
