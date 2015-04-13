@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -682,11 +682,6 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fia-nS-lww">
-                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edU-Av-GjQ">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                                     <constraints>
@@ -810,10 +805,15 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                 </activityIndicatorView>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DVk-lU-AO7">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="129" y="60" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fia-nS-lww">
+                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="109" y="4" width="198" height="15"/>
+                                                    </variation>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="aYB-FW-Cf8" secondAttribute="bottom" constant="5" id="09J-HZ-Zlv">
@@ -862,69 +862,69 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                             <variation key="default">
                                                 <mask key="subviews">
                                                     <exclude reference="DgI-iK-Fkb"/>
-                                                    <exclude reference="fia-nS-lww"/>
                                                     <exclude reference="edU-Av-GjQ"/>
                                                     <exclude reference="wXB-5n-lhK"/>
                                                     <exclude reference="bEC-9h-omf"/>
                                                     <exclude reference="X0C-HR-hTA"/>
                                                     <exclude reference="aYB-FW-Cf8"/>
                                                     <exclude reference="DVk-lU-AO7"/>
+                                                    <exclude reference="fia-nS-lww"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="9kK-8Q-ctZ"/>
-                                                    <exclude reference="Swd-yU-ZYJ"/>
-                                                    <exclude reference="xqx-vF-zvT"/>
-                                                    <exclude reference="6Xn-lw-3rh"/>
-                                                    <exclude reference="NuK-Xp-Iom"/>
                                                     <exclude reference="aAt-7I-mAW"/>
                                                     <exclude reference="w8Z-C3-ykP"/>
-                                                    <exclude reference="EYl-bw-1JI"/>
+                                                    <exclude reference="6Xn-lw-3rh"/>
+                                                    <exclude reference="NuK-Xp-Iom"/>
                                                     <exclude reference="6ee-g9-jKr"/>
                                                     <exclude reference="ufC-lK-5zs"/>
-                                                    <exclude reference="AtY-ef-Aim"/>
-                                                    <exclude reference="ej9-hu-OKF"/>
                                                     <exclude reference="09J-HZ-Zlv"/>
                                                     <exclude reference="2V9-yI-fSZ"/>
                                                     <exclude reference="5l9-YR-BR9"/>
                                                     <exclude reference="Nj1-CV-JcX"/>
                                                     <exclude reference="zbr-vk-JRi"/>
+                                                    <exclude reference="EYl-bw-1JI"/>
+                                                    <exclude reference="AtY-ef-Aim"/>
+                                                    <exclude reference="ej9-hu-OKF"/>
                                                     <exclude reference="NCt-vP-wCD"/>
                                                     <exclude reference="eiD-Gs-ITh"/>
                                                     <exclude reference="yfH-Rr-eqo"/>
+                                                    <exclude reference="9kK-8Q-ctZ"/>
+                                                    <exclude reference="Swd-yU-ZYJ"/>
+                                                    <exclude reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
                                                     <include reference="DgI-iK-Fkb"/>
-                                                    <include reference="fia-nS-lww"/>
                                                     <include reference="edU-Av-GjQ"/>
                                                     <include reference="wXB-5n-lhK"/>
                                                     <include reference="bEC-9h-omf"/>
                                                     <include reference="X0C-HR-hTA"/>
                                                     <include reference="aYB-FW-Cf8"/>
                                                     <include reference="DVk-lU-AO7"/>
+                                                    <include reference="fia-nS-lww"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="9kK-8Q-ctZ"/>
-                                                    <include reference="Swd-yU-ZYJ"/>
-                                                    <include reference="xqx-vF-zvT"/>
-                                                    <include reference="6Xn-lw-3rh"/>
-                                                    <include reference="NuK-Xp-Iom"/>
                                                     <include reference="aAt-7I-mAW"/>
                                                     <include reference="w8Z-C3-ykP"/>
-                                                    <include reference="EYl-bw-1JI"/>
+                                                    <include reference="6Xn-lw-3rh"/>
+                                                    <include reference="NuK-Xp-Iom"/>
                                                     <include reference="6ee-g9-jKr"/>
                                                     <include reference="ufC-lK-5zs"/>
-                                                    <include reference="AtY-ef-Aim"/>
-                                                    <include reference="ej9-hu-OKF"/>
                                                     <include reference="09J-HZ-Zlv"/>
                                                     <include reference="2V9-yI-fSZ"/>
                                                     <include reference="5l9-YR-BR9"/>
                                                     <include reference="Nj1-CV-JcX"/>
                                                     <include reference="zbr-vk-JRi"/>
+                                                    <include reference="EYl-bw-1JI"/>
+                                                    <include reference="AtY-ef-Aim"/>
+                                                    <include reference="ej9-hu-OKF"/>
                                                     <include reference="NCt-vP-wCD"/>
                                                     <include reference="eiD-Gs-ITh"/>
                                                     <include reference="yfH-Rr-eqo"/>
+                                                    <include reference="9kK-8Q-ctZ"/>
+                                                    <include reference="Swd-yU-ZYJ"/>
+                                                    <include reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1533,7 +1533,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eVa-jB-z90">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Wl-Rc-un6">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>

@@ -12,7 +12,7 @@ import UIKit
 protocol FilterViewControllerDelegate {
     func filterSelected()
 }
-class FilterViewController: UIViewController {
+class FilterViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet var barLabel: UIButton!
     @IBOutlet var keywordOutlet: UITextField!
@@ -41,6 +41,66 @@ class FilterViewController: UIViewController {
         barLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, -23, 0)
         // Do any additional setup after loading the view.
     }
+    /*
+    func firstResponder() -> Int{
+        if ( keywordOutlet.isFirstResponder()){
+            return 1
+        }
+        else if(minpriceOutlet.isFirstResponder()){
+            return 2
+        }
+        else{
+            return 3
+        }
+    }
+    func initializeTopBars(){
+        //self.textField.inputAccessoryView = doneToolbar
+        
+        var currentItem:Int = firstResponder()
+        //UIBarButtonSystemItem.
+        var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,target: self, action: "next")
+        var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
+        toolbar.setItems([item], animated: true)
+        if(currentItem == 1){
+        self.keywordOutlet.inputAccessoryView = toolbar
+        }
+        if(currentItem == 2){
+        self.minpriceOutlet.inputAccessoryView = toolbar
+        }
+        if(currentItem == 3){
+        self.maxpriceOutlet.inputAccessoryView = toolbar
+        }
+
+    }
+    func next(){
+        var currentItem:Int = firstResponder()
+        if(currentItem == 1){
+            self.keywordOutlet.resignFirstResponder()
+            self.minpriceOutlet.becomeFirstResponder()
+        }
+        if(currentItem == 2){
+            self.minpriceOutlet.resignFirstResponder()
+            self.maxpriceOutlet.becomeFirstResponder()
+        }
+        if(currentItem == 3){
+            self.maxpriceOutlet.resignFirstResponder()
+        }
+    }
+    func prev(){
+        var currentItem:Int = firstResponder()
+        if(currentItem == 1){
+            self.keywordOutlet.resignFirstResponder()
+        }
+        if(currentItem == 2){
+            self.minpriceOutlet.resignFirstResponder()
+            self.keywordOutlet.becomeFirstResponder()
+        }
+        if(currentItem == 3){
+            self.maxpriceOutlet.resignFirstResponder()
+            self.minpriceOutlet.becomeFirstResponder()
+        }
+    }
+*/
     func resignKeyboard(){
         keywordOutlet.resignFirstResponder()
         minpriceOutlet.resignFirstResponder()
@@ -90,7 +150,7 @@ class FilterViewController: UIViewController {
         if(!isNumeric(max) && max != ""){
             return "Please enter a valid maximum price"
         }
-        if(min != "" && max != "" && min.toInt() > max.toInt()){
+        if(min != "" && max != "" && min.toDouble() >= max.toDouble()){
             return "Please enter a minimum price lower than maximum"
         }
         return "1"
@@ -157,7 +217,7 @@ class FilterViewController: UIViewController {
     }
     
     func isNumeric(a: String) -> Bool {
-        if let n = a.toInt() {
+        if let n = a.toDouble() {
             return true
         } else {
             return false
