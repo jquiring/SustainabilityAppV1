@@ -539,7 +539,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                     new_post = ProfilePost(title: title, imageName: default_image!, id:stringid , cat:category_,date:date)
                 }
                 else{
-                    new_post = ProfilePost(title: title, id: stringid,cat:category_,date:date)
+                    new_post = ProfilePost(title: title, id: stringid,cat:category_,date:date,imageComing:false)
                 }
                 new_post.upDateNSData(true)
                 dispatch_async(dispatch_get_main_queue(), {

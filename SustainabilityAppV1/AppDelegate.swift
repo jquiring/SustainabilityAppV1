@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Fabric
-import TwitterKit
 
 
 @UIApplicationMain
@@ -21,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        Fabric.with([Twitter()])
+        
         
         if((userDefaults.objectForKey("username")) != nil) {
             window = UIWindow(frame: UIScreen.mainScreen().bounds)
