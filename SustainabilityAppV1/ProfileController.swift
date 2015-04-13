@@ -75,28 +75,21 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     }
     func bumpUI(sender:Int,refreshed:String,date:String){
         if(refreshed == "1"){
-            let alertController = UIAlertController(title: nil , message:
-                "Your post has been bumped", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                let bumped_post = self.arrayOfPosts[sender]
-                self.arrayOfPosts.removeAtIndex(sender)
-                self.arrayOfPosts.insert(bumped_post, atIndex: 0)
-                self.arrayOfPosts[0].refreshing = false
-                if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-                    var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
-                    current_posts.removeAtIndex(sender)
-                    current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category,date], atIndex: 0)
-                    NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
-                    
-                }
-                else {
-                    var current_posts = [bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category,date]
-                    NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
-                }
-                self.table.reloadData()
-            }))
-            presentViewController(alertController, animated: true, completion: nil)
-            
+            let bumped_post = self.arrayOfPosts[sender]
+            self.arrayOfPosts.removeAtIndex(sender)
+            self.arrayOfPosts.insert(bumped_post, atIndex: 0)
+            self.arrayOfPosts[0].refreshing = false
+            if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
+                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+                current_posts.removeAtIndex(sender)
+                current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category,date], atIndex: 0)
+                NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+            }
+            else {
+                var current_posts = [bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category,date]
+                NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
+            }
+            self.table.reloadData()
         }
         else{
             let alertController = UIAlertController(title: "Your post was not bumped", message:
@@ -104,11 +97,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
                 self.arrayOfPosts[sender].refreshing = false
                 self.table.reloadData()
-              
             }))
             presentViewController(alertController, animated: true, completion: nil)
         }
-        
     }
     func bumpPost(category:String,post_id:String,tag:Int){
         var api_requester: AgoraRequester = AgoraRequester()
@@ -144,17 +135,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         current_posts.removeAtIndex(sender)
         NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
         self.arrayOfPosts.removeAtIndex(sender)
-        
-        let alertController = UIAlertController(title: nil, message:
-            "Your post has been deleted", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-            self.table.reloadData()
-            
-            
-        }))
-        presentViewController(alertController, animated: true, completion: nil)
-
-        
+        self.table.reloadData()
     }
     func deletePost(category:String, id:String,sender:Int){
         var api_requester: AgoraRequester = AgoraRequester()
@@ -507,17 +488,14 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         cell.category = postCell.category
         if(postCell.imageRefreshing){
             
-            println("getting for ")
-            print(cell.title.text)
             cell.imageRefresh.startAnimating()
-            cell.imageView?.hidden = true
+            cell.itemImage.hidden = true
+           
     
         }
         else {
-            println("Stopping image animation for")
-            print(cell.title.text)
             cell.imageRefresh.stopAnimating()
-            cell.imageView?.hidden = false
+            cell.itemImage.hidden = false
         }
         return cell
     }
@@ -600,15 +578,14 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             },
             failure: {isImage,postID,category,code,message -> Void in
                 if(!isImage){
+                    dispatch_async(dispatch_get_main_queue(), {
                     self.refreshControl.endRefreshing()
                     self.actInd.stopAnimating()
                     self.centerLoad.stopAnimating()
                     var alert = UIAlertController(title: "Connection error", message: "Unable to load posts, pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
                     alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                        
-                    }))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    }))})
                     
                 }
                 else{
@@ -621,7 +598,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     func addImage(id:Int, category:String, data:NSData?,failure:Bool){
         var hitCount = 0
         var foundPost = 0
-        sleep(1)
+        println(NSThread.currentThread())
+        NSThread.sleepForTimeInterval(0.2)
         for post in arrayOfPosts {
             if(post.id.toInt() == id && category == post.category){
                 if(failure){
@@ -704,7 +682,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 arrayOfPosts.append(newPost)
             }
         }
-        println("ARRAYOFPOSTS")
         for post in arrayOfPosts {
             println("title: " + String(post.title))
             println("id: " + String(post.id))
@@ -736,7 +713,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         return actInd
     }
     func scrollViewDidScroll(scrollView: UIScrollView){
-        if(arrayOfPosts.count >= 10 ){
+        //if(arrayOfPosts.count >= 10 ){
             var currentOffset = scrollView.contentOffset.y;
             var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
             
@@ -764,7 +741,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 
             }
             
-        }
+        //}
     }
 }
 extension String {

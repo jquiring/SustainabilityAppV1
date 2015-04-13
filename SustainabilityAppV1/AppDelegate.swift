@@ -22,11 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         if((userDefaults.objectForKey("username")) != nil) {
+            println("application")
+            NSUserDefaults.standardUserDefaults().setObject("0",forKey:"free")
+            NSUserDefaults.standardUserDefaults().setObject("",forKey:"min_price")
+            NSUserDefaults.standardUserDefaults().setObject("",forKey:"max_price")
+            NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
+            NSUserDefaults.standardUserDefaults().setObject([],forKey:"categories")
+            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
             window = UIWindow(frame: UIScreen.mainScreen().bounds)
             let containerViewController = ContainerViewController()
             window!.rootViewController = containerViewController
             window!.makeKeyAndVisible()
-            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
+            
         }
        
         return true

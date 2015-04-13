@@ -86,16 +86,18 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         
         startRequest()
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         if (NSUserDefaults.standardUserDefaults().objectForKey("fromEdit") != nil){
             if(NSUserDefaults.standardUserDefaults().objectForKey("fromEdit") as Bool){
                 NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
-                self.dismissViewControllerAnimated(false, completion: nil)
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
         else{
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
-        }
+        }    }
+    override func viewDidAppear(animated: Bool) {
+
     }
     func swipeLeft(recognizer : UISwipeGestureRecognizer) {
         println("swiped")

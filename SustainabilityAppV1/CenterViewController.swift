@@ -214,6 +214,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             imageReceived: {category,postID,imageData -> Void in
                 //imageReceived function only called IF there is an image
                 //no point in running this function just to determine there is no image...
+                 NSThread.sleepForTimeInterval(0.05)
                 println(postID)
                 var postCount = 0
                 var hitCount:Int = 0
@@ -236,6 +237,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             },
             failure: {isImage,postID,category,code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
+                   
                     if(isImage){
                         var postCount = 0
                         var hitCount = 0
@@ -414,6 +416,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
         
     }
+    /*
+    override func didReceiveMemoryWarning() {
+        arrayO
+    }
+*/
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var creatorLabel: UILabel!
