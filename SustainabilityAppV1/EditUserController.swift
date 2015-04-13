@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class EditUserController: UIViewController {
+class EditUserController: UIViewController, UITextFieldDelegate {
     var flag = false
  
     @IBOutlet var saveOutlet: UIBarButtonItem!
@@ -57,31 +57,20 @@ class EditUserController: UIViewController {
         return NSPredicate(format: "SELF MATCHES %@", emailRegex)?.evaluateWithObject(candidate)
     }
 */
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
-        if(first_name_field.isFirstResponder()){
-            first_name_field.resignFirstResponder()
-            last_name_field.becomeFirstResponder()
-        }
-        else if(last_name_field.isFirstResponder()){
-            last_name_field.resignFirstResponder()
-            phone_number.becomeFirstResponder()
-        }
-        else if(phone_number.isFirstResponder()){
-            phone_number.resignFirstResponder()
-            email.becomeFirstResponder()
-        }
-        else if(email.isFirstResponder()){
-            email.resignFirstResponder()
-            saveFunc()
-        }
-        return true
-    }
     
+    //Not being called for soem reason
+    
+
     @IBAction func cancel(sender: AnyObject) {
+        println("cancel")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        first_name_field!.delegate = self
+        last_name_field!.delegate = self
+        phone_number!.delegate = self
+        email!.delegate = self
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         self.navigationController?.view.addSubview(actInd)
@@ -183,7 +172,25 @@ class EditUserController: UIViewController {
             return true
         }
     }
-    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        if(first_name_field.isFirstResponder()){
+            first_name_field.resignFirstResponder()
+            last_name_field.becomeFirstResponder()
+        }
+        else if(last_name_field.isFirstResponder()){
+            last_name_field.resignFirstResponder()
+            phone_number.becomeFirstResponder()
+        }
+        else if(phone_number.isFirstResponder()){
+            phone_number.resignFirstResponder()
+            email.becomeFirstResponder()
+        }
+        else if(email.isFirstResponder()){
+            email.resignFirstResponder()
+            saveFunc()
+        }
+        return true
+    }
     func isNumeric(a: String) -> Bool {
         if let n = a.toDouble() {
             if(a.rangeOfString(".") != nil){

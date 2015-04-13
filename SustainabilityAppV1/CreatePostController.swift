@@ -85,6 +85,14 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.descOutlet.delegate = self
         self.title_field.delegate = self
     }
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        if(title_field.isFirstResponder()){
+            title_field.resignFirstResponder()
+            descOutlet.becomeFirstResponder()
+        }
+        
+        return true
+    }
     func doneCat() {
         if(category.text == ""){
             category.text = "Books"
@@ -96,15 +104,14 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.round_trip_switch.hidden = true
         }
         currentText.resignFirstResponder()
+        title_field.becomeFirstResponder()
     }
     func doneDate(){
-        
         currentText.resignFirstResponder()
     }
     
     @IBAction func switch_changed(sender: AnyObject) {
         tableView.reloadData()
-        
     }
     //TODO: title field changed to cat_field.
     func intializeCatPicker(){
@@ -313,10 +320,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     //TODO: do we need these next two functions
     func textFieldShouldEndEditing(textField: UITextField!) -> Bool{  //delegate method
-        return true
-    }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool{   //delegate method
-        //textField.resignFirstResponder()
         return true
     }
     //creates the custom view headers
