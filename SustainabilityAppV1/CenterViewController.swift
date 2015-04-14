@@ -278,7 +278,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                         self.presentViewController(alert, animated: true, completion: nil)
                         
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                            
+                            self.table.reloadData()
                         }))
                         
                         
@@ -432,11 +432,10 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
         
     }
-    /*
+    
     override func didReceiveMemoryWarning() {
-        arrayO
+        arrayOfPosts.removeAtIndex(0)
     }
-*/
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var creatorLabel: UILabel!

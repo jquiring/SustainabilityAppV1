@@ -231,18 +231,26 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         //TODO:What is the alternate email key?
         gonzaga_email_ = parseJSON["gonzaga_email"] as String
         pref_email_ = parseJSON["pref_email"] as String
-        text_ = parseJSON["call"] as String
+        call_ = parseJSON["call"] as String
         println(pref_email_)
         println(gonzaga_email_)
         println(text_)
-        call_ = parseJSON["text"] as String
+        text_ = parseJSON["text"] as String
         println(call_)
         
         if(NSUserDefaults.standardUserDefaults().objectForKey("username") as String == parseJSON["username"] as String){
-            reportButton.title = "Edit"
+            println("Edit")
+            
+
+            var button1 = self.navigationItem.rightBarButtonItem
+            button1!.title = "Edit"
         }
         else {
-            reportButton.title = "Report"
+            var button = self.navigationItem.rightBarButtonItem
+            button!.title = "Report"
+        
+            
+            println("report")
         }
         
         if(parseJSON["gonzaga_email"] as String == ""){
@@ -712,9 +720,10 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
         //  Make sure to set this property to self, so that the controller can be dismissed!
         
         //these need to be fixed
+        println(text_)
+        messageComposeVC.recipients = [text_]
         messageComposeVC.messageComposeDelegate = self
         messageComposeVC.body = "Inquiry Regarding " + title + "\n"
-        messageComposeVC.recipients = [text_]
         return messageComposeVC
     }
     

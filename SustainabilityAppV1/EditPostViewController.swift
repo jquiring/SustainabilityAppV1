@@ -660,6 +660,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                 }
                 else{
                     if(code == 400){
+                        NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
                         var alert = UIAlertController(title: "This post no longer exists", message: "Pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
                         self.presentViewController(alert, animated: true, completion: nil)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
@@ -669,6 +670,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                     }
                     else {
                         dispatch_async(dispatch_get_main_queue(), {
+                            NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
                             var alert = UIAlertController(title: "Connection error", message: "Check signal and try", preferredStyle: UIAlertControllerStyle.Alert)
                             self.presentViewController(alert, animated: true, completion: nil)
                             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
