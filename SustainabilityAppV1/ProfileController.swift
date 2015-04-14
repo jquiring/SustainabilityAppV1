@@ -520,7 +520,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 label.text = "Loading your posts"
             }
             else{
-                label.text = "No posts currently loaded"
+                label.text = "You currently have no posts, pull down to refresh"
             }
             label.textColor = UIColor.blackColor()
             label.textAlignment = NSTextAlignment.Center
@@ -697,12 +697,13 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 var oldLength = arrayOfPosts.count - 1
                 bottomNeedsMore = false
                 println("Time to reload table")
-                println(arrayOfPosts[oldLength].date)
-                println(arrayOfPosts[oldLength - 1].date)
                 //send request for more posts
                 //actInd.startAnimating()
-                getMorePosts(arrayOfPosts[oldLength].date,older:"1",fromTop:false,refresh:false)
-                
+                if(arrayOfPosts.count == 0){
+                    getMorePosts("",older:"1",fromTop:false,refresh:false)
+                } else {
+                    getMorePosts(arrayOfPosts[oldLength].date,older:"1",fromTop:false,refresh:false)
+                }
                 //var indexes = [oldLength...self.arrayOfPosts.count]
                 //var indexPath = NSIndexPath(indexPathWithIndexes:indexes, length:indexes.count)
 
