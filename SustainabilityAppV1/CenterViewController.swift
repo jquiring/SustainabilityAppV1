@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwifteriOS
 
 @objc
 protocol CenterViewControllerDelegate {
@@ -115,7 +116,22 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             return false
         }
     }
-    
+    /*
+    func setTwitter(){
+        let twitterText = " @ZagsGoGreen: "
+        let swifter = Swifter(consumerKey:"ZWYgoh4EdRMbqvysDom4Far29", consumerSecret:"lksmS293yiW8D1q8F9BSqXlyGGx65lh3uHSwspfnqemdLu78qB")
+        swifter.getStatusesUserTimelineWithUserID("1601601674", count: 1, sinceID: nil, maxID: nil, trimUser: true, contributorDetails: false, includeEntities: true,
+            success: {
+                statuses -> Void in
+                if let statusText = statuses![0]["text"].string {
+                    let newText = " @ZagsGoGreen: " + statusText + "   |"
+                    NSUserDefaults.standardUserDefaults().setObject(newText,forKey:"zags_go_green")
+                    println(newText)
+                }
+            }, failure: {
+                (error: NSError) in
+        })
+    }*/
     func didRefresh(){
         if(!centerActInd.isAnimating() && !actInd.isAnimating()){
             setUp("",older: "1",fromTop: "1",fromNewFilter:false)

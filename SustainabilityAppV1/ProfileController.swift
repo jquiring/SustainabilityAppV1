@@ -51,7 +51,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             refreshControl.endRefreshing()
         }
     }
-
+    
     @IBAction func deleteSelected(sender: AnyObject) {
         let cat:String = arrayOfPosts[sender.tag].category as String
         let id:String = arrayOfPosts[sender.tag].id as String
@@ -233,17 +233,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         }))
 
 
-    }/*
-    override func viewWillAppear(animated: Bool) {
-        println("view will appear")
-        
-        self.setUpPosts()
-        makeLayout()
-        
-        table.reloadData()
-        self.view.setNeedsDisplay()
-    }*/
-
+    }
     override func viewDidAppear(animated: Bool) {
         if(NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool){
             setUpPosts(true)
@@ -277,11 +267,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         }
         setUpPosts(true)
         table.reloadData()
-        //view.setTranslatesAutoresizingMaskIntoConstraints(false)
-
-        //table.preformSeg
         self.table.tableFooterView = UIView()
-
         println("view did load")
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
@@ -379,12 +365,28 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         table.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-        //let table_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[table(bottomHeight)]", options:
-            //NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         table.addConstraints(table_constraint_H)
-        //table.addConstraints(table_constraint_V)
         
         //twitterFeed
+        /*
+
+        twitterFeed.marqueeType = .MLContinuous
+        twitterFeed.font = UIFont(name: "HelveticaNeue-Light",size: 16)
+        twitterFeed.scrollDuration = 15.0
+        twitterFeed.fadeLength = 0.0
+        twitterFeed.continuousMarqueeExtraBuffer = 0.0
+        let twitterText = " @ZagsGoGreen: "
+        if(NSUserDefaults.standardUserDefaults().objectForKey("zags_go_green") != nil){
+            println("YYYYY")
+            let tempText:String = NSUserDefaults.standardUserDefaults().objectForKey("zags_go_green") as String
+            println(tempText)
+            self.twitterFeed.text = tempText
+        }
+        else{
+            println("NNNNNN")
+            self.twitterFeed.text = twitterText
+        }
+*/
         twitterFeed.marqueeType = .MLContinuous
         twitterFeed.font = UIFont(name: "HelveticaNeue-Light",size: 16)
         twitterFeed.scrollDuration = 15.0
@@ -402,13 +404,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }, failure: {
                 (error: NSError) in
         })
-        twitterFeed.text = twitterText
         twitterFeed.tag = 101
-
         twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
-        twitterFeed.backgroundColor = backgroundColor
-        //twitterFeed.addTarget(self, action: "tweets:", forControlEvents: UIControlEvents.TouchUpInside)
-        //twitterFeed.userInteractionEnabled = false
+        //twitterFeed.backgroundColor = backgroundColor
         twitterFeed.backgroundColor = UIColor.whiteColor()
         let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
         let twitterFeed_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[twitterFeed(twitterFeedHeight)]", options:
@@ -450,10 +448,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view.addConstraints(view_constraint_V)
         
     }
-    func updateTweets(tweet: String) -> Void{
-        
-    }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -630,17 +625,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             //self.table.reloadData()
         })
     }
-    /*
-    func didRefresh(){
-        if(arrayOfPosts.count == 0){
-            getMorePosts("", older: "0",fromTop:true)
-        }
-        else{
-            getMorePosts(arrayOfPosts[0].date,older:"",fromTop:true)
-        }
-        table.reloadData()
-    }
-    */
+    
     func updatePosts(parseJSON:NSDictionary,refresh:Bool){
         if(refresh){
             arrayOfPosts = []
@@ -682,17 +667,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 arrayOfPosts.append(newPost)
             }
         }
-        for post in arrayOfPosts {
-            println("title: " + String(post.title))
-            println("id: " + String(post.id))
-        }
-        println("CURRENT POSTS")
-        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
-        for post in current_posts {
-            println("title: " + String(post[0] as NSString))
-            println("id: " + String(post[1] as NSString))
-        }
-        println("reloading data")
+        
         refreshControl.endRefreshing()
         self.actInd.stopAnimating()
         centerLoad.stopAnimating()
