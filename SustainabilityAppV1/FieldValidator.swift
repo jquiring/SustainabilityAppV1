@@ -10,20 +10,14 @@ import Foundation
 
 class FieldValidator {
     init(){
-        
     }
     func datesInOrder(date1:String,date2:String)->Bool{
         if(date1 != "" && date2 != ""){
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "M/d/yy, h:mm a"
             let date1:NSDate = dateFormatter.dateFromString(date1)!
-            println()
-            println(date1)
-            println(date2)
             let date2:NSDate = dateFormatter.dateFromString(date2)!
-            println("ending comparison")
             if(date1.compare(date2) == NSComparisonResult.OrderedDescending){
-                println("ending comparison")
                 return false
             }
         }

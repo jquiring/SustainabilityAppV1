@@ -10,24 +10,25 @@ import UIKit
 import Foundation
 
 class LoginController: UIViewController,UITextFieldDelegate {
-
-    //LDAP Variables
     var flag = false
-    //Made a change
     var window: UIWindow?
+    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+    
     @IBOutlet var loginOutlet: UIButton!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var incorrectLoginLabel: UILabel!
-    var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-    @IBAction func login(sender: AnyObject) {
-        self.actInd.startAnimating()
-        println("should be animating")
-        //self.view.userInteractionEnabled = false
-        loginOutlet.enabled = false
-        password.resignFirstResponder()
-        email.resignFirstResponder()
-        LDAPLogin()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        email!.delegate = self
+        password!.delegate = self
+        incorrectLoginLabel.hidden = true
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.navigationController?.view.addSubview(actInd)
     }
     func updateUI(parseJSON:Dictionary<String,AnyObject>){
         self.actInd.stopAnimating()
@@ -53,7 +54,6 @@ class LoginController: UIViewController,UITextFieldDelegate {
                 NSUserDefaults.standardUserDefaults().setObject(parseJSON["phone"] as? String, forKey: "phone")
             }
         }
-        //TODO:should we set any of these differently in the newuser controller?
         NSUserDefaults.standardUserDefaults().setObject(true,forKey:"newFilterPerameters")
         NSUserDefaults.standardUserDefaults().setObject(true, forKey: "moreUserPosts")
         NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
@@ -71,12 +71,32 @@ class LoginController: UIViewController,UITextFieldDelegate {
             self.window!.makeKeyAndVisible()
         }
         else{
-            //need to pass email in to create user page to send to DB ***************************************************
             var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
             let navController = UINavigationController(rootViewController: VC1)
             self.presentViewController(navController, animated:true, completion: nil)
         }
-    
+    }
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        if(email .isFirstResponder()){
+            email.resignFirstResponder()
+            password.becomeFirstResponder()
+        }
+        else if(password.isFirstResponder()){
+            password.resignFirstResponder()
+            self.actInd.startAnimating()
+            loginOutlet.enabled = false
+            password.resignFirstResponder()
+            email.resignFirstResponder()
+            LDAPLogin()
+        }
+        return true
+    }
+    @IBAction func login(sender: AnyObject) {
+        self.actInd.startAnimating()
+        loginOutlet.enabled = false
+        password.resignFirstResponder()
+        email.resignFirstResponder()
+        LDAPLogin()
     }
     func LDAPLogin(){
         var api_requester: AgoraRequester = AgoraRequester()
@@ -102,51 +122,17 @@ class LoginController: UIViewController,UITextFieldDelegate {
                     self.password.text = ""
                     self.loginOutlet.enabled = true
                     self.view.userInteractionEnabled = true
-
                     self.actInd.stopAnimating()
                 })
-            })
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        email!.delegate = self
-        password!.delegate = self
-        incorrectLoginLabel.hidden = true
-        
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        self.navigationController?.view.addSubview(actInd)
-        println("view did load")
-        // Do any additional setup after loading the view, typically from a nib.
+            }
+        )
     }
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        //do we need both?
         password.resignFirstResponder()
         email.resignFirstResponder()
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // comment in did recieve
-        // Dispose of any resources that can be recreated.
     }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
-        if(email .isFirstResponder()){
-            email.resignFirstResponder()
-            password.becomeFirstResponder()
-        }
-        else if(password.isFirstResponder()){
-            password.resignFirstResponder()
-            self.actInd.startAnimating()
-            loginOutlet.enabled = false
-            password.resignFirstResponder()
-            email.resignFirstResponder()
-            LDAPLogin()
-        }
-        return true
-    }
-
 }
 

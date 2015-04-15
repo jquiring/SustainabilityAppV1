@@ -10,7 +10,6 @@ import UIKit
 
 class ProfilePostCell: UITableViewCell {
     
-    
     @IBOutlet var imageRefresh: UIActivityIndicatorView!
     @IBOutlet var deleteRefresh: UIActivityIndicatorView!
     @IBOutlet var bumpRefresh: UIActivityIndicatorView!
@@ -19,16 +18,15 @@ class ProfilePostCell: UITableViewCell {
     @IBOutlet var edit: UIButton!
     @IBOutlet var delete: UIButton!
     @IBOutlet var bump: UIButton!
+    
     var id = "0"
     var category = "0"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     func setCell(title:String,imageName:NSData){
         self.title.text = title
@@ -49,7 +47,6 @@ class ProfilePostCell: UITableViewCell {
         }
         if(deleting){
             delete.hidden = true
-            println("deleting animation starting")
             deleteRefresh.startAnimating()
         }
         else{
@@ -57,5 +54,4 @@ class ProfilePostCell: UITableViewCell {
             deleteRefresh.stopAnimating()
         }
     }
-
 }

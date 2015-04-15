@@ -21,21 +21,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var imagesLoading: UIActivityIndicatorView!
     
-    var gonzaga_email_ = ""
-    var pref_email_ = ""
-    var call_ = ""
-    var text_ = ""
-    var scrollViewWidth:CGFloat = 0.0
-    var pageImages = [Int:UIImage]()
-    var frame: CGRect = CGRectMake(0, 0, 0, 0)
-    let description1 = "description"
-    let price = "Price"
-    var title1 = "Loading information..."
-    var email_type = 0
-    var image_count = 0
-    var image_grabbed = 0
-    var loaded_images:[Int] = []
-    
     @IBOutlet var price_label: UILabel!
     @IBOutlet weak var description_label: UILabel!
     @IBOutlet weak var round_trip_label: UILabel!
@@ -57,6 +42,21 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBOutlet weak var date_text: UILabel!
     
     @IBOutlet var tv: UITableView!
+    
+    var gonzaga_email_ = ""
+    var pref_email_ = ""
+    var call_ = ""
+    var text_ = ""
+    var scrollViewWidth:CGFloat = 0.0
+    var pageImages = [Int:UIImage]()
+    var frame: CGRect = CGRectMake(0, 0, 0, 0)
+    let description1 = "description"
+    let price = "Price"
+    var title1 = "Loading information..."
+    var email_type = 0
+    var image_count = 0
+    var image_grabbed = 0
+    var loaded_images:[Int] = []
     let messageComposer = MessageComposer()
     
     override func viewDidLoad() {
@@ -83,7 +83,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:")
         recognizer.direction = .Right
         self.tv.addGestureRecognizer(recognizer)
-        
         startRequest()
     }
     override func viewWillAppear(animated: Bool) {
@@ -95,14 +94,54 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         else{
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
-        }    }
-    override func viewDidAppear(animated: Bool) {
-
+        }
     }
     func swipeLeft(recognizer : UISwipeGestureRecognizer) {
-        println("swiped")
-        //self.performSegueWithIdentifier("swipeBack", sender: self)
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    func createAlert(message:String, title:String?){
+        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+    }
+    func createScroll(fromStart:Bool,newImageIndex:Int){
+        for index in 0...(image_count-1) {
+            frame.origin.x = scrollViewWidth * CGFloat(index)
+            frame.origin.y = 0
+            frame.size = CGSize(width: scrollViewWidth, height: scrollViewWidth)
+            self.scrollView.pagingEnabled = true
+            var subView = UIImageView(frame: frame)
+            if(contains(loaded_images,index)){
+                var image:UIImage  = pageImages[index]!
+                var newImage = image.resizeToBoundingSquare(boundingSquareSideLength: scrollViewWidth)
+                for view in subView.subviews {
+                    view.removeFromSuperview()
+                }
+                subView.image = newImage
+            }
+            else {
+                var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
+                centerActInd.center = subView.center
+                centerActInd.hidesWhenStopped = true
+                centerActInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                centerActInd.startAnimating()
+                subView.addSubview(centerActInd)
+            }
+            self.scrollView.addSubview(subView)
+        }
+        self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
+    }
+    func updateImages(imageData:NSData?, imageNumber:Int,failure:Bool){
+        self.image_grabbed += 1
+        if(!failure){
+            self.pageImages[imageNumber] = (UIImage(data: imageData!)!)
+        }
+        else{
+            self.pageImages[imageNumber] = UIImage(named: "Call")!
+        }
+        self.loaded_images.append(imageNumber)
+        createScroll(false, newImageIndex: imageNumber)
     }
     func startRequest() {
         self.tableView.reloadData()
@@ -128,9 +167,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.updateImages(imageData!,imageNumber:1,failure:false)
-                    
                 })
-                
             },
             image3: {imageData -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -151,7 +188,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                                 self.dismissViewControllerAnimated(true, completion: nil)
                             }))
                         })
-                        
                     }
                     else {
                         dispatch_async(dispatch_get_main_queue(), {
@@ -173,86 +209,22 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             }
         )
     }
-    func createAlert(message:String, title:String?){
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        self.presentViewController(alert, animated: true, completion: nil)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-        }))
-        
-    }
-    func createScroll(fromStart:Bool,newImageIndex:Int){
-        for index in 0...(image_count-1) {
-            
-            
-            frame.origin.x = scrollViewWidth * CGFloat(index)
-            frame.origin.y = 0
-            frame.size = CGSize(width: scrollViewWidth, height: scrollViewWidth)
-            self.scrollView.pagingEnabled = true
-            var subView = UIImageView(frame: frame)
-            if(contains(loaded_images,index)){
-                println(index)
-                var image:UIImage  = pageImages[index]!
-                var newImage = image.resizeToBoundingSquare(boundingSquareSideLength: scrollViewWidth)
-                println("adding image ")
-                print(newImage)
-                for view in subView.subviews {
-                    view.removeFromSuperview()
-                }
-                subView.image = newImage
-            }
-            else {
-                var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-                centerActInd.center = subView.center
-                centerActInd.hidesWhenStopped = true
-                centerActInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                centerActInd.startAnimating()
-                subView.addSubview(centerActInd)
-            }
-            self.scrollView.addSubview(subView)
-        }
-        self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
-    }
-    func updateImages(imageData:NSData?, imageNumber:Int,failure:Bool){
-        self.image_grabbed += 1
-        
-        if(!failure){
-            self.pageImages[imageNumber] = (UIImage(data: imageData!)!)
-        }
-        else{
-            self.pageImages[imageNumber] = UIImage(named: "Call")!
-        }
-        self.loaded_images.append(imageNumber)
-        createScroll(false, newImageIndex: imageNumber)
-    }
     func updateUI(parseJSON:NSDictionary){
         toggleHidden()
         var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
         self.title1 = parseJSON["title"] as String
-        //TODO:What is the alternate email key?
         gonzaga_email_ = parseJSON["gonzaga_email"] as String
         pref_email_ = parseJSON["pref_email"] as String
         call_ = parseJSON["call"] as String
-        println(pref_email_)
-        println(gonzaga_email_)
-        println(text_)
         text_ = parseJSON["text"] as String
-        println(call_)
-        
         if(NSUserDefaults.standardUserDefaults().objectForKey("username") as String == parseJSON["username"] as String){
-            println("Edit")
-            
-
             var button1 = self.navigationItem.rightBarButtonItem
             button1!.title = "Edit"
         }
         else {
             var button = self.navigationItem.rightBarButtonItem
             button!.title = "Report"
-        
-            
-            println("report")
         }
-        
         if(parseJSON["gonzaga_email"] as String == ""){
             self.zagMailContact.enabled = false
             self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
@@ -260,7 +232,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         else{
             self.zagMailContact.enabled = true
-            
         }
         if(parseJSON["pref_email"] as String == ""){
             self.emailContact.enabled = false
@@ -292,11 +263,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.return_date_label.text = ""
         }
         if category == "Ride Shares"{
-            
             var trip = parseJSON["trip"] as String
-            
             var Trip = trip.stringByReplacingOccurrencesOfString("To*&", withString: "to", options: NSStringCompareOptions.LiteralSearch, range: nil)
-    
             self.trip_location_label.text = Trip
             self.depature_date_label.text = parseJSON["departure_date_time"] as? String
             if parseJSON["round_trip"] as Bool {
@@ -316,7 +284,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.date_time_label.text = parseJSON["date_time"] as? String
             self.location_label.text = parseJSON["location"] as? String
         }
-        //Books
         if category != "Books"{
             self.isbn_label.text = ""
         }
@@ -334,7 +301,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             pages.numberOfPages = images
             image_count = images
         }
-        
         createScroll(true, newImageIndex: -1)
         pages.currentPage = 0
         self.tableView.reloadData()
@@ -351,7 +317,6 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         } else {
             self.showSendMailErrorAlert()
         }
-        
     }
     @IBAction func prefEmailIsTouched(sender: AnyObject) {
         email_type = 1
@@ -361,11 +326,9 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         } else {
             self.showSendMailErrorAlert()
         }
-        
     }
     @IBAction func textIsTouched(sender: AnyObject) {
         if (messageComposer.canSendText()) {
-            
             let messageComposeVC = messageComposer.configuredMessageComposeViewController(title1,text_: self.text_)
             presentViewController(messageComposeVC, animated: true, completion: nil)
         }
@@ -378,13 +341,28 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     @IBAction func phoneIsTouched(sender: AnyObject) {
         let alertController = UIAlertController(title: "Call " + self.call_  + "?", message:
             nil, preferredStyle: UIAlertControllerStyle.Alert)
-        
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
             var url:NSURL = NSURL(string: "tel://" + self.call_)!
             UIApplication.sharedApplication().openURL(url)}))
         presentViewController(alertController, animated: true, completion: nil)
-        
+    }
+    @IBAction func reportPost(sender: AnyObject){
+        if(reportButton.title == "Report"){
+            let alertController = UIAlertController(title: nil, message:
+                "Are you sure you wish to report this post for inappropriate content?", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
+                self.reportPostRequest()
+            }))
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+        else{
+            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "fromEdit")
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
+            let navController = UINavigationController(rootViewController: VC1)
+            self.presentViewController(navController, animated:true, completion: {})
+        }
     }
     func reportPostRequest(){
         var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
@@ -407,128 +385,13 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                         self.createAlert("You have already reported this post",title:nil)
                     })
                 }
-                
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.createAlert("Check signal and try again",title:"Connection error" )
                 })
-        })
-    }
-    @IBAction func reportPost(sender: AnyObject){
-        if(reportButton.title == "Report"){
-            let alertController = UIAlertController(title: nil, message:
-                "Are you sure you wish to report this post for inappropriate content?", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default,handler: nil))
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                self.reportPostRequest()
-            }))
-            presentViewController(alertController, animated: true, completion: nil)
-        }
-        else{
-            NSUserDefaults.standardUserDefaults().setObject(true, forKey: "fromEdit")
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
-            let navController = UINavigationController(rootViewController: VC1)
-            //self.dismissViewControllerAnimated(false, completion: nil)
-            //TODO:Figure out how to make this dismiss the view post controller so save or cancel from editpost goes back to main page
-            self.presentViewController(navController, animated:true, completion: {})
-            
-        }
-    }
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView
-        var fractionalPage = self.scrollView.contentOffset.x / pageWidth;
-        var page = lround(Double(fractionalPage))
-        self.pages.currentPage = page;
-    }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(pageImages.count), height: scrollView.contentSize.height)
-    }
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
-        var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
-        if(indexPath.section == 1){
-            return 77
-        }
-        if(indexPath.section == 0 && indexPath.row == 0 ){
-            return scrollViewWidth + 20
-        }
-        if(!imagesLoading.isAnimating()){
-            //This needs to be only the picture cell
-            
-            //Contact options section
-            
-            if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "")){
-                self.price_text.hidden = true
-                return 0
             }
-            //Description
-            if(indexPath.section == 0 && indexPath.row == 2 && description_label.text == ""){
-                self.description_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 2){
-                var return_val = heightForView(description_label.text!, font: myFont!, width: (screenSize.width - 110))
-                return return_val
-            }
-            //Hiding post specific information based upon category
-            if(indexPath.section == 0 && indexPath.row == 3 && round_trip_label.text == ""){
-                self.round_trip_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 4 && trip_location_label.text == ""){
-                self.trip_location_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 4){
-                var return_val = heightForView(trip_location_label.text!, font: myFont!, width: (screenSize.width - 110))
-                return return_val
-            }
-            if(indexPath.section == 0 && indexPath.row == 5 && depature_date_label.text == ""){
-                self.depature_date_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 5){
-                var return_val = heightForView(depature_date_label.text!, font: myFont!, width: (screenSize.width - 110))
-                return return_val
-            }
-            if(indexPath.section == 0 && indexPath.row == 6 && return_date_label.text == ""){
-                self.return_date_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 6){
-                var return_val = heightForView(return_date_label.text!, font: myFont!, width: (screenSize.width - 110))
-                return return_val
-            }
-            if(indexPath.section == 0 && indexPath.row == 7 && isbn_label.text == ""){
-                self.isbn_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 8 && location_label.text == ""){
-                self.location_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 8){
-                var return_val = heightForView(location_label.text!, font: myFont!, width: (screenSize.width - 110))
-                return return_val
-            }
-            
-            if(indexPath.section == 0 && indexPath.row == 9 && date_time_label.text == ""){
-                self.date_text.hidden = true
-                return 0
-            }
-            if(indexPath.section == 0 && indexPath.row == 9){
-                var return_val = heightForView(date_time_label.text!, font: myFont!, width: (screenSize.width - 110))
-                return return_val
-            }
-            return 30
-        }
-        else{
-            return 0
-        }
+        )
     }
     func toggleHidden(){
         self.zagMailContact.enabled = false
@@ -644,17 +507,104 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             date_text.hidden = true
         }
     }
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        var pageWidth = scrollViewWidth // you need to have a **iVar** with getter for scrollView
+        var fractionalPage = self.scrollView.contentOffset.x / pageWidth;
+        var page = lround(Double(fractionalPage))
+        self.pages.currentPage = page;
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(pageImages.count), height: scrollView.contentSize.height)
+    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
+        if(indexPath.section == 1){
+            return 77
+        }
+        if(indexPath.section == 0 && indexPath.row == 0 ){
+            return scrollViewWidth + 20
+        }
+        if(!imagesLoading.isAnimating()){
+            //Contact options section
+            if(indexPath.section == 0 && indexPath.row == 1 && (price_label.text == "")){
+                self.price_text.hidden = true
+                return 0
+            }
+            //Description
+            if(indexPath.section == 0 && indexPath.row == 2 && description_label.text == ""){
+                self.description_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 2){
+                var return_val = heightForView(description_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            //Hiding post specific information based upon category
+            if(indexPath.section == 0 && indexPath.row == 3 && round_trip_label.text == ""){
+                self.round_trip_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 4 && trip_location_label.text == ""){
+                self.trip_location_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 4){
+                var return_val = heightForView(trip_location_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            if(indexPath.section == 0 && indexPath.row == 5 && depature_date_label.text == ""){
+                self.depature_date_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 5){
+                var return_val = heightForView(depature_date_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            if(indexPath.section == 0 && indexPath.row == 6 && return_date_label.text == ""){
+                self.return_date_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 6){
+                var return_val = heightForView(return_date_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            if(indexPath.section == 0 && indexPath.row == 7 && isbn_label.text == ""){
+                self.isbn_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 8 && location_label.text == ""){
+                self.location_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 8){
+                var return_val = heightForView(location_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            if(indexPath.section == 0 && indexPath.row == 9 && date_time_label.text == ""){
+                self.date_text.hidden = true
+                return 0
+            }
+            if(indexPath.section == 0 && indexPath.row == 9){
+                var return_val = heightForView(date_time_label.text!, font: myFont!, width: (screenSize.width - 110))
+                return return_val
+            }
+            return 30
+        }
+        else{
+            return 0
+        }
+    }
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.ByWordWrapping
         label.font = font
         label.text = text
-        
         label.sizeToFit()
         return label.frame.height + 15
     }
-    
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
         var header : UILabel = UILabel()
         if(section == 0){
@@ -669,18 +619,14 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         header.textColor = UIColor.darkGrayColor()
         header.lineBreakMode = NSLineBreakMode.ByWordWrapping
         header.sizeToFit()
-        
         return header
     }
-    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        
         if(section == 0){
             return heightForView(title1, font: UIFont(name: "HelveticaNeue-Light",size: 18)!, width: UIScreen.mainScreen().bounds.width)-5
         }
         return 25
     }
-    
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
@@ -692,15 +638,12 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         mailComposerVC.setSubject("Inquiry regarding " + title1 + "\n")
         mailComposerVC.setMessageBody("", isHTML: false)
-        
         return mailComposerVC
     }
-    
     func showSendMailErrorAlert() {
         let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
         sendMailErrorAlert.show()
     }
-    
     // MARK: MFMailComposeViewControllerDelegate Method
     func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
         controller.dismissViewControllerAnimated(true, completion: nil)
@@ -708,30 +651,23 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
 }
 
 class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
-    
     // A wrapper function to indicate whether or not a text message can be sent from the user's device
     func canSendText() -> Bool {
         return MFMessageComposeViewController.canSendText()
     }
-    
     // Configures and returns a MFMessageComposeViewController instance
     func configuredMessageComposeViewController(title:String,text_:String) -> MFMessageComposeViewController {
         let messageComposeVC = MFMessageComposeViewController()
         //  Make sure to set this property to self, so that the controller can be dismissed!
-        
-        //these need to be fixed
-        println(text_)
         messageComposeVC.recipients = [text_]
         messageComposeVC.messageComposeDelegate = self
         messageComposeVC.body = "Inquiry Regarding " + title + "\n"
         return messageComposeVC
     }
-    
     // MFMessageComposeViewControllerDelegate callback - dismisses the view controller when the user is finished with it
     func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
-    
 }
 
 

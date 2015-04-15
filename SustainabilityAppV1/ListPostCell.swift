@@ -14,14 +14,12 @@ class ListPostCell: UITableViewCell {
     @IBOutlet var itemImage: UIImageView!
     @IBOutlet var imageLoad: UIActivityIndicatorView!
 
-    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         // MARK: Required for self-sizing cells.
         self.title.preferredMaxLayoutWidth = maxWidth() - 90
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
@@ -53,22 +51,16 @@ class ListPostCell: UITableViewCell {
         self.title.text = title
         self.keyValue.text = keyValue
         var err: NSError?
-        //TODO: change to failed image 
-        var image =  UIImage(named:"eMail")
+        var image =  UIImage(named:"failedToLoad")
         itemImage.image = image
         self.title.preferredMaxLayoutWidth = maxWidth() - 90
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
         imageLoad.stopAnimating()
         itemImage.hidden = false
-        println("has an error " + title + keyValue)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        // MARK: Required for self-sizing cells
         self.title.preferredMaxLayoutWidth = maxWidth() - 90
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180
     }
-
-
 }
