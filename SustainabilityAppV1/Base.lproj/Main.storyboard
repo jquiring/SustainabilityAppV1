@@ -1104,9 +1104,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="112" y="15" width="199" height="21"/>
-                                                    </variation>
                                                 </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q2G-YP-MNQ">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
@@ -2855,9 +2852,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <state key="normal" image="Call">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="299" y="-7" width="87" height="66"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="phoneIsTouched:" destination="TbU-JY-e6d" eventType="touchUpInside" id="blb-VI-qvc"/>
                                                     </connections>
@@ -3231,8 +3225,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="VYL-gY-epr"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="150" y="35" width="100" height="98"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="VYL-gY-epr"/>
                                                         </mask>
@@ -3243,9 +3236,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="38" y="139" width="63" height="20"/>
-                                                    </variation>
                                                 </label>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusDark.png" translatesAutoresizingMaskIntoConstraints="NO" id="KsP-hv-E1B">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -3257,8 +3247,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="4MV-hm-TAz"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="282" y="35" width="99" height="98"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="4MV-hm-TAz"/>
                                                         </mask>
@@ -3274,8 +3263,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="BSq-Bl-m9a"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="20" y="35" width="99" height="98"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="BSq-Bl-m9a"/>
                                                         </mask>
@@ -3324,20 +3312,20 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <exclude reference="LbM-P7-0Bp"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="4V7-3o-R54"/>
-                                                    <exclude reference="Jgi-XN-MYq"/>
-                                                    <exclude reference="QyD-pJ-j0l"/>
-                                                    <exclude reference="d5l-Tv-FS4"/>
-                                                    <exclude reference="qIa-vc-aeq"/>
                                                     <exclude reference="a4s-FI-VOg"/>
                                                     <exclude reference="vA3-Do-0Fg"/>
-                                                    <exclude reference="VE4-sn-nsa"/>
-                                                    <exclude reference="nsu-k1-YBM"/>
                                                     <exclude reference="9Cd-Z9-d4S"/>
                                                     <exclude reference="CTI-8j-9bi"/>
                                                     <exclude reference="gPo-YF-u85"/>
                                                     <exclude reference="tDT-6I-gDF"/>
                                                     <exclude reference="xLV-Jn-fmd"/>
+                                                    <exclude reference="4V7-3o-R54"/>
+                                                    <exclude reference="Jgi-XN-MYq"/>
+                                                    <exclude reference="QyD-pJ-j0l"/>
+                                                    <exclude reference="d5l-Tv-FS4"/>
+                                                    <exclude reference="qIa-vc-aeq"/>
+                                                    <exclude reference="VE4-sn-nsa"/>
+                                                    <exclude reference="nsu-k1-YBM"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -3348,20 +3336,20 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <include reference="LbM-P7-0Bp"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="4V7-3o-R54"/>
-                                                    <include reference="Jgi-XN-MYq"/>
-                                                    <include reference="QyD-pJ-j0l"/>
-                                                    <include reference="d5l-Tv-FS4"/>
-                                                    <include reference="qIa-vc-aeq"/>
                                                     <include reference="a4s-FI-VOg"/>
                                                     <include reference="vA3-Do-0Fg"/>
-                                                    <include reference="VE4-sn-nsa"/>
-                                                    <include reference="nsu-k1-YBM"/>
                                                     <include reference="9Cd-Z9-d4S"/>
                                                     <include reference="CTI-8j-9bi"/>
                                                     <include reference="gPo-YF-u85"/>
                                                     <include reference="tDT-6I-gDF"/>
                                                     <include reference="xLV-Jn-fmd"/>
+                                                    <include reference="4V7-3o-R54"/>
+                                                    <include reference="Jgi-XN-MYq"/>
+                                                    <include reference="QyD-pJ-j0l"/>
+                                                    <include reference="d5l-Tv-FS4"/>
+                                                    <include reference="qIa-vc-aeq"/>
+                                                    <include reference="VE4-sn-nsa"/>
+                                                    <include reference="nsu-k1-YBM"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4144,8 +4132,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="Guw-VO-uhY"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="19" y="34" width="99" height="98"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Guw-VO-uhY"/>
                                                         </mask>
@@ -4156,9 +4143,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="35" y="138" width="54" height="20"/>
-                                                    </variation>
                                                 </label>
                                                 <imageView hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusDark.png" translatesAutoresizingMaskIntoConstraints="NO" id="bul-dY-alR">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -4170,8 +4154,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="LJi-JC-zvL"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="282" y="34" width="99" height="98"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="LJi-JC-zvL"/>
                                                         </mask>
@@ -4179,21 +4162,12 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 </imageView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zAm-Hj-Md5">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="54" y="73" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vOl-fo-Mkz">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="190" y="73" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ANQ-bR-1dt">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="321" y="73" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
                                                 <imageView hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusDark.png" translatesAutoresizingMaskIntoConstraints="NO" id="tQX-Kt-cpp">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -4205,8 +4179,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="Ajj-cf-B6S"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="150" y="34" width="100" height="98"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Ajj-cf-B6S"/>
                                                         </mask>
@@ -4264,17 +4237,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <exclude reference="tQX-Kt-cpp"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="Adg-yt-01x"/>
-                                                    <exclude reference="bwC-yI-7aX"/>
-                                                    <exclude reference="huh-2s-CvF"/>
-                                                    <exclude reference="n4i-tE-Nl5"/>
-                                                    <exclude reference="t6h-SX-7E2"/>
-                                                    <exclude reference="xKZ-td-JH2"/>
-                                                    <exclude reference="xgt-Ia-8M1"/>
                                                     <exclude reference="Urb-Ni-pWh"/>
-                                                    <exclude reference="1YY-1k-Yq4"/>
-                                                    <exclude reference="7j2-PH-rWF"/>
-                                                    <exclude reference="wrY-kc-rze"/>
                                                     <exclude reference="k41-9o-xSo"/>
                                                     <exclude reference="xoh-ku-Ik3"/>
                                                     <exclude reference="1YS-Ob-Brx"/>
@@ -4284,6 +4247,16 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <exclude reference="iQe-Ia-GTd"/>
                                                     <exclude reference="q40-Wx-DcW"/>
                                                     <exclude reference="zak-ZQ-oZj"/>
+                                                    <exclude reference="1YY-1k-Yq4"/>
+                                                    <exclude reference="7j2-PH-rWF"/>
+                                                    <exclude reference="wrY-kc-rze"/>
+                                                    <exclude reference="Adg-yt-01x"/>
+                                                    <exclude reference="bwC-yI-7aX"/>
+                                                    <exclude reference="huh-2s-CvF"/>
+                                                    <exclude reference="n4i-tE-Nl5"/>
+                                                    <exclude reference="t6h-SX-7E2"/>
+                                                    <exclude reference="xKZ-td-JH2"/>
+                                                    <exclude reference="xgt-Ia-8M1"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -4297,17 +4270,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <include reference="tQX-Kt-cpp"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="Adg-yt-01x"/>
-                                                    <include reference="bwC-yI-7aX"/>
-                                                    <include reference="huh-2s-CvF"/>
-                                                    <include reference="n4i-tE-Nl5"/>
-                                                    <include reference="t6h-SX-7E2"/>
-                                                    <include reference="xKZ-td-JH2"/>
-                                                    <include reference="xgt-Ia-8M1"/>
                                                     <include reference="Urb-Ni-pWh"/>
-                                                    <include reference="1YY-1k-Yq4"/>
-                                                    <include reference="7j2-PH-rWF"/>
-                                                    <include reference="wrY-kc-rze"/>
                                                     <include reference="k41-9o-xSo"/>
                                                     <include reference="xoh-ku-Ik3"/>
                                                     <include reference="1YS-Ob-Brx"/>
@@ -4317,6 +4280,16 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <include reference="iQe-Ia-GTd"/>
                                                     <include reference="q40-Wx-DcW"/>
                                                     <include reference="zak-ZQ-oZj"/>
+                                                    <include reference="1YY-1k-Yq4"/>
+                                                    <include reference="7j2-PH-rWF"/>
+                                                    <include reference="wrY-kc-rze"/>
+                                                    <include reference="Adg-yt-01x"/>
+                                                    <include reference="bwC-yI-7aX"/>
+                                                    <include reference="huh-2s-CvF"/>
+                                                    <include reference="n4i-tE-Nl5"/>
+                                                    <include reference="t6h-SX-7E2"/>
+                                                    <include reference="xKZ-td-JH2"/>
+                                                    <include reference="xgt-Ia-8M1"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

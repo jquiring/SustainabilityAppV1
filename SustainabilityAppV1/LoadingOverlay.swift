@@ -9,10 +9,8 @@
 import Foundation
 import UIKit
 public class LoadingOverlay: UIView{
-    
     var overlayView = UIView()
     var activityIndicator = UIActivityIndicatorView()
-    
     class var shared: LoadingOverlay {
         struct Static {
             static let instance: LoadingOverlay = LoadingOverlay()
@@ -27,14 +25,11 @@ public class LoadingOverlay: UIView{
         overlayView.backgroundColor = UIColor(white: 0x444444, alpha: 0.7)
         overlayView.clipsToBounds = true
         overlayView.layer.cornerRadius = 10
-        
         activityIndicator.frame = CGRectMake(0, 0, 40, 40)
         activityIndicator.activityIndicatorViewStyle = .WhiteLarge
         activityIndicator.center = CGPointMake(overlayView.bounds.width / 2, overlayView.bounds.height / 2)
-        
         overlayView.addSubview(activityIndicator)
         view.addSubview(overlayView)
-        
         activityIndicator.startAnimating()
     }
     
