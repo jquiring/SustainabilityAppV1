@@ -118,6 +118,7 @@ class EditUserController: UIViewController, UITextFieldDelegate {
                 }
                 else{
                     dispatch_async(dispatch_get_main_queue(), {
+                        self.saveOutlet.enabled = true
                         self.error_label.text = "Connection error, check signal and try again"
                         self.view.userInteractionEnabled = false
 

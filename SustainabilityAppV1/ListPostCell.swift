@@ -54,7 +54,7 @@ class ListPostCell: UITableViewCell {
         self.keyValue.text = keyValue
         var err: NSError?
         //TODO: change to failed image 
-        var image =  UIImage(named:"eMail")
+        var image =  UIImage(named:"failedToLoad")
         itemImage.image = image
         self.title.preferredMaxLayoutWidth = maxWidth() - 90
         self.keyValue.preferredMaxLayoutWidth = maxWidth() - 180

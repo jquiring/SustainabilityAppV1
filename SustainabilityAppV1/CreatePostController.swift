@@ -220,8 +220,26 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.gmail.image = UIImage(named:"ZagMailOFF")
         }
     }
+    func createContactQuestionAlert(contactType:String){
+        var alert = UIAlertController(title: nil, message: "Would you like to add a " + contactType + "?", preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
+            let navController = UINavigationController(rootViewController: VC1)
+            // Creating a navigation controller with VC1 at the root of the navigation stack.
+            self.presentViewController(navController, animated:true, completion: nil)
+        }))
+    }
     func pEmailToutched(){
         if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
+            self.pEmail.image = UIImage(named:"eMail")
+        }
+        else if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") == nil){
+            createContactQuestionAlert("preferred email")
+        }
+        else if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF"))) {
             self.pEmail.image = UIImage(named:"eMail")
         }
         else{
@@ -232,6 +250,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         if(self.text.image!.isEqual(UIImage(named:"SMSOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
             self.text.image = UIImage(named:"SMS")
         }
+        else if(self.text.image!.isEqual(UIImage(named:"SMSOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") == nil){
+            createContactQuestionAlert("phone number")
+        }
+        else if(self.text.image!.isEqual(UIImage(named:"SMSOFF"))){
+            self.text.image = UIImage(named:"SMS")
+        }
         else{
             self.text.image = UIImage(named:"SMSOFF")
         }
@@ -240,6 +264,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         println("phone touched")
         if((self.phone.image!.isEqual(UIImage(named:"CallOFF"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
             self.phone.image = UIImage(named:"Call")
+        }
+        else if(self.phone.image!.isEqual(UIImage(named:"CallOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") == nil){
+            createContactQuestionAlert("phone number")
+        }
+        else if(self.phone.image!.isEqual(UIImage(named:"CallOFF"))){
+            self.phone.image = UIImage(named:"SMS")
         }
         else{
             self.phone.image = UIImage(named:"CallOFF")
@@ -339,10 +369,12 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 2){
+            
             return 128
         }
         if(indexPath.section == 3){
-            return 150
+            
+            return (self.view.bounds.width - 40)/3 + 26 + 18
         }
         if(indexPath.section == 5 && category.text == "Ride Shares"){
             return 50

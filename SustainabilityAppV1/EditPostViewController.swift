@@ -350,8 +350,26 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             self.gmail.image = UIImage(named:"ZagMailOFF")
         }
     }
+    func createContactQuestionAlert(contactType:String){
+        var alert = UIAlertController(title: nil, message: "Would you like to add a " + contactType + "?", preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
+            let navController = UINavigationController(rootViewController: VC1)
+            // Creating a navigation controller with VC1 at the root of the navigation stack.
+            self.presentViewController(navController, animated:true, completion: nil)
+        }))
+    }
     func pEmailToutched(){
         if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
+            self.pEmail.image = UIImage(named:"eMail")
+        }
+        else if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") == nil){
+            createContactQuestionAlert("preferred email")
+        }
+        else if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF"))) {
             self.pEmail.image = UIImage(named:"eMail")
         }
         else{
@@ -360,6 +378,12 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
     func textToutched(){
         if(self.text.image!.isEqual(UIImage(named:"SMSOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
+            self.text.image = UIImage(named:"SMS")
+        }
+        else if(self.text.image!.isEqual(UIImage(named:"SMSOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") == nil){
+            createContactQuestionAlert("phone number")
+        }
+        else if(self.text.image!.isEqual(UIImage(named:"SMSOFF"))){
             self.text.image = UIImage(named:"SMS")
         }
         else{
@@ -371,10 +395,17 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         if((self.phone.image!.isEqual(UIImage(named:"CallOFF"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
             self.phone.image = UIImage(named:"Call")
         }
+        else if(self.phone.image!.isEqual(UIImage(named:"CallOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("phone") == nil){
+            createContactQuestionAlert("phone number")
+        }
+        else if(self.phone.image!.isEqual(UIImage(named:"CallOFF"))){
+            self.phone.image = UIImage(named:"SMS")
+        }
         else{
             self.phone.image = UIImage(named:"CallOFF")
         }
     }
+
     
     func getImage(){
         //Create the alert action that comes up when the images are selected
@@ -572,7 +603,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             return 128
         }
         if(indexPath.section == 2){
-            return 150
+            return (self.view.bounds.width - 40)/3 + 26 + 18
         }
         if(indexPath.section == 4 && category == "Ride Shares"){
             return 50
@@ -655,10 +686,6 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             },
             failure: {isImage,imageNumber,code,message -> Void in
                 if !isImage{
-                    //TODO: error not getting image number 
-                    self.failedImage(imageNumber!)
-                }
-                else{
                     if(code == 400){
                         NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
                         var alert = UIAlertController(title: "This post no longer exists", message: "Pull down to refresh", preferredStyle: UIAlertControllerStyle.Alert)
@@ -678,7 +705,11 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
                             }))
                         })
                     }
+
                     
+                }
+                else{
+                    self.failedImage(imageNumber!)
                 }
             }
         )

@@ -253,7 +253,6 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
             },
             failure: {isImage,postID,category,code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                   
                     if(isImage){
                         var postCount = 0
                         var hitCount = 0
@@ -261,16 +260,16 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                             if((String(postID!) == post.id) && (category == post.category)){
                                 post.image_error = true
                                 hitCount = postCount;
-                                
                             }
                             postCount++
                         }
                         dispatch_async(dispatch_get_main_queue(), {
-                            var indexPath = NSIndexPath(forRow: postCount, inSection: 0)
+                            var indexPath = NSIndexPath(forRow: hitCount, inSection: 0)
                             self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
                         })
                     }
                     else{
+                        self.bottomNeedsMore = true
                         self.actInd.stopAnimating()
                         self.centerActInd.stopAnimating()
                         self.refreshControl.endRefreshing()
