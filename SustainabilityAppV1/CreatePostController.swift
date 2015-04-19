@@ -392,7 +392,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 13){
-            return (self.view.bounds.width - 32)/4
+            return (self.view.bounds.width - 32)/4 
         }
         return 0
     }

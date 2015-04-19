@@ -151,6 +151,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         twitterFeed.fadeLength = 0.0
         twitterFeed.continuousMarqueeExtraBuffer = 0.0
         self.twitterFeed.text = " @ZagsGoGreen: "
+        /*
         let swifter = Swifter(consumerKey:"ZWYgoh4EdRMbqvysDom4Far29", consumerSecret:"lksmS293yiW8D1q8F9BSqXlyGGx65lh3uHSwspfnqemdLu78qB")
         swifter.getStatusesUserTimelineWithUserID("1601601674", count: 1, sinceID: nil, maxID: nil, trimUser: true, contributorDetails: false, includeEntities: true,
             success: {
@@ -162,6 +163,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }, failure: {
                 (error: NSError) in
         })
+        */
         twitterFeed.userInteractionEnabled = true
         let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("twitterTouched"))
         self.twitterFeed.addGestureRecognizer(gestureRecogniser3)

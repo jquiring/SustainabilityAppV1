@@ -299,6 +299,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     @IBAction func profile(sender: AnyObject) {
         if let d = delegate {
+            
             d.toggleLeftPanel!()
         }
     }
