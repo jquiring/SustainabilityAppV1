@@ -11,44 +11,40 @@ import Foundation
 
 class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate, UITextFieldDelegate,UITextViewDelegate {
     
-    @IBOutlet var createOutlet: UIBarButtonItem!
     var orientation: UIImageOrientation = .Up
     var currentImage:UIImageView = UIImageView()
     var popover:UIPopoverController?=nil
-    //Further Details Text Fields
     var currentText:UITextField = UITextField()
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-    
     var picker:UIImagePickerController?=UIImagePickerController()
+    var images_data:[NSData] = []
+    var flag = false
+    var id = 0
+    
     weak var cat_picker: UIPickerView!
+    
     @IBOutlet var title_field: UITextField!
     @IBOutlet var descOutlet: UITextView!
-    //3 images for taking pics
     @IBOutlet var image1: UIImageView!
     @IBOutlet var image2: UIImageView!
     @IBOutlet var image3: UIImageView!
     @IBOutlet var price: UITextField!
-    //Ride Share
     @IBOutlet weak var round_trip_switch: UISwitch!
     @IBOutlet var from: UITextField!
     @IBOutlet var to: UITextField!
     @IBOutlet var leaves: UITextField!
     @IBOutlet var comesBack: UITextField!
-    //Textbooks
     @IBOutlet var ISBN: UITextField!
-    //Events
     @IBOutlet var location: UITextField!
     @IBOutlet var date: UITextField!
-    let date_picker:UIDatePicker = UIDatePicker()
-    //contact options images
     @IBOutlet var gmail: UIImageView!
     @IBOutlet var pEmail: UIImageView!
     @IBOutlet var text: UIImageView!
     @IBOutlet var phone: UIImageView!
     @IBOutlet var category: UITextField!
-    var images_data:[NSData] = []
-    var flag = false
-    var id = 0
+    @IBOutlet var createOutlet: UIBarButtonItem!
+
+    let date_picker:UIDatePicker = UIDatePicker()
     let pickerData = ["Books","Electronics","Household","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
     
@@ -85,14 +81,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.descOutlet.delegate = self
         self.title_field.delegate = self
     }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if(title_field.isFirstResponder()){
-            title_field.resignFirstResponder()
-            descOutlet.becomeFirstResponder()
-        }
-        
-        return true
-    }
     func doneCat() {
         if(category.text == ""){
             category.text = "Books"
@@ -109,11 +97,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     func doneDate(){
         currentText.resignFirstResponder()
     }
-    
-    @IBAction func switch_changed(sender: AnyObject) {
-        tableView.reloadData()
-    }
-    //TODO: title field changed to cat_field.
     func intializeCatPicker(){
         var item = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,target: self, action: "doneCat")
         var toolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
@@ -154,37 +137,27 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         let tap = UITapGestureRecognizer(target: self, action: Selector("tableToutched"))
         self.view.addGestureRecognizer(tap)
         self.image1.image = UIImage(named:"PlusDark.png")
-
         //image 2
         let gestureRecogniser2 = UITapGestureRecognizer(target: self, action: Selector("image2Toutched"))
         self.image2.addGestureRecognizer(gestureRecogniser2)
         self.image2.image = UIImage(named:"PlusDark.png")
-
         //image 3
         let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("image3Toutched"))
         self.image3.addGestureRecognizer(gestureRecogniser3)
         self.image3.image = UIImage(named:"PlusDark.png")
-
         //TODO:images will be changed to image specifics
         let gestureRecogniserGmail = UITapGestureRecognizer(target: self, action: Selector("gMailToutched"))
         self.gmail.addGestureRecognizer(gestureRecogniserGmail)
         self.gmail.image = UIImage(named:"ZagMail")
-
         let gestureRecogniserPEmail = UITapGestureRecognizer(target: self, action: Selector("pEmailToutched"))
         self.pEmail.addGestureRecognizer(gestureRecogniserPEmail)
         self.pEmail.image = UIImage(named:"eMailOFF")
-
         let gestureRecogniserText = UITapGestureRecognizer(target: self, action: Selector("textToutched"))
         self.text.addGestureRecognizer(gestureRecogniserText)
         self.text.image = UIImage(named:"SMSOFF")
-
         let gestureRecogniserPhone = UITapGestureRecognizer(target: self, action: Selector("phoneToutched"))
         self.phone.addGestureRecognizer(gestureRecogniserPhone)
         self.phone.image = UIImage(named:"CallOFF")
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -195,7 +168,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         return pickerData[row]
     }
-    func image1Toutched(){ //touched
+    func image1Toutched(){
         currentImage = self.image1
         getImage()
     }
@@ -211,7 +184,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         currentText.resignFirstResponder()
         descOutlet.resignFirstResponder()
     }
-    //TODO:
     func gMailToutched(){
         if(self.gmail.image!.isEqual(UIImage(named:"ZagMailOFF"))){
             self.gmail.image = UIImage(named:"ZagMail")
@@ -219,18 +191,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         else {
             self.gmail.image = UIImage(named:"ZagMailOFF")
         }
-    }
-    func createContactQuestionAlert(contactType:String){
-        var alert = UIAlertController(title: nil, message: "Would you like to add a " + contactType + "?", preferredStyle: UIAlertControllerStyle.Alert)
-        self.presentViewController(alert, animated: true, completion: nil)
-        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action: UIAlertAction!) in
-        }))
-        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as! EditUserController
-            let navController = UINavigationController(rootViewController: VC1)
-            // Creating a navigation controller with VC1 at the root of the navigation stack.
-            self.presentViewController(navController, animated:true, completion: nil)
-        }))
     }
     func pEmailToutched(){
         if(self.pEmail.image!.isEqual(UIImage(named:"eMailOFF")) && NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil){
@@ -261,7 +221,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
     }
     func phoneToutched(){
-        println("phone touched")
         if((self.phone.image!.isEqual(UIImage(named:"CallOFF"))) && NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil){
             self.phone.image = UIImage(named:"Call")
         }
@@ -275,10 +234,29 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.phone.image = UIImage(named:"CallOFF")
         }
     }
+    func createContactQuestionAlert(contactType:String){
+        var alert = UIAlertController(title: nil, message: "Would you like to add a " + contactType + "?", preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as! EditUserController
+            let navController = UINavigationController(rootViewController: VC1)
+            // Creating a navigation controller with VC1 at the root of the navigation stack.
+            self.presentViewController(navController, animated:true, completion: nil)
+        }))
+    }
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         category.text = "\(pickerData[row])"
         tableView.reloadData()
         category.becomeFirstResponder()
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if(title_field.isFirstResponder()){
+            title_field.resignFirstResponder()
+            descOutlet.becomeFirstResponder()
+        }
+        return true
     }
     func getImage(){
         //Create the alert action that comes up when the images are selected
@@ -324,7 +302,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             openGallary()
         }
     }
-    func openGallary(){ //gallery
+    func openGallary(){
         picker!.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone{
             self.presentViewController(picker!, animated: true, completion: nil)
@@ -342,20 +320,106 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         currentImage.image=newImage
     }
     func imagePickerControllerDidCancel(picker: UIImagePickerController){
-        println("picker cancel.")
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     //gets the current text field that is selected
-    func textFieldDidBeginEditing(textField: UITextField){    //delegate method
+    func textFieldDidBeginEditing(textField: UITextField){
         currentText = textField
     }
     //TODO: do we need these next two functions
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool{  //delegate method
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool{
         return true
+    }
+    //sets the category header height to 0 if it is not being used
+    func validateFields() -> Bool{
+        var validator:FieldValidator = FieldValidator()
+        if(category.text == ""){
+            createAlert("Please select a category")
+            return false
+        }
+        if(!validator.checkLength(title_field.text, lengthString: 100, empty:true)){
+            createAlert("Please enter a title under 100 characters")
+            return false
+        }
+        if(!validator.checkFloat(price.text) && price.text != ""){
+            createAlert("Please enter a valid price")
+            return false
+        }
+        if(!validator.checkPriceUnder1000(price.text) && price.text != ""){
+            createAlert("Prices over $10,000 are not allowed on ZigZaga")
+            return false
+        }
+        if(!validator.checkLength(descOutlet.text, lengthString: 1000, empty:false)){
+            createAlert("Please enter a description under 1000 characters")
+            return false
+        }
+        if(category.text == "Ride Shares"){
+            if(round_trip_switch.on){
+                if(!validator.datesInOrder(leaves.text, date2: comesBack.text)){
+                    createAlert("Your ride share is planned to come back before it leaves")
+                    return false
+                }
+            }
+            if(!validator.checkLength(to.text, lengthString: 70, empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+            if(!validator.checkLength(from.text, lengthString: 70, empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+        }
+        if(category.text == "Books"){
+            if(!validator.checkLength(ISBN.text, lengthString: 13, empty:false)){
+                createAlert("Please enter an ISBN under 13 characters")
+                return false
+            }
+        }
+        if(category.text == "Events" || category.text == "Services" ){
+            if(!validator.checkLength(location.text, lengthString: 70 , empty:false)){
+                createAlert("Please enter a location under 70 characters")
+                return false
+            }
+        }
+        return true
+    }
+    @IBAction func switch_changed(sender: AnyObject) {
+        tableView.reloadData()
+    }
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    @IBAction func createPostSubmit(sender: AnyObject) {
+        if(validateFields()){
+            createPostRequest()
+        }
+    }
+    func createAlert(message:String){
+        var alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+    }
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        let rideShareOneWaySections = [5,6,7,8]
+        let rideShareBothWaysSections = [5,6,7,8,9]
+        let eventSections = [11,12]
+        if(section == 9 && (!round_trip_switch.on || category.text != "Ride Shares")){
+            return 0
+        }
+        if(contains(rideShareOneWaySections,section) && category.text != "Ride Shares"){
+            return 0
+        }
+        if(section == 10 && category.text != "Books"){
+            return 0
+        }
+        if(contains(eventSections,section) && category.text !=  "Services" && category.text != "Events"){
+            return 0
+        }
+        return 24
     }
     //creates the custom view headers
     override func tableView(tableView: (UITableView!), viewForHeaderInSection section: Int) -> (UIView!){
-        print(section)
         var header : UILabel = UILabel()
         header.text = categoryTitles[section]
         header.font = UIFont(name: "HelveticaNeue-Light",size: 18)
@@ -392,98 +456,13 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 13){
-            return (self.view.bounds.width - 32)/4 
+            return (self.view.bounds.width - 32)/4
         }
         return 0
     }
-    //sets the category header height to 0 if it is not being used
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
-        let rideShareOneWaySections = [5,6,7,8]
-        let rideShareBothWaysSections = [5,6,7,8,9]
-        let eventSections = [11,12]
-        if(section == 9 && (!round_trip_switch.on || category.text != "Ride Shares")){
-            return 0
-        }
-        if(contains(rideShareOneWaySections,section) && category.text != "Ride Shares"){
-            return 0
-        }
-        
-        if(section == 10 && category.text != "Books"){
-            return 0
-        }
-        if(contains(eventSections,section) && category.text !=  "Services" && category.text != "Events"){
-            return 0
-        }
-        return 24
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    func validateFields() -> Bool{
-        var validator:FieldValidator = FieldValidator()
-        if(category.text == ""){
-            createAlert("Please select a category")
-            return false
-        }
-        if(!validator.checkLength(title_field.text, lengthString: 100, empty:true)){
-            createAlert("Please enter a title under 100 characters")
-            return false
-        }
-            
-        if(!validator.checkFloat(price.text) && price.text != ""){
-            createAlert("Please enter a valid price")
-            return false
-        }
-        if(!validator.checkPriceUnder1000(price.text) && price.text != ""){
-            createAlert("Prices over $10,000 are not allowed on ZigZaga")
-            return false
-        }
-        if(!validator.checkLength(descOutlet.text, lengthString: 1000, empty:false)){
-            createAlert("Please enter a description under 1000 characters")
-            return false
-        }
-        if(category.text == "Ride Shares"){
-            println("is ride shares")
-            if(round_trip_switch.on){
-                println("is roundtrip shares")
-                if(!validator.datesInOrder(leaves.text, date2: comesBack.text)){
-                    
-                    createAlert("Your ride share is planned to come back before it leaves")
-                    return false
-                }
-            }
-            if(!validator.checkLength(to.text, lengthString: 70, empty:false)){
-                createAlert("Please enter a location under 70 characters")
-                return false
-            }
-            if(!validator.checkLength(from.text, lengthString: 70, empty:false)){
-                createAlert("Please enter a location under 70 characters")
-                return false
-            }
-            
-        }
-        if(category.text == "Books"){
-            if(!validator.checkLength(ISBN.text, lengthString: 13, empty:false)){
-                createAlert("Please enter an ISBN under 13 characters")
-                return false
-            }
-        }
-        if(category.text == "Events" || category.text == "Services" ){
-            if(!validator.checkLength(location.text, lengthString: 70 , empty:false)){
-                createAlert("Please enter a location under 70 characters")
-                return false
-            }
-        }
-        return true
-
-    }
-    @IBAction func createPostSubmit(sender: AnyObject) {
-        if(validateFields()){
-            createPostRequest()
-        }
-        
-    }
-
     func createPostRequest() {
         var not_ready = true
         createOutlet.enabled = false
@@ -505,15 +484,13 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 imagesBase64.append(imageBase64)
             }
         }
-        // if statements that only create the necesarry vriables? or always create them all
         let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
         let description_ = descOutlet.text
         let cost = price.text
         let title = title_field.text
-        let category_ = category.text // not sure
+        let category_ = category.text
         var gonzaga_email = "0"
         if(gmail.image == UIImage(named: "ZagMail")){
-            println("USing zagmail")
             gonzaga_email = "1" //boolean contact option
         }
         var pref_email = "0" //boolean contact option
@@ -531,7 +508,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         var departure_date_time = leaves.text
         var start_location = from.text
         var end_location = to.text
-        var round_trip = "0" // not sure
+        var round_trip = "0"
         if(round_trip_switch.on){
             round_trip = "1"
         }
@@ -539,14 +516,14 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         var date_time = date.text
         var location_ = location.text
         var isbn = ISBN.text
-        let params = ["username":username,          //common post information
-            "description":description_,
+        let params = ["username":username,  //common post information
+            "description":description_,     // |
             "price":cost,                   // |
             "title":title,                  // |
             "category":category_,           // |
             "gonzaga_email":gonzaga_email,  // |
             "pref_email":pref_email,        // |
-            "call":phone_bool,                   // |
+            "call":phone_bool,              // |
             "text":text_bool,               // <
             "departure_date_time":departure_date_time,  //rideshare specific
             "start_location":start_location,            // |
@@ -560,7 +537,6 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             as Dictionary<String,AnyObject>
         api_requester.POST("createpost/", params: params,
             success: {parseJSON -> Void in
-                println(self.id)
                 var default_image : NSData? = nil
                 var new_post:ProfilePost
                 var id = parseJSON["id"] as! Int
@@ -578,10 +554,8 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                     NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
                     self.actInd.stopAnimating()
                     self.dismissViewControllerAnimated(true, completion: nil)
-                    
                 })
                 not_ready = false
-                
             },
             failure: {code,message -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -594,30 +568,18 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 })
             }
         )
-      }
-    func createUI(){
-        
-    }
-    func createAlert(message:String){
-        var alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        self.presentViewController(alert, animated: true, completion: nil)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-        }))
-
     }
 }
 extension String {
     func toDouble() -> Double? {
         return NSNumberFormatter().numberFromString(self)?.doubleValue
     }
- 
     subscript (r: Range<Int>) -> String {
-            get {
-                let startIndex = advance(self.startIndex, r.startIndex)
-                let endIndex = advance(startIndex, r.endIndex - r.startIndex)
-                
-                return self[Range(start: startIndex, end: endIndex)]
-            }
+        get {
+            let startIndex = advance(self.startIndex, r.startIndex)
+            let endIndex = advance(startIndex, r.endIndex - r.startIndex)
+            return self[Range(start: startIndex, end: endIndex)]
+        }
     }
 }
 extension UIImage{
