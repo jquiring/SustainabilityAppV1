@@ -370,12 +370,11 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 2){
-            
-            return (self.view.bounds.width - 32)/4 
+            return 128
         }
         if(indexPath.section == 3){
+            return ((self.view.bounds.width - 40)/3 + 26 + 18)
             
-            return (self.view.bounds.width - 40)/3 + 26 + 18
         }
         if(indexPath.section == 5 && category.text == "Ride Shares"){
             return 50
@@ -393,7 +392,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 13){
-            return 100
+            return (self.view.bounds.width - 32)/4
         }
         return 0
     }

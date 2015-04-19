@@ -137,7 +137,7 @@ class FilterViewController: UIViewController,UITextFieldDelegate {
                 categories.append("Household")
             }
             if(rideshareOutlet.backgroundColor == UIColor.darkGrayColor()){
-                categories.append("Rideshares")
+                categories.append("Ride Shares")
             }
             if(servicesOutlet.backgroundColor == UIColor.darkGrayColor()){
                 categories.append("Services")
