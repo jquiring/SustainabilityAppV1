@@ -72,6 +72,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
             println("doing this thang")
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window!.backgroundColor = UIColor.whiteColor()
+            self.window!.windowLevel = 1.2;
             let customVC = ContainerViewController()
             self.window!.rootViewController = customVC
             self.window!.makeKeyAndVisible()

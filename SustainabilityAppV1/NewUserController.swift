@@ -46,6 +46,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         NSUserDefaults.standardUserDefaults().setObject(self.number.text, forKey: "phone")
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.backgroundColor = UIColor.whiteColor()
+        self.window!.windowLevel = 1.2;
         let customVC = ContainerViewController()
         self.window!.rootViewController = customVC
         self.window!.makeKeyAndVisible()
@@ -123,7 +124,6 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         }
     }
     func TaATouched(){
-        println("TOA touched")
         toggleTaAStatus()
     }
     @IBAction func submit(sender: AnyObject) {

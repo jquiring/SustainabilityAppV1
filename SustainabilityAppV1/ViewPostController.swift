@@ -636,7 +636,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         else{
             mailComposerVC.setToRecipients([gonzaga_email_]) //zagmail
         }
-        mailComposerVC.setSubject("Inquiry regarding " + title1 + "\n")
+        mailComposerVC.setSubject("Inquiry regarding: " + title1 + "\n")
         mailComposerVC.setMessageBody("", isHTML: false)
         return mailComposerVC
     }
@@ -661,7 +661,7 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
         //  Make sure to set this property to self, so that the controller can be dismissed!
         messageComposeVC.recipients = [text_]
         messageComposeVC.messageComposeDelegate = self
-        messageComposeVC.body = "Inquiry Regarding " + title + "\n"
+        messageComposeVC.body = "Inquiry Regarding: " + title + "\n"
         return messageComposeVC
     }
     // MFMessageComposeViewControllerDelegate callback - dismisses the view controller when the user is finished with it

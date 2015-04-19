@@ -1171,7 +1171,7 @@ CGPoint MLOffsetCGPoint(CGPoint point, CGFloat offset);
     }
     
     // Do not allow negative values
-    _continuousMarqueeExtraBuffer = fabsf(continuousMarqueeExtraBuffer);
+    _continuousMarqueeExtraBuffer = fabs(continuousMarqueeExtraBuffer);
     [self updateSublabelAndLocations];
 }
 
