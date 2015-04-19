@@ -9,6 +9,7 @@
 import UIKit
 import SwifteriOS
 
+
 class ProfileController: UIViewController, UITableViewDataSource,UITableViewDelegate{
     @IBOutlet weak var table: UITableView!
     
@@ -20,8 +21,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var firstAppear = true
     var actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     var centerLoad : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
-    var bottomNeedsMore = NSUserDefaults.standardUserDefaults().objectForKey("moreUserPosts") as Bool
-    var firstLoad = NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool
+    var bottomNeedsMore = NSUserDefaults.standardUserDefaults().objectForKey("moreUserPosts") as! Bool
+    var firstLoad = NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as! Bool
     
     let slide:CGFloat = 60
     let buttonHeight:String = "25"
@@ -60,10 +61,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
     }
     override func viewDidAppear(animated: Bool) {
-        if(NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as Bool){
+        if(NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as! Bool){
             setUpPosts(true)
             table.reloadData()
             NSUserDefaults.standardUserDefaults().setObject(false, forKey: "profileNeedsReloading")
+            makeLayout()
         }
     }
     func makeLayout() {
@@ -84,21 +86,21 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         else {
             bottomButtonPlacement = Int(screenHeight) - twitterFeedHeight - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*6
         }
-        let view1 = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let view2 = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let view3 = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let logoutButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let postsLabel = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let noPosts = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        let filler = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        let view1 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let view2 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let view3 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let logoutButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let postsLabel = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let noPosts = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let filler = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts,"filler":filler,"twitterFeed":twitterFeed]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight,"twitterFeedHeight":twitterFeedHeight ]
         
         //edit profile
         if (NSUserDefaults.standardUserDefaults().objectForKey("username") != nil) {
-            let user_first_name:String = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
-            let user_last_name:String = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
+            let user_first_name:String = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as! String
+            let user_last_name:String = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as! String
             view1.setTitle("⚙ " + user_first_name + " " + user_last_name[0]+".", forState: UIControlState.Normal)
         }
         view1.setTitleColor(UIColor.darkGrayColor(), forState: nil)
@@ -108,8 +110,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -17, 0)
         view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view1_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view1(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
-        let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(editProfileHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let view1_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view1(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
+        let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(editProfileHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
+        //^^^
         view1.addConstraints(view1_constraint_H)
         view1.addConstraints(view1_constraint_V)
         
@@ -119,9 +122,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view2.setTranslatesAutoresizingMaskIntoConstraints(false)
         view2.backgroundColor = backgroundColor
         view2.addTarget(self, action: "newPost:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view2_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view2(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let view2_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view2(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         let view2_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view2(viewHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         view2.addConstraints(view2_constraint_H)
         view2.addConstraints(view2_constraint_V)
         
@@ -132,22 +135,22 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         postsLabel.backgroundColor = backgroundColor
         postsLabel.userInteractionEnabled = false
         postsLabel.backgroundColor = UIColor.whiteColor()
-        let postsLabel_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[postsLabel(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let postsLabel_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[postsLabel(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         let postsLabel_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[postsLabel(labelHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         postsLabel.addConstraints(postsLabel_constraint_H)
         postsLabel.addConstraints(postsLabel_constraint_V)
         table.setTranslatesAutoresizingMaskIntoConstraints(false)
-        let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         table.addConstraints(table_constraint_H)
         
         //twitterFeed
         twitterFeed.marqueeType = .MLContinuous
-        twitterFeed.font = UIFont(name: "HelveticaNeue-Light",size: 16)
+        twitterFeed.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
         twitterFeed.scrollDuration = 15.0
         twitterFeed.fadeLength = 0.0
         twitterFeed.continuousMarqueeExtraBuffer = 0.0
-        let twitterText = " @ZagsGoGreen: "
+        self.twitterFeed.text = " @ZagsGoGreen: "
         let swifter = Swifter(consumerKey:"ZWYgoh4EdRMbqvysDom4Far29", consumerSecret:"lksmS293yiW8D1q8F9BSqXlyGGx65lh3uHSwspfnqemdLu78qB")
         swifter.getStatusesUserTimelineWithUserID("1601601674", count: 1, sinceID: nil, maxID: nil, trimUser: true, contributorDetails: false, includeEntities: true,
             success: {
@@ -159,12 +162,15 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }, failure: {
                 (error: NSError) in
         })
+        twitterFeed.userInteractionEnabled = true
+        let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("twitterTouched"))
+        self.twitterFeed.addGestureRecognizer(gestureRecogniser3)
         twitterFeed.tag = 101
         twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
         twitterFeed.backgroundColor = UIColor.whiteColor()
-        let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         let twitterFeed_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[twitterFeed(twitterFeedHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         twitterFeed.addConstraints(twitterFeed_constraint_H)
         twitterFeed.addConstraints(twitterFeed_constraint_V)
         
@@ -173,9 +179,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         logoutButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         logoutButton.backgroundColor = backgroundColor
         logoutButton.addTarget(self, action: "logout:", forControlEvents: UIControlEvents.TouchUpInside)
-        let logout_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[logoutButton(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let logout_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[logoutButton(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         let logout_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[logoutButton(viewHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         logoutButton.titleLabel!.font = buttonFont
         logoutButton.addConstraints(logout_constraint_H)
         logoutButton.addConstraints(logout_constraint_V)
@@ -185,9 +191,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view3.setTranslatesAutoresizingMaskIntoConstraints(false)
         view3.backgroundColor = backgroundColor
         view3.addTarget(self, action: "helpAndFAQ:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view3_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view3(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+        let view3_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view3(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         let view3_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view3(viewHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary, views: viewsDictionary)
+            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         view3.titleLabel!.font = buttonFont
         view3.addConstraints(view3_constraint_H)
         view3.addConstraints(view3_constraint_V)
@@ -198,18 +204,18 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view.addSubview(table)
         view.addSubview(logoutButton)
         view.addSubview(twitterFeed)
-        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary, views: viewsDictionary)
-        view.addConstraints(view_constraint_V)
+        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
+        view.addConstraints(view_constraint_V as [AnyObject])
     }
     func setUpPosts(fromAppear:Bool){
         if(fromAppear){
             arrayOfPosts = []
         }
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as! [[AnyObject]]
             for post in current_posts {
                 id = post[0] as? String
-                var new_post = ProfilePost(title: post[1] as String, imageName: post[2] as NSData, id: id!,cat:post[3] as String,date:post[4] as String)
+                var new_post = ProfilePost(title: post[1] as! String, imageName: post[2] as! NSData, id: id!,cat:post[3] as! String,date:post[4] as! String)
                 arrayOfPosts.append(new_post)
             }
         }
@@ -229,7 +235,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             self.arrayOfPosts.insert(bumped_post, atIndex: 0)
             self.arrayOfPosts[0].refreshing = false
             if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as! [[AnyObject]]
                 current_posts.removeAtIndex(sender)
                 current_posts.insert([bumped_post.id,bumped_post.title,bumped_post.imageName,bumped_post.category,date], atIndex: 0)
                 NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
@@ -259,7 +265,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         api_requester.POST("refreshpost/", params: params,
             success: {parseJSON -> Void in
                 
-                dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as String,date:parseJSON["post_date_time"] as String)
+                dispatch_async(dispatch_get_main_queue(), {self.bumpUI(tag,refreshed:parseJSON["refreshed"] as! String,date:parseJSON["post_date_time"] as! String)
                     })
             },
             failure: {code,message -> Void in
@@ -276,7 +282,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         )
     }
     func deleteUI(sender:Int){
-        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as! [[AnyObject]]
         current_posts.removeAtIndex(sender)
         NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
         self.arrayOfPosts.removeAtIndex(sender)
@@ -307,6 +313,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             }
         )
     }
+    func twitterTouched(){
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("twitter") as! TwitterViewController
+        let navController = UINavigationController(rootViewController: VC1)
+        self.presentViewController(navController, animated:true, completion: nil)
+    }
     @IBAction func deleteSelected(sender: AnyObject) {
         let cat:String = arrayOfPosts[sender.tag].category as String
         let id:String = arrayOfPosts[sender.tag].id as String
@@ -325,7 +336,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     @IBAction func editSelected(sender: AnyObject) {
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[sender.tag].id, forKey: "post_id")
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[sender.tag].category, forKey: "cat")
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as! EditPostViewController
         let navController = UINavigationController(rootViewController: VC1)
         self.presentViewController(navController, animated:true, completion: nil)
     }
@@ -333,12 +344,12 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         self.bumpPost(arrayOfPosts[sender.tag].category,post_id: arrayOfPosts[sender.tag].id,tag:sender.tag)
     }
     @IBAction func edit(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as! EditUserController
         let navController = UINavigationController(rootViewController: VC1)
         self.presentViewController(navController, animated:true, completion: nil)
     }
     @IBAction func helpAndFAQ(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("helpAndFAQ") as HelpAndFAQController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("helpAndFAQ") as! HelpAndFAQController
         let navController = UINavigationController(rootViewController: VC1)
         self.presentViewController(navController, animated:true, completion: nil)
     }
@@ -355,22 +366,22 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "phone")
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "moreUserPosts")
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "profileNeedsReloading")
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as LoginController
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("login") as! LoginController
             let navController = UINavigationController(rootViewController: VC1)
             self.presentViewController(navController, animated:true, completion: nil)
         }))
     }
     @IBAction func newPost(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as CreatePostController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("create") as! CreatePostController
         let navController = UINavigationController(rootViewController: VC1)
         self.presentViewController(navController, animated:true, completion: nil)
     }
     func updateNSData(newDate:String,id:String,category:String){
-        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as! [[AnyObject]]
         var new_post = []
         var the_index = 0
         for i in 0...current_posts.count - 1 {
-            if current_posts[i][0] as String == id && String(current_posts[i][3] as String) == category {
+            if current_posts[i][0] as! String == id && String(current_posts[i][3] as! String) == category {
                 the_index = i
             }
         }
@@ -394,7 +405,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 }
                 post.imageRefreshing = false
                 foundPost = hitCount
-                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+                var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as! [[AnyObject]]
                 current_posts[hitCount][2] = data!
                 NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
             }
@@ -410,7 +421,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         if(!fromTop){
             actInd.startAnimating()
         }
-        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
         let divider_date_time = date
         let params = ["username":username,
             "divider_date_time":divider_date_time,
@@ -449,8 +460,8 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
             NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "user_posts")
         }
         let posts: AnyObject = parseJSON["posts"]!
-        let more = parseJSON["more_exist"] as String //1 or zero
-        let recent_del: String = parseJSON["recent_post_deletion"] as String
+        let more = parseJSON["more_exist"] as! String //1 or zero
+        let recent_del: String = parseJSON["recent_post_deletion"] as! String
         if(recent_del == "1"){
             let alertController = UIAlertController(title: "A post of yours over three weeks old has been deleted" , message:
                 "Bump your posts before three weeks if you wish to avoid this in the future", preferredStyle: UIAlertControllerStyle.Alert)
@@ -461,14 +472,14 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         if posts.count > 0{
             for i in 0...(posts.count - 1 ){
                 let post: AnyObject! = posts[i]
-                var postID = post["id"]! as Int
-                let title = post["title"]! as String
-                let category = post["category"] as String
-                let post_date_time = post["post_date_time"]! as String
-                let display_value = post["display_value"]! as String
+                var postID = post["id"]! as! Int
+                let title = post["title"]! as! String
+                let category = post["category"] as! String
+                let post_date_time = post["post_date_time"]! as! String
+                let display_value = post["display_value"]! as! String
                 //THE THUMBNAIL IMAGE IS PROCESSED HERE
                 var newPost:ProfilePost
-                if(post["has_image"] as Bool){
+                if(post["has_image"] as! Bool){
                     newPost = ProfilePost(title: title, id: String(postID), cat: category, date: post_date_time,imageComing:true)
                 }
                 else{
@@ -503,7 +514,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         return arrayOfPosts.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as ProfilePostCell
+        let cell:ProfilePostCell = table.dequeueReusableCellWithIdentifier("Cell") as! ProfilePostCell
         cell.addSubview(UIView())
         let postCell = arrayOfPosts[indexPath.row]
         cell.edit.tag = indexPath.row
@@ -529,7 +540,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         id = arrayOfPosts[indexPath.row].id
         NSUserDefaults.standardUserDefaults().setObject(id, forKey: "post_id")
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].category, forKey: "cat")
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as! ViewPostController
         let navController = UINavigationController(rootViewController: VC1)
         self.presentViewController(navController, animated:true, completion: nil)
     }

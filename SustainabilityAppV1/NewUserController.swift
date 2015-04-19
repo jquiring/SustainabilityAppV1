@@ -28,13 +28,22 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         number!.delegate = self
         email!.delegate = self
         self.warningLabel.hidden = true
+        let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("TaATouched"))
+        self.TaA.addGestureRecognizer(gestureRecogniser3)
+        TaA.userInteractionEnabled = true
+        navigationController?.navigationBar.tintColor = UIColor.darkGrayColor()
+        navigationController?.navigationBar.barStyle = UIBarStyle.Default
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+    }
+    override func viewWillDisappear(animated: Bool) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     func updateUI(){
-        resignKeyboard()
-        NSUserDefaults.standardUserDefaults().setObject(first.text, forKey: "first_name")
-        NSUserDefaults.standardUserDefaults().setObject(last.text, forKey: "last_name")
-        NSUserDefaults.standardUserDefaults().setObject(email.text, forKey: "pref_email")
-        NSUserDefaults.standardUserDefaults().setObject(number.text, forKey: "phone")
+        self.resignKeyboard()
+        NSUserDefaults.standardUserDefaults().setObject(self.first.text, forKey: "first_name")
+        NSUserDefaults.standardUserDefaults().setObject(self.last.text, forKey: "last_name")
+        NSUserDefaults.standardUserDefaults().setObject(self.email.text, forKey: "pref_email")
+        NSUserDefaults.standardUserDefaults().setObject(self.number.text, forKey: "phone")
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.backgroundColor = UIColor.whiteColor()
         let customVC = ContainerViewController()
@@ -52,7 +61,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             self.warningLabel.text = "Please enter a first and last name"
             return false
         }
-        else if(!number.text.isEmpty && (!isNumeric(number.text) || !(countElements(number.text) == 10 || countElements(number.text) == 11))) {
+        else if(!number.text.isEmpty && (!isNumeric(number.text) || !(count(number.text) == 10 || count(number.text) == 11))) {
             self.warningLabel.hidden = false
             self.warningLabel.text = "Please enter a valid phone number"
             return false
@@ -79,7 +88,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         default: return "yes"
         }
     }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         if(first.isFirstResponder()){
             first.resignFirstResponder()
             last.becomeFirstResponder()
@@ -113,18 +122,22 @@ class NewUserController: UIViewController,UITextFieldDelegate {
             TaA.text = checked
         }
     }
+    func TaATouched(){
+        println("TOA touched")
+        toggleTaAStatus()
+    }
     @IBAction func submit(sender: AnyObject) {
         if(checkFields()) {
             submitData()
         }
     }
     @IBAction func terms(sender: AnyObject) {
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("termsConditions") as TermsAndConditionsConroller
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("termsConditions") as! TermsAndConditionsConroller
         let navController = UINavigationController(rootViewController: VC1)
         self.presentViewController(navController, animated:true, completion: nil)
     }
     @IBAction func formattingNumber(sender: AnyObject) {
-        var length = countElements(number.text)
+        var length = count(number.text)
     }
     func submitData(){
         self.view.userInteractionEnabled = false
@@ -135,8 +148,8 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         self.navigationController?.view.addSubview(actInd)
         submitButton.enabled = false
         actInd.startAnimating()
-        var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
-        var g_email = NSUserDefaults.standardUserDefaults().objectForKey("gonzaga_email") as String
+        var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
+        var g_email = NSUserDefaults.standardUserDefaults().objectForKey("gonzaga_email") as! String
         var params = ["username":username, "first_name":first.text, "last_name":last.text, "gonzaga_email":g_email, "pref_email":email.text, "phone":number.text] as Dictionary<String, String>
         var api_requester: AgoraRequester = AgoraRequester()
         api_requester.POST("createuser/", params: params,
@@ -170,11 +183,8 @@ class NewUserController: UIViewController,UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>,
+        withEvent event: UIEvent) {
         resignKeyboard()
-        var touch = touches.anyObject()?.locationInView(self.view)
-        if(CGRectContainsPoint(TaA.frame, touch!)){
-            toggleTaAStatus()
-        }
     }
 }

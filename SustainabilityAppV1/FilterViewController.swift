@@ -35,14 +35,14 @@ class FilterViewController: UIViewController,UITextFieldDelegate {
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
-        for string in NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] {
+        for string in NSUserDefaults.standardUserDefaults().objectForKey("categories") as! [String] {
             categoryString = categoryString + string
         }
         setUpButtons()
         barLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, -23, 0)
     }
     func setUpButtons(){
-        if(NSUserDefaults.standardUserDefaults().objectForKey("free") as String == "1"){
+        if(NSUserDefaults.standardUserDefaults().objectForKey("free") as! String == "1"){
             freeOutlet.setTitle("  ✓ Free ", forState: nil)
             freeOutlet.backgroundColor = UIColor.darkGrayColor()
         }
@@ -114,9 +114,9 @@ class FilterViewController: UIViewController,UITextFieldDelegate {
             clothingOutlet.backgroundColor = UIColor.lightGrayColor()
             clothingOutlet.setTitle("  ✗ Clothing ", forState: nil)
         }
-        minpriceOutlet.text = NSUserDefaults.standardUserDefaults().objectForKey("min_price") as String
-        maxpriceOutlet.text = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as String
-        keywordOutlet.text = NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String
+        minpriceOutlet.text = NSUserDefaults.standardUserDefaults().objectForKey("min_price") as! String
+        maxpriceOutlet.text = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as! String
+        keywordOutlet.text = NSUserDefaults.standardUserDefaults().objectForKey("keyword") as! String
     }
     func resignKeyboard(){
         keywordOutlet.resignFirstResponder()
@@ -298,7 +298,8 @@ class FilterViewController: UIViewController,UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>,
+        withEvent event: UIEvent) {
         resignKeyboard()
     }
 }

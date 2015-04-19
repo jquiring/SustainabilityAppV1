@@ -29,7 +29,7 @@ class FieldValidator {
                 return false
             }
         }
-        if(countElements(checkedString)<=lengthString){
+        if(count(checkedString)<=lengthString){
             return true
         }
         return false

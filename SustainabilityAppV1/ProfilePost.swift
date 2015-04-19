@@ -41,7 +41,7 @@ class ProfilePost {
     }
     func upDateNSData(newer:Bool){
         if (NSUserDefaults.standardUserDefaults().objectForKey("user_posts") != nil) {
-            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+            var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as! [[AnyObject]]
             if(newer){
                 current_posts.insert([id,title,imageName,category,date], atIndex: 0)
             }

@@ -74,8 +74,8 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         
         tableView.dataSource = self
         tableView.delegate = self
-        postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
-        category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
+        postid_ = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as! String
+        category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as! String
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -115,9 +115,9 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
     }
     
     func updateUI(parseJSON:NSDictionary){
-        self.title_field.text = parseJSON["title"] as String
-        self.descOutlet.text = parseJSON["description"] as String
-        let newPrice = parseJSON["price"] as String
+        self.title_field.text = parseJSON["title"] as! String
+        self.descOutlet.text = parseJSON["description"] as! String
+        let newPrice = parseJSON["price"] as! String
         if(newPrice == "Free"){
             self.price.text = "0.00"
         }
@@ -125,30 +125,30 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             self.price.text = ""
         }
         else {
-            var new_price = parseJSON["price"] as NSString
+            var new_price = parseJSON["price"] as! NSString
             new_price = new_price.substringFromIndex(1)
-            price.text = new_price
+            price.text = new_price as! String
         }
         
-        if(parseJSON["gonzaga_email"] as String == ""){
+        if(parseJSON["gonzaga_email"] as! String == ""){
             self.gmail.image = UIImage(named: "ZagMailOFF")
         }
         else{
             self.gmail.image = UIImage(named: "ZagMail")
         }
-        if(parseJSON["pref_email"] as String == ""){
+        if(parseJSON["pref_email"] as! String == ""){
             self.pEmail.image = UIImage(named: "eMailOFF")
         }
         else{
             self.pEmail.image = UIImage(named: "eMail")
         }
-        if(parseJSON["call"] as String == ""){
+        if(parseJSON["call"] as! String == ""){
             self.phone.image = UIImage(named: "CallOFF")
         }
         else{
             self.phone.image = UIImage(named: "Call")
         }
-        if(parseJSON["text"] as String == ""){
+        if(parseJSON["text"] as! String == ""){
             self.text.image = UIImage(named: "SMSOFF")
         }
         else{
@@ -157,19 +157,19 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         
         
         if self.category == "Books"{
-            self.ISBN.text = parseJSON["isbn"] as String
+            self.ISBN.text = parseJSON["isbn"] as! String
         }
         
         if self.category == "Events" || self.category == "Services"{
             println("We are in events/services")
-            self.location.text = parseJSON["location"] as String
-            self.date.text = parseJSON["date_time"] as String
+            self.location.text = parseJSON["location"] as! String
+            self.date.text = parseJSON["date_time"] as! String
         }
         
         if self.category == "Ride Shares"{
             self.round_trip_switch.hidden = false
-            self.leaves.text = parseJSON["departure_date_time"] as String
-            let rts = parseJSON["round_trip"] as Int
+            self.leaves.text = parseJSON["departure_date_time"] as! String
+            let rts = parseJSON["round_trip"] as! Int
             if(rts == 1){
                 round_trip_flag = true
                 self.round_trip_switch.setOn(true, animated: false)
@@ -188,7 +188,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             
             
             
-            let trip_ = parseJSON["trip"] as String
+            let trip_ = parseJSON["trip"] as! String
             var range = NSRange(location:0,length:2)
             if(trip_ == ""){
                 println ("empty")
@@ -198,7 +198,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             else if(trip_[0...1] == "To"){
                 println("To")
                 self.from.text = ""
-                var end = countElements(trip_) - 1
+                var end = count(trip_) - 1
                 self.to.text = trip_[3...end]
             }
             else if(trip_.rangeOfString("To*&") != nil){
@@ -213,16 +213,16 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             }
             else{
                 println("both")
-                self.from.text = trip_[5...(countElements(trip_) - 1)]
+                self.from.text = trip_[5...(count(trip_) - 1)]
                 self.to.text = ""
             }
-            if parseJSON["round_trip"] as Bool{
-                self.comesBack.text = parseJSON["return_date_time"] as String
+            if parseJSON["round_trip"] as! Bool{
+                self.comesBack.text = parseJSON["return_date_time"] as! String
                 
             }
         }
         tableView.reloadData()
-        var image_count: Int = parseJSON["image_count"] as Int
+        var image_count: Int = parseJSON["image_count"] as! Int
         if(image_count < 3){
             image3.image = UIImage(named: "PlusDark.png")
             image3.hidden = false
@@ -356,7 +356,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action: UIAlertAction!) in
         }))
         alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as! EditUserController
             let navController = UINavigationController(rootViewController: VC1)
             // Creating a navigation controller with VC1 at the root of the navigation stack.
             self.presentViewController(navController, animated:true, completion: nil)
@@ -470,8 +470,9 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             popover!.presentPopoverFromRect(currentImage.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
         }
     }
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!){
-        let newImage = info[UIImagePickerControllerEditedImage] as UIImage
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]){
+        let newImage = info[UIImagePickerControllerEditedImage] as! UIImage
         let thumbNail = newImage.resizeToBoundingSquare(boundingSquareSideLength:800)
         picker.dismissViewControllerAnimated(true, completion: nil)
         currentImage.image=newImage
@@ -485,18 +486,18 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             self.imageDifferences[2] = "edited"
         }
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!){
+    func imagePickerControllerDidCancel(picker: UIImagePickerController){
         println("picker cancel.")
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     //gets the current text field that is selected
-    func textFieldDidBeginEditing(textField: UITextField!){    //delegate method
+    func textFieldDidBeginEditing(textField: UITextField){    //delegate method
         currentText = textField
     }
-    func textFieldShouldEndEditing(textField: UITextField!) -> Bool{  //delegate method
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool{  //delegate method
         return true
     }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool{   //delegate method
+    func textFieldShouldReturn(textField: UITextField) -> Bool{   //delegate method
         return true
     }
     //creates the custom view headers
@@ -715,17 +716,17 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         )
     }
     func updateNSData(defaultImage:NSData,date:String){
-        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as [[AnyObject]]
+        var current_posts:[[AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("user_posts") as! [[AnyObject]]
         var new_post = []
         var the_index = 0
         for i in 0...current_posts.count - 1 {
-            if current_posts[i][0] as String == postid_ && String(current_posts[i][3] as String) == category {
+            if current_posts[i][0] as! String == postid_ && String(current_posts[i][3] as! String) == category {
                 new_post = [String(self.postid_),title_field.text,defaultImage,category,date]
                 the_index = i
             }
         }
         current_posts.removeAtIndex(the_index)
-        current_posts.insert(new_post, atIndex: the_index)
+        current_posts.insert(new_post as [AnyObject], atIndex: the_index)
         NSUserDefaults.standardUserDefaults().setObject(current_posts, forKey: "user_posts")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -769,7 +770,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
         if(defaultImage == nil){
             defaultImage = UIImageJPEGRepresentation(UIImage(named:"noImage"),1)
         }
-        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
         var gonzaga_email = "0"
         if(gmail.image == UIImage(named: "ZagMail")){
             gonzaga_email = "1" //boolean contact option
@@ -819,8 +820,8 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             success: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     //TODO: found null while unwrapping
-                    var post_date = parseJSON["post_date_time"] as String
-                    self.updateNSData(defaultImage!,date:parseJSON["post_date_time"] as String)
+                    var post_date = parseJSON["post_date_time"] as! String
+                    self.updateNSData(defaultImage!,date:parseJSON["post_date_time"] as! String)
                     NSUserDefaults.standardUserDefaults().setObject(true, forKey: "profileNeedsReloading")
                     self.actInd.stopAnimating()
                 })

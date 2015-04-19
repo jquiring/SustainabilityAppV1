@@ -87,7 +87,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     override func viewWillAppear(animated: Bool) {
         if (NSUserDefaults.standardUserDefaults().objectForKey("fromEdit") != nil){
-            if(NSUserDefaults.standardUserDefaults().objectForKey("fromEdit") as Bool){
+            if(NSUserDefaults.standardUserDefaults().objectForKey("fromEdit") as! Bool){
                 NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
@@ -146,8 +146,8 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     func startRequest() {
         self.tableView.reloadData()
         var api_requester: AgoraRequester = AgoraRequester()
-        var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
-        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
+        var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as! String
+        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as! String
         api_requester.ViewPost(category, id: post_id.toInt()!,
             info: {parseJSON -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -211,13 +211,13 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     func updateUI(parseJSON:NSDictionary){
         toggleHidden()
-        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
-        self.title1 = parseJSON["title"] as String
-        gonzaga_email_ = parseJSON["gonzaga_email"] as String
-        pref_email_ = parseJSON["pref_email"] as String
-        call_ = parseJSON["call"] as String
-        text_ = parseJSON["text"] as String
-        if(NSUserDefaults.standardUserDefaults().objectForKey("username") as String == parseJSON["username"] as String){
+        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as! String
+        self.title1 = parseJSON["title"] as! String
+        gonzaga_email_ = parseJSON["gonzaga_email"] as! String
+        pref_email_ = parseJSON["pref_email"] as! String
+        call_ = parseJSON["call"] as! String
+        text_ = parseJSON["text"] as! String
+        if(NSUserDefaults.standardUserDefaults().objectForKey("username") as! String == parseJSON["username"] as! String){
             var button1 = self.navigationItem.rightBarButtonItem
             button1!.title = "Edit"
         }
@@ -225,29 +225,29 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             var button = self.navigationItem.rightBarButtonItem
             button!.title = "Report"
         }
-        if(parseJSON["gonzaga_email"] as String == ""){
+        if(parseJSON["gonzaga_email"] as! String == ""){
             self.zagMailContact.enabled = false
             self.zagMailContact.setImage(UIImage(named: "ZagMailOFF"), forState: UIControlState.Disabled)
-            gonzaga_email_ = parseJSON["gonzaga_email"] as String
+            gonzaga_email_ = parseJSON["gonzaga_email"] as! String
         }
         else{
             self.zagMailContact.enabled = true
         }
-        if(parseJSON["pref_email"] as String == ""){
+        if(parseJSON["pref_email"] as! String == ""){
             self.emailContact.enabled = false
             self.emailContact.setImage(UIImage(named: "eMailOFF"), forState: UIControlState.Disabled)
         }
         else{
             self.emailContact.enabled = true
         }
-        if(parseJSON["call"] as String == ""){
+        if(parseJSON["call"] as! String == ""){
             self.callContact.enabled = false
             self.callContact.setImage(UIImage(named: "CallOFF"), forState: UIControlState.Disabled)
         }
         else{
             self.callContact.enabled = true
         }
-        if(parseJSON["text"] as String == ""){
+        if(parseJSON["text"] as! String == ""){
             self.textContact.enabled = false
             self.textContact.setImage(UIImage(named: "SMSOFF"), forState: UIControlState.Disabled)
         }
@@ -263,11 +263,11 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.return_date_label.text = ""
         }
         if category == "Ride Shares"{
-            var trip = parseJSON["trip"] as String
+            var trip = parseJSON["trip"] as! String
             var Trip = trip.stringByReplacingOccurrencesOfString("To*&", withString: "to", options: NSStringCompareOptions.LiteralSearch, range: nil)
             self.trip_location_label.text = Trip
             self.depature_date_label.text = parseJSON["departure_date_time"] as? String
-            if parseJSON["round_trip"] as Bool {
+            if parseJSON["round_trip"] as! Bool {
                 self.round_trip_label.text = "Round trip"
                 self.return_date_label.text = parseJSON["return_date_time"] as? String
             }
@@ -290,7 +290,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         if category == "Books"{
             self.isbn_label.text = parseJSON["isbn"] as? String
         }
-        var images:Int = parseJSON["image_count"] as Int
+        var images:Int = parseJSON["image_count"] as! Int
         if(images == 0){
             pageImages[0] = UIImage(named: "noImage")!
             pages.numberOfPages = 1
@@ -359,15 +359,15 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
         }
         else{
             NSUserDefaults.standardUserDefaults().setObject(true, forKey: "fromEdit")
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as EditPostViewController
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editPost") as! EditPostViewController
             let navController = UINavigationController(rootViewController: VC1)
             self.presentViewController(navController, animated:true, completion: {})
         }
     }
     func reportPostRequest(){
-        var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as String
-        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as String
-        var username =  NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+        var post_id = NSUserDefaults.standardUserDefaults().objectForKey("post_id") as! String
+        var category = NSUserDefaults.standardUserDefaults().objectForKey("cat") as! String
+        var username =  NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
         var api_requester: AgoraRequester = AgoraRequester()
         let params = ["post_id":post_id,
             "category":category,
@@ -375,7 +375,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             as Dictionary<String,AnyObject>
         api_requester.POST("reportpost/", params: params,
             success: {parseJSON -> Void in
-                if(parseJSON["reported"] as String == "1"){
+                if(parseJSON["reported"] as! String == "1"){
                     dispatch_async(dispatch_get_main_queue(), {
                         self.createAlert("Thank you for helping keep ZigZaga appropriate",title:"The post has been reported")
                     })

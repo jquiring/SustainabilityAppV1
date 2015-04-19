@@ -18,7 +18,7 @@ protocol CenterViewControllerDelegate {
 
 class CenterViewController: UIViewController,  UITableViewDataSource,UITableViewDelegate,FilterViewControllerDelegate {
     var delegate: CenterViewControllerDelegate?
-    var cancelButton :UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    var cancelButton :UIButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
     var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
     //TODO:MAKE SURE NO DUPLICATE REQUESTS
     var refreshControl = UIRefreshControl()
@@ -103,12 +103,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     */
     func checkFilteredSearch() -> Bool {
         
-        var max_price : String = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as String
+        var max_price : String = NSUserDefaults.standardUserDefaults().objectForKey("max_price")as! String
         if(( max_price != "") ||
-            (NSUserDefaults.standardUserDefaults().objectForKey("min_price") as String != "") ||
-            (NSUserDefaults.standardUserDefaults().objectForKey("free") as String != "0") ||
-            (NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String != "") ||
-            (NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != [] && NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String] != ["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"])){
+            (NSUserDefaults.standardUserDefaults().objectForKey("min_price") as! String != "") ||
+            (NSUserDefaults.standardUserDefaults().objectForKey("free") as! String != "0") ||
+            (NSUserDefaults.standardUserDefaults().objectForKey("keyword") as! String != "") ||
+            (NSUserDefaults.standardUserDefaults().objectForKey("categories") as! [String] != [] && NSUserDefaults.standardUserDefaults().objectForKey("categories") as! [String] != ["Books","Electronics","Household","Rideshares" ,"Services" ,"Events","Recreation","Clothing"])){
                 
                 return true
         }
@@ -147,7 +147,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         if(fromTop == "1" || fromNewFilter){
             self.arrayOfPosts = []
         }
-        let more_exists = parseJSON["more_exist"] as String
+        let more_exists = parseJSON["more_exist"] as! String
         if(more_exists == "1"){
             self.bottomNeedsMore = true
         }
@@ -158,12 +158,12 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
                 //get the easy ones, title and display_value
                 //HERE ARE THE TEXTUAL INFORMATION PIECES FOR THE POST
                 
-                let title = post["title"] as String
-                let display_value = post["display_value"]! as String
-                let postID = post["id"]! as Int
-                let category = post["category"] as String
-                let date = post["post_date_time"] as String
-                let image  = post["has_image"] as Bool
+                let title = post["title"] as! String
+                let display_value = post["display_value"]! as! String
+                let postID = post["id"]! as! Int
+                let category = post["category"] as! String
+                let date = post["post_date_time"] as! String
+                let image  = post["has_image"] as! Bool
                 var new_post:ListPost
                 /*
                 
@@ -201,11 +201,11 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         }
         
         var api_requester: AgoraRequester = AgoraRequester()
-        let categories = NSUserDefaults.standardUserDefaults().objectForKey("categories") as [String]
-        let keywordSearch:String = NSUserDefaults.standardUserDefaults().objectForKey("keyword") as String
-        let min_price = NSUserDefaults.standardUserDefaults().objectForKey("min_price") as String
-        let max_price = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as String
-        let free = NSUserDefaults.standardUserDefaults().objectForKey("free") as String
+        let categories = NSUserDefaults.standardUserDefaults().objectForKey("categories") as! [String]
+        let keywordSearch:String = NSUserDefaults.standardUserDefaults().objectForKey("keyword") as! String
+        let min_price = NSUserDefaults.standardUserDefaults().objectForKey("min_price") as! String
+        let max_price = NSUserDefaults.standardUserDefaults().objectForKey("max_price") as! String
+        let free = NSUserDefaults.standardUserDefaults().objectForKey("free") as! String
         let params = ["categories":categories,
             "keywordSearch":keywordSearch,
             "min_price":min_price,
@@ -311,7 +311,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     
     @IBAction func search(sender: AnyObject) {
         
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("searchPage") as FilterViewController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("searchPage") as! FilterViewController
         let navController = UINavigationController(rootViewController: VC1)
         self.presentViewController(navController, animated:true, completion: nil)
     }
@@ -323,7 +323,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell:ListPostCell = table.dequeueReusableCellWithIdentifier("ListCell") as ListPostCell
+        let cell:ListPostCell = table.dequeueReusableCellWithIdentifier("ListCell") as! ListPostCell
         
         let postCell = arrayOfPosts[indexPath.row]
         if(postCell.image_error){
@@ -368,7 +368,7 @@ class CenterViewController: UIViewController,  UITableViewDataSource,UITableView
         // Get the row data for the selected row
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].id, forKey: "post_id")
         NSUserDefaults.standardUserDefaults().setObject(arrayOfPosts[indexPath.row].category, forKey: "cat")
-        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as ViewPostController
+        var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("viewPost") as! ViewPostController
         let navController = UINavigationController(rootViewController: VC1)
         // Creating a navigation controller with VC1 at the root of the navigation stack.
         self.presentViewController(navController, animated:true, completion: nil)

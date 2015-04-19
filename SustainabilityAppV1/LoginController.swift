@@ -29,6 +29,11 @@ class LoginController: UIViewController,UITextFieldDelegate {
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.navigationController?.view.addSubview(actInd)
+        navigationController?.navigationBar.tintColor = UIColor.darkGrayColor()
+
+    }
+    override func viewDidDisappear(animated: Bool) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     func updateUI(parseJSON:Dictionary<String,AnyObject>){
         self.actInd.stopAnimating()
@@ -63,7 +68,8 @@ class LoginController: UIViewController,UITextFieldDelegate {
         NSUserDefaults.standardUserDefaults().setObject("",forKey:"keyword")
         NSUserDefaults.standardUserDefaults().setObject(false, forKey: "fromEdit")
         NSUserDefaults.standardUserDefaults().setObject([],forKey:"categories")
-        if(parseJSON["exists"] as String == "yes"){
+        if(parseJSON["exists"] as! String == "yes"){
+            println("doing this thang")
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window!.backgroundColor = UIColor.whiteColor()
             let customVC = ContainerViewController()
@@ -71,12 +77,12 @@ class LoginController: UIViewController,UITextFieldDelegate {
             self.window!.makeKeyAndVisible()
         }
         else{
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as NewUserController
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("newUser") as! NewUserController
             let navController = UINavigationController(rootViewController: VC1)
             self.presentViewController(navController, animated:true, completion: nil)
         }
     }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         if(email .isFirstResponder()){
             email.resignFirstResponder()
             password.becomeFirstResponder()
@@ -99,6 +105,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         LDAPLogin()
     }
     func LDAPLogin(){
+        self.actInd.startAnimating()
         var api_requester: AgoraRequester = AgoraRequester()
         api_requester.LdapAuth(email.text, password: password.text,
             success: { parseJSON -> Void in
@@ -127,7 +134,8 @@ class LoginController: UIViewController,UITextFieldDelegate {
             }
         )
     }
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>,
+        withEvent event: UIEvent) {
         password.resignFirstResponder()
         email.resignFirstResponder()
     }

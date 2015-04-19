@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var userDefaults = NSUserDefaults.standardUserDefaults()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if((userDefaults.objectForKey("username")) != nil) {
+        if((userDefaults.objectForKey("username")) != nil && userDefaults.objectForKey("first_name") != nil) {
             NSUserDefaults.standardUserDefaults().setObject("0",forKey:"free")
             NSUserDefaults.standardUserDefaults().setObject("",forKey:"min_price")
             NSUserDefaults.standardUserDefaults().setObject("",forKey:"max_price")

@@ -69,7 +69,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
     func addLeftPanelViewController() {
         if (leftViewController == nil) {
             leftViewController = UIStoryboard.leftViewController()
-            addChildSidePanelController(leftViewController!)
+            addChildSidePanelControllerP(leftViewController!)
         }
     }
     func addRightPanelViewController() {
@@ -84,7 +84,7 @@ class ContainerViewController: UIViewController, CenterViewControllerDelegate, U
         addChildViewController(sidePanelController)
         sidePanelController.didMoveToParentViewController(self)
     }
-    func addChildSidePanelController(sidePanelController: ProfileController) {
+    func addChildSidePanelControllerP(sidePanelController: ProfileController) {
         view.insertSubview(sidePanelController.view, atIndex: 0)
         addChildViewController(sidePanelController)
         sidePanelController.didMoveToParentViewController(self)

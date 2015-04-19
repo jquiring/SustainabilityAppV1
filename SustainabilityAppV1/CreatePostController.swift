@@ -85,7 +85,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         self.descOutlet.delegate = self
         self.title_field.delegate = self
     }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         if(title_field.isFirstResponder()){
             title_field.resignFirstResponder()
             descOutlet.becomeFirstResponder()
@@ -226,7 +226,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         alert.addAction(UIAlertAction(title: "No", style: .Default, handler: { (action: UIAlertAction!) in
         }))
         alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
-            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as EditUserController
+            var VC1 = self.storyboard?.instantiateViewControllerWithIdentifier("editUser") as! EditUserController
             let navController = UINavigationController(rootViewController: VC1)
             // Creating a navigation controller with VC1 at the root of the navigation stack.
             self.presentViewController(navController, animated:true, completion: nil)
@@ -275,7 +275,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             self.phone.image = UIImage(named:"CallOFF")
         }
     }
-    func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         category.text = "\(pickerData[row])"
         tableView.reloadData()
         category.becomeFirstResponder()
@@ -334,22 +334,23 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             popover!.presentPopoverFromRect(currentImage.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
         }
     }
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary!){
-        let newImage = info[UIImagePickerControllerEditedImage] as UIImage
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]){
+        let newImage = info[UIImagePickerControllerEditedImage] as! UIImage
         let thumbNail = newImage.resizeToBoundingSquare(boundingSquareSideLength:800)
         picker.dismissViewControllerAnimated(true, completion: nil)
         currentImage.image=newImage
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!){
+    func imagePickerControllerDidCancel(picker: UIImagePickerController){
         println("picker cancel.")
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     //gets the current text field that is selected
-    func textFieldDidBeginEditing(textField: UITextField!){    //delegate method
+    func textFieldDidBeginEditing(textField: UITextField){    //delegate method
         currentText = textField
     }
     //TODO: do we need these next two functions
-    func textFieldShouldEndEditing(textField: UITextField!) -> Bool{  //delegate method
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool{  //delegate method
         return true
     }
     //creates the custom view headers
@@ -370,7 +371,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         }
         if(indexPath.section == 2){
             
-            return 128
+            return (self.view.bounds.width - 32)/4 
         }
         if(indexPath.section == 3){
             
@@ -506,7 +507,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             }
         }
         // if statements that only create the necesarry vriables? or always create them all
-        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+        let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
         let description_ = descOutlet.text
         let cost = price.text
         let title = title_field.text
@@ -563,8 +564,8 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 println(self.id)
                 var default_image : NSData? = nil
                 var new_post:ProfilePost
-                var id = parseJSON["id"] as Int
-                var date = parseJSON["post_date_time"] as String
+                var id = parseJSON["id"] as! Int
+                var date = parseJSON["post_date_time"] as! String
                 var stringid = String(id)
                 if(self.images_data != []) {
                     default_image = self.images_data[0]

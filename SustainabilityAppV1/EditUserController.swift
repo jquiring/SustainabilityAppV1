@@ -29,17 +29,17 @@ class EditUserController: UIViewController, UITextFieldDelegate {
         if(!isNumeric("1")){
             println("not numeric")
         }
-        if(countElements(phone_number_text) != 10){
+        if(count(phone_number_text) != 10){
             println("count != 10")
         }
-        if(countElements(phone_number_text) != 11){
+        if(count(phone_number_text) != 11){
             println("count != 11")
         }
         if(first_name_field.text == "" || last_name_field.text == ""){
             error_label.hidden = false
             error_label.text = "Please enter a first and a last name"
         }
-        else if(phone_number_text != "" && (!isNumeric(phone_number_text) || (countElements(phone_number_text) != 10 && countElements(phone_number_text) != 11))) {
+        else if(phone_number_text != "" && (!isNumeric(phone_number_text) || (count(phone_number_text) != 10 && count(phone_number_text) != 11))) {
             error_label.hidden = false
             error_label.text = "Please enter a valid phone number"
         }
@@ -75,13 +75,13 @@ class EditUserController: UIViewController, UITextFieldDelegate {
         actInd.hidesWhenStopped = true
         self.navigationController?.view.addSubview(actInd)
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        first_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as String
-        last_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("last_name") as String
+        first_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("first_name") as! String
+        last_name_field.text = NSUserDefaults.standardUserDefaults().objectForKey("last_name")as! String
         if(NSUserDefaults.standardUserDefaults().objectForKey("phone") != nil) {
-            phone_number.text = NSUserDefaults.standardUserDefaults().objectForKey("phone") as String
+            phone_number.text = NSUserDefaults.standardUserDefaults().objectForKey("phone") as! String
         }
         if(NSUserDefaults.standardUserDefaults().objectForKey("pref_email") != nil) {
-            email.text = NSUserDefaults.standardUserDefaults().objectForKey("pref_email") as String
+            email.text = NSUserDefaults.standardUserDefaults().objectForKey("pref_email") as! String
         }
         error_label.hidden = true
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
@@ -93,7 +93,7 @@ class EditUserController: UIViewController, UITextFieldDelegate {
 
         actInd.startAnimating()
         saveOutlet.enabled = false
-        var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as String
+        var username = NSUserDefaults.standardUserDefaults().objectForKey("username") as! String
         var params = ["username":username, "first_name":first_name_field.text, "last_name":last_name_field.text, "pref_email":email.text, "phone":phone_number.text] as Dictionary<String, String>
         var api_requester: AgoraRequester = AgoraRequester()
         var not_ready = true
@@ -162,7 +162,7 @@ class EditUserController: UIViewController, UITextFieldDelegate {
             error_label.text = "Please enter a first and last name"
             return false
         }
-        else if(!phone_number.text.isEmpty && (!isNumeric(phone_number.text) || !(countElements(phone_number.text) == 10 || countElements(phone_number.text) == 11))) {
+        else if(!phone_number.text.isEmpty && (!isNumeric(phone_number.text) || !(count(phone_number.text) == 10 || count(phone_number.text) == 11))) {
             //var alert = UIAlertController(title: "Warning", message: "Please enter a valid Phone number of all numbers", preferredStyle: UIAlertControllerStyle.Alert)
             //self.presentViewController(alert, animated: true, completion: nil)
             //alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in }))
@@ -175,7 +175,7 @@ class EditUserController: UIViewController, UITextFieldDelegate {
             return true
         }
     }
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         if(first_name_field.isFirstResponder()){
             first_name_field.resignFirstResponder()
             last_name_field.becomeFirstResponder()

@@ -73,7 +73,7 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                         var parseJSON = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? Dictionary<String,AnyObject>
                         //error function: 400 bad request by client
                         if failure != nil {
-                            let message = parseJSON!["message"] as String
+                            let message = parseJSON!["message"] as! String
                             failure!(400,message)
                         }
                     }
@@ -134,7 +134,7 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                         if err != nil {
                             //error function: 500 server failure in forming response
                             if failure != nil {
-                                let message = parseJSON!["message"] as String
+                                let message = parseJSON!["message"] as! String
                                 failure!(500,message)
                             }
                         }
@@ -213,11 +213,11 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                         if err != nil {
                             //error function: 500 server failure in forming response
                             if failure != nil {
-                                let message = parseJSON!["message"] as String
+                                let message = parseJSON!["message"] as! String
                                 failure!(false,nil,500,message)
                             }
                         }
-                        let imageCount = parseJSON!["image_count"] as Int
+                        let imageCount = parseJSON!["image_count"] as! Int
                         if imageCount > 0 {
                             //request for image1
                             var image1Request = NSMutableURLRequest(URL: NSURL(string: self.baseURLst + "getimage/")!)
@@ -457,10 +457,10 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                             if posts.count > 0 {
                                 for i in 0...(posts.count - 1){
                                     let post: AnyObject = posts[i]!
-                                    let category = post["category"]! as String
-                                    let postID = post["id"]! as Int
+                                    let category = post["category"]! as! String
+                                    let postID = post["id"]! as! Int
                                     let pictureID = "0"
-                                    let hasImage = post["has_image"] as Bool
+                                    let hasImage = post["has_image"] as! Bool
                                     
                                     if(hasImage){
                                         let imageRequest = NSMutableURLRequest(URL: NSURL(string: self.baseURLst + "getimage/")!)
@@ -482,8 +482,8 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                                                 if status_code == 200 {
                                                     if imageReceived != nil{
                                                         let (parseJSON,imageData: NSData?) = self.DissectMultipart(data)
-                                                        let postID: Int = (parseJSON["post_id"] as String).toInt()!
-                                                        let category = parseJSON["category"] as String
+                                                        let postID: Int = (parseJSON["post_id"] as! String).toInt()!
+                                                        let category = parseJSON["category"] as! String
                                                         if imageReceived != nil && imageData != nil {
                                                             imageReceived!(category,postID,imageData!)
                                                         }
@@ -533,7 +533,7 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                         var parseJSON = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? Dictionary<String,AnyObject>
                         //error function: 400 bad request by client
                         if failure != nil {
-                            let message = parseJSON!["message"] as String
+                            let message = parseJSON!["message"] as! String
                             failure!(false,nil,nil,400,message)
                         }
                     }
@@ -605,10 +605,10 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                             if posts.count > 0 {
                                 for i in 0...(posts.count - 1){
                                     let post: AnyObject = posts[i]!
-                                    let category = post["category"]! as String
-                                    let postID = post["id"]! as Int
+                                    let category = post["category"]! as! String
+                                    let postID = post["id"]! as! Int
                                     let pictureID = "0"
-                                    let hasImage = post["has_image"] as Bool
+                                    let hasImage = post["has_image"] as! Bool
                                     if hasImage{
                                         let imageRequest = NSMutableURLRequest(URL: NSURL(string: self.baseURLst + "getimage/")!)
                                         imageRequest.HTTPMethod = "POST"
@@ -629,8 +629,8 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                                                 if status_code == 200 {
                                                     if imageReceived != nil{
                                                         let (parseJSON,imageData: NSData?) = self.DissectMultipart(data)
-                                                        let postID: Int = (parseJSON["post_id"] as String).toInt()!
-                                                        let category = parseJSON["category"] as String
+                                                        let postID: Int = (parseJSON["post_id"] as! String).toInt()!
+                                                        let category = parseJSON["category"] as! String
                                                         if imageReceived != nil && imageData != nil {
                                                             imageReceived!(category,postID,imageData!)
                                                         }
@@ -680,7 +680,7 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
                         var parseJSON = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as? Dictionary<String,AnyObject>
                         //error function: 400 bad request by client
                         if failure != nil {
-                            let message = parseJSON!["message"] as String
+                            let message = parseJSON!["message"] as! String
                             failure!(false,nil,nil,400,message)
                         }
                     }
@@ -734,9 +734,9 @@ class AgoraRequester: NSObject, NSURLSessionDelegate {
         //extract json data from response body
         let jsonRange: NSRange = NSUnionRange(bracketRange, bracket2Range)
         let jsonData: NSData = data.subdataWithRange(jsonRange)
-        var parseJSON = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions(0), error: nil) as Dictionary<String,AnyObject>
+        var parseJSON = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions(0), error: nil) as! Dictionary<String,AnyObject>
         
-        let imageFlag = parseJSON["image"] as Bool
+        let imageFlag = parseJSON["image"] as! Bool
         var imageData: NSData?
         if imageFlag{
             let imageBoundaryRange: NSRange = data.rangeOfData(imageContentData, options: nil, range: NSMakeRange(jsonRange.location, data.length - jsonRange.location))
