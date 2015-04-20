@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -320,7 +320,7 @@
                                     <constraint firstAttribute="height" constant="16" id="tsF-AX-fZc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -339,7 +339,7 @@
                                     <constraint firstAttribute="height" constant="11" id="T6H-U2-dZS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -383,7 +383,7 @@
                             </label>
                             <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCu-GW-5la">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="hGj-Ha-SJh"/>
                                     <constraint firstAttribute="width" constant="250" id="z41-Jn-8j5"/>
@@ -554,9 +554,6 @@
                                 <state key="normal" title="Terms and Agreements ">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="168" y="762" width="162" height="30"/>
-                                </variation>
                                 <connections>
                                     <segue destination="UcG-P1-DXl" kind="show" id="QJc-hQ-vwy"/>
                                 </connections>
@@ -564,7 +561,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-Ra-vvW">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">This is a student-developed app and is not sponsored or maintained by Gonzaga University.    Q: Why do I need to use Gonzaga Credentials?
+                                <string key="text">This is a student-developed app and is not sponsored or maintained by Gonzaga University.    Q: Why do I need to use Gonzaga Credentials?
 A: ZigZaga is designed as exclusive to the Gonzaga Community in order to promote safe/trustworthy interactions between buyers and sellers, as well as influencing post content to be themed towards the college lifestyle. This includes faculty, current students and alumni.
 
 Q: What is “bumping” and what does “bumping” my post do?
@@ -598,12 +595,11 @@ Q: What is the maximum price I can give a post?
 A: The maximum price allowed for a post is $10,000. This isn’t the place to sell your BMW.
 
 Q: Why the @ZagsGoGreen Twitter feed?
-A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga. To headline this purpose the Office of Sustainability’s Twitter feed is displayed to spread the latest on sustainability news, events and facts.</mutableString>
+A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga. To headline this purpose the Office of Sustainability’s Twitter feed is displayed to spread the latest on sustainability news, events and facts.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                    <rect key="frame" x="0.0" y="-96" width="398" height="780"/>
                                 </variation>
                             </textView>
                         </subviews>
@@ -630,12 +626,12 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <exclude reference="EkP-Ra-vvW"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="89f-G0-yEy"/>
+                                <exclude reference="ju4-dM-dzf"/>
                                 <exclude reference="dXz-jB-V7W"/>
                                 <exclude reference="jyR-Fe-Izz"/>
                                 <exclude reference="q2R-lU-bli"/>
                                 <exclude reference="ur6-a5-sl5"/>
-                                <exclude reference="ju4-dM-dzf"/>
-                                <exclude reference="89f-G0-yEy"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -644,12 +640,12 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <include reference="EkP-Ra-vvW"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="89f-G0-yEy"/>
+                                <include reference="ju4-dM-dzf"/>
                                 <include reference="dXz-jB-V7W"/>
                                 <include reference="jyR-Fe-Izz"/>
                                 <include reference="q2R-lU-bli"/>
                                 <include reference="ur6-a5-sl5"/>
-                                <include reference="ju4-dM-dzf"/>
-                                <include reference="89f-G0-yEy"/>
                             </mask>
                         </variation>
                     </view>
@@ -704,8 +700,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                             <exclude reference="LYE-WV-X8M"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="7" y="3" width="83" height="83"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Epd-et-v5E"/>
                                                             <include reference="LYE-WV-X8M"/>
@@ -727,8 +722,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                             <exclude reference="UPo-y1-kTB"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="231" y="59" width="22" height="22"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="65E-g3-9bm"/>
                                                             <include reference="UPo-y1-kTB"/>
@@ -753,8 +747,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                             <exclude reference="gAv-vf-gcl"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="275" y="58" width="22" height="22"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="SQ9-Re-t7O"/>
                                                             <include reference="gAv-vf-gcl"/>
@@ -779,8 +772,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                             <exclude reference="gWg-Q3-nis"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="191" y="59" width="22" height="22"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="WzM-1m-Weu"/>
                                                             <include reference="gWg-Q3-nis"/>
@@ -792,29 +784,17 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                 </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X0C-HR-hTA">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="231" y="31" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aYB-FW-Cf8">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="277" y="31" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DVk-lU-AO7">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="38" y="35" width="20" height="20"/>
-                                                    </variation>
                                                 </activityIndicatorView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fia-nS-lww">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="99" y="3" width="206" height="15"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -874,23 +854,23 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                     <exclude reference="fia-nS-lww"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="9kK-8Q-ctZ"/>
-                                                    <exclude reference="Swd-yU-ZYJ"/>
-                                                    <exclude reference="xqx-vF-zvT"/>
-                                                    <exclude reference="6Xn-lw-3rh"/>
-                                                    <exclude reference="NuK-Xp-Iom"/>
                                                     <exclude reference="aAt-7I-mAW"/>
                                                     <exclude reference="w8Z-C3-ykP"/>
+                                                    <exclude reference="6Xn-lw-3rh"/>
+                                                    <exclude reference="NuK-Xp-Iom"/>
+                                                    <exclude reference="8L9-DH-64Z"/>
+                                                    <exclude reference="HZB-E8-6nK"/>
+                                                    <exclude reference="GaM-l0-n7b"/>
+                                                    <exclude reference="mS7-QK-xME"/>
                                                     <exclude reference="Qsm-YR-Pdv"/>
                                                     <exclude reference="wjj-DL-zB9"/>
                                                     <exclude reference="ydE-VP-AsE"/>
-                                                    <exclude reference="8L9-DH-64Z"/>
-                                                    <exclude reference="HZB-E8-6nK"/>
                                                     <exclude reference="VAk-YP-tS1"/>
-                                                    <exclude reference="GaM-l0-n7b"/>
-                                                    <exclude reference="mS7-QK-xME"/>
                                                     <exclude reference="mhr-J4-wTT"/>
                                                     <exclude reference="yoM-d9-1uN"/>
+                                                    <exclude reference="9kK-8Q-ctZ"/>
+                                                    <exclude reference="Swd-yU-ZYJ"/>
+                                                    <exclude reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -905,23 +885,23 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                     <include reference="fia-nS-lww"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="9kK-8Q-ctZ"/>
-                                                    <include reference="Swd-yU-ZYJ"/>
-                                                    <include reference="xqx-vF-zvT"/>
-                                                    <include reference="6Xn-lw-3rh"/>
-                                                    <include reference="NuK-Xp-Iom"/>
                                                     <include reference="aAt-7I-mAW"/>
                                                     <include reference="w8Z-C3-ykP"/>
+                                                    <include reference="6Xn-lw-3rh"/>
+                                                    <include reference="NuK-Xp-Iom"/>
+                                                    <include reference="8L9-DH-64Z"/>
+                                                    <include reference="HZB-E8-6nK"/>
+                                                    <include reference="GaM-l0-n7b"/>
+                                                    <include reference="mS7-QK-xME"/>
                                                     <include reference="Qsm-YR-Pdv"/>
                                                     <include reference="wjj-DL-zB9"/>
                                                     <include reference="ydE-VP-AsE"/>
-                                                    <include reference="8L9-DH-64Z"/>
-                                                    <include reference="HZB-E8-6nK"/>
                                                     <include reference="VAk-YP-tS1"/>
-                                                    <include reference="GaM-l0-n7b"/>
-                                                    <include reference="mS7-QK-xME"/>
                                                     <include reference="mhr-J4-wTT"/>
                                                     <include reference="yoM-d9-1uN"/>
+                                                    <include reference="9kK-8Q-ctZ"/>
+                                                    <include reference="Swd-yU-ZYJ"/>
+                                                    <include reference="xqx-vF-zvT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -945,39 +925,141 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                     <outlet property="delegate" destination="MAP-Kg-YVT" id="kJ1-6l-WxB"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jax-Ku-DPT">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="dAc-Wg-EfB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="@ZagsGoGreen">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="dAc-Wg-EfB"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="702" width="159" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="dAc-Wg-EfB"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahl-Aq-BgY">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="s0k-77-SJr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Help &amp; FAQ">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="s0k-77-SJr"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="167" y="702" width="141" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="s0k-77-SJr"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OT9-V1-a7h">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="i7E-Sc-UX3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="i7E-Sc-UX3"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="740" width="315" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="i7E-Sc-UX3"/>
+                                    </mask>
+                                </variation>
+                            </button>
                         </subviews>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Wg6-y4-C6P" firstAttribute="bottom" secondItem="x9z-NU-QoX" secondAttribute="bottom" constant="93" id="G83-TD-VuU"/>
+                            <constraint firstItem="OT9-V1-a7h" firstAttribute="top" secondItem="Jax-Ku-DPT" secondAttribute="bottom" constant="1" id="5E0-Jx-MI2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OT9-V1-a7h" secondAttribute="trailing" constant="45" id="6Ih-E3-EXq"/>
+                            <constraint firstItem="OT9-V1-a7h" firstAttribute="top" secondItem="ahl-Aq-BgY" secondAttribute="bottom" constant="1" id="AuF-Ef-Dbd"/>
+                            <constraint firstItem="Wg6-y4-C6P" firstAttribute="bottom" secondItem="x9z-NU-QoX" secondAttribute="bottom" constant="72" id="G83-TD-VuU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ahl-Aq-BgY" secondAttribute="trailing" constant="45" id="MF7-4J-cc1"/>
+                            <constraint firstItem="ahl-Aq-BgY" firstAttribute="leading" secondItem="Jax-Ku-DPT" secondAttribute="trailing" constant="1" id="PvM-wK-Idc"/>
+                            <constraint firstItem="OT9-V1-a7h" firstAttribute="leading" secondItem="zDw-be-opy" secondAttribute="leadingMargin" constant="-16" id="Qft-Rf-l5T"/>
+                            <constraint firstItem="Wg6-y4-C6P" firstAttribute="top" secondItem="OT9-V1-a7h" secondAttribute="bottom" id="UgP-xR-cCK"/>
+                            <constraint firstItem="Jax-Ku-DPT" firstAttribute="leading" secondItem="zDw-be-opy" secondAttribute="leadingMargin" constant="-16" id="XH5-kK-Ko9"/>
                             <constraint firstItem="x9z-NU-QoX" firstAttribute="rightMargin" secondItem="zDw-be-opy" secondAttribute="rightMargin" constant="60" id="qSl-Kr-HBq">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-60"/>
                             </constraint>
                             <constraint firstItem="x9z-NU-QoX" firstAttribute="top" secondItem="lhZ-X3-LNi" secondAttribute="bottom" constant="107" id="wLn-jh-7Y7"/>
+                            <constraint firstItem="ahl-Aq-BgY" firstAttribute="width" secondItem="Jax-Ku-DPT" secondAttribute="width" id="xrs-OL-NKI"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="x9z-NU-QoX"/>
+                                <exclude reference="Jax-Ku-DPT"/>
+                                <exclude reference="ahl-Aq-BgY"/>
+                                <exclude reference="OT9-V1-a7h"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="G83-TD-VuU"/>
                                 <exclude reference="qSl-Kr-HBq"/>
                                 <exclude reference="wLn-jh-7Y7"/>
+                                <exclude reference="XH5-kK-Ko9"/>
+                                <exclude reference="MF7-4J-cc1"/>
+                                <exclude reference="PvM-wK-Idc"/>
+                                <exclude reference="xrs-OL-NKI"/>
+                                <exclude reference="5E0-Jx-MI2"/>
+                                <exclude reference="6Ih-E3-EXq"/>
+                                <exclude reference="AuF-Ef-Dbd"/>
+                                <exclude reference="Qft-Rf-l5T"/>
+                                <exclude reference="G83-TD-VuU"/>
+                                <exclude reference="UgP-xR-cCK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="x9z-NU-QoX"/>
+                                <include reference="Jax-Ku-DPT"/>
+                                <include reference="ahl-Aq-BgY"/>
+                                <include reference="OT9-V1-a7h"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="G83-TD-VuU"/>
                                 <include reference="qSl-Kr-HBq"/>
                                 <include reference="wLn-jh-7Y7"/>
+                                <include reference="XH5-kK-Ko9"/>
+                                <include reference="MF7-4J-cc1"/>
+                                <include reference="PvM-wK-Idc"/>
+                                <include reference="xrs-OL-NKI"/>
+                                <include reference="5E0-Jx-MI2"/>
+                                <include reference="6Ih-E3-EXq"/>
+                                <include reference="AuF-Ef-Dbd"/>
+                                <include reference="Qft-Rf-l5T"/>
+                                <include reference="G83-TD-VuU"/>
+                                <include reference="UgP-xR-cCK"/>
                             </mask>
                         </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
+                        <outlet property="helpnFAQ" destination="ahl-Aq-BgY" id="G4y-l0-8Sz"/>
+                        <outlet property="logoutBut" destination="OT9-V1-a7h" id="eI7-h7-wTj"/>
                         <outlet property="table" destination="x9z-NU-QoX" id="gu9-dK-l5X"/>
+                        <outlet property="twitterFeed" destination="Jax-Ku-DPT" id="w9e-oV-thu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xph-O8-dcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -999,7 +1081,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVt-BE-sia">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">This is a student-developed app and is not sponsored or maintained by Gonzaga University. WELCOME TO ZIGZAGA. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "ZZ"), you agree to these Terms of Use ("TOU"), last updated March 18th, 2015.
+                                <string key="text">This is a student-developed app and is not sponsored or maintained by Gonzaga University. WELCOME TO ZIGZAGA. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "ZZ"), you agree to these Terms of Use ("TOU"), last updated March 18th, 2015.
 
 LICENSE. If you are 18 or older, and either a student, faculty member, or alumni we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access ZZ in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from ZZ, excluding content you create and sharing with friends/family. 
 
@@ -1009,12 +1091,9 @@ Possible reasons for a post to be removed:
 - Inappropriate posts that have been reported more than two times will be removed.
 - Older posts that have not been refreshed in 21 to 31 days will be removed.
 
-To the extent permitted by law, (1) we make no promise as to ZZ, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and ZZ is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your ZZ use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("ZZ ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) ZZ ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); </mutableString>
+To the extent permitted by law, (1) we make no promise as to ZZ, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and ZZ is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your ZZ use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("ZZ ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) ZZ ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="1" y="20" width="398" height="902"/>
-                                </variation>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1097,19 +1176,19 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfO-ku-tgG">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="104" y="90" width="207" height="21"/>
+                                                        <rect key="frame" x="85" y="89" width="231" height="21"/>
                                                     </variation>
                                                 </label>
                                                 <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akL-lz-rVP">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="112" y="17" width="199" height="21"/>
+                                                        <rect key="frame" x="93" y="14" width="223" height="21"/>
                                                     </variation>
                                                 </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q2G-YP-MNQ">
@@ -1124,8 +1203,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="yfo-n3-1bZ"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="69" y="27" width="85" height="84"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="wwp-PJ-N6n"/>
                                                             <include reference="yfo-n3-1bZ"/>
@@ -1547,13 +1625,13 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Min Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0j-8V-ZlT">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45K-0K-Lfn">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qf1-R4-RxL">
@@ -1712,7 +1790,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keyword Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXz-8p-8Zy">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzB-ec-nyr">
@@ -1760,7 +1838,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                     <constraint firstAttribute="width" constant="172" id="Uaj-aB-H7B"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1780,7 +1858,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                     <constraint firstAttribute="width" constant="60" id="rm8-nJ-gAR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -2137,6 +2215,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                         <viewControllerLayoutGuide type="bottom" id="iNo-JL-bRj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0jL-CG-K6R" customClass="TWitter">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sN4-fV-8gr">
@@ -2287,7 +2366,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="width" constant="100" id="I3H-fn-zPx"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -2303,7 +2382,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohX-9X-OA7">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2354,7 +2433,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -2370,7 +2449,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgN-Kd-HwD">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2430,7 +2509,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="width" constant="100" id="PAc-nz-SdI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -2447,10 +2526,10 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbd-GF-5BC">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="121" y="-10" width="40" height="21"/>
+                                                        <rect key="frame" x="118" y="-10" width="40" height="21"/>
                                                     </variation>
                                                 </label>
                                             </subviews>
@@ -2459,7 +2538,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <constraint firstItem="Ipo-I2-cBu" firstAttribute="leading" secondItem="RZO-DF-uMn" secondAttribute="leadingMargin" constant="5" id="DVc-VP-BxS">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-10"/>
                                                 </constraint>
-                                                <constraint firstItem="Ipo-I2-cBu" firstAttribute="leading" secondItem="RZO-DF-uMn" secondAttribute="leadingMargin" constant="5" id="aXI-tk-6H4"/>
                                                 <constraint firstItem="Nbd-GF-5BC" firstAttribute="leading" secondItem="Ipo-I2-cBu" secondAttribute="trailing" constant="5" id="b6i-ot-gwg"/>
                                                 <constraint firstAttribute="centerY" secondItem="Nbd-GF-5BC" secondAttribute="centerY" id="wZe-d6-MRC"/>
                                             </constraints>
@@ -2471,7 +2549,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <mask key="constraints">
                                                     <exclude reference="45k-zy-eWh"/>
                                                     <exclude reference="DVc-VP-BxS"/>
-                                                    <exclude reference="aXI-tk-6H4"/>
                                                     <exclude reference="b6i-ot-gwg"/>
                                                     <exclude reference="wZe-d6-MRC"/>
                                                 </mask>
@@ -2484,7 +2561,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <mask key="constraints">
                                                     <include reference="45k-zy-eWh"/>
                                                     <include reference="DVc-VP-BxS"/>
-                                                    <include reference="aXI-tk-6H4"/>
                                                     <include reference="b6i-ot-gwg"/>
                                                     <include reference="wZe-d6-MRC"/>
                                                 </mask>
@@ -2502,15 +2578,14 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="width" constant="100" id="Gv6-eb-J8t"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="Gv6-eb-J8t"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="13" y="-10" width="100" height="21"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Gv6-eb-J8t"/>
                                                         </mask>
@@ -2519,11 +2594,8 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcn-zx-7qZ">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="121" y="-10" width="40" height="22"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -2582,7 +2654,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -2598,7 +2670,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTR-yU-iId">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2649,7 +2721,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="width" constant="100" id="Lqi-SL-1Nu"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -2665,7 +2737,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkX-3B-75D">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2711,11 +2783,8 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSm-lt-a8O">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="118" y="-10" width="40" height="22"/>
-                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN              " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTe-zO-3KY">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -2725,15 +2794,14 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="jXI-tJ-g0u"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="13" y="-10" width="100" height="21"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="jXI-tJ-g0u"/>
                                                         </mask>
@@ -2789,7 +2857,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="width" constant="100" id="Vye-lw-MJV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -2805,7 +2873,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U65-kS-GCo">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2851,7 +2919,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DL3-0c-k3j">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuh-So-6eq">
@@ -2862,7 +2930,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -3340,7 +3408,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Default)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSR-KN-i9J">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusDark.png" translatesAutoresizingMaskIntoConstraints="NO" id="KsP-hv-E1B">
@@ -3353,8 +3421,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="4MV-hm-TAz"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="271" y="3" width="129" height="129"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="4MV-hm-TAz"/>
                                                         </mask>
@@ -3723,8 +3790,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="cWl-ut-3gt"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="-2" y="-2" width="404" height="31"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="cWl-ut-3gt"/>
                                                         </mask>
@@ -4017,8 +4083,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="klb-ho-EBu"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="201" y="14" width="90" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="klb-ho-EBu"/>
                                                         </mask>
@@ -4034,8 +4099,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="GK0-7x-SLD"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="102" y="14" width="91" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="GK0-7x-SLD"/>
                                                         </mask>
@@ -4051,8 +4115,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="Jsp-zS-zeB"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="14" y="14" width="80" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Jsp-zS-zeB"/>
                                                         </mask>
@@ -4068,8 +4131,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="zWt-th-c86"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="302" y="14" width="90" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="zWt-th-c86"/>
                                                         </mask>
@@ -4112,16 +4174,16 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <mask key="constraints">
                                                     <exclude reference="DL6-pc-iSG"/>
                                                     <exclude reference="V42-nC-Pb5"/>
-                                                    <exclude reference="83T-B8-oaq"/>
-                                                    <exclude reference="FYz-r8-ET1"/>
-                                                    <exclude reference="Ow1-SO-YlR"/>
-                                                    <exclude reference="V6k-Se-oSL"/>
-                                                    <exclude reference="qiD-cd-ygP"/>
                                                     <exclude reference="2Ll-mm-fIN"/>
                                                     <exclude reference="3Xe-S8-j0A"/>
                                                     <exclude reference="hk4-Sn-5q9"/>
                                                     <exclude reference="0pO-xx-oon"/>
                                                     <exclude reference="26j-Me-PU8"/>
+                                                    <exclude reference="83T-B8-oaq"/>
+                                                    <exclude reference="FYz-r8-ET1"/>
+                                                    <exclude reference="Ow1-SO-YlR"/>
+                                                    <exclude reference="V6k-Se-oSL"/>
+                                                    <exclude reference="qiD-cd-ygP"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -4134,16 +4196,16 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <mask key="constraints">
                                                     <include reference="DL6-pc-iSG"/>
                                                     <include reference="V42-nC-Pb5"/>
-                                                    <include reference="83T-B8-oaq"/>
-                                                    <include reference="FYz-r8-ET1"/>
-                                                    <include reference="Ow1-SO-YlR"/>
-                                                    <include reference="V6k-Se-oSL"/>
-                                                    <include reference="qiD-cd-ygP"/>
                                                     <include reference="2Ll-mm-fIN"/>
                                                     <include reference="3Xe-S8-j0A"/>
                                                     <include reference="hk4-Sn-5q9"/>
                                                     <include reference="0pO-xx-oon"/>
                                                     <include reference="26j-Me-PU8"/>
+                                                    <include reference="83T-B8-oaq"/>
+                                                    <include reference="FYz-r8-ET1"/>
+                                                    <include reference="Ow1-SO-YlR"/>
+                                                    <include reference="V6k-Se-oSL"/>
+                                                    <include reference="qiD-cd-ygP"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4355,7 +4417,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Default)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbj-Md-F37">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zAm-Hj-Md5">
@@ -5039,8 +5101,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="Q8S-64-7P4"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="216" y="8" width="90" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Q8S-64-7P4"/>
                                                         </mask>
@@ -5056,8 +5117,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="5b0-GW-GQd"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="112" y="8" width="91" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="5b0-GW-GQd"/>
                                                         </mask>
@@ -5073,8 +5133,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="iNI-aY-bXB"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="8" y="8" width="90" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="iNI-aY-bXB"/>
                                                         </mask>
@@ -5090,8 +5149,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                             <exclude reference="KoV-9a-Nas"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="310" y="8" width="90" height="47"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="KoV-9a-Nas"/>
                                                         </mask>
@@ -5130,18 +5188,18 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <exclude reference="GmX-gB-ngi"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="QqG-sb-pdF"/>
-                                                    <exclude reference="UEK-XJ-nmw"/>
-                                                    <exclude reference="e4t-Od-wth"/>
-                                                    <exclude reference="sOT-bW-9Qc"/>
-                                                    <exclude reference="tMX-UO-Tp9"/>
+                                                    <exclude reference="mEo-aS-jWi"/>
+                                                    <exclude reference="nND-FG-A1Q"/>
                                                     <exclude reference="5Hz-gu-tRm"/>
                                                     <exclude reference="CU1-uQ-g1S"/>
                                                     <exclude reference="Drc-ib-7cm"/>
                                                     <exclude reference="RSo-ui-1vj"/>
                                                     <exclude reference="mWk-lx-LqM"/>
-                                                    <exclude reference="mEo-aS-jWi"/>
-                                                    <exclude reference="nND-FG-A1Q"/>
+                                                    <exclude reference="QqG-sb-pdF"/>
+                                                    <exclude reference="UEK-XJ-nmw"/>
+                                                    <exclude reference="e4t-Od-wth"/>
+                                                    <exclude reference="sOT-bW-9Qc"/>
+                                                    <exclude reference="tMX-UO-Tp9"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -5152,18 +5210,18 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <include reference="GmX-gB-ngi"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="QqG-sb-pdF"/>
-                                                    <include reference="UEK-XJ-nmw"/>
-                                                    <include reference="e4t-Od-wth"/>
-                                                    <include reference="sOT-bW-9Qc"/>
-                                                    <include reference="tMX-UO-Tp9"/>
+                                                    <include reference="mEo-aS-jWi"/>
+                                                    <include reference="nND-FG-A1Q"/>
                                                     <include reference="5Hz-gu-tRm"/>
                                                     <include reference="CU1-uQ-g1S"/>
                                                     <include reference="Drc-ib-7cm"/>
                                                     <include reference="RSo-ui-1vj"/>
                                                     <include reference="mWk-lx-LqM"/>
-                                                    <include reference="mEo-aS-jWi"/>
-                                                    <include reference="nND-FG-A1Q"/>
+                                                    <include reference="QqG-sb-pdF"/>
+                                                    <include reference="UEK-XJ-nmw"/>
+                                                    <include reference="e4t-Od-wth"/>
+                                                    <include reference="sOT-bW-9Qc"/>
+                                                    <include reference="tMX-UO-Tp9"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
