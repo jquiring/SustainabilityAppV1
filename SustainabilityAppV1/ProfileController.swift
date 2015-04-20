@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import SwifteriOS
-
 
 class ProfileController: UIViewController, UITableViewDataSource,UITableViewDelegate{
     @IBOutlet weak var table: UITableView!
@@ -25,12 +23,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var firstLoad = NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as! Bool
     
     let slide:CGFloat = 60
-    let buttonHeight:String = "25"
+    //let buttonHeight:String = "25"
     let barColor:UIColor =  UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
-    let twitterFeed = MarqueeLabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +74,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let labelHeight = 25
         let noPostsHeight = 42
         let editProfileHeight = 64
-        let twitterFeedHeight = 20
+        let twitterFeedHeight = 35
         let distanceBetweenButtonsVal = 1
         var bottomButtonPlacement = 0
         if(arrayOfPosts.count == 0){
@@ -93,6 +90,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let postsLabel = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         let noPosts = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         let filler = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let twitterFeed = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts,"filler":filler,"twitterFeed":twitterFeed]
         //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
         let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight,"twitterFeedHeight":twitterFeedHeight ]
@@ -145,34 +143,13 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         table.addConstraints(table_constraint_H)
         
         //twitterFeed
-        twitterFeed.marqueeType = .MLContinuous
-        twitterFeed.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
-        twitterFeed.scrollDuration = 15.0
-        twitterFeed.fadeLength = 0.0
-        twitterFeed.continuousMarqueeExtraBuffer = 0.0
-        self.twitterFeed.text = " @ZagsGoGreen: "
-        /*
-        let swifter = Swifter(consumerKey:"ZWYgoh4EdRMbqvysDom4Far29", consumerSecret:"lksmS293yiW8D1q8F9BSqXlyGGx65lh3uHSwspfnqemdLu78qB")
-        swifter.getStatusesUserTimelineWithUserID("1601601674", count: 1, sinceID: nil, maxID: nil, trimUser: true, contributorDetails: false, includeEntities: true,
-            success: {
-                statuses -> Void in
-                if let statusText = statuses![0]["text"].string {
-                    let newText = " @ZagsGoGreen: " + statusText + "   |"
-                    self.twitterFeed.text = newText
-                }
-            }, failure: {
-                (error: NSError) in
-        })
-        */
-        twitterFeed.userInteractionEnabled = true
-        let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("twitterTouched"))
-        self.twitterFeed.addGestureRecognizer(gestureRecogniser3)
-        twitterFeed.tag = 101
+        twitterFeed.setTitle("@ZagsGoGreen", forState: UIControlState.Normal)
+        twitterFeed.titleLabel!.font = buttonFont
         twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
-        twitterFeed.backgroundColor = UIColor.whiteColor()
+        twitterFeed.backgroundColor = backgroundColor
+        twitterFeed.addTarget(self, action: "twitterTouched", forControlEvents: UIControlEvents.TouchUpInside)
         let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let twitterFeed_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[twitterFeed(twitterFeedHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
+        let twitterFeed_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[twitterFeed(viewHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
         twitterFeed.addConstraints(twitterFeed_constraint_H)
         twitterFeed.addConstraints(twitterFeed_constraint_V)
         
