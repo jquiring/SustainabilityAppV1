@@ -10,6 +10,9 @@ import UIKit
 
 class ProfileController: UIViewController, UITableViewDataSource,UITableViewDelegate{
     @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var view1: UIButton!
+    @IBOutlet weak var view2: UIButton!
+    @IBOutlet weak var postsLabel: UIButton!
     @IBOutlet weak var twitterFeed: UIButton!
     @IBOutlet weak var helpnFAQ: UIButton!
     @IBOutlet weak var logoutBut: UIButton!
@@ -78,23 +81,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let noPostsHeight = 42
         let editProfileHeight = 64
         let distanceBetweenButtonsVal = 1
-        var bottomButtonPlacement = 0
-        if(arrayOfPosts.count == 0){
-            bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - noPostsHeight - editProfileHeight - distanceBetweenButtonsVal*7
-        }
-        else {
-            bottomButtonPlacement = Int(screenHeight) - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*6
-        }
-        let view1 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let view2 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let view3 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let logoutButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let postsLabel = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let noPosts = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let filler = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts,"filler":filler]
-        //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
-        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight ]
         
         //edit profile
         if (NSUserDefaults.standardUserDefaults().objectForKey("username") != nil) {
@@ -109,11 +95,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -17, 0)
         view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view1_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view1(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(editProfileHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        //^^^
-        view1.addConstraints(view1_constraint_H)
-        view1.addConstraints(view1_constraint_V)
         
         //create a post
         view2.setTitle("Create a Post ➕", forState: UIControlState.Normal)
@@ -121,11 +102,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view2.setTranslatesAutoresizingMaskIntoConstraints(false)
         view2.backgroundColor = backgroundColor
         view2.addTarget(self, action: "newPost:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view2_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view2(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let view2_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view2(viewHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        view2.addConstraints(view2_constraint_H)
-        view2.addConstraints(view2_constraint_V)
         
         //Posts label
         postsLabel.setTitle("Your Posts", forState: UIControlState.Normal)
@@ -134,30 +110,16 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         postsLabel.backgroundColor = backgroundColor
         postsLabel.userInteractionEnabled = false
         postsLabel.backgroundColor = UIColor.whiteColor()
-        let postsLabel_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[postsLabel(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let postsLabel_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[postsLabel(labelHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        postsLabel.addConstraints(postsLabel_constraint_H)
-        postsLabel.addConstraints(postsLabel_constraint_V)
-        table.setTranslatesAutoresizingMaskIntoConstraints(false)
-        let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        table.addConstraints(table_constraint_H)
         
+        twitterFeed.titleLabel!.font = buttonFont
+        logoutBut.titleLabel!.font = buttonFont
+        helpnFAQ.titleLabel!.font = buttonFont
         twitterFeed.backgroundColor = backgroundColor
         logoutBut.backgroundColor = backgroundColor
         helpnFAQ.backgroundColor = backgroundColor
         twitterFeed.addTarget(self, action: "twitterTouched", forControlEvents: UIControlEvents.TouchUpInside)
         logoutBut.addTarget(self, action: "logout:", forControlEvents: UIControlEvents.TouchUpInside)
         helpnFAQ.addTarget(self, action: "helpAndFAQ:", forControlEvents: UIControlEvents.TouchUpInside)
-
-        view.addSubview(view1)
-        view.addSubview(view2)
-        view.addSubview(view3)
-        view.addSubview(postsLabel)
-        view.addSubview(table)
-        view.addSubview(logoutButton)
-        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        view.addConstraints(view_constraint_V as [AnyObject])
     }
     func setUpPosts(fromAppear:Bool){
         if(fromAppear){
