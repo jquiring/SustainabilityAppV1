@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwifteriOS
 
 @objc
 protocol CenterViewControllerDelegate {
