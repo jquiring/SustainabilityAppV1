@@ -519,7 +519,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
+        var myFont = UIFont(name: "HelveticaNeue-Light",size: 18)
         if(indexPath.section == 1){
             return 77
         }

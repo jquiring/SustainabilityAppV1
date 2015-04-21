@@ -549,8 +549,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3g-JU-eA6">
+                            <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3g-JU-eA6">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Terms and Agreements ">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -561,7 +562,9 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-Ra-vvW">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">This is a student-developed app and is not sponsored or maintained by Gonzaga University.    Q: Why do I need to use Gonzaga Credentials?
+                                <mutableString key="text">ZigZaga was created by students at Gonzaga University as part of a senior design project. It is the sole property and responsibility of its creators. Gonzaga University is not responsible for its functionality or content. 
+
+Q: Why do I need to use Gonzaga Credentials?
 A: ZigZaga is designed as exclusive to the Gonzaga Community in order to promote safe/trustworthy interactions between buyers and sellers, as well as influencing post content to be themed towards the college lifestyle. This includes faculty, current students and alumni.
 
 Q: What is “bumping” and what does “bumping” my post do?
@@ -595,7 +598,7 @@ Q: What is the maximum price I can give a post?
 A: The maximum price allowed for a post is $10,000. This isn’t the place to sell your BMW.
 
 Q: Why the @ZagsGoGreen Twitter feed?
-A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga. To headline this purpose the Office of Sustainability’s Twitter feed is displayed to spread the latest on sustainability news, events and facts.</string>
+A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga. To headline this purpose the Office of Sustainability’s Twitter feed is displayed to spread the latest on sustainability news, events and facts.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -608,6 +611,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                             <constraint firstItem="mTl-5c-SCh" firstAttribute="top" secondItem="EkP-Ra-vvW" secondAttribute="bottom" id="89f-G0-yEy">
                                 <variation key="heightClass=regular-widthClass=compact" constant="26"/>
                             </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="W3g-JU-eA6" secondAttribute="trailing" constant="-16" id="ALI-1V-CtH"/>
                             <constraint firstItem="EkP-Ra-vvW" firstAttribute="leading" secondItem="gei-RH-89J" secondAttribute="leadingMargin" constant="-15" id="dXz-jB-V7W"/>
                             <constraint firstItem="W3g-JU-eA6" firstAttribute="top" secondItem="EkP-Ra-vvW" secondAttribute="bottom" constant="78" id="ju4-dM-dzf">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
@@ -626,12 +630,13 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <exclude reference="EkP-Ra-vvW"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="89f-G0-yEy"/>
-                                <exclude reference="ju4-dM-dzf"/>
                                 <exclude reference="dXz-jB-V7W"/>
                                 <exclude reference="jyR-Fe-Izz"/>
                                 <exclude reference="q2R-lU-bli"/>
                                 <exclude reference="ur6-a5-sl5"/>
+                                <exclude reference="ALI-1V-CtH"/>
+                                <exclude reference="ju4-dM-dzf"/>
+                                <exclude reference="89f-G0-yEy"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -640,12 +645,13 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <include reference="EkP-Ra-vvW"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="89f-G0-yEy"/>
-                                <include reference="ju4-dM-dzf"/>
                                 <include reference="dXz-jB-V7W"/>
                                 <include reference="jyR-Fe-Izz"/>
                                 <include reference="q2R-lU-bli"/>
                                 <include reference="ur6-a5-sl5"/>
+                                <include reference="ALI-1V-CtH"/>
+                                <include reference="ju4-dM-dzf"/>
+                                <include reference="89f-G0-yEy"/>
                             </mask>
                         </variation>
                     </view>
@@ -675,134 +681,6 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jax-Ku-DPT">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="dAc-Wg-EfB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="@ZagsGoGreen">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="dAc-Wg-EfB"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="702" width="159" height="30"/>
-                                    <mask key="constraints">
-                                        <include reference="dAc-Wg-EfB"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahl-Aq-BgY">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="s0k-77-SJr"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="Help &amp; FAQ">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="s0k-77-SJr"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="167" y="702" width="141" height="30"/>
-                                    <mask key="constraints">
-                                        <include reference="s0k-77-SJr"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OT9-V1-a7h">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="i7E-Sc-UX3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="Logout">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="i7E-Sc-UX3"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="740" width="315" height="30"/>
-                                    <mask key="constraints">
-                                        <include reference="i7E-Sc-UX3"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hik-1f-cHg">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="TYn-sz-XAo"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="TYn-sz-XAo"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="188" y="58" width="46" height="30"/>
-                                    <mask key="constraints">
-                                        <include reference="TYn-sz-XAo"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZo-Mx-FgB">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="k4z-g5-9cm"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="k4z-g5-9cm"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="95" y="37" width="46" height="30"/>
-                                    <mask key="constraints">
-                                        <include reference="k4z-g5-9cm"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZy-3c-CET">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="acl-c8-8YT"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="acl-c8-8YT"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="113" y="88" width="46" height="30"/>
-                                    <mask key="constraints">
-                                        <include reference="acl-c8-8YT"/>
-                                    </mask>
-                                </variation>
-                            </button>
                             <tableView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="redraw" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="x9z-NU-QoX">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1053,6 +931,136 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                     <outlet property="delegate" destination="MAP-Kg-YVT" id="kJ1-6l-WxB"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jax-Ku-DPT">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="dAc-Wg-EfB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="@ZagsGoGreen">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="dAc-Wg-EfB"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="702" width="159" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="dAc-Wg-EfB"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahl-Aq-BgY">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="s0k-77-SJr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Help &amp; FAQ">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="s0k-77-SJr"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="167" y="702" width="141" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="s0k-77-SJr"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OT9-V1-a7h">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="i7E-Sc-UX3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="i7E-Sc-UX3"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="740" width="315" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="i7E-Sc-UX3"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hik-1f-cHg">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="TYn-sz-XAo"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="TYn-sz-XAo"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="188" y="58" width="46" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="TYn-sz-XAo"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZy-3c-CET">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="acl-c8-8YT"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="acl-c8-8YT"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="113" y="88" width="46" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="acl-c8-8YT"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZo-Mx-FgB">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="k4z-g5-9cm">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="69"/>
+                                    </constraint>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="k4z-g5-9cm"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="95" y="37" width="46" height="30"/>
+                                    <mask key="constraints">
+                                        <include reference="k4z-g5-9cm"/>
+                                    </mask>
+                                </variation>
+                            </button>
                         </subviews>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1065,7 +1073,7 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                             <constraint firstItem="OT9-V1-a7h" firstAttribute="top" secondItem="ahl-Aq-BgY" secondAttribute="bottom" constant="1" id="AuF-Ef-Dbd"/>
                             <constraint firstItem="Hik-1f-cHg" firstAttribute="top" secondItem="QZo-Mx-FgB" secondAttribute="bottom" constant="1" id="E0O-rD-rKD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ahl-Aq-BgY" secondAttribute="trailing" constant="45" id="MF7-4J-cc1"/>
-                            <constraint firstItem="ahl-Aq-BgY" firstAttribute="leading" secondItem="Jax-Ku-DPT" secondAttribute="trailing" constant="1" id="PvM-wK-Idc"/>
+                            <constraint firstItem="ahl-Aq-BgY" firstAttribute="leading" secondItem="Jax-Ku-DPT" secondAttribute="trailing" constant="2" id="PvM-wK-Idc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QZo-Mx-FgB" secondAttribute="trailing" constant="45" id="QIH-VE-ODG"/>
                             <constraint firstItem="OT9-V1-a7h" firstAttribute="leading" secondItem="zDw-be-opy" secondAttribute="leadingMargin" constant="-16" id="Qft-Rf-l5T"/>
                             <constraint firstItem="Wg6-y4-C6P" firstAttribute="top" secondItem="OT9-V1-a7h" secondAttribute="bottom" id="UgP-xR-cCK"/>
@@ -1088,13 +1096,13 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="x9z-NU-QoX"/>
                                 <exclude reference="Jax-Ku-DPT"/>
                                 <exclude reference="ahl-Aq-BgY"/>
                                 <exclude reference="OT9-V1-a7h"/>
                                 <exclude reference="Hik-1f-cHg"/>
-                                <exclude reference="QZo-Mx-FgB"/>
                                 <exclude reference="UZy-3c-CET"/>
-                                <exclude reference="x9z-NU-QoX"/>
+                                <exclude reference="QZo-Mx-FgB"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="QIH-VE-ODG"/>
@@ -1124,13 +1132,13 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
+                                <include reference="x9z-NU-QoX"/>
                                 <include reference="Jax-Ku-DPT"/>
                                 <include reference="ahl-Aq-BgY"/>
                                 <include reference="OT9-V1-a7h"/>
                                 <include reference="Hik-1f-cHg"/>
-                                <include reference="QZo-Mx-FgB"/>
                                 <include reference="UZy-3c-CET"/>
-                                <include reference="x9z-NU-QoX"/>
+                                <include reference="QZo-Mx-FgB"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="QIH-VE-ODG"/>
@@ -1189,7 +1197,9 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVt-BE-sia">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">This is a student-developed app and is not sponsored or maintained by Gonzaga University. WELCOME TO ZIGZAGA. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "ZZ"), you agree to these Terms of Use ("TOU"), last updated March 18th, 2015.
+                                <mutableString key="text">ZigZaga was created by students at Gonzaga University as part of a senior design project. It is the sole property and responsibility of its creators. Gonzaga University is not responsible for its functionality or content. 
+
+WELCOME TO ZIGZAGA. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "ZZ"), you agree to these Terms of Use ("TOU"), last updated March 18th, 2015.
 
 LICENSE. If you are 18 or older, and either a student, faculty member, or alumni we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access ZZ in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from ZZ, excluding content you create and sharing with friends/family. 
 
@@ -1199,9 +1209,12 @@ Possible reasons for a post to be removed:
 - Inappropriate posts that have been reported more than two times will be removed.
 - Older posts that have not been refreshed in 21 to 31 days will be removed.
 
-To the extent permitted by law, (1) we make no promise as to ZZ, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and ZZ is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your ZZ use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("ZZ ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) ZZ ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); </string>
+To the extent permitted by law, (1) we make no promise as to ZZ, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and ZZ is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your ZZ use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("ZZ ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) ZZ ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); </mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="1" y="64" width="398" height="736"/>
+                                </variation>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3473,7 +3486,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Ry8-Ak-HAd" firstAttribute="leading" secondItem="zSu-QF-d2l" secondAttribute="leadingMargin" constant="5" id="O7e-MQ-sRg">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="-12"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="-15"/>
                                                 </constraint>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Ry8-Ak-HAd" secondAttribute="trailing" constant="5" id="Ruv-Cp-VOL">
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-10"/>
@@ -4366,7 +4379,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dJJ-Bg-Bb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4527" y="-1402.5"/>
+            <point key="canvasLocation" x="4527" y="-1332.75"/>
         </scene>
         <!--Edit Post-->
         <scene sceneID="srV-aU-eVS">
@@ -4469,7 +4482,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                     <variation key="heightClass=regular-widthClass=compact" constant="-10"/>
                                                 </constraint>
                                                 <constraint firstItem="vu6-g5-rWc" firstAttribute="leading" secondItem="sfm-Q2-9LU" secondAttribute="leadingMargin" constant="5" id="gaT-Pf-EU7">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="-10"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="-15"/>
                                                 </constraint>
                                             </constraints>
                                             <variation key="default">
@@ -5396,6 +5409,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
         <image name="editPost" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ldz-Os-Rov"/>
+        <segue reference="QJc-hQ-vwy"/>
     </inferredMetricsTieBreakers>
 </document>
