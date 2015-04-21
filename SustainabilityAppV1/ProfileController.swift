@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class ProfileController: UIViewController, UITableViewDataSource,UITableViewDelegate{
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var view1: UIButton!
