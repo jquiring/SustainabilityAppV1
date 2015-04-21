@@ -557,7 +557,7 @@ class EditPostViewController: UITableViewController,UIAlertViewDelegate,UIImageP
             return 30
         }
         if(indexPath.section == 12){
-            return (self.view.bounds.width - 32)/4 + 18
+            return 77 + 12
         }
         return 0
     }

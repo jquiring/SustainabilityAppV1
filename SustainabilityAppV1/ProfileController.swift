@@ -7,11 +7,16 @@
 //
 
 import UIKit
-import SwifteriOS
 
 
 class ProfileController: UIViewController, UITableViewDataSource,UITableViewDelegate{
     @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var view1: UIButton!
+    @IBOutlet weak var view2: UIButton!
+    @IBOutlet weak var postsLabel: UIButton!
+    @IBOutlet weak var twitterFeed: UIButton!
+    @IBOutlet weak var helpnFAQ: UIButton!
+    @IBOutlet weak var logoutBut: UIButton!
     
     var items = ["title 1","title 2","title 3"]
     var refreshControl = UIRefreshControl()
@@ -25,12 +30,11 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     var firstLoad = NSUserDefaults.standardUserDefaults().objectForKey("profileNeedsReloading") as! Bool
     
     let slide:CGFloat = 60
-    let buttonHeight:String = "25"
+    //let buttonHeight:String = "25"
     let barColor:UIColor =  UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
-    let twitterFeed = MarqueeLabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,25 +81,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         let labelHeight = 25
         let noPostsHeight = 42
         let editProfileHeight = 64
-        let twitterFeedHeight = 20
         let distanceBetweenButtonsVal = 1
-        var bottomButtonPlacement = 0
-        if(arrayOfPosts.count == 0){
-            bottomButtonPlacement = Int(screenHeight) - twitterFeedHeight - (buttonHeight*3) - labelHeight - noPostsHeight - editProfileHeight - distanceBetweenButtonsVal*7
-        }
-        else {
-            bottomButtonPlacement = Int(screenHeight) - twitterFeedHeight - (buttonHeight*3) - labelHeight - editProfileHeight - distanceBetweenButtonsVal*6
-        }
-        let view1 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let view2 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let view3 = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let logoutButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let postsLabel = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let noPosts = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let filler = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        let viewsDictionary = ["view1":view1,"view2":view2,"view3":view3, "logoutButton":logoutButton, "postsLabel":postsLabel,"table":table,"noPosts":noPosts,"filler":filler,"twitterFeed":twitterFeed]
-        //here are the sizes used for the buttons - viewHeight is the button height, and the width is the entire screen - the 60 px layover
-        let metricsDictionary = ["viewHeight": buttonHeight,"viewWidth":screenWidth, "screenHeight":screenHeight,"distanceBetweenButtons":distanceBetweenButtonsVal,"bottomHeight": bottomButtonPlacement,"editProfileHeight":editProfileHeight,"labelHeight":labelHeight, "noPostsHeight":noPostsHeight,"twitterFeedHeight":twitterFeedHeight ]
         
         //edit profile
         if (NSUserDefaults.standardUserDefaults().objectForKey("username") != nil) {
@@ -110,11 +96,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view1.contentEdgeInsets = UIEdgeInsetsMake(0, 10, -17, 0)
         view1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         view1.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view1_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view1(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let view1_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view1(editProfileHeight)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        //^^^
-        view1.addConstraints(view1_constraint_H)
-        view1.addConstraints(view1_constraint_V)
         
         //create a post
         view2.setTitle("Create a Post ➕", forState: UIControlState.Normal)
@@ -122,11 +103,6 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         view2.setTranslatesAutoresizingMaskIntoConstraints(false)
         view2.backgroundColor = backgroundColor
         view2.addTarget(self, action: "newPost:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view2_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view2(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let view2_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view2(viewHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        view2.addConstraints(view2_constraint_H)
-        view2.addConstraints(view2_constraint_V)
         
         //Posts label
         postsLabel.setTitle("Your Posts", forState: UIControlState.Normal)
@@ -135,79 +111,16 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         postsLabel.backgroundColor = backgroundColor
         postsLabel.userInteractionEnabled = false
         postsLabel.backgroundColor = UIColor.whiteColor()
-        let postsLabel_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[postsLabel(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let postsLabel_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[postsLabel(labelHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        postsLabel.addConstraints(postsLabel_constraint_H)
-        postsLabel.addConstraints(postsLabel_constraint_V)
-        table.setTranslatesAutoresizingMaskIntoConstraints(false)
-        let table_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[table(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        table.addConstraints(table_constraint_H)
         
-        //twitterFeed
-        twitterFeed.marqueeType = .MLContinuous
-        twitterFeed.font = UIFont(name: "HelveticaNeue-UltraLight",size: 16)
-        twitterFeed.scrollDuration = 15.0
-        twitterFeed.fadeLength = 0.0
-        twitterFeed.continuousMarqueeExtraBuffer = 0.0
-        self.twitterFeed.text = " @ZagsGoGreen: "
-        /*
-        let swifter = Swifter(consumerKey:"ZWYgoh4EdRMbqvysDom4Far29", consumerSecret:"lksmS293yiW8D1q8F9BSqXlyGGx65lh3uHSwspfnqemdLu78qB")
-        swifter.getStatusesUserTimelineWithUserID("1601601674", count: 1, sinceID: nil, maxID: nil, trimUser: true, contributorDetails: false, includeEntities: true,
-            success: {
-                statuses -> Void in
-                if let statusText = statuses![0]["text"].string {
-                    let newText = " @ZagsGoGreen: " + statusText + "   |"
-                    self.twitterFeed.text = newText
-                }
-            }, failure: {
-                (error: NSError) in
-        })
-        */
-        twitterFeed.userInteractionEnabled = true
-        let gestureRecogniser3 = UITapGestureRecognizer(target: self, action: Selector("twitterTouched"))
-        self.twitterFeed.addGestureRecognizer(gestureRecogniser3)
-        twitterFeed.tag = 101
-        twitterFeed.setTranslatesAutoresizingMaskIntoConstraints(false)
-        twitterFeed.backgroundColor = UIColor.whiteColor()
-        let twitterFeed_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[twitterFeed(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let twitterFeed_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[twitterFeed(twitterFeedHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        twitterFeed.addConstraints(twitterFeed_constraint_H)
-        twitterFeed.addConstraints(twitterFeed_constraint_V)
-        
-        //Logout
-        logoutButton.setTitle("Logout", forState: UIControlState.Normal)
-        logoutButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        logoutButton.backgroundColor = backgroundColor
-        logoutButton.addTarget(self, action: "logout:", forControlEvents: UIControlEvents.TouchUpInside)
-        let logout_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[logoutButton(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let logout_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[logoutButton(viewHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        logoutButton.titleLabel!.font = buttonFont
-        logoutButton.addConstraints(logout_constraint_H)
-        logoutButton.addConstraints(logout_constraint_V)
-        
-        //Help & FAQ
-        view3.setTitle("Help & FAQ", forState: UIControlState.Normal)
-        view3.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view3.backgroundColor = backgroundColor
-        view3.addTarget(self, action: "helpAndFAQ:", forControlEvents: UIControlEvents.TouchUpInside)
-        let view3_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:[view3(viewWidth)]", options: NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        let view3_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:[view3(viewHeight)]", options:
-            NSLayoutFormatOptions(0), metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        view3.titleLabel!.font = buttonFont
-        view3.addConstraints(view3_constraint_H)
-        view3.addConstraints(view3_constraint_V)
-        view.addSubview(view1)
-        view.addSubview(view2)
-        view.addSubview(view3)
-        view.addSubview(postsLabel)
-        view.addSubview(table)
-        view.addSubview(logoutButton)
-        view.addSubview(twitterFeed)
-        let view_constraint_V:NSArray = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view1]-distanceBetweenButtons-[view2]-distanceBetweenButtons-[postsLabel]-distanceBetweenButtons-[table]-distanceBetweenButtons-[twitterFeed]-distanceBetweenButtons-[logoutButton]-distanceBetweenButtons-[view3]-|", options: NSLayoutFormatOptions.AlignAllLeading, metrics: metricsDictionary as [NSObject : AnyObject], views: viewsDictionary)
-        view.addConstraints(view_constraint_V as [AnyObject])
+        twitterFeed.titleLabel!.font = buttonFont
+        logoutBut.titleLabel!.font = buttonFont
+        helpnFAQ.titleLabel!.font = buttonFont
+        twitterFeed.backgroundColor = backgroundColor
+        logoutBut.backgroundColor = backgroundColor
+        helpnFAQ.backgroundColor = backgroundColor
+        twitterFeed.addTarget(self, action: "twitterTouched", forControlEvents: UIControlEvents.TouchUpInside)
+        logoutBut.addTarget(self, action: "logout:", forControlEvents: UIControlEvents.TouchUpInside)
+        helpnFAQ.addTarget(self, action: "helpAndFAQ:", forControlEvents: UIControlEvents.TouchUpInside)
     }
     func setUpPosts(fromAppear:Bool){
         if(fromAppear){
@@ -559,7 +472,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 label.text = "Loading your posts"
             }
             else{
-                label.text = "You currently have no posts, pull down to refresh"
+                label.text = " You currently have no posts, pull down to refresh"
             }
             label.textColor = UIColor.blackColor()
             label.textAlignment = NSTextAlignment.Center

@@ -121,16 +121,18 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
                 subView.image = newImage
             }
             else {
+                println("Image " + String(index))
                 var centerActInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 25, 25)) as UIActivityIndicatorView
                 centerActInd.center = subView.center
                 centerActInd.hidesWhenStopped = true
                 centerActInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
                 centerActInd.startAnimating()
                 subView.addSubview(centerActInd)
+                subView.bringSubviewToFront(centerActInd)
             }
             self.scrollView.addSubview(subView)
         }
-        self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(pageImages.count), scrollView.contentSize.height)
+        self.scrollView.contentSize = CGSizeMake(scrollViewWidth * CGFloat(image_count), scrollView.contentSize.height)
     }
     func updateImages(imageData:NSData?, imageNumber:Int,failure:Bool){
         self.image_grabbed += 1
@@ -138,7 +140,7 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             self.pageImages[imageNumber] = (UIImage(data: imageData!)!)
         }
         else{
-            self.pageImages[imageNumber] = UIImage(named: "Call")!
+            self.pageImages[imageNumber] = UIImage(named: "failedToLoad")!
         }
         self.loaded_images.append(imageNumber)
         createScroll(false, newImageIndex: imageNumber)
@@ -301,9 +303,10 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
             pages.numberOfPages = images
             image_count = images
         }
+        self.tableView.reloadData()
         createScroll(true, newImageIndex: -1)
         pages.currentPage = 0
-        self.tableView.reloadData()
+        
     }
     @IBAction func done(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -515,11 +518,11 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(pageImages.count), height: scrollView.contentSize.height)
+        scrollView.contentSize = CGSize(width:scrollViewWidth * CGFloat(image_count), height: scrollView.contentSize.height)
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        var myFont = UIFont(name: "HelveticaNeue-Light",size: 17)
+        var myFont = UIFont(name: "HelveticaNeue-Light",size: 18)
         if(indexPath.section == 1){
             return 77
         }

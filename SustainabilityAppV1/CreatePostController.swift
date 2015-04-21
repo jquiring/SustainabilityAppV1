@@ -84,6 +84,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     func doneCat() {
         if(category.text == ""){
             category.text = "Books"
+            self.tableView.reloadData()
         }
         if(category.text == "Ride Shares"){
             self.round_trip_switch.hidden = false
@@ -430,6 +431,51 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     }
     //sets the row heights within the table view
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if(category.text == "Ride Shares" && round_trip_switch.on){
+            from.hidden = false
+            to.hidden = false
+            leaves.hidden = false
+            comesBack.hidden = false
+            ISBN.hidden = true
+            location.hidden = true
+            date.hidden = true
+        }
+        else if(category.text == "Ride Shares" && !round_trip_switch.on){
+            from.hidden = false
+            to.hidden = false
+            leaves.hidden = false
+            comesBack.hidden = true
+            ISBN.hidden = true
+            location.hidden = true
+            date.hidden = true
+        }
+        else if(category.text == "Services" || category.text == "Events"){
+            from.hidden = true
+            to.hidden = true
+            leaves.hidden = true
+            comesBack.hidden = true
+            ISBN.hidden = true
+            location.hidden = false
+            date.hidden = false
+        }
+        else if(category.text == "Books"){
+            from.hidden = true
+            to.hidden = true
+            leaves.hidden = true
+            comesBack.hidden = true
+            ISBN.hidden = false
+            location.hidden = true
+            date.hidden = true
+        }
+        else{
+            from.hidden = true
+            to.hidden = true
+            leaves.hidden = true
+            comesBack.hidden = true
+            ISBN.hidden = true
+            location.hidden = true
+            date.hidden = true
+        }
         if(indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 4){
             return 30
         }
@@ -456,7 +502,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             return 30
         }
         if(indexPath.section == 13){
-            return (self.view.bounds.width - 32)/4
+            return 77
         }
         return 0
     }
