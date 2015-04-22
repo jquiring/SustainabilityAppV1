@@ -35,9 +35,7 @@ class NewUserController: UIViewController,UITextFieldDelegate {
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light",size: 24)!,NSForegroundColorAttributeName: UIColor.darkGrayColor()]
     }
-    override func viewWillDisappear(animated: Bool) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+
     func updateUI(){
         self.resignKeyboard()
         NSUserDefaults.standardUserDefaults().setObject(self.first.text, forKey: "first_name")

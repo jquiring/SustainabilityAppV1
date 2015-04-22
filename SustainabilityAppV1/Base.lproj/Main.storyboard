@@ -518,7 +518,7 @@
                     <navigationItem key="navigationItem" title="Create Your Account" id="4g7-y5-Yuv">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="d1m-36-7HY">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="show" id="eQ4-qM-TJ8"/>
+                                <segue destination="vXZ-lx-hvc" kind="show" id="JuF-3c-8dU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -535,7 +535,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYJ-CB-yNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4585.5" y="-2030.25"/>
+            <point key="canvasLocation" x="2959.5" y="-1287"/>
         </scene>
         <!--Help and FAQ-->
         <scene sceneID="T1n-0e-JXg">
@@ -728,7 +728,8 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                             <exclude reference="UPo-y1-kTB"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="236" y="65" width="22" height="22"/>
                                                         <mask key="constraints">
                                                             <include reference="65E-g3-9bm"/>
                                                             <include reference="UPo-y1-kTB"/>
@@ -753,7 +754,8 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                             <exclude reference="gAv-vf-gcl"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="280" y="65" width="22" height="22"/>
                                                         <mask key="constraints">
                                                             <include reference="SQ9-Re-t7O"/>
                                                             <include reference="gAv-vf-gcl"/>
@@ -778,7 +780,8 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                             <exclude reference="gWg-Q3-nis"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="192" y="65" width="22" height="22"/>
                                                         <mask key="constraints">
                                                             <include reference="WzM-1m-Weu"/>
                                                             <include reference="gWg-Q3-nis"/>
@@ -790,9 +793,15 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                 </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X0C-HR-hTA">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="237" y="66" width="20" height="20"/>
+                                                    </variation>
                                                 </activityIndicatorView>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aYB-FW-Cf8">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="281" y="66" width="20" height="20"/>
+                                                    </variation>
                                                 </activityIndicatorView>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DVk-lU-AO7">
                                                     <rect key="frame" x="-10" y="-10" width="20" height="20"/>
@@ -801,6 +810,9 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="90" y="4" width="233" height="15"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -1397,6 +1409,9 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="1" y="-45" width="398" height="845"/>
+                                </variation>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1702,7 +1717,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="UcG-P1-DXl" kind="relationship" relationship="rootViewController" id="ldz-Os-Rov"/>
+                        <segue destination="QYY-GH-OmI" kind="relationship" relationship="rootViewController" id="127-bu-Q65"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6e-YZ-3fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5393,6 +5408,6 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
         <image name="editPost" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QJc-hQ-vwy"/>
+        <segue reference="iTm-bO-1AN"/>
     </inferredMetricsTieBreakers>
 </document>

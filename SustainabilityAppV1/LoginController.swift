@@ -32,9 +32,7 @@ class LoginController: UIViewController,UITextFieldDelegate {
         navigationController?.navigationBar.tintColor = UIColor.darkGrayColor()
 
     }
-    override func viewDidDisappear(animated: Bool) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+
     func updateUI(parseJSON:Dictionary<String,AnyObject>){
         self.actInd.stopAnimating()
         if let _username = parseJSON["username"] as? String{

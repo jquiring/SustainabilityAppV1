@@ -33,6 +33,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
     let barColor:UIColor =  UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)
     let backgroundColor:UIColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
     let buttonFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 20)
+    let otherFont:UIFont? = UIFont(name: "HelveticaNeue-Light",size: 18)
     let labelFont:UIFont? = UIFont(name: "HelveticaNeue-UltraLight",size: 18)
     
     override func viewDidLoad() {
@@ -111,9 +112,9 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         postsLabel.userInteractionEnabled = false
         postsLabel.backgroundColor = UIColor.whiteColor()
         
-        twitterFeed.titleLabel!.font = buttonFont
+        twitterFeed.titleLabel!.font = otherFont
         logoutBut.titleLabel!.font = buttonFont
-        helpnFAQ.titleLabel!.font = buttonFont
+        helpnFAQ.titleLabel!.font = otherFont
         twitterFeed.backgroundColor = backgroundColor
         logoutBut.backgroundColor = backgroundColor
         helpnFAQ.backgroundColor = backgroundColor
