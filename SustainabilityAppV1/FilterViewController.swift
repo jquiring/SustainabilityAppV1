@@ -74,7 +74,7 @@ class FilterViewController: UIViewController,UITextFieldDelegate {
             householdOutlet.backgroundColor = UIColor.lightGrayColor()
             householdOutlet.setTitle("  ✗ Household ", forState: nil)
         }
-        if(categoryString.rangeOfString("Rideshares") != nil) {
+        if(categoryString.rangeOfString("Ride Shares") != nil) {
             rideshareOutlet.backgroundColor = UIColor.darkGrayColor()
             rideshareOutlet.setTitle("  ✓ Rideshares ", forState: nil)
         }
