@@ -15,8 +15,10 @@ protocol FilterViewControllerDelegate {
 class FilterViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet var barLabel: UIButton!
     @IBOutlet var keywordOutlet: UITextField!
+    
     @IBOutlet var maxpriceOutlet: UITextField!
     @IBOutlet var minpriceOutlet: UITextField!
+    
     @IBOutlet var booksOutlet: UIButton!
     @IBOutlet var electronicsOutlet: UIButton!
     @IBOutlet var householdOutlet: UIButton!
@@ -39,7 +41,9 @@ class FilterViewController: UIViewController,UITextFieldDelegate {
             categoryString = categoryString + string
         }
         setUpButtons()
+        self.addDoneButtonOnKeyboard()
         barLabel.contentEdgeInsets = UIEdgeInsetsMake(0, 0, -23, 0)
+        keywordOutlet!.delegate = self
     }
     func setUpButtons(){
         if(NSUserDefaults.standardUserDefaults().objectForKey("free") as! String == "1"){
@@ -279,6 +283,35 @@ class FilterViewController: UIViewController,UITextFieldDelegate {
         } else {
             return false
         }
+    }
+    func addDoneButtonOnKeyboard()
+    {
+        var doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        doneToolbar.barStyle = UIBarStyle.Default
+        
+        var flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        var done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: Selector("doneButtonAction"))
+        
+        var items = NSMutableArray()
+        items.addObject(flexSpace)
+        items.addObject(done)
+        
+        doneToolbar.items = items as [AnyObject]
+        doneToolbar.sizeToFit()
+        
+        self.maxpriceOutlet.inputAccessoryView = doneToolbar
+        self.minpriceOutlet.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.maxpriceOutlet.resignFirstResponder()
+        self.minpriceOutlet.resignFirstResponder()
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        keywordOutlet.resignFirstResponder()
+        return true
     }
     func validatePrice(min:String,max:String) -> String{
         if(min == "" && max == ""){

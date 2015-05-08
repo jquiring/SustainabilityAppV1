@@ -43,7 +43,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var phone: UIImageView!
     @IBOutlet var category: UITextField!
     @IBOutlet var createOutlet: UIBarButtonItem!
-
+    var addedPhotos = [false,false,false]
     let date_picker:UIDatePicker = UIDatePicker()
     let pickerData = ["Books","Electronics","Household","Ride Shares" ,"Services" ,"Events","Recreation","Clothing"]
     let categoryTitles = ["  Category","  Title","  Description","  Pictures","  Price","  Round Trip?","  From","  To","  Leaves","  Comes back","  ISBN","  Location","  Date","  How would you like to be contacted?"]
@@ -67,6 +67,7 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         setUpImageGestures()
         assignDelegates()
         self.view.backgroundColor = UIColor.whiteColor()
+        addDoneButtonOnKeyboard()
     }
     func assignDelegates(){
         self.leaves.delegate = self
@@ -108,6 +109,31 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         tempPicker.dataSource = self
         self.cat_picker = tempPicker
         self.category.inputView = cat_picker
+    }
+    func addDoneButtonOnKeyboard()
+    {
+        var doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.bounds.size.width, 44))
+        doneToolbar.barStyle = UIBarStyle.Default
+        
+        var flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        var done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: Selector("doneButtonAction"))
+        
+        var items = NSMutableArray()
+        items.addObject(flexSpace)
+        items.addObject(done)
+        
+        doneToolbar.items = items as [AnyObject]
+        doneToolbar.sizeToFit()
+        
+        self.price.inputAccessoryView = doneToolbar
+        self.ISBN.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.price.resignFirstResponder()
+        self.ISBN.resignFirstResponder()
     }
     //initializes date pickers for the 3 necessary fields
     func initializeDatePicker(){
@@ -257,7 +283,10 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
             title_field.resignFirstResponder()
             descOutlet.becomeFirstResponder()
         }
-        return true
+        to.resignFirstResponder()
+        from.resignFirstResponder()
+        location.resignFirstResponder()
+        return false
     }
     func getImage(){
         //Create the alert action that comes up when the images are selected
@@ -272,8 +301,17 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
                 self.openGallary()
         }
         var deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default){
-                UIAlertAction in
-                self.currentImage.image = UIImage(named:"PlusDark.png")
+            UIAlertAction in
+            self.currentImage.image = UIImage(named:"PlusDark.png")
+            if(self.currentImage == self.image1){
+                self.addedPhotos[0] = false
+            }
+            else if(self.currentImage == self.image2){
+                self.addedPhotos[1] = false
+            }
+            else{
+                self.addedPhotos[2] = false
+            }
         }
         var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel){
                 UIAlertAction in
@@ -319,6 +357,15 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         let thumbNail = newImage.resizeToBoundingSquare(boundingSquareSideLength:800)
         picker.dismissViewControllerAnimated(true, completion: nil)
         currentImage.image=newImage
+        if(self.currentImage == self.image1){
+            self.addedPhotos[0] = true
+        }
+        else if(self.currentImage == self.image2){
+            self.addedPhotos[1] = true
+        }
+        else{
+            self.addedPhotos[2] = true
+        }
     }
     func imagePickerControllerDidCancel(picker: UIImagePickerController){
         picker .dismissViewControllerAnimated(true, completion: nil)
@@ -522,9 +569,9 @@ class CreatePostController: UITableViewController, UIPickerViewDataSource, UIPic
         var imagesBase64:[String] = []
         var imageData:NSData
         var imageBase64:String
-        for images in UIImageList{
-            if(images != UIImage(named:"PlusDark.png")){
-                imageData = UIImageJPEGRepresentation(images, 1)
+        for index in 0...2 {
+            if(addedPhotos[index]){
+                imageData = UIImageJPEGRepresentation(UIImageList[index], 1)
                 images_data.append(imageData)
                 imageBase64 = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
                 imagesBase64.append(imageBase64)

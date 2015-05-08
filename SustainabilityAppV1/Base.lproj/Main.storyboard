@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -1118,29 +1118,29 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <exclude reference="OT9-V1-a7h"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="QIH-VE-ODG"/>
-                                <exclude reference="bQH-y0-1eN"/>
-                                <exclude reference="cUv-hb-Jft"/>
+                                <exclude reference="UgP-xR-cCK"/>
                                 <exclude reference="E0O-rD-rKD"/>
                                 <exclude reference="f9E-LO-iLS"/>
                                 <exclude reference="t0u-lR-aQo"/>
-                                <exclude reference="haG-TF-hEo"/>
-                                <exclude reference="iUY-jM-OgZ"/>
-                                <exclude reference="oqJ-U8-VjP"/>
-                                <exclude reference="4tX-PW-lGd"/>
-                                <exclude reference="lp7-Bg-dMr"/>
-                                <exclude reference="qSl-Kr-HBq"/>
                                 <exclude reference="7BB-Ky-MQc"/>
                                 <exclude reference="XH5-kK-Ko9"/>
-                                <exclude reference="MF7-4J-cc1"/>
-                                <exclude reference="PvM-wK-Idc"/>
-                                <exclude reference="YIX-LZ-jt9"/>
-                                <exclude reference="xrs-OL-NKI"/>
                                 <exclude reference="5E0-Jx-MI2"/>
                                 <exclude reference="AuF-Ef-Dbd"/>
                                 <exclude reference="Qft-Rf-l5T"/>
                                 <exclude reference="WKj-Dr-Gdn"/>
-                                <exclude reference="UgP-xR-cCK"/>
+                                <exclude reference="QIH-VE-ODG"/>
+                                <exclude reference="bQH-y0-1eN"/>
+                                <exclude reference="cUv-hb-Jft"/>
+                                <exclude reference="haG-TF-hEo"/>
+                                <exclude reference="iUY-jM-OgZ"/>
+                                <exclude reference="oqJ-U8-VjP"/>
+                                <exclude reference="MF7-4J-cc1"/>
+                                <exclude reference="PvM-wK-Idc"/>
+                                <exclude reference="YIX-LZ-jt9"/>
+                                <exclude reference="xrs-OL-NKI"/>
+                                <exclude reference="4tX-PW-lGd"/>
+                                <exclude reference="lp7-Bg-dMr"/>
+                                <exclude reference="qSl-Kr-HBq"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1154,29 +1154,29 @@ A: ZigZaga is designed with the purpose of increasing sustainability at Gonzaga.
                                 <include reference="OT9-V1-a7h"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="QIH-VE-ODG"/>
-                                <include reference="bQH-y0-1eN"/>
-                                <include reference="cUv-hb-Jft"/>
+                                <include reference="UgP-xR-cCK"/>
                                 <include reference="E0O-rD-rKD"/>
                                 <include reference="f9E-LO-iLS"/>
                                 <include reference="t0u-lR-aQo"/>
-                                <include reference="haG-TF-hEo"/>
-                                <include reference="iUY-jM-OgZ"/>
-                                <include reference="oqJ-U8-VjP"/>
-                                <include reference="4tX-PW-lGd"/>
-                                <include reference="lp7-Bg-dMr"/>
-                                <include reference="qSl-Kr-HBq"/>
                                 <include reference="7BB-Ky-MQc"/>
                                 <include reference="XH5-kK-Ko9"/>
-                                <include reference="MF7-4J-cc1"/>
-                                <include reference="PvM-wK-Idc"/>
-                                <include reference="YIX-LZ-jt9"/>
-                                <include reference="xrs-OL-NKI"/>
                                 <include reference="5E0-Jx-MI2"/>
                                 <include reference="AuF-Ef-Dbd"/>
                                 <include reference="Qft-Rf-l5T"/>
                                 <include reference="WKj-Dr-Gdn"/>
-                                <include reference="UgP-xR-cCK"/>
+                                <include reference="QIH-VE-ODG"/>
+                                <include reference="bQH-y0-1eN"/>
+                                <include reference="cUv-hb-Jft"/>
+                                <include reference="haG-TF-hEo"/>
+                                <include reference="iUY-jM-OgZ"/>
+                                <include reference="oqJ-U8-VjP"/>
+                                <include reference="MF7-4J-cc1"/>
+                                <include reference="PvM-wK-Idc"/>
+                                <include reference="YIX-LZ-jt9"/>
+                                <include reference="xrs-OL-NKI"/>
+                                <include reference="4tX-PW-lGd"/>
+                                <include reference="lp7-Bg-dMr"/>
+                                <include reference="qSl-Kr-HBq"/>
                             </mask>
                         </variation>
                     </view>
@@ -1740,7 +1740,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eVa-jB-z90">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Wl-Rc-un6">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
@@ -3781,7 +3781,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="Aw9-4q-rtc"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="Aw9-4q-rtc"/>
@@ -3840,7 +3840,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="etu-Hc-3gu"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="etu-Hc-3gu"/>
@@ -4019,7 +4019,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="EHs-dk-Qss"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="EHs-dk-Qss"/>
@@ -4078,7 +4078,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="m4g-Tr-JAl"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="m4g-Tr-JAl"/>
@@ -4803,7 +4803,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="oLY-yd-MIx"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="oLY-yd-MIx"/>
@@ -4862,7 +4862,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="oyI-uS-jpQ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="oyI-uS-jpQ"/>
@@ -5039,7 +5039,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="Yh9-0z-lCB"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="Yh9-0z-lCB"/>
@@ -5096,7 +5096,7 @@ To the extent permitted by law, (1) we make no promise as to ZZ, its completenes
                                                         <constraint firstAttribute="height" constant="30" id="gXr-pr-60d"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="gXr-pr-60d"/>

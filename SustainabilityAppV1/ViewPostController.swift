@@ -62,7 +62,15 @@ class ViewPostController: UITableViewController, UIScrollViewDelegate,MFMailComp
     override func viewDidLoad() {
         super.viewDidLoad()
         let screenSize: CGRect = UIScreen.mainScreen().bounds
-        scrollViewWidth = screenSize.width
+        
+            
+        if(screenSize.width == 414){
+            println("this is a 6 plus")
+            scrollViewWidth = screenSize.width - 8
+        }
+        else{
+            scrollViewWidth = screenSize.width
+        }
         scrollView.delegate = self
         navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.barTintColor = UIColor(red: 0.633, green: 0.855, blue: 0.620, alpha: 1)

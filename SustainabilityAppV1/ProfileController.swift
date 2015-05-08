@@ -187,7 +187,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
                 let alertController = UIAlertController(title: "Connection error", message:
                     "Your post was not bumped check connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction!) in
-                    self.arrayOfPosts[tag].deleting = false
+                    self.arrayOfPosts[tag].refreshing = false
                     dispatch_async(dispatch_get_main_queue(), {
                         self.table.reloadData()
                     })
@@ -312,7 +312,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         for post in arrayOfPosts {
             if(post.id.toInt() == id && category == post.category){
                 if(failure){
-                    var image =  UIImage(named:"failedToReload")
+                    var image =  UIImage(named:"failedToLoad")
                     post.imageName = UIImageJPEGRepresentation(image, 1)
                 }
                 else{
@@ -491,7 +491,7 @@ class ProfileController: UIViewController, UITableViewDataSource,UITableViewDele
         var currentOffset = scrollView.contentOffset.y;
         var maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         
-        if(maximumOffset - currentOffset <= 15 && bottomNeedsMore && !refreshControl.refreshing){
+        if(maximumOffset - currentOffset <= 15 && bottomNeedsMore && !refreshControl.refreshing && !centerLoad.isAnimating()){
             self.actInd.startAnimating()
             var oldLength = arrayOfPosts.count - 1
             bottomNeedsMore = false
